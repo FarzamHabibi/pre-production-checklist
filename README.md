@@ -1,220 +1,120 @@
 # Pre-Production Checklist
 
-A collection of checklists to run **before** you ship to production.
+Checklists to run **before** you ship to production.
 
 Built for solo founders and small teams who own the whole stack — the code, the
-infrastructure, the deploy pipeline, and increasingly the AI agents too — and who
-don't have a security team to hand it to.
+infrastructure, the deploy pipeline, and increasingly the AI agents too — and who don't
+have a security team to hand it to.
 
-The first checklist is out now: **2,922 security items across 107 sections.**
+**2,922 security items across 47 checklists.** 94% of them apply to any stack.
 
----
-
-## What's inside
-
-| Checklist | Items | Status |
-| --- | ---: | --- |
-| [Deep Security Audit](checklists/security.md) | 2,922 | ✅ Available |
-| Launch & Product Hunt | — | Planned |
-| Social presence | — | Planned |
-| Legal & compliance | — | Planned |
-| Performance & cost | — | Planned |
+### [→ Browse all checklists](checklists/README.md)
 
 ---
 
-## The security checklist
+## Start here
 
-[`checklists/security.md`](checklists/security.md) — 107 sections, 2,922 items.
+You are not meant to read this top to bottom. In order of signal-per-minute:
 
-It is written against a specific, common indie stack, and it is opinionated about it:
+| | | |
+| --- | --- | --- |
+| **1** | [Findings that should block release](checklists/core/17-release-gates.md) | If any are true, stop and fix them first |
+| **2** | [The "must not exist" search](checklists/core/17-release-gates.md#high-risk-must-not-exist-search) | A grep list. Fastest real signal in the repo |
+| **3** | [Authentication & authorization](checklists/core/02-authorization.md) | Where almost every exploitable bug actually lives |
+| **4** | [Prompt injection](checklists/ai/02-prompt-injection.md) | Only if you ship an LLM feature — but then, urgently |
 
-**Next.js · NestJS · Supabase · Cloud Run · Cloudflare · Docker · GitHub Actions · Swift/SwiftUI**
+Then work section by section. Switching between edge config and database policies
+costs more than it saves.
 
-Most of it generalizes. The parts that don't are labelled by platform, so you can skip
-them.
+---
 
-### Coverage
+## Structure
 
-<details>
-<summary><b>Foundation</b> — 61 items</summary>
+```
+checklists/
+├── core/          1,435 items — any language, any framework
+├── ai/              773 items — LLM features, agents, tools, RAG, MCP
+├── vibe-coding/     548 items — bugs AI coding assistants actually write
+└── stacks/          166 items — the small remainder that names a product
+```
 
-| § | Section | Items |
-| ---: | --- | ---: |
-| 1 | Architecture / Threat Model | 26 |
-| 2 | Global Authentication & Authorization | 35 |
-</details>
+### `core/` — applies to you regardless of language
 
-<details>
-<summary><b>Application &amp; data</b> — 618 items</summary>
+Written originally against a TypeScript stack, but the *controls* are not
+TypeScript-specific and the files no longer pretend otherwise. "Verify CORS does not use
+wildcard origins with credentials" is as true in Django as in Express. Everything that
+genuinely named a product was moved out to `stacks/`.
 
-| § | Section | Items |
-| ---: | --- | ---: |
-| 3 | NestJS — Application Security | 167 |
-| 4 | Supabase Auth | 46 |
-| 5 | Supabase Database / PostgreSQL | 69 |
-| 6 | Supabase Storage | 35 |
-| 7 | Public API / REST / RPC | 42 |
-| 8 | Webhooks | 18 |
-| 9 | Next.js 16+ Frontend | 141 |
-| 31 | File / Document / Image Security | 20 |
-| 54 | RAG Security | 32 |
-| 21 | SSRF / Egress / Network Controls | 14 |
-| 22 | Business Logic Security | 27 |
-| 23 | Race Conditions | 17 |
-</details>
+If you write Python, Go, Ruby, PHP, Java, Rust or Elixir: **this folder is your
+checklist, all 1,435 items of it.**
 
-<details>
-<summary><b>Native apps</b> — 161 items</summary>
+| | Items | | | Items |
+| --- | ---: | --- | --- | ---: |
+| [Architecture & threat model](checklists/core/01-threat-model.md) | 25 | | [Mobile apps](checklists/core/11-mobile-apps.md) | 106 |
+| [Authentication & authorization](checklists/core/02-authorization.md) | 111 | | [Desktop apps](checklists/core/12-desktop-apps.md) | 41 |
+| [Sessions, tokens & cookies](checklists/core/03-sessions-tokens.md) | 21 | | [Runtime & containers](checklists/core/13-runtime-and-containers.md) | 93 |
+| [Backend application & API](checklists/core/04-backend-api.md) | 223 | | [DNS, CDN, edge & WAF](checklists/core/14-edge-dns-waf.md) | 78 |
+| [Web frontend](checklists/core/05-web-frontend.md) | 127 | | [CI/CD & supply chain](checklists/core/15-ci-cd-and-supply-chain.md) | 158 |
+| [Database & row-level security](checklists/core/06-database.md) | 68 | | [Monitoring & incident response](checklists/core/16-monitoring-and-response.md) | 30 |
+| [Object storage & files](checklists/core/07-storage-and-files.md) | 55 | | [Pre-release gates](checklists/core/17-release-gates.md) | 146 |
+| [Secrets & cryptography](checklists/core/08-secrets-and-crypto.md) | 47 | | | |
+| [Common web attacks](checklists/core/09-common-web-attacks.md) | 62 | | | |
+| [Business logic & race conditions](checklists/core/10-business-logic.md) | 44 | | | |
 
-| § | Section | Items |
-| ---: | --- | ---: |
-| 10 | iOS / iPadOS / Swift / SwiftUI | 116 |
-| 11 | macOS | 45 |
-</details>
+### `ai/` — the part you won't find in a standard checklist
 
-<details>
-<summary><b>Infrastructure &amp; delivery</b> — 384 items</summary>
+If your product calls a model, gives it tools, retrieves documents into its context, or
+runs an agent, this folder is the reason this repo exists. It is stack-agnostic and
+provider-agnostic.
 
-| § | Section | Items |
-| ---: | --- | ---: |
-| 12 | Cloud Run | 76 |
-| 13 | Docker / Build Security | 23 |
-| 14 | Google Cloud Build | 24 |
-| 15 | Cloudflare | 86 |
-| 16 | GitHub Repository Security | 33 |
-| 17 | GitHub Actions CI/CD | 91 |
-| 18 | Dependency / Supply Chain Security | 20 |
-| 19 | Secrets Management | 31 |
-</details>
+| | Items | | | Items |
+| --- | ---: | --- | --- | ---: |
+| [Architecture & identity](checklists/ai/01-architecture-and-identity.md) | 70 | | [Multi-agent & MCP](checklists/ai/07-multi-agent-and-mcp.md) | 75 |
+| [Prompt injection & goal hijacking](checklists/ai/02-prompt-injection.md) | 91 | | [Integrations](checklists/ai/08-integrations.md) | 74 |
+| [Tool calling & excessive agency](checklists/ai/03-tools-and-agency.md) | 66 | | [Cost, reliability & audit](checklists/ai/09-cost-reliability-audit.md) | 63 |
+| [Data access & privacy](checklists/ai/04-data-access-and-privacy.md) | 82 | | [Testing & red-team pack](checklists/ai/10-testing-and-red-team.md) | 96 |
+| [Output handling](checklists/ai/05-output-handling.md) | 58 | | [Release gate](checklists/ai/11-release-gate.md) | 47 |
+| [RAG & agent memory](checklists/ai/06-rag-and-memory.md) | 51 | | | |
 
-<details>
-<summary><b>Classic web attack surface</b> — 108 items</summary>
+> Prompt injection is not a filtering problem. It is an authorization problem wearing a
+> text costume — untrusted text reaching a privileged execution path.
 
-| § | Section | Items |
-| ---: | --- | ---: |
-| 20 | Cryptography | 20 |
-| 24 | Client / API Authorization Matrix Testing | 17 |
-| 25 | Information Disclosure | 21 |
-| 26 | Session / Token Security | 21 |
-| 27 | CSRF | 15 |
-| 28 | Clickjacking / UI Redress | 8 |
-| 29 | Open Redirects | 8 |
-| 30 | OAuth / SSO | 15 |
-</details>
+### `vibe-coding/` — bugs AI assistants actually write
 
-<details>
-<summary><b>Operations &amp; release gates</b> — 228 items</summary>
+548 items organized by **class of bug**, not by which assistant produced it. Written from
+real review findings on AI-generated code. [Browse →](checklists/README.md#vibe-coding--bugs-ai-assistants-write)
 
-| § | Section | Items |
-| ---: | --- | ---: |
-| 32 | Monitoring / Detection | 21 |
-| 33 | Incident Response | 15 |
-| 34 | Production Configuration Review | 22 |
-| 35 | Development / Staging Isolation | 11 |
-| 36 | Security Testing Automation | 18 |
-| 37 | Manual Penetration-Test Scenarios | 46 |
-| 38 | High-Risk "Must Not Exist" Search | 25 |
-| 39 | Critical Findings That Should Block Release | 20 |
-| 40 | Final Security Sign-Off | 30 |
-</details>
+### `stacks/` — only if you use them
 
-<details>
-<summary><b>AI &amp; agent security</b> — 732 items</summary>
+166 items. Skip any file for a product you don't use; the core checklists stand on their
+own without them.
 
-The part you won't find in a standard checklist. If you ship an LLM feature, an agent,
-tool-calling, RAG, or MCP, this is the section to read.
+[Supabase](checklists/stacks/supabase.md) ·
+[Next.js / React](checklists/stacks/nextjs-react.md) ·
+[NestJS](checklists/stacks/nestjs.md) ·
+[Google Cloud](checklists/stacks/google-cloud.md) ·
+[Cloudflare](checklists/stacks/cloudflare.md) ·
+[GitHub](checklists/stacks/github-actions.md) ·
+[Docker](checklists/stacks/docker.md) ·
+[PostgreSQL](checklists/stacks/postgres.md) ·
+[iOS / Swift](checklists/stacks/ios-swift.md) ·
+[macOS](checklists/stacks/macos.md)
 
-| § | Section | Items |
-| ---: | --- | ---: |
-| 41 | AI Security Architecture | 37 |
-| 42 | AI Identity & Authorization | 35 |
-| 43 | Prompt Injection | 43 |
-| 44 | Agent Goal Hijacking | 13 |
-| 45 | System Prompt Security | 22 |
-| 46 | Prompt Structure / Instruction Hierarchy | 15 |
-| 47 | AI Tool / Function Calling Security | 29 |
-| 48 | Dangerous AI Tools | 40 |
-| 49 | AI + Supabase Security | 22 |
-| 50 | AI + API Security | 17 |
-| 51 | AI + SSRF | 25 |
-| 52 | AI Output Security | 23 |
-| 53 | AI-Generated Code Execution | 24 |
-| 55 | AI Memory Security | 19 |
-| 56 | Multi-Agent Security | 25 |
-| 57 | MCP Security | 26 |
-| 58 | AI Supply Chain | 24 |
-| 59 | Sensitive Data & AI Privacy | 20 |
-| 60 | AI Data Exfiltration Tests | 35 |
-| 61 | AI Output → Browser Security | 14 |
-| 62 | AI + Email Security | 19 |
-| 63 | AI + Browser Automation | 18 |
-| 64 | AI + GitHub / SWE Agents | 23 |
-| 65 | AI + Cloud / Production Operations | 19 |
-| 66 | AI Rate Limits / Cost Security | 23 |
-| 67 | AI Reliability as a Security Issue | 15 |
-| 68 | AI Logging / Audit | 25 |
-| 69 | AI Security Regression Testing | 26 |
-| 70 | AI Red-Team Prompt Pack | 36 |
-| 71 | AI Security "Do Not Trust" List | 24 |
-| 72 | AI Production Release Gate | 24 |
-</details>
-
-<details>
-<summary><b>Vibe coding — bugs AI assistants actually write</b> — 630 items (§73)</summary>
-
-Organized by the class of bug, not by the tool that wrote it. Written from real review
-findings on AI-generated code.
-
-| § | Section | Items |
-| ---: | --- | ---: |
-| 73.1 | Development Process | 22 |
-| 73.2 | AI-Generated Authorization Bugs | 19 |
-| 73.3 | AI-Generated Supabase / RLS Bugs | 19 |
-| 73.4 | AI-Generated NestJS Security Bugs | 27 |
-| 73.5 | AI-Generated Next.js Security Bugs | 26 |
-| 73.6 | AI-Generated API Security Bugs | 30 |
-| 73.7 | AI-Generated Dependency Vulnerabilities | 21 |
-| 73.8 | AI-Generated Crypto Bugs | 22 |
-| 73.9 | AI-Generated Input Validation Bugs | 27 |
-| 73.10 | AI-Generated Error Handling | 11 |
-| 73.11 | AI-Generated Logging Bugs | 17 |
-| 73.12 | AI-Generated Configuration Bugs | 37 |
-| 73.13 | AI-Generated Docker Security | 19 |
-| 73.14 | AI-Generated GitHub Actions Bugs | 32 |
-| 73.15 | AI-Generated Cloud IAM Bugs | 13 |
-| 73.16 | AI-Generated Cloudflare Bugs | 15 |
-| 73.17 | Copy-Paste Security Bugs | 13 |
-| 73.18 | "Looks Secure" AI Code Review | 10 |
-| 73.19 | AI Refactoring Security Regression | 17 |
-| 73.20 | AI-Generated Tests Can Be Wrong | 14 |
-| 73.21 | AI Review Blind Spots | 27 |
-| 73.22 | AI Prompt Security for Coding Agents | 22 |
-| 73.24 | AI PR Security Checklist | 34 |
-| 73.25 | "One-Line Fix" Security Review | 20 |
-| 73.26 | AI Code Review Questions | 34 |
-| 73.27 | Vibe Coding Release Gate | 20 |
-| 73.29 | Vibe-Coding Red Flags | 27 |
-</details>
+**Your stack missing?** That's the most useful contribution you can make — copy
+[`_TEMPLATE.md`](checklists/stacks/_TEMPLATE.md) and open a PR. Django, Rails, Laravel,
+FastAPI, Go, Spring, AWS, Vercel, Fly.io, Kubernetes, Android, Firebase, Stripe are all
+open. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
 ## How to use it
 
-Don't read it top to bottom. It is a reference, not a tutorial.
-
-1. **Copy** `checklists/security.md` into your own repo — it's a working document, meant
-   to be edited and committed alongside your code.
-2. **Mark `[N/A]` aggressively.** No web app on earth needs all 2,922 items. If you have
-   no iOS app, §10 and §11 are 161 instant `[N/A]`s. Being honest about scope is what
+1. **Copy the files you need** into your own repo. They're working documents, meant to be
+   edited and committed next to your code.
+2. **Mark `[N/A]` aggressively.** No product on earth needs all 2,922 items. No mobile
+   app? `core/11` and `core/12` are 147 instant `[N/A]`s. Being honest about scope is what
    makes the remainder trustworthy.
-3. **Start with §39** — "Critical Findings That Should Usually Block Release." If any of
-   those 20 are true, stop and fix them before touching anything else.
-4. **Then §38** — the "Must Not Exist" grep list. It's the fastest signal-per-minute in
-   the whole document.
-5. **Work section by section**, not item by item across sections. Context-switching
-   between Cloudflare and RLS wastes more time than it saves.
-
-### Marking convention
+3. **Record every finding.** An unrecorded finding is one you'll rediscover in six months.
 
 ```
 * [ ]     Not checked
@@ -223,19 +123,14 @@ Don't read it top to bottom. It is a reference, not a tutorial.
 * [N/A]   Not applicable
 ```
 
-### Record every finding
+For each `[!]`: affected component · exact endpoint/file/config · attack precondition ·
+proof of exploitability · business impact · severity · remediation · regression test ·
+owner · date verified
 
-An unrecorded finding is a finding you will re-discover in six months. For each `[!]`:
-
-affected component · exact endpoint/file/config · attack precondition · proof of
-exploitability · business impact · severity · remediation · regression test · owner ·
-date verified
-
-### One rule worth internalizing
+### The one rule worth internalizing
 
 > Do not accept *"the frontend hides it"*, *"the route is hard to guess"*, *"the user
-> needs a valid JWT"*, or *"Cloudflare blocks it"* as authorization controls by
-> themselves.
+> needs a valid JWT"*, or *"the WAF blocks it"* as authorization controls by themselves.
 
 Enforce every control at the lowest trustworthy layer available:
 
@@ -244,55 +139,44 @@ Browser/mobile UI → application/API → authorization layer
   → database (RLS) → storage → infrastructure/IAM → CI/CD → edge
 ```
 
+### Want it as one file?
+
+[`ALL.md`](ALL.md) is every checklist concatenated — convenient for printing, or for
+pasting into an AI tool. It's generated; edit the files under `checklists/` instead.
+
 ---
 
 ## Roadmap
 
-- [x] Deep security audit checklist
+- [x] Security checklists, split by domain and portable across stacks
 - [ ] Machine-readable source (structured data → generated Markdown)
 - [ ] `npx` CLI — generate a filtered checklist for your stack
 - [ ] MCP server — so your coding agent can query the checklist directly
 - [ ] Web version
 - [ ] More categories: launch, social, legal, performance
 
-The machine-readable step is the one that unlocks the rest. 2,922 items is a wall of
-text; *"here are the 400 items that apply to Next.js + Supabase + Cloud Run"* is a tool.
-
 ---
 
 ## Contributing
 
-Very welcome. Especially:
-
-- **Items that are wrong or outdated.** Frameworks move; some of these will rot.
-- **Items that are missing.** Particularly for stacks not covered here — Django, Rails,
-  Laravel, Go, Vercel, AWS, Fly.io, Android.
-- **Real-world war stories.** If an item on this list would have caught a bug you
-  actually shipped, say so in an issue — that's the strongest argument for keeping it.
-
-Please keep the existing style: one verifiable action per line, imperative mood, no
-vendor pitches, no affiliate links.
+Stack files, corrections, missing items, and war stories are all welcome.
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
 ## Disclaimer
 
-This checklist is a starting point, not a guarantee, not a compliance certification, and
-not a substitute for a professional security audit. Completing every item does not make
-an application secure. Use it to find problems, not to declare their absence.
-
----
+A starting point, not a guarantee, not a compliance certification, and not a substitute
+for a professional security audit. Completing every item does not make an application
+secure. Use it to find problems, not to declare their absence.
 
 ## License
 
-[CC BY 4.0](LICENSE) — use it, fork it, adapt it, ship it commercially. Just keep the
+[CC BY 4.0](LICENSE) — use it, fork it, adapt it, ship it commercially. Keep the
 attribution.
-
----
 
 ## Credits
 
-Written by [Farzam Habibi](https://github.com/FarzamHabibi), extracted from the
-pre-launch security audit of Arioo.
-
-Compiled and expanded with [Claude Code](https://claude.com/claude-code) (Anthropic).
+By [Farzam Habibi](https://github.com/FarzamHabibi), extracted from the pre-launch
+security audit of Arioo. Compiled and expanded with
+[Claude Code](https://claude.com/claude-code) (Anthropic).
