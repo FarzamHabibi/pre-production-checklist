@@ -1,0 +1,85 @@
+name: publish
+
+# Publishes to npm via trusted publishing (OIDC). No npm token is stored anywhere:
+# GitHub mints a short-lived OIDC token for this specific workflow, and npm verifies it
+# against the trusted publisher registered for the package.
+#
+# This is the route npm is steering everyone to. 2FA-bypass tokens lose the ability to
+# publish directly around January 2027:
+# https://github.blog/changelog/2026-07-08-npm-install-time-security-and-gat-bypass2fa-deprecation/
+#
+# Setup, once, on npmjs.com -> Packages -> prodcheck -> Settings -> Trusted publishing:
+#   Organization or user  FarzamHabibi
+#   Repository            pre-production-checklist
+#   Workflow filename     publish.yml
+#   Environment name      (leave empty, or set to a protected environment for an approval gate)
+#   Allowed actions       npm publish
+#
+# To release: bump the version in package.json, push, then publish a GitHub Release
+# whose tag is v<version>. The tag and package.json must agree or this job fails.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Pack and validate without publishing'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # required for OIDC — without it npm cannot verify the publisher
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - name: Use an npm that supports trusted publishing
+        run: |
+          npm install -g npm@latest
+          npm --version
+          node --version
+
+      - name: Tests
+        run: node cli/test.js
+
+      - name: Generated files are up to date
+        run: |
+          ./scripts/build.sh
+          if ! git diff --quiet; then
+            echo "::error::Generated files are stale. Run ./scripts/build.sh and commit."
+            git diff --stat
+            exit 1
+          fi
+
+      - name: Release tag matches package.json
+        if: github.event_name == 'release'
+        run: |
+          pkg="$(node -p "require('./package.json').version")"
+          tag="${GITHUB_REF_NAME#v}"
+          if [ "$pkg" != "$tag" ]; then
+            echo "::error::package.json is $pkg but the release tag is $tag"
+            exit 1
+          fi
+          echo "publishing version $pkg"
+
+      - name: Publish
+        if: github.event_name == 'release' || inputs.dry_run == false
+        run: npm publish
+
+      - name: Dry run
+        if: github.event_name == 'workflow_dispatch' && inputs.dry_run
+        run: npm publish --dry-run
