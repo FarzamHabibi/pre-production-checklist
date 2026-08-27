@@ -59,3 +59,20 @@ generated. If you add or remove items, run:
 ```
 
 and commit the result along with your change.
+
+## Regenerating derived files
+
+`checklists/**/*.md` is the source of truth. These are generated from it:
+
+| File | What it is |
+| --- | --- |
+| `data/checklist.json` | machine-readable layer, consumed by tooling |
+| `checklists/README.md` | index with per-file item counts |
+| `ALL.md` | single-file concatenation |
+
+After any change to a checklist, run `./scripts/build.sh` and commit the result with your
+change. It needs only Python 3 — no dependencies.
+
+If you add a new stack file, also add its slug to `STACK_LABEL` in
+`scripts/build_data.py` so items route to a readable label instead of falling back to
+`any`.

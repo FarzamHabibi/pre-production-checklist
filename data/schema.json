@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/FarzamHabibi/pre-production-checklist/main/data/schema.json",
+  "title": "Pre-Production Checklist dataset",
+  "type": "object",
+  "required": ["version", "counts", "stacks", "items"],
+  "properties": {
+    "version": { "type": "integer", "description": "Schema version. Bumped on breaking changes." },
+    "source": { "type": "string", "format": "uri" },
+    "license": { "const": "CC-BY-4.0" },
+    "generated_by": { "type": "string" },
+    "counts": {
+      "type": "object",
+      "required": ["total", "by_group", "stack_agnostic", "release_gate"],
+      "properties": {
+        "total": { "type": "integer" },
+        "by_group": { "type": "object", "additionalProperties": { "type": "integer" } },
+        "stack_agnostic": { "type": "integer" },
+        "release_gate": { "type": "integer" }
+      }
+    },
+    "stacks": {
+      "type": "array", "items": { "type": "string" },
+      "description": "Every stack label present in the dataset."
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "text", "group", "checklist", "section", "stack", "release_gate", "source"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z-]+\\.[a-z0-9-]+\\.[0-9a-f]{8}(-[0-9]+)?$",
+            "description": "Stable identifier: <group>.<file-stem>.<sha1-8 of normalized text>. Stable across reordering; changes if the item's wording changes."
+          },
+          "text": { "type": "string", "description": "The check itself, one verifiable action." },
+          "group": { "enum": ["core", "ai", "vibe-coding", "stacks"] },
+          "checklist": { "type": "string", "description": "Title of the file the item lives in." },
+          "section": { "type": ["string", "null"] },
+          "subsection": { "type": ["string", "null"] },
+          "stack": {
+            "type": "string",
+            "description": "\"any\" for stack-agnostic items, otherwise the product the item names."
+          },
+          "release_gate": {
+            "type": "boolean",
+            "description": "Item lives in a release-gate checklist. This is the only priority signal in the dataset — severity is deliberately absent rather than guessed."
+          },
+          "source": {
+            "type": "object",
+            "required": ["file", "line"],
+            "properties": {
+              "file": { "type": "string" },
+              "line": { "type": "integer", "description": "Line in file at generation time. Informational only — do not treat as stable." }
+            }
+          }
+        }
+      }
+    }
+  }
+}

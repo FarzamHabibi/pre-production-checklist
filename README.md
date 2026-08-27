@@ -12,6 +12,37 @@ have a security team to hand it to.
 
 ---
 
+## Why this exists
+
+I'm a founder at [Arioo](https://arioo.com). Before our launch I ran a deep security
+audit of everything we'd built, and the audit turned up more than I expected — including
+a few things that had been sitting in production-bound code for months, in areas I'd
+have told you with confidence were fine.
+
+What struck me afterwards wasn't the findings. It was that **the checklist was more
+valuable than the audit.** The findings were specific to our code and are fixed. The
+questions that surfaced them apply to anyone shipping a product.
+
+Two things made it worth publishing rather than keeping:
+
+**Solo founders have no security team.** You write the code, configure the infrastructure,
+set up the pipeline, and then you're also the one who has to decide whether it's safe to
+launch. There's no one to hand it to, and no obvious place to find out what you should
+have asked. Most public checklists are either too shallow to catch anything real or
+written for enterprises with a security function.
+
+**AI-assisted development changed the shape of the problem.** A large part of this
+checklist — the `ai/` and `vibe-coding/` folders, over 1,300 items — didn't need to exist
+a few years ago. When you ship an agent with tools, or when a model writes code you review
+faster than you'd review a colleague's, you inherit failure modes that standard security
+checklists don't cover. Those two folders are the part I couldn't find anywhere else, and
+the reason I bothered.
+
+It's published under CC BY 4.0 so you can copy it into your own repo and make it yours.
+If it catches something before it reaches your users, it did its job.
+
+---
+
 ## Start here
 
 You are not meant to read this top to bottom. In order of signal-per-minute:
@@ -146,10 +177,34 @@ pasting into an AI tool. It's generated; edit the files under `checklists/` inst
 
 ---
 
+## Machine-readable
+
+Every item is also available as structured data in
+[`data/checklist.json`](data/checklist.json), validated against
+[`data/schema.json`](data/schema.json), so tools can filter the checklist instead of
+making people read 2,922 items.
+
+```bash
+./scripts/query.py --stack django --group core        # 1,435 items
+./scripts/query.py --stack supabase --release-gate    # what must pass before shipping
+./scripts/query.py --search cors --format text
+./scripts/query.py --stack rails --format json        # feed it to something else
+```
+
+`--stack X` returns every stack-agnostic item plus the supplements for X. An unrecognized
+stack isn't an error — you get the stack-agnostic core, which stands on its own. That's
+the whole design: **the core works for a stack nobody has written a file for yet.**
+
+The Markdown is the source of truth; the JSON is generated from it by
+`./scripts/build.sh`. There is deliberately no `severity` field —
+[here's why](data/README.md#there-is-no-severity-field).
+
+---
+
 ## Roadmap
 
 - [x] Security checklists, split by domain and portable across stacks
-- [ ] Machine-readable source (structured data → generated Markdown)
+- [x] Machine-readable data layer + schema
 - [ ] `npx` CLI — generate a filtered checklist for your stack
 - [ ] MCP server — so your coding agent can query the checklist directly
 - [ ] Web version
@@ -161,6 +216,11 @@ pasting into an AI tool. It's generated; edit the files under `checklists/` inst
 
 Stack files, corrections, missing items, and war stories are all welcome.
 See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+The single most useful contribution is a stack file for a stack that isn't covered —
+Django, Rails, Laravel, FastAPI, Go, Spring, AWS, Vercel, Fly.io, Kubernetes, Android,
+Firebase, Stripe are all open. Copy
+[`_TEMPLATE.md`](checklists/stacks/_TEMPLATE.md) and open a PR.
 
 ---
 
@@ -177,6 +237,9 @@ attribution.
 
 ## Credits
 
-By [Farzam Habibi](https://github.com/FarzamHabibi), extracted from the pre-launch
-security audit of Arioo. Compiled and expanded with
+Extracted from the pre-launch security audit of [Arioo](https://arioo.com) and published
+by its founding team. Compiled and expanded with
 [Claude Code](https://claude.com/claude-code) (Anthropic).
+
+Contributions from everyone who has opened an issue or a PR are what will keep it
+accurate — see the [contributors](https://github.com/FarzamHabibi/pre-production-checklist/graphs/contributors).
