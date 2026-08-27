@@ -8,6 +8,10 @@ have a security team to hand it to.
 
 **2,922 security items across 47 checklists.** 94% of them apply to any stack.
 
+[![npm](https://img.shields.io/npm/v/prodcheck?color=cb3837&logo=npm)](https://www.npmjs.com/package/prodcheck)
+[![ci](https://github.com/FarzamHabibi/pre-production-checklist/actions/workflows/ci.yml/badge.svg)](https://github.com/FarzamHabibi/pre-production-checklist/actions/workflows/ci.yml)
+[![license](https://img.shields.io/badge/content-CC%20BY%204.0-blue)](LICENSE)
+
 ### [→ Browse all checklists](checklists/README.md)
 
 <sub>Built and maintained by the team at **[Arioo](https://arioo.com)** — where we ship
@@ -245,10 +249,72 @@ The Markdown under `checklists/` is the source of truth; the JSON is generated f
 
 ## Roadmap
 
+**Shipped**
+
 - [x] Security checklists, split by domain and portable across stacks
-- [x] Machine-readable data layer + schema
+- [x] Machine-readable data layer + [schema](data/schema.json)
 - [x] `npx prodcheck` — generate a filtered checklist for your stack
 - [x] MCP server — so your coding agent can query the checklist directly
+
+**Next: from a document you read to a review that runs**
+
+Today this generates a checklist. The goal is a tool that actually checks a codebase
+against it, writes a report to your repo root, and re-opens items when the relevant code
+changes.
+
+```
+prodcheck scan      detect stack and features from the repo   -> .prodcheck/profile.json
+prodcheck check     deterministic rules, no model involved    -> findings
+prodcheck review    model-assisted review, citations verified -> findings
+prodcheck report    render SECURITY-REVIEW.md from state
+prodcheck gate      exit non-zero if a blocking item is unresolved   (for CI)
+```
+
+- [ ] **`scan` — profile the repo.** Read `package.json`, `requirements.txt`, `go.mod`,
+      `Dockerfile`, CI config and the shape of the source tree to work out which stack is
+      in use and which features exist — file upload, webhooks, multi-tenancy, background
+      jobs, an LLM surface. Selects the applicable items *before* any model is involved.
+      A Django app with no mobile client and no file uploads does not need 1,435 items;
+      it needs closer to 400.
+
+- [ ] **`check` — the deterministic tier.** Roughly 160 items are answerable by search
+      alone: the [must-not-exist list](checklists/core/17-release-gates.md), unpinned CI
+      actions, secrets in a Dockerfile, `dangerouslySetInnerHTML`, wildcard CORS. These
+      need no model, cost nothing, cannot hallucinate, and run in CI on every push.
+
+- [ ] **`review` — the model-assisted tier, built not to be trusted.** Most items need
+      someone to read the code, so this runs inside whatever agent you already use
+      (Claude Code, Cursor, Copilot) over MCP plus a skill file — no API key, no token
+      cost from us. The design constraints matter more than the feature:
+
+  - **A model never writes `[x]`.** Its output is evidence, not a verdict. Results are
+    `deterministic-pass`, `model-flagged` (needs a human), or `human-verified`. Only the
+    first and last count toward the gate. There is no green tick a model put there.
+  - **Every citation is verified.** A finding must cite `file:line`; the tool confirms
+    that line exists and that the quoted code matches before accepting it. Findings that
+    fail this check are dropped, which removes most hallucination for almost no cost.
+  - **`unknown` is a real result.** A model may say it could not determine something, and
+    `unknown` never silently becomes `pass`. It is reported separately.
+
+- [ ] **State that survives re-runs.** `.prodcheck/state.json`, keyed by the stable item
+      ids already in [`data/checklist.json`](data/checklist.json), storing status,
+      justification, date, and a hash of the code it was decided against. Items you marked
+      `[N/A]` stay marked — until the relevant code changes, at which point they re-open
+      with *"verified at `abc1234`; that file has changed since."* This is what makes it a
+      living document rather than a report that rots.
+
+- [ ] **`gate` in CI.** Without a build that fails, the report gets stale and stops being
+      read. This is the part that makes the rest stick.
+
+- [ ] **Skill file for agents.** `prodcheck init --skill` writes the review procedure into
+      `.claude/skills/` or `AGENTS.md`, so an agent knows how to run all of the above.
+
+> Building an AI code reviewer on top of a checklist whose `vibe-coding/` folder warns
+> that AI review confirms AI-written code is fine, only makes sense if the design takes
+> that warning seriously. That is what the three constraints above are for.
+
+**Later**
+
 - [ ] Web version
 - [ ] More categories: launch, social, legal, performance
 
