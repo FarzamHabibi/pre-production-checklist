@@ -76,3 +76,17 @@ change. It needs only Python 3 — no dependencies.
 If you add a new stack file, also add its slug to `STACK_LABEL` in
 `scripts/build_data.py` so items route to a readable label instead of falling back to
 `any`.
+
+## Tests
+
+The CLI and MCP server have a dependency-free test suite:
+
+```bash
+node cli/test.js
+```
+
+It checks the data layer's invariants (unique ids, counts that match the items, an unknown
+stack returning exactly the stack-agnostic core), the CLI's argument handling, and the MCP
+server's protocol behaviour — handshake, notifications, in-band tool errors, and recovery
+from malformed input. CI runs it on every push and pull request, and also fails if the
+generated files are stale or an internal link is broken.

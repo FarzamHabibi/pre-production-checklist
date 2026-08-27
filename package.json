@@ -1,0 +1,46 @@
+{
+  "name": "prodcheck",
+  "version": "0.1.0",
+  "description": "Pre-production security checklists for solo founders — 2,922 items, 94% portable across any stack. CLI + MCP server.",
+  "keywords": [
+    "security",
+    "checklist",
+    "security-audit",
+    "appsec",
+    "devsecops",
+    "mcp",
+    "mcp-server",
+    "ai-security",
+    "prompt-injection",
+    "llm-security"
+  ],
+  "homepage": "https://github.com/FarzamHabibi/pre-production-checklist#readme",
+  "bugs": "https://github.com/FarzamHabibi/pre-production-checklist/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FarzamHabibi/pre-production-checklist.git"
+  },
+  "license": "CC-BY-4.0",
+  "bin": {
+    "prodcheck": "cli/index.js",
+    "prodcheck-mcp": "cli/mcp.js"
+  },
+  "files": [
+    "cli/",
+    "data/checklist.json",
+    "data/schema.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "./scripts/build.sh",
+    "test": "node cli/test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
+}

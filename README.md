@@ -177,25 +177,60 @@ pasting into an AI tool. It's generated; edit the files under `checklists/` inst
 
 ---
 
-## Machine-readable
+## Command line
 
-Every item is also available as structured data in
-[`data/checklist.json`](data/checklist.json), validated against
-[`data/schema.json`](data/schema.json), so tools can filter the checklist instead of
-making people read 2,922 items.
+Generate a checklist scoped to your project, instead of reading 2,922 items:
 
 ```bash
-./scripts/query.py --stack django --group core        # 1,435 items
-./scripts/query.py --stack supabase --release-gate    # what must pass before shipping
-./scripts/query.py --search cors --format text
-./scripts/query.py --stack rails --format json        # feed it to something else
+npx prodcheck --stack django --group core -o SECURITY.md
 ```
 
-`--stack X` returns every stack-agnostic item plus the supplements for X. An unrecognized
-stack isn't an error — you get the stack-agnostic core, which stands on its own. That's
-the whole design: **the core works for a stack nobody has written a file for yet.**
+```bash
+npx prodcheck stacks                              # what supplements exist
+npx prodcheck --stack supabase,cloudflare --gate  # release blockers only
+npx prodcheck --group ai -o AI-SECURITY.md        # the LLM/agent surface
+npx prodcheck --search cors --format text
+npx prodcheck --stack rails --format json         # feed it to something else
+```
 
-The Markdown is the source of truth; the JSON is generated from it by
+`--stack X` returns every stack-agnostic item plus the supplements for X. **An
+unrecognized stack isn't an error** — you get the stack-agnostic core, which stands on
+its own. That's the whole design: it works for a stack nobody has written a file for yet.
+
+Zero dependencies, Node 18+.
+
+## MCP server
+
+Let your coding agent query the checklist directly while it works, instead of you pasting
+it in. Read-only, no filesystem or network access beyond its own bundled data.
+
+**Claude Code**
+
+```bash
+claude mcp add prodcheck -- npx -y prodcheck-mcp
+```
+
+**Anything else** — add to your MCP client config:
+
+```json
+{
+  "mcpServers": {
+    "prodcheck": { "command": "npx", "args": ["-y", "prodcheck-mcp"] }
+  }
+}
+```
+
+Four tools: `list_checklists`, `checklist_for_stack`, `release_gate`, `search_checklist`.
+Then ask your agent things like *"check this repo against the release gate for a
+Next.js + Supabase app"* and it pulls the relevant items itself.
+
+## Machine-readable data
+
+Both of the above read [`data/checklist.json`](data/checklist.json), validated against
+[`data/schema.json`](data/schema.json). Use it directly if you're building something else
+— it's CC BY 4.0.
+
+The Markdown under `checklists/` is the source of truth; the JSON is generated from it by
 `./scripts/build.sh`. There is deliberately no `severity` field —
 [here's why](data/README.md#there-is-no-severity-field).
 
@@ -205,8 +240,8 @@ The Markdown is the source of truth; the JSON is generated from it by
 
 - [x] Security checklists, split by domain and portable across stacks
 - [x] Machine-readable data layer + schema
-- [ ] `npx` CLI — generate a filtered checklist for your stack
-- [ ] MCP server — so your coding agent can query the checklist directly
+- [x] `npx prodcheck` — generate a filtered checklist for your stack
+- [x] MCP server — so your coding agent can query the checklist directly
 - [ ] Web version
 - [ ] More categories: launch, social, legal, performance
 

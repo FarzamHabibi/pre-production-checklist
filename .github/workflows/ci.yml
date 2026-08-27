@@ -1,0 +1,59 @@
+name: ci
+
+# This repository tells you to pin actions by commit SHA, restrict workflow
+# permissions to read-only, and avoid pull_request_target. It follows its own advice.
+# See checklists/core/15-ci-cd-and-supply-chain.md.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: 20
+
+      - name: CLI and MCP tests
+        run: node cli/test.js
+
+      - name: Generated files are up to date
+        run: |
+          ./scripts/build.sh
+          if ! git diff --quiet; then
+            echo "::error::Generated files are stale. Run ./scripts/build.sh and commit the result."
+            git diff --stat
+            exit 1
+          fi
+
+      - name: No broken internal links
+        run: |
+          python3 - <<'PY'
+          import re, os, sys
+          bad = []
+          for root, dirs, files in os.walk('.'):
+              dirs[:] = [d for d in dirs if d != '.git']
+              for f in files:
+                  if not f.endswith('.md'):
+                      continue
+                  p = os.path.join(root, f)
+                  for m in re.finditer(r'\]\(([^)#][^)]*?)(#[^)]*)?\)', open(p, encoding='utf-8').read()):
+                      t = m.group(1)
+                      if t.startswith(('http', 'mailto')):
+                          continue
+                      if not os.path.exists(os.path.normpath(os.path.join(root, t))):
+                          bad.append(f"{p} -> {t}")
+          for b in bad:
+              print(f"::error::broken link {b}")
+          sys.exit(1 if bad else 0)
+          PY

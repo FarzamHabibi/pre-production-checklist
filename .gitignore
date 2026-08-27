@@ -3,3 +3,5 @@ Thumbs.db
 *.swp
 .idea/
 .vscode/
+node_modules/
+*.tgz
