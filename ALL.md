@@ -4051,17 +4051,17 @@ Items from the core checklists that are specific to **Cloudflare**. If you do no
 
 ---
 
-### Secrets Management
+## Secrets Management & Cryptography
 <sub>from [`core/08-secrets-and-crypto.md`](checklists/core/08-secrets-and-crypto.md)</sub>
 
 * [ ] Identify Cloudflare tokens.
 
-### Information Disclosure
+## Common Web Attack Classes
 <sub>from [`core/09-common-web-attacks.md`](checklists/core/09-common-web-attacks.md)</sub>
 
 * [ ] Search Cloudflare logs.
 
-### DNS, CDN, Edge & WAF
+## DNS, CDN, Edge & WAF
 <sub>from [`core/14-edge-dns-waf.md`](checklists/core/14-edge-dns-waf.md)</sub>
 
 * [ ] Verify Cloudflare is authoritative for intended zones.
@@ -4072,93 +4072,139 @@ Items from the core checklists that are specific to **Cloudflare**. If you do no
 * [ ] Verify resource/zone restrictions.
 * [ ] Verify Cloudflare Transform Rules do not modify security-sensitive values unexpectedly.
 
-### Monitoring / Detection
+## Monitoring, Detection & Incident Response
 <sub>from [`core/16-monitoring-and-response.md`](checklists/core/16-monitoring-and-response.md)</sub>
 
 * [ ] Monitor Cloudflare DNS changes.
 * [ ] Monitor Cloudflare token changes.
 
-### Incident Response
-<sub>from [`core/16-monitoring-and-response.md`](checklists/core/16-monitoring-and-response.md)</sub>
-
 * [ ] Document how to rotate Cloudflare tokens.
 
-### Findings That Should Block Release
+## Pre-Release Gates
 <sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
 
 * [ ] Any exposed Cloudflare/API/cloud credential with production privileges.
 
-### High-Risk “Must Not Exist” Search
-<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
-
 * [ ] Cloudflare API key
 * [ ] Cloudflare API token
 
-### Production Configuration Review
-<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
-
 * [ ] Verify production Cloudflare configuration.
-
-### Final Security Sign-Off
-<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
 
 * [ ] Cloudflare DNS audit complete.
 * [ ] Cloudflare WAF/rate-limit audit complete.
 
-### AI Identity & Authorization
+## AI Security Architecture & Identity
 <sub>from [`ai/01-architecture-and-identity.md`](checklists/ai/01-architecture-and-identity.md)</sub>
 
 * [ ] AI does not receive Cloudflare administrator credentials.
 
-### Dangerous Tools
+## Tool Calling & Excessive Agency
 <sub>from [`ai/03-tools-and-agency.md`](checklists/ai/03-tools-and-agency.md)</sub>
 
 * [ ] Cloudflare DNS changes
 
-### AI + API Access
+## AI Data Access & Privacy
 <sub>from [`ai/04-data-access-and-privacy.md`](checklists/ai/04-data-access-and-privacy.md)</sub>
 
 * [ ] AI cannot bypass Cloudflare/WAF intentionally.
 
-### Output Security
+## AI Output Handling
 <sub>from [`ai/05-output-handling.md`](checklists/ai/05-output-handling.md)</sub>
 
 * [ ] Never directly use model output as a Cloudflare rule.
 
-### Data Exfiltration Tests
+## AI Testing & Red-Team Pack
 <sub>from [`ai/10-testing-and-red-team.md`](checklists/ai/10-testing-and-red-team.md)</sub>
 
 * [ ] Cloudflare tokens
 
-### Configuration Bugs
+## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`vibe-coding/04-crypto-secrets-deps.md`](checklists/vibe-coding/04-crypto-secrets-deps.md)</sub>
 
 * [ ] Cloudflare rules
 
-### Copy-Paste Security Bugs
+## Review Blind Spots
 <sub>from [`vibe-coding/07-review-blind-spots.md`](checklists/vibe-coding/07-review-blind-spots.md)</sub>
 
 * [ ] Verify outdated Cloudflare configuration is not copied.
 
-### Refactoring Regressions
-<sub>from [`vibe-coding/07-review-blind-spots.md`](checklists/vibe-coding/07-review-blind-spots.md)</sub>
-
 * [ ] Compare Cloudflare behavior.
 
-### PR Security Checklist
+## Agent Prompts & PR Review
 <sub>from [`vibe-coding/08-prompts-and-pr-review.md`](checklists/vibe-coding/08-prompts-and-pr-review.md)</sub>
 
 * [ ] Identify DNS/Cloudflare changes.
 
-### Code Review Questions
-<sub>from [`vibe-coding/08-prompts-and-pr-review.md`](checklists/vibe-coding/08-prompts-and-pr-review.md)</sub>
-
 * [ ] Cloudflare?
 
-### Red Flags
+## Vibe-Coding Release Gate
 <sub>from [`vibe-coding/09-release-gate.md`](checklists/vibe-coding/09-release-gate.md)</sub>
 
 * [ ] AI changed Cloudflare.
+
+
+## Django
+
+Items from the core checklists that are specific to **Django**. If you do not use it, skip this file entirely — the core checklists stand on their own.
+
+
+---
+
+
+## Backend Application & API
+<sub>from [`core/04-backend-api.md`](checklists/core/04-backend-api.md)</sub>
+
+* [ ] Verify `DEBUG = False` in production, and that no code path re-enables it.
+* [ ] Verify `ALLOWED_HOSTS` is an explicit list, never `['*']`.
+* [ ] Verify `SECURE_SSL_REDIRECT`, `SESSION_COOKIE_SECURE`, `CSRF_COOKIE_SECURE` and `SECURE_HSTS_SECONDS` are set.
+* [ ] Verify `SECURE_PROXY_SSL_HEADER` matches your actual proxy, or is absent — a wrong value lets a client claim HTTPS.
+* [ ] Run `python manage.py check --deploy` and resolve every warning or record why it is accepted.
+* [ ] Audit every `@csrf_exempt`; confirm the endpoint authenticates by a mechanism CSRF cannot forge.
+* [ ] Verify the Django admin is not reachable at the default path in production, and is behind authentication plus network controls.
+* [ ] Verify `X_FRAME_OPTIONS` is `DENY` unless framing is required.
+
+## Authentication & Authorization
+<sub>from [`core/02-authorization.md`](checklists/core/02-authorization.md)</sub>
+
+* [ ] Verify DRF `DEFAULT_PERMISSION_CLASSES` is restrictive; a missing default means `AllowAny`.
+* [ ] Audit every view that sets `permission_classes = [AllowAny]`.
+* [ ] Verify `get_queryset` filters by the requesting user or tenant, rather than filtering in the serializer or template.
+* [ ] Verify `ModelSerializer` with `fields = '__all__'` does not expose internal or ownership fields.
+* [ ] Verify serializer `read_only_fields` covers every field a client must not set, including `user`, `owner` and `is_staff`.
+* [ ] Verify `@login_required` / `LoginRequiredMixin` is present on every non-public view, including class-based ones.
+
+## Database & Row-Level Security
+<sub>from [`core/06-database.md`](checklists/core/06-database.md)</sub>
+
+* [ ] Search for `.raw(`, `.extra(`, `connection.cursor()` and any f-string or `%` formatting inside a query.
+* [ ] Verify `filter(**request.GET.dict())` or equivalent mass-filtering is not exposed — it lets a caller query relations you did not intend.
+* [ ] Verify `order_by(request.GET['sort'])` is allowlisted.
+
+## Web Frontend
+<sub>from [`core/05-web-frontend.md`](checklists/core/05-web-frontend.md)</sub>
+
+* [ ] Search templates for `|safe`, `{% autoescape off %}`, and `mark_safe` in Python.
+* [ ] Verify `json_script` is used for passing data to JavaScript rather than raw interpolation.
+
+## Sessions, Tokens & Cookies
+<sub>from [`core/03-sessions-tokens.md`](checklists/core/03-sessions-tokens.md)</sub>
+
+* [ ] Verify `SESSION_SERIALIZER` is the JSON serializer; the pickle serializer turns session tampering into code execution.
+* [ ] Verify `SECRET_KEY` comes from the environment and differs per environment.
+* [ ] Verify `SESSION_COOKIE_SAMESITE` and `CSRF_COOKIE_SAMESITE` are set.
+
+## Object Storage & File Handling
+<sub>from [`core/07-storage-and-files.md`](checklists/core/07-storage-and-files.md)</sub>
+
+* [ ] Verify uploaded files are validated by content, not by extension or the client-supplied content type.
+* [ ] Verify `MEDIA_ROOT` is not served by the application in production, and that user uploads cannot be executed.
+* [ ] Verify `FileField`/`ImageField` upload paths cannot be influenced by user input.
+
+## Pre-Release Gates
+<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
+
+* [ ] Verify `django-debug-toolbar` and `django-extensions` are not installed in production.
+* [ ] Verify `pip-audit` or `safety` runs in CI and no known-vulnerable package ships.
 
 
 ## Docker / containers
@@ -4168,58 +4214,49 @@ Items from the core checklists that are specific to **Docker / containers**. If 
 
 ---
 
-### Secrets Management
+## Secrets Management & Cryptography
 <sub>from [`core/08-secrets-and-crypto.md`](checklists/core/08-secrets-and-crypto.md)</sub>
 
 * [ ] Verify secrets are never stored in Docker images.
 
-### Container Runtime & Hosting
+## Runtime, Containers & Hosting
 <sub>from [`core/13-runtime-and-containers.md`](checklists/core/13-runtime-and-containers.md)</sub>
 
 * [ ] Verify `.dockerignore`.
 
-### Container Image & Build Security
-<sub>from [`core/13-runtime-and-containers.md`](checklists/core/13-runtime-and-containers.md)</sub>
-
 * [ ] Scan Dockerfile.
 
-### Source Repository Security
+## CI/CD & Supply Chain
 <sub>from [`core/15-ci-cd-and-supply-chain.md`](checklists/core/15-ci-cd-and-supply-chain.md)</sub>
 
 * [ ] Protect Dockerfiles.
 
-### CI/CD Pipeline Security
-<sub>from [`core/15-ci-cd-and-supply-chain.md`](checklists/core/15-ci-cd-and-supply-chain.md)</sub>
-
 * [ ] Verify Docker socket exposure.
 
-### High-Risk “Must Not Exist” Search
+## Pre-Release Gates
 <sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
 
 * [ ] Docker registry credentials
 
-### Final Security Sign-Off
-<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
-
 * [ ] Docker audit complete.
 
-### Generated-Code Execution
+## AI Output Handling
 <sub>from [`ai/05-output-handling.md`](checklists/ai/05-output-handling.md)</sub>
 
 * [ ] Prevent access to Docker socket.
 
-### AI + Software Engineering Agents
+## AI Integrations (email, browser, repos, cloud)
 <sub>from [`ai/08-integrations.md`](checklists/ai/08-integrations.md)</sub>
 
 * [ ] Generated Dockerfiles receive security review.
 
-### Configuration Bugs
+## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`vibe-coding/04-crypto-secrets-deps.md`](checklists/vibe-coding/04-crypto-secrets-deps.md)</sub>
 
 * [ ] Dockerfile
 * [ ] docker-compose
 
-### Container Bugs
+## AI-Generated Infrastructure & Pipeline Bugs
 <sub>from [`vibe-coding/06-infra-ci-cd.md`](checklists/vibe-coding/06-infra-ci-cd.md)</sub>
 
 * [ ] Verify generated Dockerfile does not copy `.env`.
@@ -4228,10 +4265,104 @@ Items from the core checklists that are specific to **Docker / containers**. If 
 * [ ] Verify generated Dockerfile does not embed secrets in `ARG`.
 * [ ] Verify generated Dockerfile does not use untrusted remote scripts.
 
-### PR Security Checklist
+## Agent Prompts & PR Review
 <sub>from [`vibe-coding/08-prompts-and-pr-review.md`](checklists/vibe-coding/08-prompts-and-pr-review.md)</sub>
 
 * [ ] Identify Docker changes.
+
+
+## Express
+
+Items from the core checklists that are specific to **Express**. If you do not use it, skip this file entirely — the core checklists stand on their own.
+
+
+---
+
+
+## Backend Application & API
+<sub>from [`core/04-backend-api.md`](checklists/core/04-backend-api.md)</sub>
+
+* [ ] Verify `helmet()` is registered, and registered before the routes.
+* [ ] Verify `app.disable('x-powered-by')` or Helmet's equivalent.
+* [ ] Verify `express.json({ limit })` and `express.urlencoded({ limit, extended: false })` set a body size limit — the default allows large payloads.
+* [ ] Verify `cors()` is configured with an explicit origin list, never `origin: true` with credentials.
+* [ ] Verify the error-handling middleware has four arguments and does not send `err.stack` to the client.
+* [ ] Verify `trust proxy` is set to your actual proxy depth — `true` lets a client spoof `X-Forwarded-For` and defeat rate limiting.
+* [ ] Verify a rate limiter is applied to authentication and other expensive routes.
+* [ ] Verify route parameter parsing cannot cause prototype pollution — check any deep merge of `req.body` into an object.
+* [ ] Verify `express.static` does not serve dotfiles (`dotfiles: 'ignore'`) or the project root.
+
+## Sessions, Tokens & Cookies
+<sub>from [`core/03-sessions-tokens.md`](checklists/core/03-sessions-tokens.md)</sub>
+
+* [ ] Verify `express-session` uses a real store; the default MemoryStore leaks memory and does not survive restarts.
+* [ ] Verify the session cookie sets `secure`, `httpOnly`, `sameSite` and a rolling `maxAge`.
+* [ ] Verify the session secret comes from the environment and is rotated independently of the code.
+* [ ] Verify `cookie-parser` is not signing with a hardcoded secret.
+
+## Database & Row-Level Security
+<sub>from [`core/06-database.md`](checklists/core/06-database.md)</sub>
+
+* [ ] Verify parameterized queries everywhere; search for template literals inside `query(`, and for `$where`, `$function` or user-controlled operators in MongoDB queries.
+* [ ] Verify user input cannot inject query operators — a JSON body of `{"$gt": ""}` is the classic NoSQL authentication bypass.
+
+## Object Storage & File Handling
+<sub>from [`core/07-storage-and-files.md`](checklists/core/07-storage-and-files.md)</sub>
+
+* [ ] Verify `res.sendFile` and `res.download` resolve within a base directory and reject `..`.
+* [ ] Verify upload middleware (multer or similar) sets file size, file count and field count limits, and does not use the client filename on disk.
+
+## Common Web Attack Classes
+<sub>from [`core/09-common-web-attacks.md`](checklists/core/09-common-web-attacks.md)</sub>
+
+* [ ] Search for `eval`, `new Function`, `child_process.exec` with interpolated input, and `vm` without a sandbox.
+* [ ] Verify user-supplied strings never become regular expressions (ReDoS).
+
+## Pre-Release Gates
+<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
+
+* [ ] Run `npm audit --omit=dev` and confirm nothing known-vulnerable ships.
+* [ ] Verify `NODE_ENV=production` is actually set — Express changes error output and caching based on it.
+
+
+## Flutter
+
+Items from the core checklists that are specific to **Flutter**. If you do not use it, skip this file entirely — the core checklists stand on their own.
+
+
+---
+
+
+## Mobile Applications
+<sub>from [`core/11-mobile-apps.md`](checklists/core/11-mobile-apps.md)</sub>
+
+* [ ] Verify secrets are not in Dart source or `--dart-define` values — both end up in the compiled binary and are recoverable from an APK or IPA.
+* [ ] Verify sensitive values use `flutter_secure_storage` (Keychain / Keystore) rather than `shared_preferences`, which is plain text.
+* [ ] Verify release builds use `--obfuscate --split-debug-info`, and treat that as raising cost, not as a security boundary.
+* [ ] Verify `kDebugMode` code paths — developer menus, bypass logins, verbose logging — cannot run in release.
+* [ ] Verify `debugPrint` and `print` do not emit tokens or personal data; they reach the device log in release.
+* [ ] Verify certificate pinning if required, implemented via `SecurityContext` or the HTTP client's `badCertificateCallback`, and confirm the callback never returns `true` unconditionally.
+* [ ] Verify Android `usesCleartextTraffic` is false and iOS ATS has no blanket exception.
+* [ ] Verify screenshot and app-switcher protection (`FLAG_SECURE` on Android, an overlay on iOS) if the app displays sensitive data.
+
+## Web Frontend
+<sub>from [`core/05-web-frontend.md`](checklists/core/05-web-frontend.md)</sub>
+
+* [ ] Verify `webview_flutter` restricts navigation with a delegate rather than allowing arbitrary URLs.
+* [ ] Verify JavaScript channels do not evaluate page-supplied content or expose native capability to the page.
+
+## Authentication & Authorization
+<sub>from [`core/02-authorization.md`](checklists/core/02-authorization.md)</sub>
+
+* [ ] Verify deep link routes authenticate and authorize before performing an action.
+* [ ] Verify biometric authentication gates a server-side check and is not the sole authorization decision.
+
+## Pre-Release Gates
+<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
+
+* [ ] Verify platform channel handlers validate arguments — they are a trust boundary between Dart and native code.
+* [ ] Run `dart pub outdated` and review transitive package sources; pub.dev packages run code at build time.
+* [ ] Verify the release build does not ship with a debug signing configuration.
 
 
 ## GitHub (repository & Actions)
@@ -4241,73 +4372,116 @@ Items from the core checklists that are specific to **GitHub (repository & Actio
 
 ---
 
-### Source Repository Security
+## CI/CD & Supply Chain
 <sub>from [`core/15-ci-cd-and-supply-chain.md`](checklists/core/15-ci-cd-and-supply-chain.md)</sub>
 
 * [ ] Review branch protection.
 * [ ] Require CODEOWNERS.
 
-### CI/CD Pipeline Security
-<sub>from [`core/15-ci-cd-and-supply-chain.md`](checklists/core/15-ci-cd-and-supply-chain.md)</sub>
-
 * [ ] Review `pull_request_target`.
 * [ ] Enable Dependabot updates for actions.
 
-### Final Security Sign-Off
+## Pre-Release Gates
 <sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
 
 * [ ] GitHub repository audit complete.
 * [ ] GitHub Actions audit complete.
 
-### Output Security
+## AI Output Handling
 <sub>from [`ai/05-output-handling.md`](checklists/ai/05-output-handling.md)</sub>
 
 * [ ] Never directly use model output as a GitHub Actions workflow.
 
-### AI + Software Engineering Agents
+## AI Integrations (email, browser, repos, cloud)
 <sub>from [`ai/08-integrations.md`](checklists/ai/08-integrations.md)</sub>
 
 * [ ] Agent cannot modify branch protection.
 * [ ] Agent cannot modify GitHub Actions permissions.
 * [ ] Agent cannot modify CODEOWNERS without review.
 
-### Configuration Bugs
+## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`vibe-coding/04-crypto-secrets-deps.md`](checklists/vibe-coding/04-crypto-secrets-deps.md)</sub>
 
 * [ ] GitHub Actions
 * [ ] disable branch protection
 * [ ] give GitHub Actions write-all permissions
 
-### CI/CD Pipeline Bugs
+## AI-Generated Infrastructure & Pipeline Bugs
 <sub>from [`vibe-coding/06-infra-ci-cd.md`](checklists/vibe-coding/06-infra-ci-cd.md)</sub>
 
 * [ ] Review `GITHUB_TOKEN`.
 * [ ] Review `pull_request_target`.
 
-### Copy-Paste Security Bugs
+## Review Blind Spots
 <sub>from [`vibe-coding/07-review-blind-spots.md`](checklists/vibe-coding/07-review-blind-spots.md)</sub>
 
 * [ ] Verify old GitHub Actions security patterns are not copied.
 
-### Refactoring Regressions
-<sub>from [`vibe-coding/07-review-blind-spots.md`](checklists/vibe-coding/07-review-blind-spots.md)</sub>
-
 * [ ] Compare GitHub Actions permissions.
 
-### Prompt Security for Coding Agents
+## Agent Prompts & PR Review
 <sub>from [`vibe-coding/08-prompts-and-pr-review.md`](checklists/vibe-coding/08-prompts-and-pr-review.md)</sub>
 
 * [ ] Agent is prohibited from bypassing branch protection.
 
-### "One-Line Fix" Review
-<sub>from [`vibe-coding/08-prompts-and-pr-review.md`](checklists/vibe-coding/08-prompts-and-pr-review.md)</sub>
-
 * [ ] "use `pull_request_target`"
 
-### Red Flags
+## Vibe-Coding Release Gate
 <sub>from [`vibe-coding/09-release-gate.md`](checklists/vibe-coding/09-release-gate.md)</sub>
 
 * [ ] AI changed GitHub Actions.
+
+
+## Go / Gin
+
+Items from the core checklists that are specific to **Go / Gin**. If you do not use it, skip this file entirely — the core checklists stand on their own.
+
+
+---
+
+
+## Backend Application & API
+<sub>from [`core/04-backend-api.md`](checklists/core/04-backend-api.md)</sub>
+
+* [ ] Verify `gin.SetMode(gin.ReleaseMode)` in production — debug mode prints routes and full request detail.
+* [ ] Verify `http.Server` sets `ReadTimeout`, `WriteTimeout`, `IdleTimeout` and `ReadHeaderTimeout`; Go's defaults are unlimited and a slow client can hold connections open indefinitely.
+* [ ] Verify `MaxHeaderBytes` and a body size limit (`http.MaxBytesReader`) are set.
+* [ ] Verify `net/http/pprof` is not registered on a public router — it is enabled by a blank import that is easy to miss.
+* [ ] Verify `c.ShouldBindJSON` is used rather than `c.Bind`, which writes a 400 and continues in ways callers forget to check.
+* [ ] Verify bound structs use `binding:"required"` where a missing field must be rejected, and that ownership fields are not bindable at all.
+* [ ] Verify the CORS middleware does not reflect arbitrary origins alongside credentials.
+* [ ] Verify panics are recovered and that the recovery handler does not return the stack trace to the client.
+
+## Web Frontend
+<sub>from [`core/05-web-frontend.md`](checklists/core/05-web-frontend.md)</sub>
+
+* [ ] Verify `html/template` is used for anything rendered into HTML — `text/template` does not escape and is the single most common Go XSS cause.
+* [ ] Verify template names and paths are not chosen by user input.
+
+## Database & Row-Level Security
+<sub>from [`core/06-database.md`](checklists/core/06-database.md)</sub>
+
+* [ ] Verify every query uses placeholders; search for `fmt.Sprintf` and `+` inside `db.Query`, `db.Exec` and any ORM raw call.
+* [ ] Verify `sql.DB` connection pool limits are set so a slow query cannot exhaust connections.
+
+## Object Storage & File Handling
+<sub>from [`core/07-storage-and-files.md`](checklists/core/07-storage-and-files.md)</sub>
+
+* [ ] Verify `c.File`, `c.FileAttachment` and `http.ServeFile` paths are cleaned and confined to a base directory — `filepath.Join` alone does not prevent traversal.
+* [ ] Verify `gin.Static` is not serving the repository root or dotfiles.
+
+## Secrets Management & Cryptography
+<sub>from [`core/08-secrets-and-crypto.md`](checklists/core/08-secrets-and-crypto.md)</sub>
+
+* [ ] Verify `crypto/rand` is used for tokens, session ids and nonces — search for `math/rand`.
+* [ ] Verify `subtle.ConstantTimeCompare` is used for secret comparison rather than `==`.
+
+## Pre-Release Gates
+<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
+
+* [ ] Run `govulncheck ./...` and confirm no reachable known vulnerability.
+* [ ] Verify build flags strip debug info for release binaries if the binary is distributed.
+* [ ] Verify goroutines started per request take a `context.Context` and exit when it is cancelled.
 
 
 ## Google Cloud (Cloud Run, Cloud Build, IAM)
@@ -4317,18 +4491,15 @@ Items from the core checklists that are specific to **Google Cloud (Cloud Run, C
 
 ---
 
-### SSRF / Egress / Network Controls
+## Common Web Attack Classes
 <sub>from [`core/09-common-web-attacks.md`](checklists/core/09-common-web-attacks.md)</sub>
 
 * [ ] Verify workload identity permissions if outbound cloud APIs are used.
 
-### Information Disclosure
-<sub>from [`core/09-common-web-attacks.md`](checklists/core/09-common-web-attacks.md)</sub>
-
 * [ ] Search Cloud Run logs.
 * [ ] Search Cloud Build logs.
 
-### Container Runtime & Hosting
+## Runtime, Containers & Hosting
 <sub>from [`core/13-runtime-and-containers.md`](checklists/core/13-runtime-and-containers.md)</sub>
 
 * [ ] Inventory every Cloud Run service.
@@ -4336,64 +4507,49 @@ Items from the core checklists that are specific to **Google Cloud (Cloud Run, C
 * [ ] Review Cloud Run ingress configuration.
 * [ ] Verify direct access to `run.app` cannot bypass Cloudflare/WAF/load balancer controls.
 
-### DNS, CDN, Edge & WAF
+## DNS, CDN, Edge & WAF
 <sub>from [`core/14-edge-dns-waf.md`](checklists/core/14-edge-dns-waf.md)</sub>
 
 * [ ] Verify Cloud Run `run.app` endpoint is controlled.
 
-### CI/CD Pipeline Security
+## CI/CD & Supply Chain
 <sub>from [`core/15-ci-cd-and-supply-chain.md`](checklists/core/15-ci-cd-and-supply-chain.md)</sub>
 
 * [ ] Prefer workload identity federation/OIDC over long-lived cloud credentials.
 
-### Build Service Security
-<sub>from [`core/15-ci-cd-and-supply-chain.md`](checklists/core/15-ci-cd-and-supply-chain.md)</sub>
-
 * [ ] Review Cloud Build service account permissions.
 * [ ] Verify artifact registry permissions.
 
-### Monitoring / Detection
+## Monitoring, Detection & Incident Response
 <sub>from [`core/16-monitoring-and-response.md`](checklists/core/16-monitoring-and-response.md)</sub>
 
 * [ ] Monitor Cloud Run deployments.
 
-### Incident Response
-<sub>from [`core/16-monitoring-and-response.md`](checklists/core/16-monitoring-and-response.md)</sub>
-
 * [ ] Document emergency Cloud Run rollback.
 
-### Findings That Should Block Release
+## Pre-Release Gates
 <sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
 
 * [ ] Any Cloud Run service exposing a privileged internal endpoint directly to the internet unintentionally.
 
-### Production Configuration Review
-<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
-
 * [ ] Verify production Cloud Run configuration.
 
-### Development / Staging Isolation
-<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
-
 * [ ] Production Cloud Run service accounts cannot be used in development workflows.
-
-### Final Security Sign-Off
-<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
 
 * [ ] Cloud Run audit complete.
 * [ ] Cloud Build audit complete.
 
-### Dangerous Tools
+## Tool Calling & Excessive Agency
 <sub>from [`ai/03-tools-and-agency.md`](checklists/ai/03-tools-and-agency.md)</sub>
 
 * [ ] Cloud Run administration
 
-### AI + Cloud / Production Operations
+## AI Integrations (email, browser, repos, cloud)
 <sub>from [`ai/08-integrations.md`](checklists/ai/08-integrations.md)</sub>
 
 * [ ] Agent cannot expose Cloud Run publicly without approval.
 
-### Configuration Bugs
+## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`vibe-coding/04-crypto-secrets-deps.md`](checklists/vibe-coding/04-crypto-secrets-deps.md)</sub>
 
 * [ ] Cloud Run configuration
@@ -4408,7 +4564,7 @@ Items from the core checklists that are specific to **iOS / iPadOS / Swift**. If
 
 ---
 
-### Mobile Application Security
+## Mobile Applications
 <sub>from [`core/11-mobile-apps.md`](checklists/core/11-mobile-apps.md)</sub>
 
 * [ ] Verify sensitive credentials are stored in Keychain.
@@ -4422,35 +4578,92 @@ Items from the core checklists that are specific to **iOS / iPadOS / Swift**. If
 * [ ] Verify unsafe Swift/C/C++ interoperability.
 * [ ] Verify secrets are not copied to the pasteboard unnecessarily.
 
-### Desktop Application Security
+## Desktop Applications
 <sub>from [`core/12-desktop-apps.md`](checklists/core/12-desktop-apps.md)</sub>
 
 * [ ] Verify Keychain access groups.
 
-### Dependency / Supply Chain Security
+## CI/CD & Supply Chain
 <sub>from [`core/15-ci-cd-and-supply-chain.md`](checklists/core/15-ci-cd-and-supply-chain.md)</sub>
 
 * [ ] Run SCA against iOS/macOS dependencies.
 
-### High-Risk “Must Not Exist” Search
+## Pre-Release Gates
 <sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
 
 * [ ] Apple App Store Connect credentials
 
-### Final Security Sign-Off
-<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
-
 * [ ] iOS/iPadOS binary audit complete.
 
-### Configuration Bugs
+## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`vibe-coding/04-crypto-secrets-deps.md`](checklists/vibe-coding/04-crypto-secrets-deps.md)</sub>
 
 * [ ] Info.plist
 
-### Copy-Paste Security Bugs
+## Review Blind Spots
 <sub>from [`vibe-coding/07-review-blind-spots.md`](checklists/vibe-coding/07-review-blind-spots.md)</sub>
 
 * [ ] Verify outdated Swift security APIs are not copied.
+
+
+## Laravel
+
+Items from the core checklists that are specific to **Laravel**. If you do not use it, skip this file entirely — the core checklists stand on their own.
+
+
+---
+
+
+## Backend Application & API
+<sub>from [`core/04-backend-api.md`](checklists/core/04-backend-api.md)</sub>
+
+* [ ] Verify `APP_DEBUG=false` and `APP_ENV=production`; Laravel's debug page prints environment variables including credentials.
+* [ ] Verify `APP_KEY` is set, unique per environment, and never committed.
+* [ ] Verify `.env` is not reachable over HTTP and that the web root is `public/`, not the project root.
+* [ ] Audit `VerifyCsrfToken::$except`; confirm each excluded route authenticates by a mechanism CSRF cannot forge.
+* [ ] Verify `TrustProxies` is configured for your actual proxy rather than trusting all.
+* [ ] Verify Telescope, Debugbar, Horizon and Ignition are absent or authenticated in production.
+* [ ] Verify route model binding is scoped (`->scopeBindings()` or explicit `where`) so a nested route cannot fetch another tenant's child record.
+
+## Authentication & Authorization
+<sub>from [`core/02-authorization.md`](checklists/core/02-authorization.md)</sub>
+
+* [ ] Verify every Eloquent model sets `$fillable` (not `$guarded = []`), and search for `Model::unguard()` and `forceFill`.
+* [ ] Verify a Policy or Gate exists for every model with per-user access, and that controllers call `authorize()`.
+* [ ] Verify `Gate::before` does not silently grant everything to a role you did not intend.
+* [ ] Verify API resources do not serialize hidden attributes; check `$hidden` covers tokens and password hashes.
+
+## Database & Row-Level Security
+<sub>from [`core/06-database.md`](checklists/core/06-database.md)</sub>
+
+* [ ] Search for `DB::raw`, `whereRaw`, `orderByRaw`, `havingRaw` and `selectRaw` with interpolated input.
+* [ ] Verify `orderBy(request('sort'))` is allowlisted.
+
+## Web Frontend
+<sub>from [`core/05-web-frontend.md`](checklists/core/05-web-frontend.md)</sub>
+
+* [ ] Search Blade templates for `{!! !!}` — unescaped output.
+* [ ] Verify `@json` is used to pass data into JavaScript rather than raw interpolation.
+
+## Sessions, Tokens & Cookies
+<sub>from [`core/03-sessions-tokens.md`](checklists/core/03-sessions-tokens.md)</sub>
+
+* [ ] Verify the session driver is not `cookie` if session data is sensitive.
+* [ ] Verify `SESSION_SECURE_COOKIE=true` and `SESSION_SAME_SITE` are set in production.
+* [ ] Verify `Hash::make` is used for passwords — search for `md5(`, `sha1(` and `crypt(` on credentials.
+
+## Object Storage & File Handling
+<sub>from [`core/07-storage-and-files.md`](checklists/core/07-storage-and-files.md)</sub>
+
+* [ ] Verify `store()`/`storeAs()` never uses a client-supplied filename directly.
+* [ ] Verify the `storage:link` public disk contains only files intended to be world-readable.
+* [ ] Verify uploads are validated with `mimes:`/`mimetypes:` rules and a size limit.
+
+## Pre-Release Gates
+<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
+
+* [ ] Verify `php artisan config:cache` and `route:cache` are run at deploy so no `.env` read happens at request time.
+* [ ] Verify `composer audit` runs in CI.
 
 
 ## macOS
@@ -4460,19 +4673,19 @@ Items from the core checklists that are specific to **macOS**. If you do not use
 
 ---
 
-### Secrets Management
+## Secrets Management & Cryptography
 <sub>from [`core/08-secrets-and-crypto.md`](checklists/core/08-secrets-and-crypto.md)</sub>
 
 * [ ] Identify notarization credentials.
 
-### Desktop Application Security
+## Desktop Applications
 <sub>from [`core/12-desktop-apps.md`](checklists/core/12-desktop-apps.md)</sub>
 
 * [ ] Enable Hardened Runtime.
 * [ ] Review every Hardened Runtime exception.
 * [ ] Verify notarization.
 
-### Final Security Sign-Off
+## Pre-Release Gates
 <sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
 
 * [ ] macOS binary audit complete.
@@ -4485,19 +4698,19 @@ Items from the core checklists that are specific to **NestJS**. If you do not us
 
 ---
 
-### Backend Application Security
+## Backend Application & API
 <sub>from [`core/04-backend-api.md`](checklists/core/04-backend-api.md)</sub>
 
 * [ ] Confirm whether NestJS uses Express or Fastify and review middleware/security differences.
 * [ ] Verify HTTP request smuggling/desynchronization exposure between Cloudflare → load balancer → Cloud Run → NestJS is reviewed.
 * [ ] Verify every external DTO is validated.
 
-### Final Security Sign-Off
+## Pre-Release Gates
 <sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
 
 * [ ] NestJS source audit complete.
 
-### Backend Framework Bugs
+## AI-Generated Application Bugs
 <sub>from [`vibe-coding/03-backend-frontend-api.md`](checklists/vibe-coding/03-backend-frontend-api.md)</sub>
 
 * [ ] Review every generated DTO.
@@ -4511,7 +4724,7 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 
 ---
 
-### Web Frontend & SSR
+## Web Frontend
 <sub>from [`core/05-web-frontend.md`](checklists/core/05-web-frontend.md)</sub>
 
 * [ ] Inventory App Router and Pages Router usage.
@@ -4529,12 +4742,12 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 * [ ] Verify major Next.js/React security advisories.
 * [ ] Verify Next.js upgrades are tested against framework security changes.
 
-### Final Security Sign-Off
+## Pre-Release Gates
 <sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
 
 * [ ] Next.js source/build audit complete.
 
-### Frontend Framework Bugs
+## AI-Generated Application Bugs
 <sub>from [`vibe-coding/03-backend-frontend-api.md`](checklists/vibe-coding/03-backend-frontend-api.md)</sub>
 
 * [ ] Review all AI-generated Server Actions.
@@ -4544,12 +4757,12 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 * [ ] Verify generated code does not serialize private data to Client Components.
 * [ ] Verify generated use of `dangerouslySetInnerHTML`.
 
-### Copy-Paste Security Bugs
+## Review Blind Spots
 <sub>from [`vibe-coding/07-review-blind-spots.md`](checklists/vibe-coding/07-review-blind-spots.md)</sub>
 
 * [ ] Verify old Next.js patterns are not copied into Next.js 16+.
 
-### Code Review Questions
+## Agent Prompts & PR Review
 <sub>from [`vibe-coding/08-prompts-and-pr-review.md`](checklists/vibe-coding/08-prompts-and-pr-review.md)</sub>
 
 * [ ] Server Action.
@@ -4562,21 +4775,182 @@ Items from the core checklists that are specific to **PostgreSQL**. If you do no
 
 ---
 
-### Backend Application Security
+## Backend Application & API
 <sub>from [`core/04-backend-api.md`](checklists/core/04-backend-api.md)</sub>
 
 * [ ] Test PostgreSQL function parameters.
 
-### Database Security & RLS
+## Database & Row-Level Security
 <sub>from [`core/06-database.md`](checklists/core/06-database.md)</sub>
 
 * [ ] Review every `SECURITY DEFINER` function.
 
-### Database / RLS Bugs
+## AI-Generated Authorization & Data Bugs
 <sub>from [`vibe-coding/02-authorization-and-data.md`](checklists/vibe-coding/02-authorization-and-data.md)</sub>
 
 * [ ] AI did not create a `SECURITY DEFINER` function unnecessarily.
 * [ ] Every AI-created `SECURITY DEFINER` function is manually reviewed.
+
+
+## Ruby on Rails
+
+Items from the core checklists that are specific to **Ruby on Rails**. If you do not use it, skip this file entirely — the core checklists stand on their own.
+
+
+---
+
+
+## Backend Application & API
+<sub>from [`core/04-backend-api.md`](checklists/core/04-backend-api.md)</sub>
+
+* [ ] Verify every controller inherits CSRF protection; audit each `skip_before_action :verify_authenticity_token` and confirm the endpoint is genuinely token-authenticated.
+* [ ] Verify strong parameters are used everywhere; search for `params.permit!` and `params.require(...).permit(...)` with an over-broad list.
+* [ ] Verify no model calls `attr_accessible`-era patterns or `Model.new(params[:model])` without permitting.
+* [ ] Verify `config.force_ssl = true` in production.
+* [ ] Verify `config.action_dispatch.default_headers` sets the security headers you expect.
+* [ ] Verify `before_action :authenticate_user!` is not silently skipped by an `only:`/`except:` list that drifted from the actions.
+* [ ] Verify ActionCable `allowed_request_origins` is set and not a permissive regex.
+* [ ] Verify Rack middleware order puts security middleware ahead of the application.
+* [ ] Verify `config.hosts` is set so Host-header injection cannot reach the app.
+
+## Database & Row-Level Security
+<sub>from [`core/06-database.md`](checklists/core/06-database.md)</sub>
+
+* [ ] Search for string interpolation inside `where`, `find_by_sql`, `order`, `group`, `having`, `pluck` and `select` — these accept raw SQL and are the standard Rails injection sites.
+* [ ] Verify `order(params[:sort])` is allowlisted rather than passed through.
+* [ ] Verify scopes used for tenant isolation cannot be bypassed by `unscoped` or `default_scope` removal.
+* [ ] Verify `find` / `find_by` on user-supplied ids is scoped to the current user or tenant, not global.
+
+## Web Frontend
+<sub>from [`core/05-web-frontend.md`](checklists/core/05-web-frontend.md)</sub>
+
+* [ ] Search for `html_safe`, `raw`, and `sanitize` with a custom allowlist in views and helpers.
+* [ ] Verify `content_security_policy` is configured in an initializer and enforced, not report-only, in production.
+* [ ] Verify `redirect_to` never takes a user-supplied URL without `allow_other_host: false` or an allowlist.
+
+## Sessions, Tokens & Cookies
+<sub>from [`core/03-sessions-tokens.md`](checklists/core/03-sessions-tokens.md)</sub>
+
+* [ ] Verify the session store choice: `cookie_store` puts session data in the client's cookie — confirm nothing sensitive is in the session, or move to a server-side store.
+* [ ] Verify `secret_key_base` is loaded from credentials or the environment, never committed.
+* [ ] Verify session cookies are `secure`, `httponly` and `same_site: :lax` or stricter.
+* [ ] Verify Devise `config.timeout_in` and lockable settings match the documented policy.
+
+## Object Storage & File Handling
+<sub>from [`core/07-storage-and-files.md`](checklists/core/07-storage-and-files.md)</sub>
+
+* [ ] Verify `send_file` and `send_data` paths cannot be influenced by user input (path traversal).
+* [ ] Verify ActiveStorage direct uploads validate content type and size server-side, not only in the client.
+* [ ] Verify ActiveStorage `service_urls` expire, and that public buckets are intentional.
+
+## Secrets Management & Cryptography
+<sub>from [`core/08-secrets-and-crypto.md`](checklists/core/08-secrets-and-crypto.md)</sub>
+
+* [ ] Verify `config/master.key` is gitignored and provisioned out of band.
+* [ ] Verify no secret sits in `config/credentials.yml.enc` that should be rotated per environment.
+* [ ] Search for `Marshal.load`, `YAML.load` (not `safe_load`), and `Psych.load` on any untrusted input — all are remote code execution.
+
+## Pre-Release Gates
+<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
+
+* [ ] Verify `config.consider_all_requests_local = false` in production so exception pages are not served.
+* [ ] Verify the Rails debug gems — `web-console`, `better_errors`, `listen` — are in the development group only.
+* [ ] Verify `bin/rails credentials:show` output is not logged by CI.
+* [ ] Run `bundle audit` and confirm no known-vulnerable gem ships.
+
+
+## React Native
+
+Items from the core checklists that are specific to **React Native**. If you do not use it, skip this file entirely — the core checklists stand on their own.
+
+
+---
+
+
+## Mobile Applications
+<sub>from [`core/11-mobile-apps.md`](checklists/core/11-mobile-apps.md)</sub>
+
+* [ ] Verify `AsyncStorage` holds nothing sensitive — it is unencrypted plain text on both platforms.
+* [ ] Verify tokens and credentials use Keychain (iOS) and Keystore/EncryptedSharedPreferences (Android) via a vetted library.
+* [ ] Verify no secret is embedded in the JavaScript bundle; `react-native-config` and `.env` values are compiled into the binary and are trivially extractable.
+* [ ] Verify the release build ships Hermes bytecode rather than readable JavaScript, and understand that this is obfuscation, not protection.
+* [ ] Verify `__DEV__`-only code — debug menus, mock logins, verbose logging — cannot execute in release.
+* [ ] Verify Flipper and any remote debugging bridge are excluded from release builds.
+* [ ] Verify certificate pinning is implemented if the threat model requires it, and that it fails closed.
+* [ ] Verify Android `usesCleartextTraffic` is false and iOS App Transport Security has no blanket exception.
+
+## Web Frontend
+<sub>from [`core/05-web-frontend.md`](checklists/core/05-web-frontend.md)</sub>
+
+* [ ] Verify `WebView` sets `originWhitelist` narrowly and does not default to `['*']`.
+* [ ] Verify `injectedJavaScript` and `postMessage` handlers never evaluate content received from the page.
+* [ ] Verify `WebView` does not enable `allowFileAccess` or `allowUniversalAccessFromFileURLs` unless required.
+
+## Authentication & Authorization
+<sub>from [`core/02-authorization.md`](checklists/core/02-authorization.md)</sub>
+
+* [ ] Verify deep link and universal link handlers authenticate and authorize before acting — a link is attacker-supplied input.
+* [ ] Verify the app does not treat any client-side role or feature flag as an authorization decision.
+
+## Pre-Release Gates
+<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
+
+* [ ] Verify over-the-air update channels (CodePush, Expo Updates) are signed and that the signing key is not in the repository.
+* [ ] Verify the OTA channel cannot be pointed at an attacker-controlled endpoint by a deep link or debug setting.
+* [ ] Run `npm audit` against the JS dependency tree and review native dependencies separately.
+
+
+## Spring Boot
+
+Items from the core checklists that are specific to **Spring Boot**. If you do not use it, skip this file entirely — the core checklists stand on their own.
+
+
+---
+
+
+## Backend Application & API
+<sub>from [`core/04-backend-api.md`](checklists/core/04-backend-api.md)</sub>
+
+* [ ] Verify `management.endpoints.web.exposure.include` is not `*`; Actuator's `env`, `heapdump`, `threaddump` and `configprops` leak credentials and memory.
+* [ ] Verify Actuator is bound to a separate port or secured, and that `/actuator/shutdown` is disabled.
+* [ ] Verify `server.error.include-stacktrace=never` and `include-message=never` in production.
+* [ ] Verify the H2 console and Spring Boot DevTools are not on the production classpath.
+* [ ] Verify `@CrossOrigin` is not used with `origins = "*"` alongside `allowCredentials = true`.
+* [ ] Verify `spring.jackson` polymorphic typing is off — `enableDefaultTyping` / `@JsonTypeInfo` on untrusted input is deserialization RCE.
+* [ ] Verify request size limits: `spring.servlet.multipart.max-file-size` and `max-request-size`.
+
+## Authentication & Authorization
+<sub>from [`core/02-authorization.md`](checklists/core/02-authorization.md)</sub>
+
+* [ ] Verify the `SecurityFilterChain` ordering — a broad `permitAll()` placed before a restrictive matcher wins.
+* [ ] Verify `@EnableMethodSecurity` is on and `@PreAuthorize` covers service-layer entry points, not only controllers.
+* [ ] Verify CSRF is not disabled wholesale; if it is, confirm every state-changing endpoint is token-authenticated.
+* [ ] Verify `@PathVariable` ids are checked against the authenticated principal, not just loaded.
+* [ ] Verify Spring Data REST does not auto-expose repositories you did not intend.
+
+## Database & Row-Level Security
+<sub>from [`core/06-database.md`](checklists/core/06-database.md)</sub>
+
+* [ ] Search for string concatenation inside `@Query`, `createQuery`, `createNativeQuery` and `JdbcTemplate` calls.
+* [ ] Verify `Sort` and `Pageable` values that come from the request cannot reference arbitrary properties.
+
+## Common Web Attack Classes
+<sub>from [`core/09-common-web-attacks.md`](checklists/core/09-common-web-attacks.md)</sub>
+
+* [ ] Verify SpEL is never evaluated on user input — `@Value`, `ExpressionParser` and Spring Security expressions built by concatenation.
+* [ ] Verify `RestTemplate`/`WebClient` calls to user-supplied URLs go through an allowlist (SSRF).
+
+## Secrets Management & Cryptography
+<sub>from [`core/08-secrets-and-crypto.md`](checklists/core/08-secrets-and-crypto.md)</sub>
+
+* [ ] Verify `application.properties` / `application.yml` in the repository contains no credential, and that production values come from the environment or a secret manager.
+* [ ] Verify logging configuration cannot be reloaded from a remote source.
+
+## Pre-Release Gates
+<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
+
+* [ ] Run `mvn dependency-check` or `gradle dependencyCheckAnalyze` and confirm no known-vulnerable dependency ships.
+* [ ] Verify the fat JAR does not bundle test fixtures, seed credentials or `application-local.yml`.
 
 
 ## Supabase
@@ -4586,96 +4960,87 @@ Items from the core checklists that are specific to **Supabase**. If you do not 
 
 ---
 
-### Architecture / Threat Model
+## Architecture & Threat Model
 <sub>from [`core/01-threat-model.md`](checklists/core/01-threat-model.md)</sub>
 
 * [ ] Draw the complete request/data-flow diagram from browser/mobile → Cloudflare → Cloud Run → NestJS → Supabase/Auth/Postgres/Storage → third parties.
 
-### Managed Authentication Provider
+## Authentication & Authorization
 <sub>from [`core/02-authorization.md`](checklists/core/02-authorization.md)</sub>
 
 * [ ] Search frontend/mobile bundles for Supabase service-role credentials.
 * [ ] Verify session handling in SSR does not accidentally share one Supabase client/session across users.
 
-### Secrets Management
+## Secrets Management & Cryptography
 <sub>from [`core/08-secrets-and-crypto.md`](checklists/core/08-secrets-and-crypto.md)</sub>
 
 * [ ] Identify Supabase service-role credentials.
 
-### Incident Response
+## Monitoring, Detection & Incident Response
 <sub>from [`core/16-monitoring-and-response.md`](checklists/core/16-monitoring-and-response.md)</sub>
 
 * [ ] Document how to revoke Supabase credentials.
 
-### Findings That Should Block Release
+## Pre-Release Gates
 <sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
 
 * [ ] Any Supabase service-role credential exposed to a client.
 
-### High-Risk “Must Not Exist” Search
-<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
-
 * [ ] Supabase `service_role` key
 
-### Production Configuration Review
-<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
-
 * [ ] Verify production Supabase settings.
-
-### Final Security Sign-Off
-<sub>from [`core/17-release-gates.md`](checklists/core/17-release-gates.md)</sub>
 
 * [ ] Supabase RLS audit complete.
 * [ ] Supabase Storage audit complete.
 * [ ] Supabase Auth audit complete.
 
-### AI Identity & Authorization
+## AI Security Architecture & Identity
 <sub>from [`ai/01-architecture-and-identity.md`](checklists/ai/01-architecture-and-identity.md)</sub>
 
 * [ ] AI does not receive Supabase `service_role` credentials unless absolutely unavoidable and isolated.
 
-### Prompt Injection
+## Prompt Injection & Goal Hijacking
 <sub>from [`ai/02-prompt-injection.md`](checklists/ai/02-prompt-injection.md)</sub>
 
 * [ ] Supabase rows
 * [ ] Supabase Storage objects
 
-### Dangerous Tools
+## Tool Calling & Excessive Agency
 <sub>from [`ai/03-tools-and-agency.md`](checklists/ai/03-tools-and-agency.md)</sub>
 
 * [ ] Supabase administration
 
-### AI + Database Access
+## AI Data Access & Privacy
 <sub>from [`ai/04-data-access-and-privacy.md`](checklists/ai/04-data-access-and-privacy.md)</sub>
 
 * [ ] AI never receives Supabase service-role keys in user-controlled context.
 
-### The "Do Not Trust" List
+## AI Release Gate
 <sub>from [`ai/11-release-gate.md`](checklists/ai/11-release-gate.md)</sub>
 
 * [ ] Supabase rows
 
-### Database / RLS Bugs
+## AI-Generated Authorization & Data Bugs
 <sub>from [`vibe-coding/02-authorization-and-data.md`](checklists/vibe-coding/02-authorization-and-data.md)</sub>
 
 * [ ] AI did not add `service_role` access where anon/authenticated access was sufficient.
 
-### Configuration Bugs
+## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`vibe-coding/04-crypto-secrets-deps.md`](checklists/vibe-coding/04-crypto-secrets-deps.md)</sub>
 
 * [ ] Supabase configuration
 
-### Copy-Paste Security Bugs
+## Review Blind Spots
 <sub>from [`vibe-coding/07-review-blind-spots.md`](checklists/vibe-coding/07-review-blind-spots.md)</sub>
 
 * [ ] Verify old Supabase auth patterns are not copied into current SSR architecture.
 
-### Code Review Questions
+## Agent Prompts & PR Review
 <sub>from [`vibe-coding/08-prompts-and-pr-review.md`](checklists/vibe-coding/08-prompts-and-pr-review.md)</sub>
 
 * [ ] direct Supabase.
 
-### Red Flags
+## Vibe-Coding Release Gate
 <sub>from [`vibe-coding/09-release-gate.md`](checklists/vibe-coding/09-release-gate.md)</sub>
 
 * [ ] AI changed Supabase policies.

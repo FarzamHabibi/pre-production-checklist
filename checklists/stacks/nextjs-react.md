@@ -6,7 +6,7 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 
 ---
 
-### Web Frontend & SSR
+## Web Frontend
 <sub>from [`core/05-web-frontend.md`](../core/05-web-frontend.md)</sub>
 
 * [ ] Inventory App Router and Pages Router usage.
@@ -24,12 +24,12 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 * [ ] Verify major Next.js/React security advisories.
 * [ ] Verify Next.js upgrades are tested against framework security changes.
 
-### Final Security Sign-Off
+## Pre-Release Gates
 <sub>from [`core/17-release-gates.md`](../core/17-release-gates.md)</sub>
 
 * [ ] Next.js source/build audit complete.
 
-### Frontend Framework Bugs
+## AI-Generated Application Bugs
 <sub>from [`vibe-coding/03-backend-frontend-api.md`](../vibe-coding/03-backend-frontend-api.md)</sub>
 
 * [ ] Review all AI-generated Server Actions.
@@ -39,12 +39,12 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 * [ ] Verify generated code does not serialize private data to Client Components.
 * [ ] Verify generated use of `dangerouslySetInnerHTML`.
 
-### Copy-Paste Security Bugs
+## Review Blind Spots
 <sub>from [`vibe-coding/07-review-blind-spots.md`](../vibe-coding/07-review-blind-spots.md)</sub>
 
 * [ ] Verify old Next.js patterns are not copied into Next.js 16+.
 
-### Code Review Questions
+## Agent Prompts & PR Review
 <sub>from [`vibe-coding/08-prompts-and-pr-review.md`](../vibe-coding/08-prompts-and-pr-review.md)</sub>
 
 * [ ] Server Action.

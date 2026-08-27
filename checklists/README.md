@@ -5,7 +5,7 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**2,756 of the 2,922 items (94%) are stack-agnostic** — everything outside `stacks/`. Only 166 items name a specific product.
+**2,756 of the 3,093 items (89%) are stack-agnostic** — everything outside `stacks/`. Only 337 items name a specific product.
 
 ---
 
@@ -83,16 +83,24 @@ The small remainder that genuinely depends on a specific product. **Skip any fil
 | Checklist | Items |
 | --- | ---: |
 | [Cloudflare](stacks/cloudflare.md) | 29 |
+| [Django](stacks/django.md) | 27 |
 | [Docker / containers](stacks/docker.md) | 17 |
+| [Express](stacks/express.md) | 21 |
+| [Flutter](stacks/flutter.md) | 15 |
 | [GitHub (repository & Actions)](stacks/github-actions.md) | 20 |
+| [Go / Gin](stacks/go-gin.md) | 19 |
 | [Google Cloud (Cloud Run, Cloud Build, IAM)](stacks/google-cloud.md) | 23 |
 | [iOS / iPadOS / Swift](stacks/ios-swift.md) | 16 |
+| [Laravel](stacks/laravel.md) | 23 |
 | [macOS](stacks/macos.md) | 5 |
 | [NestJS](stacks/nestjs.md) | 6 |
 | [Next.js / React](stacks/nextjs-react.md) | 23 |
 | [PostgreSQL](stacks/postgres.md) | 4 |
+| [Ruby on Rails](stacks/rails.md) | 30 |
+| [React Native](stacks/react-native.md) | 16 |
+| [Spring Boot](stacks/spring.md) | 20 |
 | [Supabase](stacks/supabase.md) | 23 |
-| **Total** | **166** |
+| **Total** | **337** |
 
 ---
 

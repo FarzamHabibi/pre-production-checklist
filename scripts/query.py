@@ -35,10 +35,13 @@ def main():
     items = doc["items"]
 
     if a.stack:
-        want = {s.lower() for s in a.stack}
+        def norm(x):
+            return "".join(c for c in str(x).lower() if c.isalnum())
+        want = {norm(s) for s in a.stack}
         items = [i for i in items
-                 if i["stack"] == "any" or i["stack"].lower() in want
-                 or i["stack"].lower().replace(" / ", "/").replace(" ", "") in want]
+                 if i["stack"] == "any"
+                 or norm(i["stack"]) in want
+                 or norm(i.get("stack_id", "")) in want]
     if a.group:
         items = [i for i in items if i["group"] in a.group]
     if a.search:

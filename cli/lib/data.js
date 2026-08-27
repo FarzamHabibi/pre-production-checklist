@@ -34,19 +34,34 @@ function knownStacks () {
 }
 
 /**
+ * Every string that should resolve to a given stack: its display label and its file slug.
+ * Users type the slug they saw in the repo ("rails"), not the label ("Ruby on Rails").
+ */
+function stackAliases () {
+  const map = new Map()
+  for (const i of load().items) {
+    if (i.stack === 'any') continue
+    if (!map.has(i.stack)) map.set(i.stack, new Set([normStack(i.stack)]))
+    if (i.stack_id) map.get(i.stack).add(normStack(i.stack_id))
+  }
+  return map
+}
+
+/**
  * Resolve user-supplied stack names against the dataset.
  * Unknown names are returned separately rather than thrown: the core checklist stands on
  * its own, so asking for a stack nobody has written a file for is a valid thing to do.
  */
 function resolveStacks (requested) {
-  const known = knownStacks()
-  const index = new Map(known.map((s) => [normStack(s), s]))
+  const index = new Map()
+  for (const [label, aliases] of stackAliases()) {
+    for (const a of aliases) index.set(a, label)
+  }
   const matched = []
   const unknown = []
   for (const raw of requested) {
     const hit = index.get(normStack(raw))
-    if (hit) matched.push(hit)
-    else unknown.push(raw)
+    if (hit) { if (!matched.includes(hit)) matched.push(hit) } else unknown.push(raw)
   }
   return { matched, unknown }
 }
@@ -64,8 +79,8 @@ function query (opts = {}) {
   let items = doc.items
 
   if (opts.stacks && opts.stacks.length) {
-    const want = new Set(opts.stacks.map(normStack))
-    items = items.filter((i) => i.stack === 'any' || want.has(normStack(i.stack)))
+    const want = new Set(resolveStacks(opts.stacks).matched)
+    items = items.filter((i) => i.stack === 'any' || want.has(i.stack))
   } else if (opts.onlyAgnostic) {
     items = items.filter((i) => i.stack === 'any')
   }
@@ -140,4 +155,4 @@ function toMarkdown (items, meta = {}) {
   return lines.join('\n')
 }
 
-module.exports = { load, query, knownStacks, resolveStacks, groupItems, toMarkdown, normStack, DATA_PATH }
+module.exports = { load, query, knownStacks, stackAliases, resolveStacks, groupItems, toMarkdown, normStack, DATA_PATH }

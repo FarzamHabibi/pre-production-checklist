@@ -6,7 +6,7 @@ This script derives the machine-readable layer from it, so adding an item never 
 editing two files.
 
 Every field here is *derived from structure*, never guessed. There is deliberately no
-`severity` field: assigning one to 2,922 items by heuristic would be invention, not data.
+`severity` field: assigning one to 3,000+ items by heuristic would be invention, not data.
 `release_gate` is the one priority signal, and it comes from which file an item lives in.
 """
 import hashlib, json, os, re
@@ -29,6 +29,10 @@ STACK_LABEL = {
     "google-cloud": "Google Cloud", "cloudflare": "Cloudflare",
     "github-actions": "GitHub", "docker": "Docker", "postgres": "PostgreSQL",
     "ios-swift": "iOS / Swift", "macos": "macOS",
+    # community-contributed framework supplements
+    "rails": "Ruby on Rails", "django": "Django", "laravel": "Laravel",
+    "spring": "Spring Boot", "go-gin": "Go / Gin", "express": "Express",
+    "react-native": "React Native", "flutter": "Flutter",
 }
 
 
@@ -74,7 +78,12 @@ def main():
                     "checklist": checklist,
                     "section": section,
                     "subsection": subsection,
+                    # Two fields on purpose: `stack` is what a human reads, `stack_id`
+                    # is the filename slug people actually type. "Ruby on Rails" and
+                    # "rails" must both resolve, and normalizing the label alone does not
+                    # get you there.
                     "stack": STACK_LABEL.get(stem, "any") if group == "stacks" else "any",
+                    "stack_id": stem if group == "stacks" else "any",
                     "release_gate": path in RELEASE_GATE_FILES,
                     "source": {"file": path, "line": lineno},
                 })
@@ -93,6 +102,7 @@ def main():
             "release_gate": sum(1 for i in items if i["release_gate"]),
         },
         "stacks": sorted({i["stack"] for i in items if i["stack"] != "any"}),
+        "stack_ids": sorted({i["stack_id"] for i in items if i["stack_id"] != "any"}),
         "items": items,
     }
     with open("data/checklist.json", "w", encoding="utf-8") as fh:

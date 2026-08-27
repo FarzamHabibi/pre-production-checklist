@@ -6,7 +6,7 @@ Built for solo founders and small teams who own the whole stack — the code, th
 infrastructure, the deploy pipeline, and increasingly the AI agents too — and who don't
 have a security team to hand it to.
 
-**2,922 security items across 47 checklists.** 94% of them apply to any stack.
+**3,093 security items across 55 checklists.** 89% of them apply to any stack.
 
 [![npm](https://img.shields.io/npm/v/prodcheck?color=cb3837&logo=npm)](https://www.npmjs.com/package/prodcheck)
 [![ci](https://github.com/FarzamHabibi/pre-production-checklist/actions/workflows/ci.yml/badge.svg)](https://github.com/FarzamHabibi/pre-production-checklist/actions/workflows/ci.yml)
@@ -74,7 +74,7 @@ checklists/
 ├── core/          1,435 items — any language, any framework
 ├── ai/              773 items — LLM features, agents, tools, RAG, MCP
 ├── vibe-coding/     548 items — bugs AI coding assistants actually write
-└── stacks/          166 items — the small remainder that names a product
+└── stacks/          337 items — 18 supplements, only if you use the product
 ```
 
 ### `core/` — applies to you regardless of language
@@ -125,24 +125,38 @@ real review findings on AI-generated code. [Browse →](checklists/README.md#vib
 
 ### `stacks/` — only if you use them
 
-166 items. Skip any file for a product you don't use; the core checklists stand on their
-own without them.
+337 items across 18 supplements. Skip any file for a product you don't use; the core
+checklists stand on their own without them.
 
-[Supabase](checklists/stacks/supabase.md) ·
-[Next.js / React](checklists/stacks/nextjs-react.md) ·
+**Backend & web**
+[Django](checklists/stacks/django.md) ·
+[Ruby on Rails](checklists/stacks/rails.md) ·
+[Laravel](checklists/stacks/laravel.md) ·
+[Spring Boot](checklists/stacks/spring.md) ·
+[Go / Gin](checklists/stacks/go-gin.md) ·
+[Express](checklists/stacks/express.md) ·
 [NestJS](checklists/stacks/nestjs.md) ·
-[Google Cloud](checklists/stacks/google-cloud.md) ·
-[Cloudflare](checklists/stacks/cloudflare.md) ·
-[GitHub](checklists/stacks/github-actions.md) ·
-[Docker](checklists/stacks/docker.md) ·
-[PostgreSQL](checklists/stacks/postgres.md) ·
+[Next.js / React](checklists/stacks/nextjs-react.md)
+
+**Mobile**
 [iOS / Swift](checklists/stacks/ios-swift.md) ·
+[React Native](checklists/stacks/react-native.md) ·
+[Flutter](checklists/stacks/flutter.md) ·
 [macOS](checklists/stacks/macos.md)
 
-**Your stack missing?** That's the most useful contribution you can make — copy
-[`_TEMPLATE.md`](checklists/stacks/_TEMPLATE.md) and open a PR. Django, Rails, Laravel,
-FastAPI, Go, Spring, AWS, Vercel, Fly.io, Kubernetes, Android, Firebase, Stripe are all
-open. See [CONTRIBUTING.md](CONTRIBUTING.md).
+**Data & platform**
+[PostgreSQL](checklists/stacks/postgres.md) ·
+[Supabase](checklists/stacks/supabase.md) ·
+[Docker](checklists/stacks/docker.md) ·
+[Google Cloud](checklists/stacks/google-cloud.md) ·
+[Cloudflare](checklists/stacks/cloudflare.md) ·
+[GitHub](checklists/stacks/github-actions.md)
+
+**Your stack missing?** That's the most useful contribution you can make. The format is
+documented end to end in [`_TEMPLATE.md`](checklists/stacks/_TEMPLATE.md) — a worked
+example, what every field drives, and the one rule that decides whether an item belongs
+in a stack file at all. Open issues exist for AWS, Vercel, Fly.io, Kubernetes, Firebase,
+Stripe, FastAPI and Android; see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
@@ -150,7 +164,7 @@ open. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 1. **Copy the files you need** into your own repo. They're working documents, meant to be
    edited and committed next to your code.
-2. **Mark `[N/A]` aggressively.** No product on earth needs all 2,922 items. No mobile
+2. **Mark `[N/A]` aggressively.** No product on earth needs all 3,093 items. No mobile
    app? `core/11` and `core/12` are 147 instant `[N/A]`s. Being honest about scope is what
    makes the remainder trustworthy.
 3. **Record every finding.** An unrecorded finding is one you'll rediscover in six months.
@@ -187,7 +201,7 @@ pasting into an AI tool. It's generated; edit the files under `checklists/` inst
 
 ## Command line
 
-Generate a checklist scoped to your project, instead of reading 2,922 items:
+Generate a checklist scoped to your project, instead of reading 3,093 items:
 
 ```bash
 npx prodcheck --stack django --group core -o SECURITY.md
@@ -353,7 +367,7 @@ This repository was compiled and expanded with [Claude](https://claude.com/claud
 (Anthropic) and [ChatGPT](https://chatgpt.com) (OpenAI), working from a real
 pre-production review rather than generating checklist items from scratch. They did the parts that don't fit in one
 person's head: cross-referencing hundreds of findings against OWASP categories, keeping
-2,922 items consistent in wording and structure, and spotting the gaps between sections.
+3,093 items consistent in wording and structure, and spotting the gaps between sections.
 
 That's worth stating plainly for two reasons.
 

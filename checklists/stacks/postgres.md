@@ -6,17 +6,17 @@ Items from the core checklists that are specific to **PostgreSQL**. If you do no
 
 ---
 
-### Backend Application Security
+## Backend Application & API
 <sub>from [`core/04-backend-api.md`](../core/04-backend-api.md)</sub>
 
 * [ ] Test PostgreSQL function parameters.
 
-### Database Security & RLS
+## Database & Row-Level Security
 <sub>from [`core/06-database.md`](../core/06-database.md)</sub>
 
 * [ ] Review every `SECURITY DEFINER` function.
 
-### Database / RLS Bugs
+## AI-Generated Authorization & Data Bugs
 <sub>from [`vibe-coding/02-authorization-and-data.md`](../vibe-coding/02-authorization-and-data.md)</sub>
 
 * [ ] AI did not create a `SECURITY DEFINER` function unnecessarily.

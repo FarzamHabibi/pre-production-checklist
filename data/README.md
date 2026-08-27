@@ -3,7 +3,7 @@
 [`checklist.json`](checklist.json) is every item in this repository as structured data,
 validated against [`schema.json`](schema.json). It exists so tools — a CLI, an MCP
 server, a website, your own script — can filter the checklist instead of making people
-read 2,922 items.
+read 3,093 items.
 
 **Generated. Do not edit.** The Markdown under `checklists/` is the source of truth.
 Run `./scripts/build.sh` to regenerate.
@@ -22,7 +22,7 @@ from the Markdown's own structure, so there is no reason to make a human maintai
 ```json
 {
   "version": 1,
-  "counts": { "total": 2922, "stack_agnostic": 2756, "release_gate": 236 },
+  "counts": { "total": 3093, "stack_agnostic": 2756, "release_gate": 236 },
   "stacks": ["Cloudflare", "Docker", "GitHub", "..."],
   "items": [
     {
@@ -50,7 +50,7 @@ reworded check is a different check, and anything tracking completion state shou
 
 ### There is no `severity` field
 
-By design. Assigning a severity to 2,922 items by heuristic would be invention presented
+By design. Assigning a severity to 3,093 items by heuristic would be invention presented
 as data, and every consumer would inherit the guess.
 
 `release_gate` is the one priority signal, and it is honest: it means the item lives in a
@@ -65,7 +65,7 @@ which one you are.
 The reference consumer is [`scripts/query.py`](../scripts/query.py):
 
 ```bash
-./scripts/query.py --stack django --group core        # 1,435 items
+./scripts/query.py --stack django --group core        # core + Django supplement
 ./scripts/query.py --stack supabase --release-gate    # what must pass before shipping
 ./scripts/query.py --search cors --format text
 ./scripts/query.py --stack rails --format json        # feed it to something else

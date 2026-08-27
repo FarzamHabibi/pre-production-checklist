@@ -67,7 +67,7 @@ test('stack-agnostic count matches the items themselves', () => {
 
 test('an unknown stack yields exactly the stack-agnostic core', () => {
   const doc = D.load()
-  const items = D.query({ stacks: ['django'] })
+  const items = D.query({ stacks: ['coldfusion'] })
   assert.strictEqual(items.length, doc.counts.stack_agnostic)
   assert.ok(items.every((i) => i.stack === 'any'))
 })
@@ -85,6 +85,18 @@ test('stack names match regardless of punctuation or case', () => {
   const c = D.query({ stacks: ['NEXTJSREACT'] }).length
   assert.strictEqual(a, b)
   assert.strictEqual(b, c)
+})
+
+test('a stack resolves by file slug as well as display label', () => {
+  // People type what they saw in the repo — "rails", "go-gin", "react-native" — not
+  // "Ruby on Rails". Matching on the label alone silently returned the bare core.
+  for (const [slug, label] of [['rails', 'Ruby on Rails'], ['spring', 'Spring Boot'],
+                               ['go-gin', 'Go / Gin'], ['react-native', 'React Native']]) {
+    const bySlug = D.query({ stacks: [slug] })
+    const byLabel = D.query({ stacks: [label] })
+    assert.strictEqual(bySlug.length, byLabel.length, `${slug} and ${label} must agree`)
+    assert.ok(bySlug.some((i) => i.stack === label), `${slug} returned no ${label} items`)
+  }
 })
 
 test('group and gate filters narrow the set', () => {
@@ -125,6 +137,48 @@ test('no source file contains a raw control byte', () => {
         assert.fail(`${path.relative(root, f)} has a raw control byte 0x${b.toString(16)} at offset ${i} — git will treat it as binary`)
       }
     }
+  }
+})
+
+test('every stack file follows the documented format', () => {
+  const fs = require('fs')
+  const dir = path.join(__dirname, '..', 'checklists', 'stacks')
+  // A stack supplement may extend any checklist, not only core/ — Cloudflare has items
+  // that belong under the AI checklists, for instance.
+  const coreTitles = new Set()
+  for (const grp of ['core', 'ai', 'vibe-coding']) {
+    const d = path.join(__dirname, '..', 'checklists', grp)
+    for (const f of fs.readdirSync(d)) {
+      if (!f.endsWith('.md') || f === 'README.md') continue
+      coreTitles.add(fs.readFileSync(path.join(d, f), 'utf8').split('\n')[0].replace(/^#\s*/, '').trim())
+    }
+  }
+
+  for (const f of fs.readdirSync(dir)) {
+    if (!f.endsWith('.md') || f === '_TEMPLATE.md' || f === 'README.md') continue
+    const where = `stacks/${f}`
+    const lines = fs.readFileSync(path.join(dir, f), 'utf8').split('\n')
+
+    assert.ok(lines[0].startsWith('# '), `${where}: first line must be the H1 display label`)
+    assert.ok(!/^#\s+[a-z-]+$/.test(lines[0]),
+      `${where}: H1 is the human label ("Ruby on Rails"), not the slug`)
+
+    const h2s = lines.filter((l) => l.startsWith('## ')).map((l) => l.slice(3).trim())
+    assert.ok(h2s.length > 0, `${where}: needs at least one H2 naming a core checklist`)
+    for (const h of h2s) {
+      assert.ok(coreTitles.has(h),
+        `${where}: H2 "${h}" does not match the H1 of any checklist`)
+    }
+    // every H2 is followed by its back-link
+    for (let i = 0; i < lines.length; i++) {
+      if (!lines[i].startsWith('## ')) continue
+      assert.ok(/^<sub>from \[`(core|ai|vibe-coding)\/[a-z0-9-]+\.md`\]\(\.\.\/(core|ai|vibe-coding)\/[a-z0-9-]+\.md\)<\/sub>$/.test(lines[i + 1] || ''),
+        `${where}: H2 "${lines[i].slice(3)}" is missing its <sub>from ...</sub> back-link`)
+    }
+    const items = lines.filter((l) => l.startsWith('* ['))
+    assert.ok(items.length >= 3, `${where}: only ${items.length} items`)
+    assert.ok(items.every((l) => l.startsWith('* [ ] ')),
+      `${where}: ships a pre-ticked item — stack files must be all [ ]`)
   }
 })
 
@@ -269,10 +323,10 @@ function mcpSession (requests) {
   await testAsync('an unknown stack is answered, not rejected', async () => {
     const [, res] = await mcpSession([
       { jsonrpc: '2.0', id: 1, method: 'initialize', params: {} },
-      { jsonrpc: '2.0', id: 2, method: 'tools/call', params: { name: 'checklist_for_stack', arguments: { stacks: ['django'], groups: ['core'], limit: 5 } } }
+      { jsonrpc: '2.0', id: 2, method: 'tools/call', params: { name: 'checklist_for_stack', arguments: { stacks: ['coldfusion'], groups: ['core'], limit: 5 } } }
     ])
     assert.ok(!res.result.isError)
-    assert.ok(res.result.content[0].text.includes('No supplement file for django'))
+    assert.ok(res.result.content[0].text.includes('No supplement file for coldfusion'))
   })
 
   await testAsync('tool errors come back in-band, not as protocol errors', async () => {
