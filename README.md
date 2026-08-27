@@ -267,14 +267,42 @@ secure. Use it to find problems, not to declare their absence.
 
 ## License
 
-[CC BY 4.0](LICENSE) — use it, fork it, adapt it, ship it commercially. Keep the
-attribution.
+Dual-licensed, because the two halves of this repository are different kinds of thing:
+
+| | License | |
+| --- | --- | --- |
+| **Content** — `checklists/`, `data/`, `ALL.md` | [CC BY 4.0](LICENSE) | Copy it, adapt it, ship it commercially. Keep the attribution. |
+| **Code** — `cli/`, `scripts/`, the `prodcheck` package | [MIT](LICENSE-CODE) | Creative Commons licenses aren't designed for software, and a CC-licensed npm package gets rejected by corporate legal review. MIT removes that friction. |
+
+## Built with AI, and honest about it
+
+This repository was compiled and expanded with [Claude](https://claude.com/claude-code)
+(Anthropic) and [ChatGPT](https://chatgpt.com) (OpenAI), working from a real audit rather
+than generating checklist items from scratch. They did the parts that don't fit in one
+person's head: cross-referencing hundreds of findings against OWASP categories, keeping
+2,922 items consistent in wording and structure, and spotting the gaps between sections.
+
+That's worth stating plainly for two reasons.
+
+**It's the honest provenance.** A security checklist asks you to trust it. You should know
+how it was made.
+
+**The `vibe-coding/` folder applies to this repository too.** It says AI-generated work
+needs review that assumes the AI was confidently wrong somewhere, and that "the tests
+pass" is not a security argument. Both were true here — the test suite for the CLI caught
+two real bugs in AI-written code, including an MCP server that silently truncated every
+response over 8 KB. The checklist is not exempt from its own advice, and neither are the
+tools shipped alongside it.
+
+If you find an item that's wrong, plausible-sounding but false, or subtly misleading,
+that's exactly the failure mode `vibe-coding/07-review-blind-spots.md` warns about.
+[Open an issue](https://github.com/FarzamHabibi/pre-production-checklist/issues) — that
+correction is worth more than three new items.
 
 ## Credits
 
 Extracted from the pre-launch security audit of [Arioo](https://arioo.com) and published
-by its founding team. Compiled and expanded with
-[Claude Code](https://claude.com/claude-code) (Anthropic).
+by its founding team.
 
-Contributions from everyone who has opened an issue or a PR are what will keep it
-accurate — see the [contributors](https://github.com/FarzamHabibi/pre-production-checklist/graphs/contributors).
+Contributions from everyone who opens an issue or a PR are what will keep it accurate —
+see the [contributors](https://github.com/FarzamHabibi/pre-production-checklist/graphs/contributors).

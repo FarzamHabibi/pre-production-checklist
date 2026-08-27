@@ -109,6 +109,25 @@ test('markdown output carries every item and the marking legend', () => {
   assert.ok(md.includes('[N/A]'))
 })
 
+test('no source file contains a raw control byte', () => {
+  const fs = require('fs')
+  const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => {
+    const full = path.join(d, e.name)
+    if (e.isDirectory()) return e.name === 'node_modules' ? [] : walk(full)
+    return /\.(js|json|md|sh|py|yml)$/.test(e.name) ? [full] : []
+  })
+  const root = path.join(__dirname, '..')
+  for (const f of walk(root)) {
+    const buf = fs.readFileSync(f)
+    for (let i = 0; i < buf.length; i++) {
+      const b = buf[i]
+      if (b < 9 || (b > 13 && b < 32) || b === 127) {
+        assert.fail(`${path.relative(root, f)} has a raw control byte 0x${b.toString(16)} at offset ${i} — git will treat it as binary`)
+      }
+    }
+  }
+})
+
 // ------------------------------------------------------------------ CLI
 console.log('\ncli')
 

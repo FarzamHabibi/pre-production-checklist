@@ -20,7 +20,7 @@
     "type": "git",
     "url": "git+https://github.com/FarzamHabibi/pre-production-checklist.git"
   },
-  "license": "CC-BY-4.0",
+  "license": "MIT",
   "bin": {
     "prodcheck": "cli/index.js",
     "prodcheck-mcp": "cli/mcp.js"
@@ -30,7 +30,8 @@
     "data/checklist.json",
     "data/schema.json",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "LICENSE-CODE"
   ],
   "scripts": {
     "build": "./scripts/build.sh",

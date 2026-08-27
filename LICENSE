@@ -2,6 +2,13 @@ Creative Commons Attribution 4.0 International (CC BY 4.0)
 
 Copyright (c) 2026 Farzam Habibi
 
+Applies to the checklist content — everything under `checklists/`, `data/`, and
+`ALL.md`.
+
+The software in this repository — everything under `cli/` and `scripts/`, and the
+`prodcheck` npm package — is licensed separately under the MIT License.
+See LICENSE-CODE.
+
 This work is licensed under the Creative Commons Attribution 4.0 International
 License.
 
