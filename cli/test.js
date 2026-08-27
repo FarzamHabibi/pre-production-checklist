@@ -175,6 +175,22 @@ test('--out refuses to clobber an existing file', () => {
   )
 })
 
+test('README only documents bin names that this package actually declares', () => {
+  const fs = require('fs')
+  const pkg = require('../package.json')
+  const readme = fs.readFileSync(path.join(__dirname, '..', 'README.md'), 'utf8')
+  // `npx -y <name>` resolves <name> as a PACKAGE. A bin that is not also a published
+  // package name only works via `npx --package=<pkg> <bin>`. Shipping the short form
+  // for prodcheck-mcp gave every reader a command that 404s.
+  for (const bin of Object.keys(pkg.bin)) {
+    if (bin === pkg.name) continue
+    const bare = new RegExp(`npx\\s+(-y\\s+)?${bin}\\b`)
+    assert.ok(!bare.test(readme),
+      `README tells people to run "npx ${bin}", but "${bin}" is a bin, not a package. ` +
+      `Use "npx -y --package=${pkg.name} ${bin}".`)
+  }
+})
+
 // ------------------------------------------------------------------ MCP
 console.log('\nmcp server')
 

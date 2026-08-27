@@ -211,7 +211,7 @@ it in. Read-only, no filesystem or network access beyond its own bundled data.
 **Claude Code**
 
 ```bash
-claude mcp add prodcheck -- npx -y prodcheck-mcp
+claude mcp add prodcheck -- npx -y --package=prodcheck prodcheck-mcp
 ```
 
 **Anything else** — add to your MCP client config:
@@ -219,7 +219,10 @@ claude mcp add prodcheck -- npx -y prodcheck-mcp
 ```json
 {
   "mcpServers": {
-    "prodcheck": { "command": "npx", "args": ["-y", "prodcheck-mcp"] }
+    "prodcheck": {
+      "command": "npx",
+      "args": ["-y", "--package=prodcheck", "prodcheck-mcp"]
+    }
   }
 }
 ```
