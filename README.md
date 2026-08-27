@@ -10,18 +10,22 @@ have a security team to hand it to.
 
 ### [→ Browse all checklists](checklists/README.md)
 
+<sub>Built and maintained by the team at **[Arioo](https://arioo.com)** — where we ship
+the kind of product this checklist was written for.</sub>
+
 ---
 
 ## Why this exists
 
-I'm a founder at [Arioo](https://arioo.com). Before our launch I ran a deep security
-audit of everything we'd built, and the audit turned up more than I expected — including
-a few things that had been sitting in production-bound code for months, in areas I'd
-have told you with confidence were fine.
+I'm a founder at [Arioo](https://arioo.com). Getting ready to launch, I needed a
+pre-production security review that covered the whole surface we actually ship: a
+TypeScript backend, a web app, native clients, a deploy pipeline, and a set of AI agents
+with real tools attached. Nothing I could find covered more than a fraction of that, so I
+built the checklist myself.
 
-What struck me afterwards wasn't the findings. It was that **the checklist was more
-valuable than the audit.** The findings were specific to our code and are fixed. The
-questions that surfaced them apply to anyone shipping a product.
+**This repository is the checklist, not a report.** It is the set of questions,
+generalized away from our stack and rewritten as a working document anyone can run
+against their own product.
 
 Two things made it worth publishing rather than keeping:
 
@@ -277,8 +281,8 @@ Dual-licensed, because the two halves of this repository are different kinds of 
 ## Built with AI, and honest about it
 
 This repository was compiled and expanded with [Claude](https://claude.com/claude-code)
-(Anthropic) and [ChatGPT](https://chatgpt.com) (OpenAI), working from a real audit rather
-than generating checklist items from scratch. They did the parts that don't fit in one
+(Anthropic) and [ChatGPT](https://chatgpt.com) (OpenAI), working from a real
+pre-production review rather than generating checklist items from scratch. They did the parts that don't fit in one
 person's head: cross-referencing hundreds of findings against OWASP categories, keeping
 2,922 items consistent in wording and structure, and spotting the gaps between sections.
 
@@ -290,8 +294,8 @@ how it was made.
 **The `vibe-coding/` folder applies to this repository too.** It says AI-generated work
 needs review that assumes the AI was confidently wrong somewhere, and that "the tests
 pass" is not a security argument. Both were true here — the test suite for the CLI caught
-two real bugs in AI-written code, including an MCP server that silently truncated every
-response over 8 KB. The checklist is not exempt from its own advice, and neither are the
+three real bugs in AI-written code, including an MCP server that silently truncated
+every response over 8 KB. The checklist is not exempt from its own advice, and neither are the
 tools shipped alongside it.
 
 If you find an item that's wrong, plausible-sounding but false, or subtly misleading,
@@ -301,8 +305,8 @@ correction is worth more than three new items.
 
 ## Credits
 
-Extracted from the pre-launch security audit of [Arioo](https://arioo.com) and published
-by its founding team.
+Written and maintained by the founding team at **[Arioo](https://arioo.com)**, out of
+the work of getting our own product ready to ship.
 
 Contributions from everyone who opens an issue or a PR are what will keep it accurate —
 see the [contributors](https://github.com/FarzamHabibi/pre-production-checklist/graphs/contributors).
