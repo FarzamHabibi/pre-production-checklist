@@ -36,6 +36,23 @@ jobs:
             exit 1
           fi
 
+      - name: GitHub sidebar description matches the README
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          want="$(cat .github/description.txt)"
+          have="$(gh api "repos/${GITHUB_REPOSITORY}" --jq '.description // ""')"
+          if [ "$want" != "$have" ]; then
+            echo "::error::The repository description has drifted from the README."
+            echo "  sidebar: $have"
+            echo "  should be: $want"
+            echo ""
+            echo "Fix with:"
+            echo "  gh repo edit --description \"$want\""
+            exit 1
+          fi
+          echo "sidebar in sync"
+
       - name: No broken internal links
         run: |
           python3 - <<'PY'

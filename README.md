@@ -6,7 +6,9 @@ Built for solo founders and small teams who own the whole stack — the code, th
 infrastructure, the deploy pipeline, and increasingly the AI agents too — and who don't
 have a security team to hand it to.
 
+<!-- counts:begin -->
 **3,093 security items across 55 checklists.** 89% of them apply to any stack.
+<!-- counts:end -->
 
 [![npm](https://img.shields.io/npm/v/prodcheck?color=cb3837&logo=npm)](https://www.npmjs.com/package/prodcheck)
 [![ci](https://github.com/FarzamHabibi/pre-production-checklist/actions/workflows/ci.yml/badge.svg)](https://github.com/FarzamHabibi/pre-production-checklist/actions/workflows/ci.yml)
