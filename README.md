@@ -7,7 +7,7 @@ infrastructure, the deploy pipeline, and increasingly the AI agents too — and 
 have a security team to hand it to.
 
 <!-- counts:begin -->
-**3,093 security items across 55 checklists.** 89% of them apply to any stack.
+**3,149 security items across 56 checklists.** 89% of them apply to any stack.
 <!-- counts:end -->
 
 [![npm](https://img.shields.io/npm/v/prodcheck?color=cb3837&logo=npm)](https://www.npmjs.com/package/prodcheck)
@@ -63,6 +63,7 @@ You are not meant to read this top to bottom. In order of signal-per-minute:
 | **2** | [The "must not exist" search](checklists/core/17-release-gates.md#high-risk-must-not-exist-search) | A grep list. Fastest real signal in the repo |
 | **3** | [Authentication & authorization](checklists/core/02-authorization.md) | Where almost every exploitable bug actually lives |
 | **4** | [Prompt injection](checklists/ai/02-prompt-injection.md) | Only if you ship an LLM feature — but then, urgently |
+| **5** | [Your service as a weapon](checklists/core/18-abuse-and-availability.md#your-service-as-a-weapon) | The one nobody looks for until the suspension email arrives |
 
 Then work section by section. Switching between edge config and database policies
 costs more than it saves.
@@ -73,7 +74,7 @@ costs more than it saves.
 
 ```
 checklists/
-├── core/          1,435 items — any language, any framework
+├── core/          1,491 items — any language, any framework
 ├── ai/              773 items — LLM features, agents, tools, RAG, MCP
 ├── vibe-coding/     548 items — bugs AI coding assistants actually write
 └── stacks/          337 items — 18 supplements, only if you use the product
@@ -87,7 +88,7 @@ wildcard origins with credentials" is as true in Django as in Express. Everythin
 genuinely named a product was moved out to `stacks/`.
 
 If you write Python, Go, Ruby, PHP, Java, Rust or Elixir: **this folder is your
-checklist, all 1,435 items of it.**
+checklist, all 1,491 items of it.**
 
 | | Items | | | Items |
 | --- | ---: | --- | --- | ---: |
@@ -97,10 +98,10 @@ checklist, all 1,435 items of it.**
 | [Backend application & API](checklists/core/04-backend-api.md) | 223 | | [DNS, CDN, edge & WAF](checklists/core/14-edge-dns-waf.md) | 78 |
 | [Web frontend](checklists/core/05-web-frontend.md) | 127 | | [CI/CD & supply chain](checklists/core/15-ci-cd-and-supply-chain.md) | 158 |
 | [Database & row-level security](checklists/core/06-database.md) | 68 | | [Monitoring & incident response](checklists/core/16-monitoring-and-response.md) | 30 |
-| [Object storage & files](checklists/core/07-storage-and-files.md) | 55 | | [Pre-release gates](checklists/core/17-release-gates.md) | 146 |
+| [Object storage & files](checklists/core/07-storage-and-files.md) | 55 | | [Pre-release gates](checklists/core/17-release-gates.md) | 149 |
 | [Secrets & cryptography](checklists/core/08-secrets-and-crypto.md) | 47 | | | |
 | [Common web attacks](checklists/core/09-common-web-attacks.md) | 62 | | | |
-| [Business logic & race conditions](checklists/core/10-business-logic.md) | 44 | | | |
+| [Business logic & race conditions](checklists/core/10-business-logic.md) | 44 | | [**Abuse & availability**](checklists/core/18-abuse-and-availability.md) | **53** |
 
 ### `ai/` — the part you won't find in a standard checklist
 

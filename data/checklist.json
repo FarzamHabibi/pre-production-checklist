@@ -5,15 +5,15 @@
   "license": "CC-BY-4.0",
   "generated_by": "scripts/build_data.py",
   "counts": {
-    "total": 3093,
+    "total": 3149,
     "by_group": {
-      "core": 1435,
+      "core": 1491,
       "ai": 773,
       "vibe-coding": 548,
       "stacks": 337
     },
-    "stack_agnostic": 2756,
-    "release_gate": 236
+    "stack_agnostic": 2812,
+    "release_gate": 239
   },
   "stacks": [
     "Cloudflare",
@@ -19527,6 +19527,51 @@
       }
     },
     {
+      "id": "core.17-release-gates.f3b4dbce",
+      "text": "Any unauthenticated feature that fetches a URL on the caller's behalf — an open proxy.",
+      "group": "core",
+      "checklist": "Pre-Release Gates",
+      "section": "Findings That Should Block Release",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/core/17-release-gates.md",
+        "line": 21
+      }
+    },
+    {
+      "id": "core.17-release-gates.02d2259f",
+      "text": "Any way to send email, SMS or push to a recipient chosen by the request body.",
+      "group": "core",
+      "checklist": "Pre-Release Gates",
+      "section": "Findings That Should Block Release",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/core/17-release-gates.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "core.17-release-gates.ca4fa8b4",
+      "text": "Any paid third-party action reachable without a per-user quota.",
+      "group": "core",
+      "checklist": "Pre-Release Gates",
+      "section": "Findings That Should Block Release",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/core/17-release-gates.md",
+        "line": 23
+      }
+    },
+    {
       "id": "core.17-release-gates.8ab22911",
       "text": "Any arbitrary command execution.",
       "group": "core",
@@ -19538,7 +19583,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 21
+        "line": 24
       }
     },
     {
@@ -19553,7 +19598,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 22
+        "line": 25
       }
     },
     {
@@ -19568,7 +19613,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 23
+        "line": 26
       }
     },
     {
@@ -19583,7 +19628,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 24
+        "line": 27
       }
     },
     {
@@ -19598,7 +19643,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 25
+        "line": 28
       }
     },
     {
@@ -19613,7 +19658,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 26
+        "line": 29
       }
     },
     {
@@ -19628,7 +19673,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 27
+        "line": 30
       }
     },
     {
@@ -19643,7 +19688,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 28
+        "line": 31
       }
     },
     {
@@ -19658,7 +19703,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 36
+        "line": 39
       }
     },
     {
@@ -19673,7 +19718,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 37
+        "line": 40
       }
     },
     {
@@ -19688,7 +19733,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 38
+        "line": 41
       }
     },
     {
@@ -19703,7 +19748,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 39
+        "line": 42
       }
     },
     {
@@ -19718,7 +19763,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 40
+        "line": 43
       }
     },
     {
@@ -19733,7 +19778,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 41
+        "line": 44
       }
     },
     {
@@ -19748,7 +19793,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 42
+        "line": 45
       }
     },
     {
@@ -19763,7 +19808,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 43
+        "line": 46
       }
     },
     {
@@ -19778,7 +19823,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 44
+        "line": 47
       }
     },
     {
@@ -19793,7 +19838,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 45
+        "line": 48
       }
     },
     {
@@ -19808,7 +19853,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 46
+        "line": 49
       }
     },
     {
@@ -19823,7 +19868,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 47
+        "line": 50
       }
     },
     {
@@ -19838,7 +19883,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 48
+        "line": 51
       }
     },
     {
@@ -19853,7 +19898,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 49
+        "line": 52
       }
     },
     {
@@ -19868,7 +19913,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 50
+        "line": 53
       }
     },
     {
@@ -19883,7 +19928,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 51
+        "line": 54
       }
     },
     {
@@ -19898,7 +19943,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 52
+        "line": 55
       }
     },
     {
@@ -19913,7 +19958,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 53
+        "line": 56
       }
     },
     {
@@ -19928,7 +19973,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 54
+        "line": 57
       }
     },
     {
@@ -19943,7 +19988,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 55
+        "line": 58
       }
     },
     {
@@ -19958,7 +20003,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 61
+        "line": 64
       }
     },
     {
@@ -19973,7 +20018,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 62
+        "line": 65
       }
     },
     {
@@ -19988,7 +20033,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 63
+        "line": 66
       }
     },
     {
@@ -20003,7 +20048,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 64
+        "line": 67
       }
     },
     {
@@ -20018,7 +20063,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 65
+        "line": 68
       }
     },
     {
@@ -20033,7 +20078,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 66
+        "line": 69
       }
     },
     {
@@ -20048,7 +20093,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 67
+        "line": 70
       }
     },
     {
@@ -20063,7 +20108,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 68
+        "line": 71
       }
     },
     {
@@ -20078,7 +20123,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 69
+        "line": 72
       }
     },
     {
@@ -20093,7 +20138,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 70
+        "line": 73
       }
     },
     {
@@ -20108,7 +20153,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 71
+        "line": 74
       }
     },
     {
@@ -20123,7 +20168,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 72
+        "line": 75
       }
     },
     {
@@ -20138,7 +20183,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 73
+        "line": 76
       }
     },
     {
@@ -20153,7 +20198,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 74
+        "line": 77
       }
     },
     {
@@ -20168,7 +20213,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 75
+        "line": 78
       }
     },
     {
@@ -20183,7 +20228,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 76
+        "line": 79
       }
     },
     {
@@ -20198,7 +20243,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 77
+        "line": 80
       }
     },
     {
@@ -20213,7 +20258,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 78
+        "line": 81
       }
     },
     {
@@ -20228,7 +20273,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 79
+        "line": 82
       }
     },
     {
@@ -20243,7 +20288,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 85
+        "line": 88
       }
     },
     {
@@ -20258,7 +20303,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 86
+        "line": 89
       }
     },
     {
@@ -20273,7 +20318,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 87
+        "line": 90
       }
     },
     {
@@ -20288,7 +20333,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 88
+        "line": 91
       }
     },
     {
@@ -20303,7 +20348,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 89
+        "line": 92
       }
     },
     {
@@ -20318,7 +20363,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 90
+        "line": 93
       }
     },
     {
@@ -20333,7 +20378,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 91
+        "line": 94
       }
     },
     {
@@ -20348,7 +20393,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 92
+        "line": 95
       }
     },
     {
@@ -20363,7 +20408,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 93
+        "line": 96
       }
     },
     {
@@ -20378,7 +20423,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 94
+        "line": 97
       }
     },
     {
@@ -20393,7 +20438,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 100
+        "line": 103
       }
     },
     {
@@ -20408,7 +20453,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 101
+        "line": 104
       }
     },
     {
@@ -20423,7 +20468,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 102
+        "line": 105
       }
     },
     {
@@ -20438,7 +20483,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 103
+        "line": 106
       }
     },
     {
@@ -20453,7 +20498,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 104
+        "line": 107
       }
     },
     {
@@ -20468,7 +20513,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 105
+        "line": 108
       }
     },
     {
@@ -20483,7 +20528,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 106
+        "line": 109
       }
     },
     {
@@ -20498,7 +20543,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 107
+        "line": 110
       }
     },
     {
@@ -20513,7 +20558,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 108
+        "line": 111
       }
     },
     {
@@ -20528,7 +20573,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 109
+        "line": 112
       }
     },
     {
@@ -20543,7 +20588,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 110
+        "line": 113
       }
     },
     {
@@ -20558,7 +20603,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 111
+        "line": 114
       }
     },
     {
@@ -20573,7 +20618,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 112
+        "line": 115
       }
     },
     {
@@ -20588,7 +20633,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 113
+        "line": 116
       }
     },
     {
@@ -20603,7 +20648,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 114
+        "line": 117
       }
     },
     {
@@ -20618,7 +20663,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 115
+        "line": 118
       }
     },
     {
@@ -20633,7 +20678,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 116
+        "line": 119
       }
     },
     {
@@ -20648,7 +20693,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 117
+        "line": 120
       }
     },
     {
@@ -20663,7 +20708,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 125
+        "line": 128
       }
     },
     {
@@ -20678,7 +20723,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 126
+        "line": 129
       }
     },
     {
@@ -20693,7 +20738,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 127
+        "line": 130
       }
     },
     {
@@ -20708,7 +20753,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 128
+        "line": 131
       }
     },
     {
@@ -20723,7 +20768,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 129
+        "line": 132
       }
     },
     {
@@ -20738,7 +20783,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 130
+        "line": 133
       }
     },
     {
@@ -20753,7 +20798,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 131
+        "line": 134
       }
     },
     {
@@ -20768,7 +20813,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 132
+        "line": 135
       }
     },
     {
@@ -20783,7 +20828,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 133
+        "line": 136
       }
     },
     {
@@ -20798,7 +20843,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 134
+        "line": 137
       }
     },
     {
@@ -20813,7 +20858,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 135
+        "line": 138
       }
     },
     {
@@ -20828,7 +20873,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 139
+        "line": 142
       }
     },
     {
@@ -20843,7 +20888,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 140
+        "line": 143
       }
     },
     {
@@ -20858,7 +20903,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 141
+        "line": 144
       }
     },
     {
@@ -20873,7 +20918,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 142
+        "line": 145
       }
     },
     {
@@ -20888,7 +20933,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 143
+        "line": 146
       }
     },
     {
@@ -20903,7 +20948,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 144
+        "line": 147
       }
     },
     {
@@ -20918,7 +20963,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 145
+        "line": 148
       }
     },
     {
@@ -20933,7 +20978,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 146
+        "line": 149
       }
     },
     {
@@ -20948,7 +20993,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 150
+        "line": 153
       }
     },
     {
@@ -20963,7 +21008,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 151
+        "line": 154
       }
     },
     {
@@ -20978,7 +21023,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 152
+        "line": 155
       }
     },
     {
@@ -20993,7 +21038,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 153
+        "line": 156
       }
     },
     {
@@ -21008,7 +21053,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 154
+        "line": 157
       }
     },
     {
@@ -21023,7 +21068,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 155
+        "line": 158
       }
     },
     {
@@ -21038,7 +21083,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 156
+        "line": 159
       }
     },
     {
@@ -21053,7 +21098,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 157
+        "line": 160
       }
     },
     {
@@ -21068,7 +21113,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 158
+        "line": 161
       }
     },
     {
@@ -21083,7 +21128,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 159
+        "line": 162
       }
     },
     {
@@ -21098,7 +21143,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 160
+        "line": 163
       }
     },
     {
@@ -21113,7 +21158,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 161
+        "line": 164
       }
     },
     {
@@ -21128,7 +21173,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 162
+        "line": 165
       }
     },
     {
@@ -21143,7 +21188,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 163
+        "line": 166
       }
     },
     {
@@ -21158,7 +21203,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 167
+        "line": 170
       }
     },
     {
@@ -21173,7 +21218,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 168
+        "line": 171
       }
     },
     {
@@ -21188,7 +21233,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 169
+        "line": 172
       }
     },
     {
@@ -21203,7 +21248,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 170
+        "line": 173
       }
     },
     {
@@ -21218,7 +21263,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 171
+        "line": 174
       }
     },
     {
@@ -21233,7 +21278,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 172
+        "line": 175
       }
     },
     {
@@ -21248,7 +21293,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 173
+        "line": 176
       }
     },
     {
@@ -21263,7 +21308,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 174
+        "line": 177
       }
     },
     {
@@ -21278,7 +21323,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 175
+        "line": 178
       }
     },
     {
@@ -21293,7 +21338,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 176
+        "line": 179
       }
     },
     {
@@ -21308,7 +21353,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 177
+        "line": 180
       }
     },
     {
@@ -21323,7 +21368,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 178
+        "line": 181
       }
     },
     {
@@ -21338,7 +21383,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 179
+        "line": 182
       }
     },
     {
@@ -21353,7 +21398,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 185
+        "line": 188
       }
     },
     {
@@ -21368,7 +21413,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 186
+        "line": 189
       }
     },
     {
@@ -21383,7 +21428,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 187
+        "line": 190
       }
     },
     {
@@ -21398,7 +21443,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 188
+        "line": 191
       }
     },
     {
@@ -21413,7 +21458,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 189
+        "line": 192
       }
     },
     {
@@ -21428,7 +21473,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 190
+        "line": 193
       }
     },
     {
@@ -21443,7 +21488,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 191
+        "line": 194
       }
     },
     {
@@ -21458,7 +21503,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 192
+        "line": 195
       }
     },
     {
@@ -21473,7 +21518,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 193
+        "line": 196
       }
     },
     {
@@ -21488,7 +21533,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 194
+        "line": 197
       }
     },
     {
@@ -21503,7 +21548,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 195
+        "line": 198
       }
     },
     {
@@ -21518,7 +21563,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 196
+        "line": 199
       }
     },
     {
@@ -21533,7 +21578,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 197
+        "line": 200
       }
     },
     {
@@ -21548,7 +21593,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 198
+        "line": 201
       }
     },
     {
@@ -21563,7 +21608,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 199
+        "line": 202
       }
     },
     {
@@ -21578,7 +21623,802 @@
       "release_gate": true,
       "source": {
         "file": "checklists/core/17-release-gates.md",
-        "line": 200
+        "line": 203
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.d1dd1e0f",
+      "text": "Identify the single most expensive operation a caller can trigger, and confirm it is authenticated, rate-limited and bounded.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.329e7a64",
+      "text": "Verify limits exist per user and per tenant, not only globally — one global limit lets a single account deny service to everyone else.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.6ca883da",
+      "text": "Verify concurrency is capped, not just request rate; ten concurrent slow requests can cost more than a thousand fast ones.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.2eb11a02",
+      "text": "Verify pagination has a maximum page size that the client cannot raise.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.9b382937",
+      "text": "Verify any endpoint returning a collection cannot be asked for the entire table.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.683f86f3",
+      "text": "Verify sorting, filtering and aggregation cannot be pointed at unindexed columns by the caller.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.36026e9f",
+      "text": "Verify nested or recursive payloads are depth-limited — JSON nesting, GraphQL query depth, XML entity expansion, deeply nested multipart.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.a7e392f9",
+      "text": "Verify uploaded archives are checked for decompression ratio before extraction (zip bomb).",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.21933967",
+      "text": "Verify image and document processing has memory, dimension and time limits; a small file can decompress into gigabytes of pixels.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.54c434a7",
+      "text": "Verify no user-supplied string is ever compiled into a regular expression, and that your own expressions have no catastrophic backtracking.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.ac5198b6",
+      "text": "Verify cache misses cannot stampede — a popular expired key should not send every concurrent request to the origin.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.31192cdb",
+      "text": "Verify retries use exponential backoff with jitter, in your clients and in your service-to-service calls, so a partial failure cannot become a retry storm.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.87c48e78",
+      "text": "Verify a slow or failing third-party dependency degrades your service rather than hanging it — timeouts and a circuit breaker on every outbound call.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.b2ba02c5",
+      "text": "Verify autoscaling has an upper bound and a budget alert; without one, an availability attack succeeds as a billing attack instead.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.210aba6b",
+      "text": "Verify load shedding exists: under pressure the service returns 429 or 503 quickly rather than queueing indefinitely.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 41
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.4f78e031",
+      "text": "Verify background job queues have a maximum depth and cannot be filled by an unauthenticated caller.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 42
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.7633d953",
+      "text": "Verify long-lived connections (WebSocket, SSE, streaming responses) are capped per user and time out when idle.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Resource exhaustion",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 43
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.aaf2e3f9",
+      "text": "Inventory every feature that fetches a URL the user supplied: link previews, avatar-from-URL, import-from-URL, webhook delivery, RSS or sitemap ingestion, PDF and screenshot rendering, OG-tag scraping, file mirroring, AI tools that browse.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Outbound fetch",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 54
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.c47f7c48",
+      "text": "Verify each of those is authenticated — an unauthenticated URL fetcher is an open proxy with a marketing page.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Outbound fetch",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 55
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.d1d92613",
+      "text": "Verify each is rate-limited **per user**, not only globally; a global limit still lets one account consume the whole allowance to attack a target.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Outbound fetch",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.ad6cfb36",
+      "text": "Verify the response size is capped and the connection times out, so a slow or endless target cannot pin your workers.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Outbound fetch",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 57
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.a23928ef",
+      "text": "Verify redirects are followed to a bounded depth and re-validated at every hop.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Outbound fetch",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 58
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.dafaa373",
+      "text": "Verify the amplification ratio is close to one: a small request from the caller must not produce a large request to a third party.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Outbound fetch",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 59
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.3b984b1e",
+      "text": "Verify the same target cannot be requested repeatedly by rotating trivially different URLs (query string, fragment, casing, trailing slash).",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Outbound fetch",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 60
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.3be0ee68",
+      "text": "Verify outbound requests carry a User-Agent identifying your service and a link to your abuse policy, so a target can tell you rather than block you.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Outbound fetch",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 61
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.f21730a2",
+      "text": "Verify you honour `robots.txt` and back off on `429` and `503` from targets you fetch repeatedly.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Outbound fetch",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 62
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.8507749a",
+      "text": "Verify egress passes through a NAT or proxy with an IP you control and can rotate, rather than a shared cloud range you cannot.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Outbound fetch",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 63
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.517df431",
+      "text": "Verify email sending cannot be triggered at an arbitrary recipient by an unauthenticated caller — signup confirmations, invites, \"share this page\", password resets and contact forms are all send-to-anyone primitives.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Messaging and paid actions",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 67
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.99eec5f3",
+      "text": "Verify the recipient of any transactional email is derived from your own records, never taken from the request body.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Messaging and paid actions",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 68
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.d78f0b90",
+      "text": "Verify user-supplied text cannot inject headers or additional recipients into an outgoing message.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Messaging and paid actions",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 69
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.10f86f02",
+      "text": "Verify SMS and voice endpoints are rate-limited per user, per destination number and per country — SMS pumping directs floods at premium ranges and bills you for every message.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Messaging and paid actions",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 70
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.241aaa85",
+      "text": "Verify countries you do not serve are blocked outright for SMS and voice.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Messaging and paid actions",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 71
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.140fba26",
+      "text": "Verify push notification sending cannot be triggered for arbitrary device tokens.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Messaging and paid actions",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 72
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.22e1f476",
+      "text": "Verify every paid third-party action — model calls, SMS, email, geocoding, storage writes — has a per-user quota and a global budget alarm.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Messaging and paid actions",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 73
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.c95a22e6",
+      "text": "Verify a new, unverified account cannot reach the expensive capabilities at all until it has done something that costs the attacker time or money.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Messaging and paid actions",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 74
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.e3259695",
+      "text": "Verify user-uploaded files cannot be served from your primary domain in a way that makes your brand host malware or a phishing page.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Hosting and identity",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 78
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.255b0dab",
+      "text": "Verify uploaded content is served with `Content-Disposition: attachment` and a non-executable content type unless rendering is genuinely required.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Hosting and identity",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 79
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.69ff29c9",
+      "text": "Verify user-generated public pages, profiles or short links cannot be used to host redirects to attacker sites under your domain's reputation.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Hosting and identity",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 80
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.aa30d155",
+      "text": "Verify wildcard DNS and unclaimed subdomains cannot be taken over and used to send mail or serve content as you.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Hosting and identity",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 81
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.31e9d239",
+      "text": "Verify SPF, DKIM and DMARC are configured and DMARC is set to something stronger than `p=none`, so a spoofed campaign does not burn your domain.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Hosting and identity",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 82
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.ce3a87e7",
+      "text": "Verify free-tier signup cannot be automated into resource farming — build minutes, container runtime and model credits are all mined.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Hosting and identity",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 83
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.105f6406",
+      "text": "Verify CI/CD runners cannot be used for cryptomining by a pull request from a fork; check the workflow trigger, not just the secrets.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Hosting and identity",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 84
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.d61f7a85",
+      "text": "Verify referral, invite, trial and credit systems cannot be cycled by one person for unbounded value.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Your service as a weapon",
+      "subsection": "Hosting and identity",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 85
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.a391d204",
+      "text": "Verify outbound request volume and outbound bandwidth are monitored, with an alert on a sudden rise — this is the earliest signal that your service is being used against someone.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Knowing it is happening",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 94
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.68576b6d",
+      "text": "Verify spend is alerted on rate of change, not only on a monthly total.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Knowing it is happening",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 95
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.bb3563c9",
+      "text": "Verify the top talkers by user, IP and destination are visible in under five minutes without writing a new query.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Knowing it is happening",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 96
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.5624729b",
+      "text": "Verify an `abuse@` and a `security@` address exist for your domain, reach a human, and are published where a reporter will look.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Knowing it is happening",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 97
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.94f66905",
+      "text": "Verify the WHOIS or RDAP record for your domain has a working contact address.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Knowing it is happening",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 98
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.e6d75e18",
+      "text": "Verify you can disable a single abusive account, and revoke its sessions and queued jobs, without a deploy.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Knowing it is happening",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 99
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.37fdac76",
+      "text": "Verify you can disable an entire feature — the URL fetcher, SMS, invites — behind a flag, without a deploy.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Knowing it is happening",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 100
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.06495a44",
+      "text": "Document what happens if your cloud provider suspends the account for an acceptable-use violation: who is contacted, from what address, and how the service is restored.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Knowing it is happening",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 101
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.4b1eb98c",
+      "text": "Verify your provider's acceptable-use policy has been read by someone on the team, and that the features you ship do not violate it under abuse.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Knowing it is happening",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 102
+      }
+    },
+    {
+      "id": "core.18-abuse-and-availability.8b256caa",
+      "text": "Verify blocklist status for your sending IPs and domain is checked on a schedule, not discovered from a customer complaint.",
+      "group": "core",
+      "checklist": "Abuse & Availability",
+      "section": "Knowing it is happening",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/core/18-abuse-and-availability.md",
+        "line": 103
       }
     },
     {

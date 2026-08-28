@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Concatenate every checklist into ALL.md — one file to paste into an AI tool or print."""
-import os
+import os, re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
@@ -36,8 +36,12 @@ for group in ORDER:
         for l in raw:
             if l.startswith("[← all checklists]"):
                 continue
-            # ALL.md sits at the repo root, so ../foo/bar.md must become checklists/foo/bar.md
+            # ALL.md sits at the repo root, so every relative link has to be rebased:
+            #   ../core/x.md  -> checklists/core/x.md   (cross-group)
+            #   x.md          -> checklists/<group>/x.md (sibling in the same folder)
             l = l.replace("](../", "](checklists/")
+            l = re.sub(r"\]\((?!https?:|mailto:|#|checklists/)([a-z0-9._-]+\.md)",
+                       rf"](checklists/{group}/\1", l)
             parts.append("#" + l if l.startswith("# ") else l)  # demote file titles
         parts.append("")
 

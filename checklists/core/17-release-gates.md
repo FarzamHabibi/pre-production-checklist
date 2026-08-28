@@ -18,6 +18,9 @@
 * [ ] Any exposed private storage object without intentional public access.
 * [ ] Any unauthenticated privileged API.
 * [ ] Any SSRF to cloud/internal infrastructure.
+* [ ] Any unauthenticated feature that fetches a URL on the caller's behalf — an open proxy.
+* [ ] Any way to send email, SMS or push to a recipient chosen by the request body.
+* [ ] Any paid third-party action reachable without a per-user quota.
 * [ ] Any arbitrary command execution.
 * [ ] Any arbitrary file read/write with sensitive impact.
 * [ ] Any account-takeover path.

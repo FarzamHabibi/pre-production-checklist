@@ -5,7 +5,7 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**2,756 of the 3,093 items (89%) are stack-agnostic** — everything outside `stacks/`. Only 337 items name a specific product.
+**2,812 of the 3,149 items (89%) are stack-agnostic** — everything outside `stacks/`. Only 337 items name a specific product.
 
 ---
 
@@ -31,8 +31,9 @@ Language- and framework-independent. If you build with Python, Go, Ruby, PHP, Ja
 | [DNS, CDN, Edge & WAF](core/14-edge-dns-waf.md) | 78 |
 | [CI/CD & Supply Chain](core/15-ci-cd-and-supply-chain.md) | 158 |
 | [Monitoring, Detection & Incident Response](core/16-monitoring-and-response.md) | 30 |
-| [Pre-Release Gates](core/17-release-gates.md) | 146 |
-| **Total** | **1,435** |
+| [Pre-Release Gates](core/17-release-gates.md) | 149 |
+| [Abuse & Availability](core/18-abuse-and-availability.md) | 53 |
+| **Total** | **1,491** |
 
 ---
 

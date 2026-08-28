@@ -182,6 +182,43 @@ test('every stack file follows the documented format', () => {
   }
 })
 
+test('README item counts agree with the data', () => {
+  const fs = require('fs')
+  const doc = D.load()
+  const readme = fs.readFileSync(path.join(__dirname, '..', 'README.md'), 'utf8')
+
+  // Per-file counts in the README's tables.
+  const perFile = new Map()
+  for (const i of doc.items) {
+    perFile.set(i.source.file, (perFile.get(i.source.file) || 0) + 1)
+  }
+  const row = /\[[^\]]+\]\((checklists\/(?:core|ai|vibe-coding)\/[a-z0-9-]+\.md)\)\s*\|\s*\*{0,2}(\d+)/g
+  let m
+  let checked = 0
+  while ((m = row.exec(readme)) !== null) {
+    const [, file, claimed] = m
+    assert.strictEqual(perFile.get(file), Number(claimed),
+      `README says ${file} has ${claimed} items; it has ${perFile.get(file)}`)
+    checked++
+  }
+  assert.ok(checked > 20, `only ${checked} README rows were checked — did the tables change shape?`)
+
+  // Per-group totals in the structure block.
+  for (const [group, n] of Object.entries(doc.counts.by_group)) {
+    const re = new RegExp(`${group}/\\s+([\\d,]+) items`)
+    const hit = readme.match(re)
+    if (!hit) continue
+    assert.strictEqual(Number(hit[1].replace(/,/g, '')), n,
+      `README's structure block says ${group} has ${hit[1]}; it has ${n}`)
+  }
+
+  // The generated headline.
+  const headline = readme.match(/<!-- counts:begin -->\n(.*?)\n<!-- counts:end -->/s)
+  assert.ok(headline, 'README is missing the counts:begin/end markers')
+  assert.ok(headline[1].includes(doc.counts.total.toLocaleString('en-US')),
+    `headline does not state ${doc.counts.total}: ${headline[1]}`)
+})
+
 // ------------------------------------------------------------------ CLI
 console.log('\ncli')
 
