@@ -7,7 +7,7 @@ infrastructure, the deploy pipeline, and increasingly the AI agents too — and 
 have a security team to hand it to.
 
 <!-- counts:begin -->
-**3,149 security items across 56 checklists.** 89% of them apply to any stack.
+**3,186 security items across 57 checklists.** 88% of them apply to any stack.
 <!-- counts:end -->
 
 [![npm](https://img.shields.io/npm/v/prodcheck?color=cb3837&logo=npm)](https://www.npmjs.com/package/prodcheck)
@@ -77,7 +77,7 @@ checklists/
 ├── core/          1,491 items — any language, any framework
 ├── ai/              773 items — LLM features, agents, tools, RAG, MCP
 ├── vibe-coding/     548 items — bugs AI coding assistants actually write
-└── stacks/          337 items — 18 supplements, only if you use the product
+└── stacks/          374 items — 19 supplements, only if you use the product
 ```
 
 ### `core/` — applies to you regardless of language
@@ -128,7 +128,7 @@ real review findings on AI-generated code. [Browse →](checklists/README.md#vib
 
 ### `stacks/` — only if you use them
 
-337 items across 18 supplements. Skip any file for a product you don't use; the core
+374 items across 19 supplements. Skip any file for a product you don't use; the core
 checklists stand on their own without them.
 
 **Backend & web**
@@ -143,6 +143,7 @@ checklists stand on their own without them.
 
 **Mobile**
 [iOS / Swift](checklists/stacks/ios-swift.md) ·
+[Android / Kotlin](checklists/stacks/android-kotlin.md) ·
 [React Native](checklists/stacks/react-native.md) ·
 [Flutter](checklists/stacks/flutter.md) ·
 [macOS](checklists/stacks/macos.md)
@@ -159,7 +160,7 @@ checklists stand on their own without them.
 documented end to end in [`_TEMPLATE.md`](checklists/stacks/_TEMPLATE.md) — a worked
 example, what every field drives, and the one rule that decides whether an item belongs
 in a stack file at all. Open issues exist for AWS, Vercel, Fly.io, Kubernetes, Firebase,
-Stripe, FastAPI and Android; see [CONTRIBUTING.md](CONTRIBUTING.md).
+Stripe, FastAPI and GraphQL; see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
@@ -342,9 +343,15 @@ prodcheck gate      exit non-zero if a blocking item is unresolved   (for CI)
 Stack files, corrections, missing items, and war stories are all welcome.
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-The single most useful contribution is a stack file for a stack that isn't covered —
-Django, Rails, Laravel, FastAPI, Go, Spring, AWS, Vercel, Fly.io, Kubernetes, Android,
-Firebase, Stripe are all open. Copy
+The single most useful contribution is a stack file for a stack that isn't covered.
+There are open issues for [FastAPI](https://github.com/FarzamHabibi/pre-production-checklist/issues/1),
+[AWS](https://github.com/FarzamHabibi/pre-production-checklist/issues/2),
+[Kubernetes](https://github.com/FarzamHabibi/pre-production-checklist/issues/3),
+[Vercel](https://github.com/FarzamHabibi/pre-production-checklist/issues/4),
+[Firebase](https://github.com/FarzamHabibi/pre-production-checklist/issues/5),
+[Stripe](https://github.com/FarzamHabibi/pre-production-checklist/issues/6) and
+[GraphQL](https://github.com/FarzamHabibi/pre-production-checklist/issues/8),
+each labelled `good first issue`. Copy
 [`_TEMPLATE.md`](checklists/stacks/_TEMPLATE.md) and open a PR.
 
 ---

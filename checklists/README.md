@@ -5,7 +5,7 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**2,812 of the 3,149 items (89%) are stack-agnostic** — everything outside `stacks/`. Only 337 items name a specific product.
+**2,812 of the 3,186 items (88%) are stack-agnostic** — everything outside `stacks/`. Only 374 items name a specific product.
 
 ---
 
@@ -83,6 +83,7 @@ The small remainder that genuinely depends on a specific product. **Skip any fil
 
 | Checklist | Items |
 | --- | ---: |
+| [Android / Kotlin](stacks/android-kotlin.md) | 37 |
 | [Cloudflare](stacks/cloudflare.md) | 29 |
 | [Django](stacks/django.md) | 27 |
 | [Docker / containers](stacks/docker.md) | 17 |
@@ -101,7 +102,7 @@ The small remainder that genuinely depends on a specific product. **Skip any fil
 | [React Native](stacks/react-native.md) | 16 |
 | [Spring Boot](stacks/spring.md) | 20 |
 | [Supabase](stacks/supabase.md) | 23 |
-| **Total** | **337** |
+| **Total** | **374** |
 
 ---
 

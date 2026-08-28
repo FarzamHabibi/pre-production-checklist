@@ -5,17 +5,18 @@
   "license": "CC-BY-4.0",
   "generated_by": "scripts/build_data.py",
   "counts": {
-    "total": 3149,
+    "total": 3186,
     "by_group": {
       "core": 1491,
       "ai": 773,
       "vibe-coding": 548,
-      "stacks": 337
+      "stacks": 374
     },
     "stack_agnostic": 2812,
     "release_gate": 239
   },
   "stacks": [
+    "Android / Kotlin",
     "Cloudflare",
     "Django",
     "Docker",
@@ -36,6 +37,7 @@
     "macOS"
   ],
   "stack_ids": [
+    "android-kotlin",
     "cloudflare",
     "django",
     "docker",
@@ -42234,6 +42236,561 @@
       "source": {
         "file": "checklists/vibe-coding/09-release-gate.md",
         "line": 61
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.83d704b9",
+      "text": "Audit every `android:exported=\"true\"` in the manifest — since API 31 it must be declared explicitly, which is a good moment to ask whether each one should be reachable by any app on the device.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.6d3d6ecb",
+      "text": "Verify exported activities, services and receivers either require a signature-level permission or treat their `Intent` extras as untrusted input.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.90d22177",
+      "text": "Verify no component forwards an `Intent` it received to `startActivity` without validating the target (intent redirection turns your app into a launcher for internal, non-exported components).",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.21c21fd0",
+      "text": "Verify every `PendingIntent` sets `FLAG_IMMUTABLE`, or `FLAG_MUTABLE` with a deliberate reason — a mutable `PendingIntent` handed to another app lets it rewrite the intent and act as you.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.60583000",
+      "text": "Verify implicit broadcasts do not carry sensitive data, and that runtime-registered receivers pass `RECEIVER_NOT_EXPORTED` where they are internal.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 21
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.c52fb5b4",
+      "text": "Verify `ContentProvider` components set `android:exported=\"false\"` unless sharing is intended, and that `openFile` cannot be walked out of its directory with `..`.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.9758780d",
+      "text": "Verify `grantUriPermissions` and any `FileProvider` `paths.xml` do not expose a directory broader than intended — a root of `.` shares the whole app sandbox.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.304ebe51",
+      "text": "Verify `android:allowBackup` is `false`, or that `fullBackupContent` / `dataExtractionRules` exclude tokens and credentials; ADB backup and cloud backup both read what you leave in.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.42ae1491",
+      "text": "Verify tokens and keys live in the Android Keystore or `EncryptedSharedPreferences`, never in plain `SharedPreferences` or a file.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.8a2daa11",
+      "text": "Verify Keystore keys that gate sensitive actions are created with `setUserAuthenticationRequired(true)` and are invalidated when biometrics change.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.44ee311f",
+      "text": "Verify nothing sensitive is written to external or scoped storage that other apps or a connected computer can read.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.abdd116c",
+      "text": "Verify `Log` calls carrying tokens, personal data or request bodies are stripped in release, not merely set to a lower level.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.f5f58218",
+      "text": "Verify screens showing sensitive data set `FLAG_SECURE`, which also blanks them in the recents screenshot.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.232ad273",
+      "text": "Verify sensitive views set `filterTouchesWhenObscured=\"true\"` so an overlay cannot harvest taps (tapjacking).",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.8a829e3a",
+      "text": "Verify the clipboard is not used for one-time codes or credentials, and that any such copy is cleared.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.056cafc0",
+      "text": "Verify `taskAffinity` and `launchMode` cannot be used for task hijacking, where a malicious app inserts itself into your back stack.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Mobile Applications",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.44570513",
+      "text": "Verify App Links are verified — `android:autoVerify=\"true\"` plus a reachable `assetlinks.json` — otherwise another app can claim the same link and receive your OAuth redirect.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.85233f08",
+      "text": "Verify custom URL schemes are not used for OAuth redirects without PKCE; any app can register the same scheme.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.9d89eb9c",
+      "text": "Verify deep link handlers authenticate and authorize before acting; a link is attacker-supplied input, not a trusted navigation.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.ae38f8bd",
+      "text": "Verify biometric prompts gate a server-side check rather than only a local boolean — `onAuthenticationSucceeded` is trivially patched out of a repackaged APK.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.b35aa647",
+      "text": "Verify no authorization decision depends on a value the client computes, including role flags cached in the app.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 41
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.eae5243d",
+      "text": "Verify `addJavascriptInterface` is not used with content you do not fully control; any exposed method is reachable from the page.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Web Frontend",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.d81a4cb0",
+      "text": "Verify `WebSettings.setAllowFileAccess`, `setAllowFileAccessFromFileURLs` and `setAllowUniversalAccessFromFileURLs` are false unless genuinely required.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Web Frontend",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.36e765ff",
+      "text": "Verify `WebViewClient.onReceivedSslError` never calls `handler.proceed()` — that single line disables TLS validation for the whole WebView.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Web Frontend",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.1ab19934",
+      "text": "Verify `shouldOverrideUrlLoading` restricts navigation to an allowlist rather than loading whatever the page links to.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Web Frontend",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 49
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.f8b892d9",
+      "text": "Verify JavaScript is disabled in WebViews that only render static content.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Web Frontend",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 50
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.8ad9f57d",
+      "text": "Verify no API key or secret is in `BuildConfig`, `strings.xml`, `gradle.properties` or the NDK — every one of these is recoverable from the APK with `apktool` in under a minute.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Secrets Management & Cryptography",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 55
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.bf314399",
+      "text": "Verify the release signing keystore and its passwords are not in the repository or in `build.gradle`.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Secrets Management & Cryptography",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.e45b959c",
+      "text": "Verify `SecureRandom` is used for tokens and nonces, and that no key or IV is hardcoded.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Secrets Management & Cryptography",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 57
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.f3ddf2c5",
+      "text": "Verify the network security config disables cleartext (`cleartextTrafficPermitted=\"false\"`) and that no debug overrides ship in release.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Secrets Management & Cryptography",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 58
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.df952c38",
+      "text": "Verify certificate pinning, if used, is configured in the network security config or OkHttp's `CertificatePinner`, and that a backup pin exists so rotation does not brick the app.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Secrets Management & Cryptography",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 59
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.1d501ab2",
+      "text": "Verify `android:debuggable` is false and `isDebuggable` is not set in the release build type.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Pre-Release Gates",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 64
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.787b5a41",
+      "text": "Verify R8/ProGuard is enabled for release, and treat it as raising cost rather than as a security control.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Pre-Release Gates",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 65
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.8323c214",
+      "text": "Verify `minifyEnabled` and `shrinkResources` do not accidentally keep debug-only classes through an over-broad `-keep` rule.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Pre-Release Gates",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 66
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.48688416",
+      "text": "Verify the app is signed with the release key and that Play App Signing is configured, so a lost upload key does not lock you out.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Pre-Release Gates",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 67
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.6414444e",
+      "text": "Verify debug-only dependencies — LeakCanary, Chucker, Flipper, a mock interceptor — are on `debugImplementation`, not `implementation`.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Pre-Release Gates",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 68
+      }
+    },
+    {
+      "id": "stacks.android-kotlin.cb34e659",
+      "text": "Run a dependency vulnerability scan over the Gradle dependency tree, and review any dependency that adds a manifest entry or a content provider of its own.",
+      "group": "stacks",
+      "checklist": "Android / Kotlin",
+      "section": "Pre-Release Gates",
+      "subsection": null,
+      "stack": "Android / Kotlin",
+      "stack_id": "android-kotlin",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/android-kotlin.md",
+        "line": 69
       }
     },
     {

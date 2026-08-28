@@ -33,6 +33,7 @@ STACK_LABEL = {
     "rails": "Ruby on Rails", "django": "Django", "laravel": "Laravel",
     "spring": "Spring Boot", "go-gin": "Go / Gin", "express": "Express",
     "react-native": "React Native", "flutter": "Flutter",
+    "android-kotlin": "Android / Kotlin",
 }
 
 
