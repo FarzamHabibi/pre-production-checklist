@@ -76,8 +76,22 @@ jobs:
           fi
           echo "publishing version $pkg"
 
+      - name: Is this version already on the registry?
+        id: exists
+        run: |
+          v="$(node -p "require('./package.json').version")"
+          code="$(curl -s -o /dev/null -w '%{http_code}' "https://registry.npmjs.org/prodcheck/$v")"
+          if [ "$code" = "200" ]; then
+            echo "already=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::prodcheck@$v is already published — nothing to do."
+          else
+            echo "already=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Publish
-        if: github.event_name == 'release' || inputs.dry_run == false
+        if: |
+          steps.exists.outputs.already == 'false' &&
+          (github.event_name == 'release' || inputs.dry_run == false)
         run: npm publish
 
       - name: Dry run
