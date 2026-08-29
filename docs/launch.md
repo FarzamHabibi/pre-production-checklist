@@ -135,6 +135,17 @@ itself — it would be a poor look to ship an SEO checklist from a site with no 
 
 ---
 
+## Search engines — state as of now
+
+| | |
+| --- | --- |
+| Google Search Console | verified (HTML tag), sitemap submitted |
+| Bing Webmaster Tools | **not done** — needs a sign-in. Once in, use *Import from Google Search Console*, which carries the property and the sitemap across in two clicks |
+
+The verification tag is emitted only on the home page, from `PRODCHECK_GOOGLE_VERIFY`
+in `scripts/deploy-cloudflare.sh`. **Do not remove it** — Search Console re-checks
+periodically and drops the property if it disappears.
+
 ## Tagged links, per platform
 
 Post these rather than the bare URL, so you can tell which platform actually sent people

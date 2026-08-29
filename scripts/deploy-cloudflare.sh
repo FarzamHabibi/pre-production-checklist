@@ -13,7 +13,13 @@ PROJECT="${PRODCHECK_CF_PROJECT:-prodcheck}"
 SITE_URL="${PRODCHECK_SITE:-https://${PROJECT}.pages.dev}"
 
 echo "building for ${SITE_URL}"
-PRODCHECK_SITE="$SITE_URL" python3 scripts/build_site.py
+# Search-engine ownership tokens. Public by nature — they only prove control of a site
+# that is already public — but kept here rather than in the generator so a fork does not
+# inherit them and so rotating one is a single line.
+PRODCHECK_SITE="$SITE_URL" \
+PRODCHECK_GOOGLE_VERIFY="${PRODCHECK_GOOGLE_VERIFY:-bz0Jm7FBM9_UPgG1Kn0XgI6tqVuDIXV_bZrEQ2Rtx30}" \
+PRODCHECK_BING_VERIFY="${PRODCHECK_BING_VERIFY:-}" \
+  python3 scripts/build_site.py
 
 # Canonical tags, og:url and the sitemap all carry SITE_URL, so a build aimed at one host
 # must not be uploaded to another.

@@ -335,6 +335,12 @@ if (f) {
 # CUSTOM_DOMAIN writes a CNAME file, which GitHub Pages reads as "serve only here and
 # redirect the github.io URL to it". Leave it unset until that DNS actually resolves;
 # setting it early is how the site went dark once.
+# Search-engine ownership tokens. Read from the environment and committed in
+# scripts/deploy-cloudflare.sh rather than hardcoded here, so the token is one line to
+# rotate and the generator stays reusable by anyone forking this.
+GOOGLE_VERIFY = os.environ.get("PRODCHECK_GOOGLE_VERIFY", "")
+BING_VERIFY = os.environ.get("PRODCHECK_BING_VERIFY", "")
+
 SITE = os.environ.get(
     "PRODCHECK_SITE", "https://prodcheck.pages.dev"
 ).rstrip("/")
@@ -347,8 +353,21 @@ MARK = ('<svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">'
         'stroke-linecap="round" stroke-linejoin="round"/></svg>')
 
 
+def verification_tags(depth):
+    """Only on the home page — Search Console checks the URL you registered."""
+    if depth:
+        return ""
+    out = ""
+    if GOOGLE_VERIFY:
+        out += f'\n<meta name="google-site-verification" content="{GOOGLE_VERIFY}">'
+    if BING_VERIFY:
+        out += f'\n<meta name="msvalidate.01" content="{BING_VERIFY}">'
+    return out
+
+
 def page(title, desc, body, depth=0, canonical="", schema=""):
     up = "../" * depth if depth else "./"
+    verify = verification_tags(depth)
     ld = f'<script type="application/ld+json">{schema}</script>' if schema else ""
     return f"""<!doctype html>
 <html lang="en">
@@ -357,7 +376,7 @@ def page(title, desc, body, depth=0, canonical="", schema=""):
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
-<link rel="canonical" href="{SITE}/{canonical}">
+<link rel="canonical" href="{SITE}/{canonical}">{verify}
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:type" content="website">
