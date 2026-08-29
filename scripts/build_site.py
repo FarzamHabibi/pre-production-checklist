@@ -312,14 +312,18 @@ if (f) {
 
 # The site's own base URL. Every canonical tag, og:url and sitemap entry uses it, so it
 # has to be a hostname that actually resolves — a canonical pointing at a domain that does
-# not is worse than none, and it is the thing integrations/02-seo-fundamentals.md warns
-# about. prodcheck.js.org is requested (js-org/js.org#12407) but not live yet.
+# not is worse than none, and it is what integrations/02-seo-fundamentals.md warns about.
 #
-# When that PR merges: set SITE to https://prodcheck.js.org, set CUSTOM_DOMAIN to the same
-# host, run ./scripts/build.sh, and set the custom domain in the repository's Pages
-# settings. Nothing else needs to change.
-SITE = "https://farzamhabibi.github.io/pre-production-checklist"
-CUSTOM_DOMAIN = None      # -> "prodcheck.js.org" once js.org has merged the request
+# Override without editing this file:
+#     PRODCHECK_SITE=https://prodcheck.pages.dev python3 scripts/build_site.py
+#
+# CUSTOM_DOMAIN writes a CNAME file, which GitHub Pages reads as "serve only here and
+# redirect the github.io URL to it". Leave it unset until that DNS actually resolves;
+# setting it early is how the site went dark once.
+SITE = os.environ.get(
+    "PRODCHECK_SITE", "https://farzamhabibi.github.io/pre-production-checklist"
+).rstrip("/")
+CUSTOM_DOMAIN = os.environ.get("PRODCHECK_CNAME") or None
 
 MARK = ('<svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">'
         '<rect x="3" y="3" width="42" height="42" rx="11" stroke="currentColor" '
@@ -761,6 +765,23 @@ FAVICON = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">'
            '<path d="M13 24.5 L21 32 L35 16" fill="none" stroke="#7dd3a0" stroke-width="5" '
            'stroke-linecap="round" stroke-linejoin="round"/></svg>')
 
+HEADERS = """/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  Content-Security-Policy: default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+
+/style.css
+  Cache-Control: public, max-age=3600
+
+/og.png
+  Cache-Control: public, max-age=86400
+
+/*.html
+  Cache-Control: public, max-age=600
+"""
+
 ROBOTS = f"""# prodcheck — https://github.com/FarzamHabibi/pre-production-checklist
 User-agent: *
 Allow: /
@@ -832,6 +853,7 @@ def main():
     if CUSTOM_DOMAIN:
         open(os.path.join(OUT, "CNAME"), "w").write(CUSTOM_DOMAIN + "\n")
     open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8").write(ROBOTS)
+    open(os.path.join(OUT, "_headers"), "w", encoding="utf-8").write(HEADERS)
 
     for src in ("og.png", "og.svg"):
         p = os.path.join("site-assets", src)
