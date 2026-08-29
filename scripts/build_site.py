@@ -489,6 +489,18 @@ def tool_grid(group):
     return "".join(out)
 
 
+OG_NUMBERS = re.compile(r"\{\{(total|domains|gate)\}\}")
+
+
+def og_value(key):
+    """Fill one placeholder in the social preview from the data."""
+    if key == "total":
+        return fmt(C["total"])
+    if key == "domains":
+        return str(len(tree.domains()))
+    return fmt(sum(1 for i in doc["items"] if i["release_gate"] and i["stack"] == "any"))
+
+
 def build_index():
     domains_tbl = "".join(
         f'<tr><td><a class="plain" href="checklists/#{d}"><b>{e(tree.DOMAIN_LABEL[d])}</b></a>'
@@ -961,10 +973,18 @@ def main():
     open(os.path.join(OUT, "_headers"), "w", encoding="utf-8").write(
         HEADERS_TEMPLATE.replace("{SCRIPT_HASH}", f"sha256-{digest}"))
 
-    for src in ("og.png", "og.svg"):
-        p = os.path.join("site-assets", src)
-        if os.path.exists(p):
-            shutil.copyfile(p, os.path.join(OUT, src))
+    # The social preview carries the item count, and it was a static asset — so it kept
+    # showing a long-superseded number on every share of the site. The SVG
+    # is templated from the data now; og.png is regenerated from it by
+    # scripts/render_og.sh, which the gate checks is not stale.
+    og = os.path.join("site-assets", "og.svg")
+    if os.path.exists(og):
+        svg = open(og, encoding="utf-8").read()
+        svg = OG_NUMBERS.sub(lambda m: og_value(m.group(1)), svg)
+        open(os.path.join(OUT, "og.svg"), "w", encoding="utf-8").write(svg)
+    png = os.path.join("site-assets", "og.png")
+    if os.path.exists(png):
+        shutil.copyfile(png, os.path.join(OUT, "og.png"))
 
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(build_index())
     urls.append(("", "prodcheck — the pre-production checklist for solo founders"))

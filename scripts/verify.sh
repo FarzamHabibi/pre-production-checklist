@@ -168,6 +168,23 @@ if out=$(python3 scripts/build_site.py 2>&1); then
   miss=""
   grep -q "$pretty" site/index.html || miss="index.html missing the current total ($pretty)"
 
+  # The social preview is what every share of this site shows. It was a hand-made static
+  # asset and kept claiming a long-superseded item count.
+  grep -q "$pretty" site/og.svg 2>/dev/null || miss="og.svg does not carry the current total ($pretty)"
+  if ! python3 - <<'PY3'
+import re, subprocess, sys
+png = "site-assets/og.png"
+svg = "site-assets/og.svg"
+# the PNG is rendered from the SVG; if the SVG is newer, the PNG is stale
+import os
+if not os.path.exists(png):
+    print("site-assets/og.png is missing"); sys.exit(1)
+if os.path.getmtime(svg) > os.path.getmtime(png):
+    print("site-assets/og.png is older than og.svg — run scripts/render_og.sh")
+    sys.exit(1)
+PY3
+  then miss="og.png is stale — run scripts/render_og.sh"; fi
+
   # the start prompt on the page is the same one the README and docs carry
   if ! python3 - <<'PY2'
 import html, json, re, sys

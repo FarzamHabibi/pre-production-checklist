@@ -29,19 +29,19 @@
   <text x="88" y="272" font-size="62" font-weight="650" fill="#f2f2f4" letter-spacing="-2.2">The checklist you wish someone</text>
   <text x="88" y="344" font-size="62" font-weight="650" fill="#f2f2f4" letter-spacing="-2.2">had given you before launch.</text>
 
-  <text x="88" y="404" font-size="26" fill="#a3a3ad">4,124 things to check before you ship — security, speed, scale,</text>
+  <text x="88" y="404" font-size="26" fill="#a3a3ad">{{total}} things to check before you ship — security, speed, scale,</text>
   <text x="88" y="440" font-size="26" fill="#a3a3ad">being findable, and what to do when it breaks anyway.</text>
 
   <g transform="translate(88,494)">
     <rect x="0" y="0" width="1024" height="1" fill="#1e1e25"/>
-    <text x="0" y="52" font-size="34" font-weight="650" fill="#f2f2f4">4,124</text>
+    <text x="0" y="52" font-size="34" font-weight="650" fill="#f2f2f4">{{total}}</text>
     <text x="0" y="80" font-size="16" fill="#6e6e79" letter-spacing="1.4">ITEMS</text>
-    <text x="230" y="52" font-size="34" font-weight="650" fill="#f2f2f4">5</text>
+    <text x="230" y="52" font-size="34" font-weight="650" fill="#f2f2f4">{{domains}}</text>
     <text x="230" y="80" font-size="16" fill="#6e6e79" letter-spacing="1.4">DOMAINS</text>
-    <text x="450" y="52" font-size="34" font-weight="650" fill="#f2f2f4">310</text>
+    <text x="450" y="52" font-size="34" font-weight="650" fill="#f2f2f4">{{gate}}</text>
     <text x="450" y="80" font-size="16" fill="#6e6e79" letter-spacing="1.4">BLOCKERS</text>
     <text x="700" y="52" font-size="34" font-weight="650" fill="#7dd3a0">Free</text>
     <text x="700" y="80" font-size="16" fill="#6e6e79" letter-spacing="1.4">OPEN SOURCE</text>
-    <text x="1024" y="80" font-size="16" fill="#6e6e79" text-anchor="end">github.com/FarzamHabibi/pre-production-checklist</text>
+    <text x="0" y="122" font-size="17" fill="#6e6e79">github.com/FarzamHabibi/pre-production-checklist</text>
   </g>
 </svg>
