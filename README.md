@@ -407,6 +407,13 @@ What the skill enforces matters more than what it enables:
 > why AI review misses them — fluent, confident output produced whether or not anything was
 > established. The skill is written against that, not in spite of it.
 
+Those three constraints are **measured, not asserted**. [`evals/`](evals/) holds a fixture
+app with nine planted defects and a clean control of the same app: a deterministic grader
+resolves every citation against the real file, matches verdict phrasing, counts unknowns,
+and counts findings on the control — where any finding is a false positive by construction.
+No model grades another model's output, because a grader that is itself a model has the
+same failure mode as the thing it grades.
+
 It does one thing: check whether what you built is ready to ship. For skills that teach an
 agent how to *build* well — testing, debugging, planning, git workflow — see
 [agent-skills](https://github.com/addyosmani/agent-skills). They compose; use both.

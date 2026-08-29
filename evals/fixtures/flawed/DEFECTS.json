@@ -1,0 +1,125 @@
+{
+  "_comment": "Every defect planted in fixtures/flawed. Line numbers are asserted against the file at build time \u2014 if the fixture changes and this is not regenerated, the assertion above fails rather than the eval silently measuring nothing. A defect of kind \"omission\" is the absence of a control rather than a bad line; the control fixture is checked for clean_evidence instead of for the line not being present.",
+  "defects": [
+    {
+      "id": "sql-injection",
+      "file": "src/app.js",
+      "line": 19,
+      "description": "String interpolation into SQL",
+      "keywords": [
+        "sql",
+        "inject",
+        "parameteris",
+        "parameteriz",
+        "concat"
+      ],
+      "kind": "line"
+    },
+    {
+      "id": "missing-authz",
+      "file": "src/app.js",
+      "line": 21,
+      "description": "No ownership check on the note being read",
+      "keywords": [
+        "authoriz",
+        "ownership",
+        "owner",
+        "idor",
+        "access control"
+      ],
+      "kind": "omission",
+      "clean_evidence": "AND owner_id = $2"
+    },
+    {
+      "id": "mass-assignment",
+      "file": "src/app.js",
+      "line": 26,
+      "description": "owner_id accepted from the request body",
+      "keywords": [
+        "mass assignment",
+        "owner_id",
+        "ownership",
+        "body"
+      ],
+      "kind": "line"
+    },
+    {
+      "id": "cors-wildcard",
+      "file": "src/app.js",
+      "line": 12,
+      "description": "Wildcard CORS combined with credentials",
+      "keywords": [
+        "cors",
+        "wildcard",
+        "origin",
+        "credential"
+      ],
+      "kind": "line"
+    },
+    {
+      "id": "path-traversal",
+      "file": "src/app.js",
+      "line": 34,
+      "description": "Unsanitised path in sendFile",
+      "keywords": [
+        "traversal",
+        "path",
+        "sendfile",
+        "\\.\\."
+      ],
+      "kind": "line"
+    },
+    {
+      "id": "stack-trace-leak",
+      "file": "src/app.js",
+      "line": 39,
+      "description": "Stack trace returned to the client",
+      "keywords": [
+        "stack",
+        "trace",
+        "error",
+        "leak",
+        "disclos"
+      ],
+      "kind": "line"
+    },
+    {
+      "id": "no-body-limit",
+      "file": "src/app.js",
+      "line": 8,
+      "description": "No request body size limit",
+      "keywords": [
+        "limit",
+        "body size",
+        "payload"
+      ],
+      "kind": "omission",
+      "clean_evidence": "limit: '100kb'"
+    },
+    {
+      "id": "hardcoded-secret",
+      "file": "src/config.js",
+      "line": 2,
+      "description": "Live Stripe key committed in source",
+      "keywords": [
+        "secret",
+        "hardcod",
+        "key",
+        "stripe",
+        "credential"
+      ],
+      "kind": "line"
+    },
+    {
+      "id": "debug-in-prod",
+      "file": "src/config.js",
+      "line": 7,
+      "description": "Debug enabled unconditionally",
+      "keywords": [
+        "debug",
+        "production"
+      ],
+      "kind": "line"
+    }
+  ]
+}

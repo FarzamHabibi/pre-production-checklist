@@ -34,6 +34,12 @@ if out=$(node cli/test.js 2>&1); then ok; else
   bad; echo "$out" | grep -A2 FAIL | head -12 | sed 's/^/     /'
 fi
 
+# ---------------------------------------------------------------- evals
+step "eval harness intact"
+if out=$(node evals/structure.test.js 2>&1); then ok; else
+  bad; echo "$out" | grep -A2 FAIL | head -10 | sed 's/^/     /'
+fi
+
 # ---------------------------------------------------------------- links
 step "internal links resolve"
 if out=$(python3 - <<'PY'
@@ -198,6 +204,13 @@ PY2
               | sed 's|https://||; s|/$||')
     if [ -n "$gh_home" ] && [ "$gh_home" != "$sitebase" ]; then
       miss="the GitHub Website field is https://$gh_home but pages canonicalise to https://$sitebase"
+    fi
+    # The gate checked that description.txt was regenerated, never that GitHub was told.
+    # CI caught the drift instead — after the push, which is the wrong end.
+    gh_desc=$(gh repo view --json description --jq '.description // ""' 2>/dev/null)
+    want_desc=$(cat .github/description.txt 2>/dev/null)
+    if [ -n "$gh_desc" ] && [ "$gh_desc" != "$want_desc" ]; then
+      miss="the GitHub description has drifted — run: gh repo edit --description \"\$(cat .github/description.txt)\""
     fi
   fi
 
