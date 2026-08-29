@@ -15,6 +15,23 @@ npx wrangler login                    # per deploy session — see below
 npx wrangler logout                   # when you are done
 ```
 
+### The deploy is manual, so it is a release step
+
+GitHub Pages rebuilds on every push. Cloudflare does not — it is a direct upload, which
+is what keeps the credential out of CI. That asymmetry bit once: the mirror was current
+and the primary was a release behind, and every check was green because the gate compared
+the *built* site to the data and never the *deployed* one.
+
+`./scripts/verify.sh` now warns when the live site is behind. The release sequence is:
+
+```bash
+gh release create vX.Y.Z --generate-notes    # npm, automatic via OIDC
+npx wrangler login && ./scripts/deploy-cloudflare.sh && npx wrangler logout
+```
+
+If that becomes tedious, the fix is a scoped API token in GitHub Actions rather than a
+standing grant on a laptop — see below.
+
 ### Why the login is not left standing
 
 `wrangler login` asks for **29 OAuth scopes**. Exactly one of them, `pages:write`, is

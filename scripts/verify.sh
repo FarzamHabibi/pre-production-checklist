@@ -155,6 +155,17 @@ if out=$(python3 scripts/build_site.py 2>&1); then
     miss="README links to https://$readme_site but pages canonicalise to https://$sitebase"
   fi
 
+  # The gate compared the built site against the data, never the deployed one. Because
+  # the mirror deploys automatically on push and the primary is a manual command, the
+  # primary silently fell a release behind while every check stayed green. A warning
+  # rather than a failure: pushing before deploying is legitimate, forgetting is not.
+  live=$(curl -s --max-time 12 "https://$sitehost/" 2>/dev/null \
+         | grep -oE '[0-9],[0-9]{3} things to check' | head -1 | cut -d' ' -f1)
+  if [ -n "$live" ] && [ "$live" != "$pretty" ]; then
+    echo "     note: the deployed site says $live, the data says $pretty —"
+    echo "           run ./scripts/deploy-cloudflare.sh (needs 'npx wrangler login' first)"
+  fi
+
   # The CSP pins the inline script by hash. If the script changes and the hash does not,
   # the browser blocks every script on the site — copy buttons, search, filters — and the
   # pages still render, so nothing looks broken until someone clicks.
