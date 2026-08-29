@@ -130,7 +130,9 @@ header.top nav a:hover{color:var(--fg)}
 
 /* the two commands, in the hero, above the fold */
 .quick{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin:30px 0 0}
-@media(max-width:760px){.quick{grid-template-columns:1fr}}
+.quick3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:1000px){.quick3{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.quick,.quick3{grid-template-columns:1fr}}
 .quick .q{background:color-mix(in srgb,var(--panel) 88%,transparent);
   border:1px solid var(--line);border-radius:12px;padding:14px 15px;
   min-width:0}   /* grid items default to min-width:auto; a long <pre> then widens the column */
@@ -525,7 +527,7 @@ item | verdict | file:line | one-sentence reason."""
   <p class="lede small">Built for solo founders and small teams with no security team to
   hand it to.</p>
 
-  <div class="quick">
+  <div class="quick quick3">
     <div class="q">
       <h4>Give it to your AI assistant</h4>
       <p class="sub">MCP · Claude, Cursor, Copilot, Gemini CLI, Cline, Cherry Studio…</p>
@@ -540,6 +542,12 @@ item | verdict | file:line | one-sentence reason."""
       {codeblock('h-npm', npm_cmd)}
       <p class="more"><a href="{REPO}#command-line">all commands →</a>
         &nbsp;·&nbsp; <a href="{REPO}/blob/main/docs/prompts.md">prompts to paste →</a></p>
+    </div>
+    <div class="q">
+      <h4>Or have your agent run the review</h4>
+      <p class="sub">a skill · it produces evidence, never a verdict</p>
+      {codeblock('h-init', 'npx prodcheck init')}
+      <p class="more"><a href="{REPO}/blob/main/skills/review/SKILL.md">what it enforces →</a></p>
     </div>
   </div>
 
@@ -674,6 +682,7 @@ item | verdict | file:line | one-sentence reason."""
   <div class="ghbtns" style="justify-content:flex-start">
     <a class="btn" href="{REPO}/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>
     <a class="btn" href="{REPO}/blob/main/SECURITY.md">SECURITY.md</a>
+    <a class="btn" href="https://x.com/farzam_habibi">@farzam_habibi</a>
     <a class="btn" href="{REPO}/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">Good first issues</a>
     <a class="btn" href="{REPO}/issues">Report something wrong</a>
   </div>

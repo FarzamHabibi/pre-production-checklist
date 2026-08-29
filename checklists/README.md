@@ -5,16 +5,16 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**4,196 items** · 3,795 of them (90%) name no product at all.
+**4,337 items** · 3,795 of them (88%) name no product at all.
 
 | Domain | Items | |
 | --- | ---: | --- |
-| [**Security**](#security) | 3,186 | Not getting breached, abused, or taken down. |
-| [**Scale**](#scale) | 286 | Surviving ten times the load, and knowing what breaks first. |
-| [**Performance**](#performance) | 334 | Being fast for a real user, with Lighthouse agreeing. |
-| [**Integrations**](#integrations) | 198 | Being connected: search, analytics, monitoring. |
+| [**Security**](#security) | 3,306 | Not getting breached, abused, or taken down. |
+| [**Scale**](#scale) | 301 | Surviving ten times the load, and knowing what breaks first. |
+| [**Performance**](#performance) | 338 | Being fast for a real user, with Lighthouse agreeing. |
+| [**Integrations**](#integrations) | 200 | Being connected: search, analytics, monitoring. |
 | [**Post-launch**](#post-launch) | 192 | When it goes wrong anyway: is the response already decided? |
-| [Stack supplements](#stack-supplements) | 401 | 19 products, only if you use them |
+| [Stack supplements](#stack-supplements) | 542 | 26 products, only if you use them |
 
 ---
 
@@ -179,15 +179,20 @@ One file per product, spanning every domain: each section says which checklist i
 | Product | Items |
 | --- | ---: |
 | [Android / Kotlin](stacks/android-kotlin.md) | 37 |
+| [AWS](stacks/aws.md) | 27 |
 | [Cloudflare](stacks/cloudflare.md) | 29 |
 | [Django](stacks/django.md) | 34 |
 | [Docker / containers](stacks/docker.md) | 17 |
 | [Express](stacks/express.md) | 21 |
+| [FastAPI](stacks/fastapi.md) | 19 |
+| [Firebase](stacks/firebase.md) | 18 |
 | [Flutter](stacks/flutter.md) | 15 |
 | [GitHub (repository & Actions)](stacks/github-actions.md) | 20 |
 | [Go / Gin](stacks/go-gin.md) | 19 |
 | [Google Cloud (Cloud Run, Cloud Build, IAM)](stacks/google-cloud.md) | 23 |
+| [GraphQL](stacks/graphql.md) | 19 |
 | [iOS / iPadOS / Swift](stacks/ios-swift.md) | 16 |
+| [Kubernetes](stacks/kubernetes.md) | 25 |
 | [Laravel](stacks/laravel.md) | 23 |
 | [macOS](stacks/macos.md) | 5 |
 | [NestJS](stacks/nestjs.md) | 6 |
@@ -196,8 +201,10 @@ One file per product, spanning every domain: each section says which checklist i
 | [Ruby on Rails](stacks/rails.md) | 30 |
 | [React Native](stacks/react-native.md) | 16 |
 | [Spring Boot](stacks/spring.md) | 20 |
+| [Stripe](stacks/stripe.md) | 20 |
 | [Supabase](stacks/supabase.md) | 23 |
-| **Total** | **401** |
+| [Vercel](stacks/vercel.md) | 13 |
+| **Total** | **542** |
 
 ---
 

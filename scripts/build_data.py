@@ -42,6 +42,8 @@ STACK_LABEL = {
     "spring": "Spring Boot", "go-gin": "Go / Gin", "express": "Express",
     "react-native": "React Native", "flutter": "Flutter",
     "android-kotlin": "Android / Kotlin",
+    "fastapi": "FastAPI", "aws": "AWS", "kubernetes": "Kubernetes", "vercel": "Vercel",
+    "firebase": "Firebase", "stripe": "Stripe", "graphql": "GraphQL",
 }
 
 

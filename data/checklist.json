@@ -50,27 +50,32 @@
     }
   ],
   "counts": {
-    "total": 4196,
+    "total": 4337,
     "by_domain": {
-      "security": 3186,
-      "scale": 286,
-      "performance": 334,
-      "integrations": 198,
+      "security": 3306,
+      "scale": 301,
+      "performance": 338,
+      "integrations": 200,
       "post-launch": 192
     },
     "stack_agnostic": 3795,
     "release_gate": 310
   },
   "stacks": [
+    "AWS",
     "Android / Kotlin",
     "Cloudflare",
     "Django",
     "Docker",
     "Express",
+    "FastAPI",
+    "Firebase",
     "Flutter",
     "GitHub",
     "Go / Gin",
     "Google Cloud",
+    "GraphQL",
+    "Kubernetes",
     "Laravel",
     "NestJS",
     "Next.js / React",
@@ -78,21 +83,28 @@
     "React Native",
     "Ruby on Rails",
     "Spring Boot",
+    "Stripe",
     "Supabase",
+    "Vercel",
     "iOS / Swift",
     "macOS"
   ],
   "stack_ids": [
     "android-kotlin",
+    "aws",
     "cloudflare",
     "django",
     "docker",
     "express",
+    "fastapi",
+    "firebase",
     "flutter",
     "github-actions",
     "go-gin",
     "google-cloud",
+    "graphql",
     "ios-swift",
+    "kubernetes",
     "laravel",
     "macos",
     "nestjs",
@@ -101,7 +113,9 @@
     "rails",
     "react-native",
     "spring",
-    "supabase"
+    "stripe",
+    "supabase",
+    "vercel"
   ],
   "items": [
     {
@@ -61417,6 +61431,438 @@
       }
     },
     {
+      "id": "stacks.aws.cccd4ee7",
+      "text": "Verify no IAM policy combines a wildcard action with a wildcard resource; search for `\"Action\": \"*\"` and `\"Resource\": \"*\"` in the same statement.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "stacks.aws.c68ce9fb",
+      "text": "Verify no policy grants `iam:PassRole` with `Resource: \"*\"` — that is privilege escalation to any role in the account.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "stacks.aws.62d23408",
+      "text": "Verify role trust policies name a specific principal, and that any `sts:AssumeRole` from another account has an `ExternalId` condition.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "stacks.aws.439814f3",
+      "text": "Verify no human uses long-lived access keys where a role would do, and that any remaining key has a rotation date.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "stacks.aws.4022d9b9",
+      "text": "Verify the root account has MFA, no access keys, and is not used for anything.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "stacks.aws.fdfd95af",
+      "text": "Verify permissions were derived from what the workload actually calls — Access Analyzer generates a policy from CloudTrail rather than from guesswork.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "stacks.aws.bc9d9146",
+      "text": "Verify IMDSv2 is required (`HttpTokens: required`) on every instance; with IMDSv1 any SSRF becomes credential theft.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Runtime, Containers & Hosting",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "stacks.aws.5f501fe6",
+      "text": "Verify Lambda environment variables hold no secrets — they are visible to anyone with `lambda:GetFunction`; use Secrets Manager or Parameter Store.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Runtime, Containers & Hosting",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "stacks.aws.9ed14d21",
+      "text": "Verify each Lambda has its own execution role rather than sharing one across functions.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Runtime, Containers & Hosting",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "stacks.aws.08df8b27",
+      "text": "Verify security groups do not allow `0.0.0.0/0` on anything except the ports that must be public.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Runtime, Containers & Hosting",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "stacks.aws.9b638efc",
+      "text": "Verify databases and caches are in private subnets with no public accessibility flag set.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Runtime, Containers & Hosting",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "stacks.aws.4f630a44",
+      "text": "Verify VPC flow logs are on for the subnets that matter.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Runtime, Containers & Hosting",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "stacks.aws.373fedd5",
+      "text": "Verify S3 Block Public Access is enabled at the account level, not only per bucket.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Object Storage & File Handling",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "stacks.aws.ee23ddfd",
+      "text": "Verify no bucket policy or ACL grants `AllUsers` or `AuthenticatedUsers`.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Object Storage & File Handling",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "stacks.aws.d811f9a1",
+      "text": "Verify default encryption is on and that a bucket policy denies unencrypted uploads.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Object Storage & File Handling",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "stacks.aws.8772e1a9",
+      "text": "Verify presigned URLs have a short expiry and are scoped to one object and one method.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Object Storage & File Handling",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "stacks.aws.cb7d4064",
+      "text": "Verify versioning and MFA delete are considered for buckets whose loss would matter.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Object Storage & File Handling",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "stacks.aws.f5236e1d",
+      "text": "Verify bucket names are not guessable in a way that reveals customers or environments.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Object Storage & File Handling",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "stacks.aws.64f33057",
+      "text": "Verify API Gateway routes have an authorizer, and that a route added later does not default to open.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 43
+      }
+    },
+    {
+      "id": "stacks.aws.98cef5e2",
+      "text": "Verify a resource policy or WAF sits in front of a public API, and that throttling is configured per stage.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "stacks.aws.0fa85904",
+      "text": "Verify stage variables carry no secrets.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "stacks.aws.d8e51090",
+      "text": "Verify GitHub Actions authenticates through OIDC rather than stored AWS keys, and that the trust policy pins the repository and branch.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "CI/CD & Supply Chain",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 50
+      }
+    },
+    {
+      "id": "stacks.aws.c30287f5",
+      "text": "Verify CloudTrail is on in every region with log file validation, and that its bucket cannot be written by the accounts it audits.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "CI/CD & Supply Chain",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 51
+      }
+    },
+    {
+      "id": "stacks.aws.0798d988",
+      "text": "Verify GuardDuty or an equivalent is on and its findings reach a human.",
+      "domain": "security",
+      "area": null,
+      "checklist": "AWS",
+      "section": "CI/CD & Supply Chain",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 52
+      }
+    },
+    {
+      "id": "stacks.aws.415076da",
+      "text": "Verify a budget alarm exists on rate of change, not only on the monthly total.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Cost at Scale",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 57
+      }
+    },
+    {
+      "id": "stacks.aws.437aa76b",
+      "text": "Verify NAT gateway and cross-AZ data transfer are understood; both are common surprises at scale.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Cost at Scale",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 58
+      }
+    },
+    {
+      "id": "stacks.aws.b75ba5e2",
+      "text": "Verify S3 lifecycle rules move or expire objects rather than letting storage grow indefinitely.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "AWS",
+      "section": "Cost at Scale",
+      "subsection": null,
+      "stack": "AWS",
+      "stack_id": "aws",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/aws.md",
+        "line": 59
+      }
+    },
+    {
       "id": "stacks.cloudflare.ffd87e16",
       "text": "Identify Cloudflare tokens.",
       "domain": "security",
@@ -63033,6 +63479,598 @@
       }
     },
     {
+      "id": "stacks.fastapi.9a66f0dc",
+      "text": "Verify `/docs`, `/redoc` and `/openapi.json` are disabled or authenticated in production; they are on by default and describe every endpoint you have.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "stacks.fastapi.8a5239f6",
+      "text": "Verify `debug=True` is not set on the app in production.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "stacks.fastapi.2154c7fb",
+      "text": "Verify CORS middleware does not combine `allow_origins=[\"*\"]` with `allow_credentials=True`; Starlette permits the combination and browsers treat it as a wildcard failure.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "stacks.fastapi.fd9b85fd",
+      "text": "Verify `TrustedHostMiddleware` is configured, or Host-header injection reaches the application.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "stacks.fastapi.5f950314",
+      "text": "Verify exception handlers do not return the traceback; a bare `Exception` handler that echoes `str(e)` leaks internals.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "stacks.fastapi.0142c5a4",
+      "text": "Verify request body size is bounded — neither Starlette nor Uvicorn imposes a limit by default.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "stacks.fastapi.e1f922aa",
+      "text": "Verify long-running work is not done in `async def` handlers without awaiting; a blocking call there stalls the whole event loop, not one request.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "stacks.fastapi.293a164e",
+      "text": "Verify `BackgroundTasks` is not used for anything that must not be lost — it runs in-process and dies with the worker.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "stacks.fastapi.104a5068",
+      "text": "Verify authentication is a dependency applied at the router or app level, not remembered per endpoint; a route added without it is the default failure here.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "stacks.fastapi.d1694d9c",
+      "text": "Verify `Depends` security dependencies actually raise rather than returning `None` for an unauthenticated caller.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "stacks.fastapi.3c5af9c7",
+      "text": "Verify `response_model` is set on every route returning an ORM object — without it FastAPI serialises whatever attributes exist, including hashes and internal flags.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "stacks.fastapi.8d33a493",
+      "text": "Verify `response_model_exclude` is not the only thing protecting a sensitive field; prefer a schema that never contains it.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "stacks.fastapi.3f9d8d5e",
+      "text": "Verify request models do not accept ownership fields — `user_id`, `role`, `is_admin` — from the body, and that `model_config` forbids extra fields.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "stacks.fastapi.e9cbceb7",
+      "text": "Verify OAuth2 scopes, if used, are checked and not merely declared.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "stacks.fastapi.de15877b",
+      "text": "Verify SQLAlchemy `text()` and `.execute()` calls use bound parameters rather than f-strings.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Database & Row-Level Security",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "stacks.fastapi.3a1d88ae",
+      "text": "Verify the async session is scoped per request and never shared across concurrent tasks.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Database & Row-Level Security",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "stacks.fastapi.8ede8fbd",
+      "text": "Verify a session is not held open across an `await` on an external call.",
+      "domain": "security",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Database & Row-Level Security",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "stacks.fastapi.88cd6a6c",
+      "text": "Verify the app runs under Uvicorn workers sized for the machine, and that a sync endpoint is declared `def` so it runs in the threadpool rather than blocking the loop.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Backend & Delivery",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 42
+      }
+    },
+    {
+      "id": "stacks.fastapi.41522b95",
+      "text": "Verify `--reload` is not used in production.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "FastAPI",
+      "section": "Backend & Delivery",
+      "subsection": null,
+      "stack": "FastAPI",
+      "stack_id": "fastapi",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/fastapi.md",
+        "line": 43
+      }
+    },
+    {
+      "id": "stacks.firebase.57c7c62a",
+      "text": "Verify Firestore and Realtime Database rules do not end in a catch-all `allow read, write: if true` — the default template does, with a date-based expiry that people forget.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "stacks.firebase.50ee0bf6",
+      "text": "Verify rules check ownership on the document, not merely that the caller is signed in; `request.auth != null` is authentication, not authorization.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "stacks.firebase.a5861577",
+      "text": "Verify rules are tested with the emulator suite, since they are code with no type checking and no review by default.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "stacks.firebase.2f406e12",
+      "text": "Verify a query cannot return documents the caller may not read — rules filter documents, they do not rewrite queries, so an unscoped query fails rather than filtering.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "stacks.firebase.cdf0d24d",
+      "text": "Verify custom claims are set only from a trusted server context, never from the client.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "stacks.firebase.7b82676f",
+      "text": "Verify a client re-fetches its ID token after a role change, or the old claims stay valid until the token expires.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "stacks.firebase.e3ea89e0",
+      "text": "Verify Storage rules are as tight as database rules; they are separate and are commonly left open.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "stacks.firebase.2ad17a82",
+      "text": "Verify the web API key is understood: it identifies the project, it is not a secret, and it is not what protects your data — the rules are.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "stacks.firebase.a80b5b48",
+      "text": "Verify Cloud Functions that should not be public are not deployed with unauthenticated invocation.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "stacks.firebase.9d440270",
+      "text": "Verify callable functions check `context.auth` rather than assuming the SDK enforced it.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "stacks.firebase.317a2c7b",
+      "text": "Verify the Admin SDK is used only server-side; it bypasses all security rules by design.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "stacks.firebase.18d17262",
+      "text": "Verify function environment configuration holds no secret that should be in Secret Manager.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "stacks.firebase.f1d90117",
+      "text": "Verify App Check is enabled if the client is the only thing calling your backend, and that enforcement is on rather than monitoring.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Abuse & Availability",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "stacks.firebase.ddc94065",
+      "text": "Verify email enumeration protection is enabled in Authentication settings.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Abuse & Availability",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "stacks.firebase.50595a68",
+      "text": "Verify anonymous sign-in, if enabled, cannot accumulate unbounded documents or storage.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Abuse & Availability",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "stacks.firebase.d1c0c41f",
+      "text": "Verify a per-user quota exists on anything that costs money, since a Firestore read loop from a client is billed to you.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Abuse & Availability",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "stacks.firebase.a350169b",
+      "text": "Verify a budget alert exists; Firestore bills per document read and a missing `limit()` in a listener is expensive rather than slow.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Cost at Scale",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 41
+      }
+    },
+    {
+      "id": "stacks.firebase.f4521891",
+      "text": "Verify listeners are detached when a component unmounts, or reads accumulate for the session's lifetime.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Firebase",
+      "section": "Cost at Scale",
+      "subsection": null,
+      "stack": "Firebase",
+      "stack_id": "firebase",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/firebase.md",
+        "line": 42
+      }
+    },
+    {
       "id": "stacks.flutter.da50c9aa",
       "text": "Verify secrets are not in Dart source or `--dart-define` values — both end up in the compiled binary and are recoverable from an APK or IPA.",
       "domain": "security",
@@ -64265,6 +65303,310 @@
       }
     },
     {
+      "id": "stacks.graphql.0b399cc5",
+      "text": "Verify introspection is disabled in production, or that exposing the full schema is a deliberate decision.",
+      "domain": "security",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "stacks.graphql.117dfb72",
+      "text": "Verify query depth is limited; a recursive relationship makes one request arbitrarily expensive.",
+      "domain": "security",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "stacks.graphql.8e35dbdb",
+      "text": "Verify query complexity is scored and capped, since depth alone does not stop a wide query.",
+      "domain": "security",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "stacks.graphql.c204d597",
+      "text": "Verify aliases are counted — the same expensive field requested two hundred times under different aliases bypasses a naive per-field limit.",
+      "domain": "security",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "stacks.graphql.05559563",
+      "text": "Verify batched operations in one request are limited, and that batching cannot be used to brute-force a login mutation past rate limiting.",
+      "domain": "security",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "stacks.graphql.75943fe9",
+      "text": "Verify a persisted-query allowlist is used if clients are all your own.",
+      "domain": "security",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "stacks.graphql.8917985d",
+      "text": "Verify errors do not return stack traces or the underlying database message.",
+      "domain": "security",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "stacks.graphql.b69bd4c1",
+      "text": "Verify suggestions in error messages (\"did you mean…\") are off, since they leak schema even with introspection disabled.",
+      "domain": "security",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "stacks.graphql.6d2304a7",
+      "text": "Verify a query timeout exists at the resolver level, not only at the HTTP layer.",
+      "domain": "security",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 21
+      }
+    },
+    {
+      "id": "stacks.graphql.f742f94a",
+      "text": "Verify authorization is enforced per field, not only at the top-level resolver; a nested field is a second entry point to the same data.",
+      "domain": "security",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "stacks.graphql.6dbf39d6",
+      "text": "Verify a field returning another type cannot be used to walk to records the caller may not read.",
+      "domain": "security",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "stacks.graphql.d0e11df3",
+      "text": "Verify mutations check authorization independently rather than trusting a preceding query.",
+      "domain": "security",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "stacks.graphql.f4151cd8",
+      "text": "Verify node or global-id lookups do not resolve arbitrary objects by id without an ownership check.",
+      "domain": "security",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "stacks.graphql.8bcacd9d",
+      "text": "Verify the schema does not expose internal fields that exist only for the admin client.",
+      "domain": "security",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "stacks.graphql.b13b5744",
+      "text": "Verify N+1 resolution is batched with a dataloader; the shape of GraphQL makes N+1 the default rather than the mistake.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Database at Scale",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "stacks.graphql.da93264b",
+      "text": "Verify pagination is cursor-based and that a caller cannot request an unbounded list.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Database at Scale",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "stacks.graphql.40532f04",
+      "text": "Verify a nested list-within-list query cannot multiply into a query count nobody bounded.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "Database at Scale",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "stacks.graphql.5b9fbbe5",
+      "text": "Verify the client does not ship the entire schema or unused fragments to the browser.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "JavaScript",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 42
+      }
+    },
+    {
+      "id": "stacks.graphql.516af9bd",
+      "text": "Verify cache normalisation is configured so a field update does not invalidate an entire view.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "GraphQL",
+      "section": "JavaScript",
+      "subsection": null,
+      "stack": "GraphQL",
+      "stack_id": "graphql",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/graphql.md",
+        "line": 43
+      }
+    },
+    {
       "id": "stacks.ios-swift.2b5979e4",
       "text": "Verify sensitive credentials are stored in Keychain.",
       "domain": "security",
@@ -64518,6 +65860,406 @@
       "source": {
         "file": "checklists/stacks/ios-swift.md",
         "line": 48
+      }
+    },
+    {
+      "id": "stacks.kubernetes.058034ce",
+      "text": "Verify pods set `runAsNonRoot`, a non-zero `runAsUser`, `readOnlyRootFilesystem` and drop all capabilities except those genuinely needed.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Runtime, Containers & Hosting",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "stacks.kubernetes.6adf885b",
+      "text": "Verify `allowPrivilegeEscalation: false` and that no pod runs `privileged: true`.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Runtime, Containers & Hosting",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "stacks.kubernetes.b9e6fce8",
+      "text": "Verify no pod mounts the host filesystem, the host network, the host PID namespace, or the container runtime socket.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Runtime, Containers & Hosting",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "stacks.kubernetes.bbb59f19",
+      "text": "Verify Pod Security Admission is enforcing a baseline or restricted profile on application namespaces, not just warning.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Runtime, Containers & Hosting",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "stacks.kubernetes.19fe31cb",
+      "text": "Verify every container sets both requests and limits for CPU and memory; without them one pod can starve a node.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Runtime, Containers & Hosting",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "stacks.kubernetes.53644858",
+      "text": "Verify image tags are digests or immutable, and that `imagePullPolicy` does not silently pull a changed `latest`.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Runtime, Containers & Hosting",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "stacks.kubernetes.697b93ec",
+      "text": "Verify images come from a registry you control or trust, and that admission rejects the ones that do not.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Runtime, Containers & Hosting",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "stacks.kubernetes.f3bd2601",
+      "text": "Verify `automountServiceAccountToken: false` on pods that never call the API server — the default mounts a usable token into every container.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "stacks.kubernetes.73452dcc",
+      "text": "Verify no ClusterRoleBinding grants `cluster-admin` to a service account or to `system:authenticated`.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "stacks.kubernetes.0baf251d",
+      "text": "Verify RBAC rules avoid wildcard verbs and resources, and that `create pods/exec` and `secrets get` are treated as the escalations they are.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "stacks.kubernetes.e2a9a4fc",
+      "text": "Verify a workload cannot read secrets belonging to another namespace.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "stacks.kubernetes.bb7724e4",
+      "text": "Verify cloud identity is bound per service account (Workload Identity, IRSA) rather than inherited from the node.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "stacks.kubernetes.200dcc5b",
+      "text": "Verify etcd encryption at rest is enabled; a Kubernetes Secret is base64, not encryption.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Secrets Management & Cryptography",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "stacks.kubernetes.980746b2",
+      "text": "Verify secrets are mounted as files rather than injected as environment variables where the workload allows it.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Secrets Management & Cryptography",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "stacks.kubernetes.17be9711",
+      "text": "Verify secrets are not committed in manifests, Helm values, or a Kustomize overlay.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Secrets Management & Cryptography",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "stacks.kubernetes.270167d8",
+      "text": "Verify a default-deny NetworkPolicy exists per namespace; without one every pod can reach every other pod and the metadata endpoint.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Common Web Attack Classes",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "stacks.kubernetes.bbbe72b1",
+      "text": "Verify egress is restricted for workloads that have no reason to reach the internet.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Common Web Attack Classes",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 41
+      }
+    },
+    {
+      "id": "stacks.kubernetes.8adcbec7",
+      "text": "Verify access to the cloud metadata endpoint is blocked from pods that do not need it.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Common Web Attack Classes",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 42
+      }
+    },
+    {
+      "id": "stacks.kubernetes.3e89c239",
+      "text": "Verify PodDisruptionBudgets exist so a node drain does not take a service to zero replicas.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Capacity Model",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "stacks.kubernetes.48755480",
+      "text": "Verify readiness and liveness probes are distinct and that liveness is not so aggressive it restart-loops under load.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Capacity Model",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "stacks.kubernetes.175245d4",
+      "text": "Verify the cluster autoscaler's ceiling is known, and what happens when a pod cannot be scheduled.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Capacity Model",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 49
+      }
+    },
+    {
+      "id": "stacks.kubernetes.edbe6a92",
+      "text": "Verify resource quotas per namespace prevent one team's workload from consuming the cluster.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Capacity Model",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 50
+      }
+    },
+    {
+      "id": "stacks.kubernetes.12f7ec71",
+      "text": "Verify the API server is not publicly reachable, or is restricted by authorised networks.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Pre-Release Gates",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 55
+      }
+    },
+    {
+      "id": "stacks.kubernetes.cb6c7fcf",
+      "text": "Verify audit logging is on and shipped somewhere outside the cluster.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Pre-Release Gates",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "stacks.kubernetes.21046db9",
+      "text": "Verify the Kubernetes version is supported and that node images are patched on a schedule.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Kubernetes",
+      "section": "Pre-Release Gates",
+      "subsection": null,
+      "stack": "Kubernetes",
+      "stack_id": "kubernetes",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/kubernetes.md",
+        "line": 57
       }
     },
     {
@@ -66873,6 +68615,326 @@
       }
     },
     {
+      "id": "stacks.stripe.43445813",
+      "text": "Verify webhook handlers call `constructEvent` with the signing secret and reject unsigned or mis-signed payloads.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "stacks.stripe.2ffffc6c",
+      "text": "Verify the webhook endpoint reads the **raw** body; a JSON body parser running first invalidates the signature.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "stacks.stripe.3604f693",
+      "text": "Verify the event timestamp is checked so an old captured payload cannot be replayed.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "stacks.stripe.76528d91",
+      "text": "Verify webhook handling is idempotent by event id — Stripe retries, and a duplicate must not fulfil an order twice.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "stacks.stripe.ac750813",
+      "text": "Verify the handler responds quickly and does the work asynchronously, rather than timing out and being retried.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "stacks.stripe.bffddb09",
+      "text": "Verify a failed webhook is visible to you, not only in Stripe's dashboard.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "stacks.stripe.2172143c",
+      "text": "Verify the charge amount is computed server-side from a price or product id, never taken from the request body.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Business Logic & Race Conditions",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "stacks.stripe.4845a9d5",
+      "text": "Verify currency is server-side too; a client-supplied currency is a discount.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Business Logic & Race Conditions",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "stacks.stripe.81f10324",
+      "text": "Verify entitlement is granted from the webhook or a server-side retrieve, not from the browser returning to a success URL.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Business Logic & Race Conditions",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "stacks.stripe.eb300c8d",
+      "text": "Verify a success redirect cannot be visited directly to unlock the product.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Business Logic & Race Conditions",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "stacks.stripe.d2e6ca69",
+      "text": "Verify idempotency keys are sent on charge and payment-intent creation so a retried request does not double-charge.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Business Logic & Race Conditions",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "stacks.stripe.bb885044",
+      "text": "Verify subscription state is read from Stripe or from a webhook-updated record, rather than assumed after checkout.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Business Logic & Race Conditions",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "stacks.stripe.58cb78d3",
+      "text": "Verify refunds, disputes, cancellations and failed renewals revoke access.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Business Logic & Race Conditions",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "stacks.stripe.aaad38df",
+      "text": "Verify promotion codes and trials cannot be stacked or reused beyond intent.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Business Logic & Race Conditions",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "stacks.stripe.8c6c3f9a",
+      "text": "Verify the secret key is server-side only, and that only the publishable key reaches the browser.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Secrets Management & Cryptography",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "stacks.stripe.7b0138a3",
+      "text": "Verify test and live keys cannot be confused — different environments, and an assertion at boot that the mode matches the environment.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Secrets Management & Cryptography",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "stacks.stripe.00f6b633",
+      "text": "Verify restricted keys are used where a service needs only part of the API.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Secrets Management & Cryptography",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "stacks.stripe.3cb95a09",
+      "text": "Verify the webhook signing secret is stored as a secret and differs per endpoint and per environment.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Secrets Management & Cryptography",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "stacks.stripe.192bff4a",
+      "text": "Verify card details never touch your server — Elements or Checkout, so PCI scope stays SAQ-A.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Pre-Release Gates",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 43
+      }
+    },
+    {
+      "id": "stacks.stripe.0958d91f",
+      "text": "Verify a real payment has been made and refunded end to end in production before launch.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Pre-Release Gates",
+      "subsection": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 44
+      }
+    },
+    {
       "id": "stacks.supabase.39ccf066",
       "text": "Draw the complete request/data-flow diagram from browser/mobile → Cloudflare → Cloud Run → NestJS → Supabase/Auth/Postgres/Storage → third parties.",
       "domain": "security",
@@ -67238,6 +69300,214 @@
       "source": {
         "file": "checklists/stacks/supabase.md",
         "line": 93
+      }
+    },
+    {
+      "id": "stacks.vercel.9e19f34f",
+      "text": "Verify environment variables are scoped correctly across Production, Preview and Development; a production secret exposed to Preview is exposed to every pull request.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Vercel",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "Vercel",
+      "stack_id": "vercel",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/vercel.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "stacks.vercel.874ba1ba",
+      "text": "Verify no secret is prefixed `NEXT_PUBLIC_` — that prefix ships the value to the browser.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Vercel",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "Vercel",
+      "stack_id": "vercel",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/vercel.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "stacks.vercel.cc247b9b",
+      "text": "Verify Edge Middleware is not the only place an authorization decision is made; it is a routing layer and can be bypassed by anything that reaches the function directly.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Vercel",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "Vercel",
+      "stack_id": "vercel",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/vercel.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "stacks.vercel.2868c1ee",
+      "text": "Verify serverless function regions are set close to the database rather than left at the default.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Vercel",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "Vercel",
+      "stack_id": "vercel",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/vercel.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "stacks.vercel.1bde70b7",
+      "text": "Verify function timeouts and payload limits are understood, and that a slow dependency fails rather than hanging to the platform limit.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Vercel",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "stack": "Vercel",
+      "stack_id": "vercel",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/vercel.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "stacks.vercel.a76e4dfa",
+      "text": "Verify Preview deployments are not publicly reachable, or that they cannot connect to production data — a preview URL is guessable and is indexed if linked.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Vercel",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Vercel",
+      "stack_id": "vercel",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/vercel.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "stacks.vercel.e4fb8ce2",
+      "text": "Verify Deployment Protection is enabled for previews if they touch anything real.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Vercel",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Vercel",
+      "stack_id": "vercel",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/vercel.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "stacks.vercel.d44c6294",
+      "text": "Verify the `x-vercel-*` headers are not trusted as authentication, since a client can send them to a function reached directly.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Vercel",
+      "section": "Authentication & Authorization",
+      "subsection": null,
+      "stack": "Vercel",
+      "stack_id": "vercel",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/vercel.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "stacks.vercel.2286ee0c",
+      "text": "Verify preview deployments send `noindex`, or the same content is indexed at several hostnames.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Vercel",
+      "section": "SEO Fundamentals",
+      "subsection": null,
+      "stack": "Vercel",
+      "stack_id": "vercel",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/vercel.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "stacks.vercel.46dd83af",
+      "text": "Verify the production domain is canonical and that `.vercel.app` variants redirect to it rather than serving in parallel.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Vercel",
+      "section": "SEO Fundamentals",
+      "subsection": null,
+      "stack": "Vercel",
+      "stack_id": "vercel",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/vercel.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "stacks.vercel.1bf10819",
+      "text": "Verify function invocation and bandwidth are watched against the plan's limits; the overage on a viral launch is the surprise here.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Vercel",
+      "section": "Cost at Scale",
+      "subsection": null,
+      "stack": "Vercel",
+      "stack_id": "vercel",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/vercel.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "stacks.vercel.cd65de5f",
+      "text": "Verify Image Optimization is not being used to transform unbounded third-party URLs, which is both a cost and an SSRF question.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Vercel",
+      "section": "Cost at Scale",
+      "subsection": null,
+      "stack": "Vercel",
+      "stack_id": "vercel",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/vercel.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "stacks.vercel.9acf4d16",
+      "text": "Verify ISR revalidation intervals are chosen rather than left tight enough to rebuild constantly.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Vercel",
+      "section": "Cost at Scale",
+      "subsection": null,
+      "stack": "Vercel",
+      "stack_id": "vercel",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/vercel.md",
+        "line": 37
       }
     }
   ]

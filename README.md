@@ -7,7 +7,7 @@ infrastructure, the deploy pipeline, and increasingly the AI agents too — and 
 have a security team to hand it to.
 
 <!-- counts:begin -->
-**4,196 items across 89 checklists** in 5 domains. 90% of them apply to any stack.
+**4,337 items across 96 checklists** in 5 domains. 88% of them apply to any stack.
 <!-- counts:end -->
 
 [![npm](https://img.shields.io/npm/v/prodcheck?color=cb3837&logo=npm)](https://www.npmjs.com/package/prodcheck)
@@ -85,14 +85,14 @@ checklists/
 ├── scale/                   286   surviving 10× the load
 ├── integrations/            192   search, analytics, monitoring
 ├── post-launch/             192   when it goes wrong anyway
-└── stacks/                  401   19 products, spanning every domain
+└── stacks/                  542   26 products, spanning every domain
 ```
 
 Counts above are what each folder holds. A *domain* total is larger, because the stack
 supplements contribute to whichever domain each of their sections extends:
 
 ```
-security 3,186   performance 334   scale 214   integrations 198   post-launch 192
+security 3,306   performance 338   scale 301   integrations 200   post-launch 192   post-launch 192
 ```
 
 Domains are the top level because that is the question you arrive with: *is this about
@@ -245,13 +245,15 @@ checklists stand on their own without them.
 
 **Backend & web**
 [Django](checklists/stacks/django.md) ·
+[FastAPI](checklists/stacks/fastapi.md) ·
 [Ruby on Rails](checklists/stacks/rails.md) ·
 [Laravel](checklists/stacks/laravel.md) ·
 [Spring Boot](checklists/stacks/spring.md) ·
 [Go / Gin](checklists/stacks/go-gin.md) ·
 [Express](checklists/stacks/express.md) ·
 [NestJS](checklists/stacks/nestjs.md) ·
-[Next.js / React](checklists/stacks/nextjs-react.md)
+[Next.js / React](checklists/stacks/nextjs-react.md) ·
+[GraphQL](checklists/stacks/graphql.md)
 
 **Mobile**
 [iOS / Swift](checklists/stacks/ios-swift.md) ·
@@ -263,10 +265,15 @@ checklists stand on their own without them.
 **Data & platform**
 [PostgreSQL](checklists/stacks/postgres.md) ·
 [Supabase](checklists/stacks/supabase.md) ·
+[Firebase](checklists/stacks/firebase.md) ·
 [Docker](checklists/stacks/docker.md) ·
+[Kubernetes](checklists/stacks/kubernetes.md) ·
+[AWS](checklists/stacks/aws.md) ·
 [Google Cloud](checklists/stacks/google-cloud.md) ·
+[Vercel](checklists/stacks/vercel.md) ·
 [Cloudflare](checklists/stacks/cloudflare.md) ·
-[GitHub](checklists/stacks/github-actions.md)
+[GitHub](checklists/stacks/github-actions.md) ·
+[Stripe](checklists/stacks/stripe.md)
 
 **Your stack missing?** That's the most useful contribution you can make. The format is
 documented end to end in [`_TEMPLATE.md`](checklists/stacks/_TEMPLATE.md) — a worked
@@ -475,8 +482,10 @@ is written before the content, not after.
 - [x] **Skill file for agents** — `npx prodcheck init` writes the review procedure into
       `.claude/skills/`, `.cursor/rules/` or `AGENTS.md`. Usable today: the MCP server
       already supplies the items, what was missing was the discipline.
-- [ ] **More stack supplements** — [open issues](https://github.com/FarzamHabibi/pre-production-checklist/issues)
-      for FastAPI, AWS, Kubernetes, Vercel, Firebase, Stripe and GraphQL.
+- [x] **More stack supplements** — 19 → 26. Added FastAPI, AWS, Kubernetes, Vercel,
+      Firebase, Stripe and GraphQL. Written rather than left as open issues, because a
+      visitor who does not find their stack decides the project is not for them before
+      reading an item.
 - [ ] **More domains** — `launch/`, `social/`, `legal/`. The structure absorbs them without
       moving anything else.
 
@@ -549,6 +558,13 @@ prodcheck gate      exit non-zero if a blocking item is unresolved   (for CI)
 
 Stack files, corrections, missing items, and war stories are all welcome.
 See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Questions
+
+Open a [discussion or an issue](https://github.com/FarzamHabibi/pre-production-checklist/issues) —
+that way the answer is public and the next person finds it.
+
+For anything that does not fit there, [@farzam_habibi](https://x.com/farzam_habibi) on X.
 
 ## Reporting a security problem
 

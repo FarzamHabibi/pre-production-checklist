@@ -3,6 +3,7 @@
 const fs = require('fs')
 const path = require('path')
 const D = require('./lib/data')
+const update = require('./lib/update')
 
 const pkg = require('../package.json')
 
@@ -51,6 +52,11 @@ NOTES
 
   Missing your stack? Contributions welcome:
   https://github.com/FarzamHabibi/pre-production-checklist/blob/main/CONTRIBUTING.md
+
+  Questions: open an issue, so the answer is public and the next person finds it.
+  Anything that does not fit there: @farzam_habibi on X.
+
+  NO_UPDATE_NOTIFIER=1 silences the "a newer version exists" notice.
 `.trim()
 }
 
@@ -284,6 +290,8 @@ function main () {
 
 try {
   main()
+  // after the output, never before, and never blocking it
+  update.notify(pkg.version)
 } catch (err) {
   process.stderr.write(`prodcheck: ${err.message}\n`)
   process.exit(1)

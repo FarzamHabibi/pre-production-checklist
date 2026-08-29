@@ -6003,6 +6003,66 @@ the cross-platform layer, this covers the platform underneath it, and both apply
 * [ ] Run a dependency vulnerability scan over the Gradle dependency tree, and review any dependency that adds a manifest entry or a content provider of its own.
 
 
+## AWS
+
+Items from the domain checklists that are specific to **AWS**. If you do not use it, skip this file entirely — the domain checklists stand on their own.
+
+
+---
+
+
+## Authentication & Authorization
+<sub>from [`security/core/02-authorization.md`](checklists/security/core/02-authorization.md)</sub>
+
+* [ ] Verify no IAM policy combines a wildcard action with a wildcard resource; search for `"Action": "*"` and `"Resource": "*"` in the same statement.
+* [ ] Verify no policy grants `iam:PassRole` with `Resource: "*"` — that is privilege escalation to any role in the account.
+* [ ] Verify role trust policies name a specific principal, and that any `sts:AssumeRole` from another account has an `ExternalId` condition.
+* [ ] Verify no human uses long-lived access keys where a role would do, and that any remaining key has a rotation date.
+* [ ] Verify the root account has MFA, no access keys, and is not used for anything.
+* [ ] Verify permissions were derived from what the workload actually calls — Access Analyzer generates a policy from CloudTrail rather than from guesswork.
+
+## Runtime, Containers & Hosting
+<sub>from [`security/core/13-runtime-and-containers.md`](checklists/security/core/13-runtime-and-containers.md)</sub>
+
+* [ ] Verify IMDSv2 is required (`HttpTokens: required`) on every instance; with IMDSv1 any SSRF becomes credential theft.
+* [ ] Verify Lambda environment variables hold no secrets — they are visible to anyone with `lambda:GetFunction`; use Secrets Manager or Parameter Store.
+* [ ] Verify each Lambda has its own execution role rather than sharing one across functions.
+* [ ] Verify security groups do not allow `0.0.0.0/0` on anything except the ports that must be public.
+* [ ] Verify databases and caches are in private subnets with no public accessibility flag set.
+* [ ] Verify VPC flow logs are on for the subnets that matter.
+
+## Object Storage & File Handling
+<sub>from [`security/core/07-storage-and-files.md`](checklists/security/core/07-storage-and-files.md)</sub>
+
+* [ ] Verify S3 Block Public Access is enabled at the account level, not only per bucket.
+* [ ] Verify no bucket policy or ACL grants `AllUsers` or `AuthenticatedUsers`.
+* [ ] Verify default encryption is on and that a bucket policy denies unencrypted uploads.
+* [ ] Verify presigned URLs have a short expiry and are scoped to one object and one method.
+* [ ] Verify versioning and MFA delete are considered for buckets whose loss would matter.
+* [ ] Verify bucket names are not guessable in a way that reveals customers or environments.
+
+## Backend Application & API
+<sub>from [`security/core/04-backend-api.md`](checklists/security/core/04-backend-api.md)</sub>
+
+* [ ] Verify API Gateway routes have an authorizer, and that a route added later does not default to open.
+* [ ] Verify a resource policy or WAF sits in front of a public API, and that throttling is configured per stage.
+* [ ] Verify stage variables carry no secrets.
+
+## CI/CD & Supply Chain
+<sub>from [`security/core/15-ci-cd-and-supply-chain.md`](checklists/security/core/15-ci-cd-and-supply-chain.md)</sub>
+
+* [ ] Verify GitHub Actions authenticates through OIDC rather than stored AWS keys, and that the trust policy pins the repository and branch.
+* [ ] Verify CloudTrail is on in every region with log file validation, and that its bucket cannot be written by the accounts it audits.
+* [ ] Verify GuardDuty or an equivalent is on and its findings reach a human.
+
+## Cost at Scale
+<sub>from [`scale/07-cost-at-scale.md`](checklists/scale/07-cost-at-scale.md)</sub>
+
+* [ ] Verify a budget alarm exists on rate of change, not only on the monthly total.
+* [ ] Verify NAT gateway and cross-AZ data transfer are understood; both are common surprises at scale.
+* [ ] Verify S3 lifecycle rules move or expire objects rather than letting storage grow indefinitely.
+
+
 ## Cloudflare
 
 Items from the core checklists that are specific to **Cloudflare**. If you do not use it, skip this file entirely — the core checklists stand on their own.
@@ -6299,6 +6359,93 @@ Items from the core checklists that are specific to **Express**. If you do not u
 * [ ] Verify `NODE_ENV=production` is actually set — Express changes error output and caching based on it.
 
 
+## FastAPI
+
+Items from the domain checklists that are specific to **FastAPI**. If you do not use it, skip this file entirely — the domain checklists stand on their own.
+
+
+---
+
+
+## Backend Application & API
+<sub>from [`security/core/04-backend-api.md`](checklists/security/core/04-backend-api.md)</sub>
+
+* [ ] Verify `/docs`, `/redoc` and `/openapi.json` are disabled or authenticated in production; they are on by default and describe every endpoint you have.
+* [ ] Verify `debug=True` is not set on the app in production.
+* [ ] Verify CORS middleware does not combine `allow_origins=["*"]` with `allow_credentials=True`; Starlette permits the combination and browsers treat it as a wildcard failure.
+* [ ] Verify `TrustedHostMiddleware` is configured, or Host-header injection reaches the application.
+* [ ] Verify exception handlers do not return the traceback; a bare `Exception` handler that echoes `str(e)` leaks internals.
+* [ ] Verify request body size is bounded — neither Starlette nor Uvicorn imposes a limit by default.
+* [ ] Verify long-running work is not done in `async def` handlers without awaiting; a blocking call there stalls the whole event loop, not one request.
+* [ ] Verify `BackgroundTasks` is not used for anything that must not be lost — it runs in-process and dies with the worker.
+
+## Authentication & Authorization
+<sub>from [`security/core/02-authorization.md`](checklists/security/core/02-authorization.md)</sub>
+
+* [ ] Verify authentication is a dependency applied at the router or app level, not remembered per endpoint; a route added without it is the default failure here.
+* [ ] Verify `Depends` security dependencies actually raise rather than returning `None` for an unauthenticated caller.
+* [ ] Verify `response_model` is set on every route returning an ORM object — without it FastAPI serialises whatever attributes exist, including hashes and internal flags.
+* [ ] Verify `response_model_exclude` is not the only thing protecting a sensitive field; prefer a schema that never contains it.
+* [ ] Verify request models do not accept ownership fields — `user_id`, `role`, `is_admin` — from the body, and that `model_config` forbids extra fields.
+* [ ] Verify OAuth2 scopes, if used, are checked and not merely declared.
+
+## Database & Row-Level Security
+<sub>from [`security/core/06-database.md`](checklists/security/core/06-database.md)</sub>
+
+* [ ] Verify SQLAlchemy `text()` and `.execute()` calls use bound parameters rather than f-strings.
+* [ ] Verify the async session is scoped per request and never shared across concurrent tasks.
+* [ ] Verify a session is not held open across an `await` on an external call.
+
+## Backend & Delivery
+<sub>from [`performance/07-backend-and-delivery.md`](checklists/performance/07-backend-and-delivery.md)</sub>
+
+* [ ] Verify the app runs under Uvicorn workers sized for the machine, and that a sync endpoint is declared `def` so it runs in the threadpool rather than blocking the loop.
+* [ ] Verify `--reload` is not used in production.
+
+
+## Firebase
+
+Items from the domain checklists that are specific to **Firebase**. If you do not use it, skip this file entirely — the domain checklists stand on their own.
+
+
+---
+
+
+## Authentication & Authorization
+<sub>from [`security/core/02-authorization.md`](checklists/security/core/02-authorization.md)</sub>
+
+* [ ] Verify Firestore and Realtime Database rules do not end in a catch-all `allow read, write: if true` — the default template does, with a date-based expiry that people forget.
+* [ ] Verify rules check ownership on the document, not merely that the caller is signed in; `request.auth != null` is authentication, not authorization.
+* [ ] Verify rules are tested with the emulator suite, since they are code with no type checking and no review by default.
+* [ ] Verify a query cannot return documents the caller may not read — rules filter documents, they do not rewrite queries, so an unscoped query fails rather than filtering.
+* [ ] Verify custom claims are set only from a trusted server context, never from the client.
+* [ ] Verify a client re-fetches its ID token after a role change, or the old claims stay valid until the token expires.
+* [ ] Verify Storage rules are as tight as database rules; they are separate and are commonly left open.
+* [ ] Verify the web API key is understood: it identifies the project, it is not a secret, and it is not what protects your data — the rules are.
+
+## Backend Application & API
+<sub>from [`security/core/04-backend-api.md`](checklists/security/core/04-backend-api.md)</sub>
+
+* [ ] Verify Cloud Functions that should not be public are not deployed with unauthenticated invocation.
+* [ ] Verify callable functions check `context.auth` rather than assuming the SDK enforced it.
+* [ ] Verify the Admin SDK is used only server-side; it bypasses all security rules by design.
+* [ ] Verify function environment configuration holds no secret that should be in Secret Manager.
+
+## Abuse & Availability
+<sub>from [`security/core/18-abuse-and-availability.md`](checklists/security/core/18-abuse-and-availability.md)</sub>
+
+* [ ] Verify App Check is enabled if the client is the only thing calling your backend, and that enforcement is on rather than monitoring.
+* [ ] Verify email enumeration protection is enabled in Authentication settings.
+* [ ] Verify anonymous sign-in, if enabled, cannot accumulate unbounded documents or storage.
+* [ ] Verify a per-user quota exists on anything that costs money, since a Firestore read loop from a client is billed to you.
+
+## Cost at Scale
+<sub>from [`scale/07-cost-at-scale.md`](checklists/scale/07-cost-at-scale.md)</sub>
+
+* [ ] Verify a budget alert exists; Firestore bills per document read and a missing `limit()` in a listener is expensive rather than slow.
+* [ ] Verify listeners are detached when a component unmounts, or reads accumulate for the session's lifetime.
+
+
 ## Flutter
 
 Items from the core checklists that are specific to **Flutter**. If you do not use it, skip this file entirely — the core checklists stand on their own.
@@ -6531,6 +6678,50 @@ Items from the core checklists that are specific to **Google Cloud (Cloud Run, C
 * [ ] expose a Cloud Run service
 
 
+## GraphQL
+
+Items from the domain checklists that are specific to **GraphQL**. If you do not use it, skip this file entirely — the domain checklists stand on their own.
+
+
+---
+
+
+## Backend Application & API
+<sub>from [`security/core/04-backend-api.md`](checklists/security/core/04-backend-api.md)</sub>
+
+* [ ] Verify introspection is disabled in production, or that exposing the full schema is a deliberate decision.
+* [ ] Verify query depth is limited; a recursive relationship makes one request arbitrarily expensive.
+* [ ] Verify query complexity is scored and capped, since depth alone does not stop a wide query.
+* [ ] Verify aliases are counted — the same expensive field requested two hundred times under different aliases bypasses a naive per-field limit.
+* [ ] Verify batched operations in one request are limited, and that batching cannot be used to brute-force a login mutation past rate limiting.
+* [ ] Verify a persisted-query allowlist is used if clients are all your own.
+* [ ] Verify errors do not return stack traces or the underlying database message.
+* [ ] Verify suggestions in error messages ("did you mean…") are off, since they leak schema even with introspection disabled.
+* [ ] Verify a query timeout exists at the resolver level, not only at the HTTP layer.
+
+## Authentication & Authorization
+<sub>from [`security/core/02-authorization.md`](checklists/security/core/02-authorization.md)</sub>
+
+* [ ] Verify authorization is enforced per field, not only at the top-level resolver; a nested field is a second entry point to the same data.
+* [ ] Verify a field returning another type cannot be used to walk to records the caller may not read.
+* [ ] Verify mutations check authorization independently rather than trusting a preceding query.
+* [ ] Verify node or global-id lookups do not resolve arbitrary objects by id without an ownership check.
+* [ ] Verify the schema does not expose internal fields that exist only for the admin client.
+
+## Database at Scale
+<sub>from [`scale/03-database.md`](checklists/scale/03-database.md)</sub>
+
+* [ ] Verify N+1 resolution is batched with a dataloader; the shape of GraphQL makes N+1 the default rather than the mistake.
+* [ ] Verify pagination is cursor-based and that a caller cannot request an unbounded list.
+* [ ] Verify a nested list-within-list query cannot multiply into a query count nobody bounded.
+
+## JavaScript
+<sub>from [`performance/04-javascript.md`](checklists/performance/04-javascript.md)</sub>
+
+* [ ] Verify the client does not ship the entire schema or unused fragments to the browser.
+* [ ] Verify cache normalisation is configured so a field update does not invalidate an entire view.
+
+
 ## iOS / iPadOS / Swift
 
 Items from the core checklists that are specific to **iOS / iPadOS / Swift**. If you do not use it, skip this file entirely — the core checklists stand on their own.
@@ -6578,6 +6769,64 @@ Items from the core checklists that are specific to **iOS / iPadOS / Swift**. If
 <sub>from [`security/ai-generated-code/07-review-blind-spots.md`](checklists/security/ai-generated-code/07-review-blind-spots.md)</sub>
 
 * [ ] Verify outdated Swift security APIs are not copied.
+
+
+## Kubernetes
+
+Items from the domain checklists that are specific to **Kubernetes**. If you do not use it, skip this file entirely — the domain checklists stand on their own.
+
+
+---
+
+
+## Runtime, Containers & Hosting
+<sub>from [`security/core/13-runtime-and-containers.md`](checklists/security/core/13-runtime-and-containers.md)</sub>
+
+* [ ] Verify pods set `runAsNonRoot`, a non-zero `runAsUser`, `readOnlyRootFilesystem` and drop all capabilities except those genuinely needed.
+* [ ] Verify `allowPrivilegeEscalation: false` and that no pod runs `privileged: true`.
+* [ ] Verify no pod mounts the host filesystem, the host network, the host PID namespace, or the container runtime socket.
+* [ ] Verify Pod Security Admission is enforcing a baseline or restricted profile on application namespaces, not just warning.
+* [ ] Verify every container sets both requests and limits for CPU and memory; without them one pod can starve a node.
+* [ ] Verify image tags are digests or immutable, and that `imagePullPolicy` does not silently pull a changed `latest`.
+* [ ] Verify images come from a registry you control or trust, and that admission rejects the ones that do not.
+
+## Authentication & Authorization
+<sub>from [`security/core/02-authorization.md`](checklists/security/core/02-authorization.md)</sub>
+
+* [ ] Verify `automountServiceAccountToken: false` on pods that never call the API server — the default mounts a usable token into every container.
+* [ ] Verify no ClusterRoleBinding grants `cluster-admin` to a service account or to `system:authenticated`.
+* [ ] Verify RBAC rules avoid wildcard verbs and resources, and that `create pods/exec` and `secrets get` are treated as the escalations they are.
+* [ ] Verify a workload cannot read secrets belonging to another namespace.
+* [ ] Verify cloud identity is bound per service account (Workload Identity, IRSA) rather than inherited from the node.
+
+## Secrets Management & Cryptography
+<sub>from [`security/core/08-secrets-and-crypto.md`](checklists/security/core/08-secrets-and-crypto.md)</sub>
+
+* [ ] Verify etcd encryption at rest is enabled; a Kubernetes Secret is base64, not encryption.
+* [ ] Verify secrets are mounted as files rather than injected as environment variables where the workload allows it.
+* [ ] Verify secrets are not committed in manifests, Helm values, or a Kustomize overlay.
+
+## Common Web Attack Classes
+<sub>from [`security/core/09-common-web-attacks.md`](checklists/security/core/09-common-web-attacks.md)</sub>
+
+* [ ] Verify a default-deny NetworkPolicy exists per namespace; without one every pod can reach every other pod and the metadata endpoint.
+* [ ] Verify egress is restricted for workloads that have no reason to reach the internet.
+* [ ] Verify access to the cloud metadata endpoint is blocked from pods that do not need it.
+
+## Capacity Model
+<sub>from [`scale/01-capacity-model.md`](checklists/scale/01-capacity-model.md)</sub>
+
+* [ ] Verify PodDisruptionBudgets exist so a node drain does not take a service to zero replicas.
+* [ ] Verify readiness and liveness probes are distinct and that liveness is not so aggressive it restart-loops under load.
+* [ ] Verify the cluster autoscaler's ceiling is known, and what happens when a pod cannot be scheduled.
+* [ ] Verify resource quotas per namespace prevent one team's workload from consuming the cluster.
+
+## Pre-Release Gates
+<sub>from [`security/core/17-release-gates.md`](checklists/security/core/17-release-gates.md)</sub>
+
+* [ ] Verify the API server is not publicly reachable, or is restricted by authorised networks.
+* [ ] Verify audit logging is on and shipped somewhere outside the cluster.
+* [ ] Verify the Kubernetes version is supported and that node images are patched on a schedule.
 
 
 ## Laravel
@@ -6968,6 +7217,51 @@ Items from the core checklists that are specific to **Spring Boot**. If you do n
 * [ ] Verify the fat JAR does not bundle test fixtures, seed credentials or `application-local.yml`.
 
 
+## Stripe
+
+Items from the domain checklists that are specific to **Stripe**. If you do not use it, skip this file entirely — the domain checklists stand on their own.
+
+
+---
+
+
+## Backend Application & API
+<sub>from [`security/core/04-backend-api.md`](checklists/security/core/04-backend-api.md)</sub>
+
+* [ ] Verify webhook handlers call `constructEvent` with the signing secret and reject unsigned or mis-signed payloads.
+* [ ] Verify the webhook endpoint reads the **raw** body; a JSON body parser running first invalidates the signature.
+* [ ] Verify the event timestamp is checked so an old captured payload cannot be replayed.
+* [ ] Verify webhook handling is idempotent by event id — Stripe retries, and a duplicate must not fulfil an order twice.
+* [ ] Verify the handler responds quickly and does the work asynchronously, rather than timing out and being retried.
+* [ ] Verify a failed webhook is visible to you, not only in Stripe's dashboard.
+
+## Business Logic & Race Conditions
+<sub>from [`security/core/10-business-logic.md`](checklists/security/core/10-business-logic.md)</sub>
+
+* [ ] Verify the charge amount is computed server-side from a price or product id, never taken from the request body.
+* [ ] Verify currency is server-side too; a client-supplied currency is a discount.
+* [ ] Verify entitlement is granted from the webhook or a server-side retrieve, not from the browser returning to a success URL.
+* [ ] Verify a success redirect cannot be visited directly to unlock the product.
+* [ ] Verify idempotency keys are sent on charge and payment-intent creation so a retried request does not double-charge.
+* [ ] Verify subscription state is read from Stripe or from a webhook-updated record, rather than assumed after checkout.
+* [ ] Verify refunds, disputes, cancellations and failed renewals revoke access.
+* [ ] Verify promotion codes and trials cannot be stacked or reused beyond intent.
+
+## Secrets Management & Cryptography
+<sub>from [`security/core/08-secrets-and-crypto.md`](checklists/security/core/08-secrets-and-crypto.md)</sub>
+
+* [ ] Verify the secret key is server-side only, and that only the publishable key reaches the browser.
+* [ ] Verify test and live keys cannot be confused — different environments, and an assertion at boot that the mode matches the environment.
+* [ ] Verify restricted keys are used where a service needs only part of the API.
+* [ ] Verify the webhook signing secret is stored as a secret and differs per endpoint and per environment.
+
+## Pre-Release Gates
+<sub>from [`security/core/17-release-gates.md`](checklists/security/core/17-release-gates.md)</sub>
+
+* [ ] Verify card details never touch your server — Elements or Checkout, so PCI scope stays SAQ-A.
+* [ ] Verify a real payment has been made and refunded end to end in production before launch.
+
+
 ## Supabase
 
 Items from the core checklists that are specific to **Supabase**. If you do not use it, skip this file entirely — the core checklists stand on their own.
@@ -7060,3 +7354,41 @@ Items from the core checklists that are specific to **Supabase**. If you do not 
 
 * [ ] AI changed Supabase policies.
 * [ ] AI introduced `service_role`.
+
+
+## Vercel
+
+Items from the domain checklists that are specific to **Vercel**. If you do not use it, skip this file entirely — the domain checklists stand on their own.
+
+
+---
+
+
+## Backend Application & API
+<sub>from [`security/core/04-backend-api.md`](checklists/security/core/04-backend-api.md)</sub>
+
+* [ ] Verify environment variables are scoped correctly across Production, Preview and Development; a production secret exposed to Preview is exposed to every pull request.
+* [ ] Verify no secret is prefixed `NEXT_PUBLIC_` — that prefix ships the value to the browser.
+* [ ] Verify Edge Middleware is not the only place an authorization decision is made; it is a routing layer and can be bypassed by anything that reaches the function directly.
+* [ ] Verify serverless function regions are set close to the database rather than left at the default.
+* [ ] Verify function timeouts and payload limits are understood, and that a slow dependency fails rather than hanging to the platform limit.
+
+## Authentication & Authorization
+<sub>from [`security/core/02-authorization.md`](checklists/security/core/02-authorization.md)</sub>
+
+* [ ] Verify Preview deployments are not publicly reachable, or that they cannot connect to production data — a preview URL is guessable and is indexed if linked.
+* [ ] Verify Deployment Protection is enabled for previews if they touch anything real.
+* [ ] Verify the `x-vercel-*` headers are not trusted as authentication, since a client can send them to a function reached directly.
+
+## SEO Fundamentals
+<sub>from [`integrations/02-seo-fundamentals.md`](checklists/integrations/02-seo-fundamentals.md)</sub>
+
+* [ ] Verify preview deployments send `noindex`, or the same content is indexed at several hostnames.
+* [ ] Verify the production domain is canonical and that `.vercel.app` variants redirect to it rather than serving in parallel.
+
+## Cost at Scale
+<sub>from [`scale/07-cost-at-scale.md`](checklists/scale/07-cost-at-scale.md)</sub>
+
+* [ ] Verify function invocation and bandwidth are watched against the plan's limits; the overage on a viral launch is the surprise here.
+* [ ] Verify Image Optimization is not being used to transform unbounded third-party URLs, which is both a cost and an SSRF question.
+* [ ] Verify ISR revalidation intervals are chosen rather than left tight enough to rebuild constantly.

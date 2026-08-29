@@ -378,6 +378,34 @@ test('init rejects an unknown target', () => {
     { stdio: 'pipe' }))
 })
 
+test('the update notice only fires when it should', () => {
+  const fs = require('fs')
+  const U = require('./lib/update')
+
+  assert.strictEqual(U.isNewer('1.9.0', '1.8.0'), true)
+  assert.strictEqual(U.isNewer('1.8.0', '1.9.0'), false)
+  assert.strictEqual(U.isNewer('1.8.0', '1.8.0'), false, 'equal is not newer')
+  assert.strictEqual(U.isNewer('2.0.0', '1.99.99'), true)
+  assert.strictEqual(U.isNewer('1.10.0', '1.9.0'), true, 'must compare numerically, not as strings')
+  // anything unparseable means say nothing rather than guess
+  assert.strictEqual(U.isNewer('1.9.0-beta', '1.8.0'), false)
+  assert.strictEqual(U.isNewer('latest', '1.8.0'), false)
+  assert.strictEqual(U.isNewer('', '1.8.0'), false)
+
+  // a stale cache must not make the notice appear on piped output — this is the one that
+  // matters, because --format json and -o must produce exactly what was asked for
+  const saved = fs.existsSync(U.CACHE) ? fs.readFileSync(U.CACHE, 'utf8') : null
+  try {
+    fs.writeFileSync(U.CACHE, JSON.stringify({ latest: '99.0.0', at: Date.now() }))
+    const out = execFileSync(process.execPath, [CLI, '--gate', '--format', 'count'],
+      { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] })
+    assert.ok(/^\d+\n$/.test(out), `piped output was polluted: ${JSON.stringify(out)}`)
+  } finally {
+    if (saved !== null) fs.writeFileSync(U.CACHE, saved)
+    else try { fs.unlinkSync(U.CACHE) } catch {}
+  }
+})
+
 // ------------------------------------------------------------------ MCP
 console.log('\nmcp server')
 

@@ -1,7 +1,7 @@
 {
   "name": "prodcheck",
-  "version": "1.9.0",
-  "description": "Pre-production checklists for solo founders — 4,196 items, 90% portable to any stack, 19 stack supplements. CLI + MCP server.",
+  "version": "1.10.0",
+  "description": "Pre-production checklists for solo founders — 4,337 items, 88% portable to any stack, 26 stack supplements. CLI + MCP server.",
   "keywords": [
     "security",
     "checklist",
