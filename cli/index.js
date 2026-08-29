@@ -16,6 +16,7 @@ USAGE
   npx prodcheck list                   domains, areas and item counts
   npx prodcheck stacks                 which product supplements exist
   npx prodcheck info                   dataset summary
+  npx prodcheck init [--target t]      install the review skill into this project
 
 DOMAINS
   ${domains.map((d) => `${d.padEnd(14)} ${D.domainLabel(d)}`).join('\n  ')}
@@ -28,6 +29,8 @@ OPTIONS
   -q, --search <text>      case-insensitive match on item text
       --gate               only release-blocking items
       --all-stacks         include every product supplement, not just yours
+      --target <t>         init only: claude | agents | cursor | all  (default: detect)
+      --force              init only: overwrite an existing skill file
   -o, --out <file>         write to a file instead of stdout
   -f, --format <fmt>       markdown (default) | text | json | count
   -n, --limit <n>          cap the number of items
@@ -39,6 +42,7 @@ EXAMPLES
   npx prodcheck security --area ai
   npx prodcheck --gate                       release blockers, every domain
   npx prodcheck --search cors --format text
+  npx prodcheck init                         teach your agent how to run a review
 
 NOTES
   A stack with no supplement file is not an error — you get the items that name no
@@ -50,7 +54,7 @@ NOTES
 `.trim()
 }
 
-const COMMANDS = new Set(['list', 'stacks', 'info'])
+const COMMANDS = new Set(['list', 'stacks', 'info', 'init'])
 
 function parse (argv) {
   const o = { domains: [], areas: [], stacks: [], format: 'markdown' }
@@ -72,6 +76,8 @@ function parse (argv) {
       // --domain and --group are the pre-1.0 spellings, kept so existing scripts work
       case '-d': case '--domain': case '-g': case '--group': o.domains.push(...list(next())); break
       case '--gate': o.gate = true; break
+      case '--target': o.target = next(); break
+      case '--force': o.force = true; break
       case '--all-stacks': o.allStacks = true; break
       case '-h': case '--help': o.help = true; break
       case '-v': case '--version': o.version = true; break
@@ -82,6 +88,85 @@ function parse (argv) {
     }
   }
   return o
+}
+
+// Where each agent expects to find instructions. Writing to the wrong one is silently
+// useless, so init detects what the project already uses rather than guessing.
+const TARGETS = {
+  claude: { path: ['.claude', 'skills', 'prodcheck-review', 'SKILL.md'], detect: '.claude' },
+  cursor: { path: ['.cursor', 'rules', 'prodcheck-review.mdc'], detect: '.cursor' },
+  agents: { path: ['AGENTS.md'], detect: 'AGENTS.md' }
+}
+
+function skillBody () {
+  const p = path.join(__dirname, '..', 'skills', 'review', 'SKILL.md')
+  if (!fs.existsSync(p)) throw new Error(`the skill file is missing from this install: ${p}`)
+  return fs.readFileSync(p, 'utf8')
+}
+
+function init (o) {
+  const cwd = process.cwd()
+  let targets
+  if (o.target === 'all') targets = Object.keys(TARGETS)
+  else if (o.target) {
+    if (!TARGETS[o.target]) fail(`unknown target: ${o.target} — expected ${Object.keys(TARGETS).join(', ')}, or all`)
+    targets = [o.target]
+  } else {
+    targets = Object.keys(TARGETS).filter((t) => fs.existsSync(path.join(cwd, TARGETS[t].detect)))
+    if (!targets.length) targets = ['claude']   // the most common, and harmless if unused
+  }
+
+  const body = skillBody()
+  const written = []
+  const skipped = []
+  for (const t of targets) {
+    const rel = path.join(...TARGETS[t].path)
+    const dest = path.join(cwd, rel)
+
+    if (t === 'agents') {
+      // AGENTS.md is shared with whatever else the project put there — append, never clobber
+      const marker = '<!-- prodcheck:begin -->'
+      const end = '<!-- prodcheck:end -->'
+      const block = `${marker}\n${stripFrontmatter(body)}\n${end}\n`
+      let cur = fs.existsSync(dest) ? fs.readFileSync(dest, 'utf8') : ''
+      if (cur.includes(marker)) {
+        cur = cur.replace(new RegExp(marker + '[\\s\\S]*?' + end + '\\n?'), block)
+      } else {
+        cur = (cur ? cur.trimEnd() + '\n\n' : '') + block
+      }
+      fs.writeFileSync(dest, cur)
+      written.push(rel + (cur.indexOf(marker) === 0 ? '' : ' (appended)'))
+      continue
+    }
+
+    if (fs.existsSync(dest) && !o.force) {
+      skipped.push(rel)
+      continue
+    }
+    fs.mkdirSync(path.dirname(dest), { recursive: true })
+    fs.writeFileSync(dest, t === 'cursor' ? stripFrontmatter(body) : body)
+    written.push(rel)
+  }
+
+  // Already installed is not a failure — re-running init is a normal thing to do, and
+  // exiting non-zero for it turns a no-op into a broken build step.
+  if (!written.length) {
+    console.log('Already installed:\n' + skipped.map((s) => '  ' + s).join('\n'))
+    console.log('\nRun with --force to update it to this version of the skill.')
+    return
+  }
+  if (skipped.length) {
+    console.log('Left alone (already present):\n' + skipped.map((s) => '  ' + s).join('\n'))
+  }
+  console.log('Wrote:\n' + written.map((w) => '  ' + w).join('\n'))
+  console.log('\nYour agent can now run a review against the checklist. Try asking it:')
+  console.log('  "review this repo against the prodcheck release gate"')
+  console.log('\nIt will produce evidence with file:line citations and will not mark')
+  console.log('anything verified — that stays yours.')
+}
+
+function stripFrontmatter (s) {
+  return s.startsWith('---') ? s.replace(/^---[\s\S]*?\n---\n/, '') : s
 }
 
 function fail (msg) {
@@ -121,6 +206,8 @@ function main () {
     console.log('\nAdd yours: https://github.com/FarzamHabibi/pre-production-checklist/blob/main/CONTRIBUTING.md')
     return
   }
+
+  if (o.command === 'init') return init(o)
 
   if (o.command === 'info') {
     console.log(`prodcheck ${pkg.version} — dataset v${doc.version}`)

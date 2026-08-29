@@ -530,7 +530,8 @@ item | verdict | file:line | one-sentence reason."""
       <h4>Give it to your AI assistant</h4>
       <p class="sub">MCP · Claude, Cursor, Copilot, Gemini CLI, Cline, Cherry Studio…</p>
       {codeblock('h-mcp', mcp)}
-      <p class="more"><a href="{REPO}/blob/main/docs/mcp-clients.md">every client →</a>
+      <p class="more"><a href="{REPO}/blob/main/skills/review/SKILL.md">the review skill →</a>
+        &nbsp;·&nbsp; <a href="{REPO}/blob/main/docs/mcp-clients.md">every client →</a>
         &nbsp;·&nbsp; <a href="#tools">n8n, OpenRouter, DeepSeek… →</a></p>
     </div>
     <div class="q">

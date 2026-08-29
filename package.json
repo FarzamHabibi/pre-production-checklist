@@ -1,6 +1,6 @@
 {
   "name": "prodcheck",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "Pre-production checklists for solo founders — 4,196 items, 90% portable to any stack, 19 stack supplements. CLI + MCP server.",
   "keywords": [
     "security",
@@ -32,7 +32,11 @@
     "postmortem",
     "disaster-recovery",
     "runbook",
-    "sre"
+    "sre",
+    "agent-skill",
+    "claude-code",
+    "cursor",
+    "code-review"
   ],
   "homepage": "https://prodcheck.pages.dev/",
   "bugs": "https://github.com/FarzamHabibi/pre-production-checklist/issues",
@@ -47,6 +51,7 @@
   },
   "files": [
     "cli/",
+    "skills/",
     "data/checklist.json",
     "data/schema.json",
     "README.md",

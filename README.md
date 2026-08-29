@@ -372,6 +372,34 @@ its own. That's the whole design: it works for a stack nobody has written a file
 
 Zero dependencies, Node 18+.
 
+## Let your agent run the review
+
+The MCP server gives an agent the items. This gives it the **procedure**:
+
+```bash
+npx prodcheck init
+```
+
+It writes a skill into `.claude/skills/`, `.cursor/rules/` or `AGENTS.md` — whichever the
+project already uses — and then you can ask your agent:
+
+> *review this repo against the prodcheck release gate*
+
+What the skill enforces matters more than what it enables:
+
+- **The model never marks anything verified.** Every item ends as a `FINDING` with a
+  `file:line` citation, an `UNKNOWN`, or an `N/A` with a reason. There is no "pass" it can
+  write; that stays yours.
+- **A finding without a citation is not a finding.** It has to quote the lines, and re-read
+  them before claiming what they say.
+- **`UNKNOWN` stays visible.** Most items on a checklist this size depend on production
+  configuration a repository cannot show. The list of things a human still has to check is
+  usually the most useful part of the report.
+
+> This repository contains a folder about the bugs AI assistants write, and a section on
+> why AI review misses them — fluent, confident output produced whether or not anything was
+> established. The skill is written against that, not in spite of it.
+
 ## MCP server
 
 Let your coding agent query the checklist directly while it works, instead of you pasting
@@ -444,6 +472,9 @@ is written before the content, not after.
 - [x] **Deepen `scale/`** — 214 → 286. Added service levels and error budgets, search and
       analytics engines, realtime fan-out, contract and event versioning, and tenant-shape
       capacity. The gaps were measured rather than guessed at.
+- [x] **Skill file for agents** — `npx prodcheck init` writes the review procedure into
+      `.claude/skills/`, `.cursor/rules/` or `AGENTS.md`. Usable today: the MCP server
+      already supplies the items, what was missing was the discipline.
 - [ ] **More stack supplements** — [open issues](https://github.com/FarzamHabibi/pre-production-checklist/issues)
       for FastAPI, AWS, Kubernetes, Vercel, Firebase, Stripe and GraphQL.
 - [ ] **More domains** — `launch/`, `social/`, `legal/`. The structure absorbs them without

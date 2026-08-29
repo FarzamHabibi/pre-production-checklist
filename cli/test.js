@@ -312,6 +312,72 @@ test('README only documents bin names that this package actually declares', () =
   }
 })
 
+test('the review skill states the three rules it exists for', () => {
+  const fs = require('fs')
+  const skill = fs.readFileSync(path.join(__dirname, '..', 'skills', 'review', 'SKILL.md'), 'utf8')
+  assert.ok(skill.startsWith('---'), 'skill needs frontmatter for Claude Code to load it')
+  for (const field of ['name:', 'description:']) {
+    assert.ok(skill.includes(field), `skill frontmatter missing ${field}`)
+  }
+  // The whole point of the skill. If an edit ever loosens these, the skill becomes the
+  // thing security/ai-generated-code warns about instead of the answer to it.
+  for (const rule of ['never mark an item verified', 'cites file and line',
+                      'is a real answer']) {
+    assert.ok(skill.toLowerCase().includes(rule.toLowerCase()),
+      `the skill no longer states: "${rule}"`)
+  }
+  assert.ok(!/\bmark(ing)? (it|them|items) as \[x\]/i.test(skill))
+})
+
+test('init writes into a project without touching anything else', () => {
+  const fs = require('fs')
+  const os = require('os')
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'pc-init-'))
+  try {
+    execFileSync(process.execPath, [CLI, 'init'], { cwd: dir, stdio: 'pipe' })
+    const written = path.join(dir, '.claude', 'skills', 'prodcheck-review', 'SKILL.md')
+    assert.ok(fs.existsSync(written), 'init wrote nothing')
+    assert.ok(fs.readFileSync(written, 'utf8').startsWith('---'))
+
+    // second run must not clobber a file the user may have edited
+    fs.writeFileSync(written, 'MINE')
+    execFileSync(process.execPath, [CLI, 'init'], { cwd: dir, stdio: 'pipe' })
+    assert.strictEqual(fs.readFileSync(written, 'utf8'), 'MINE', 'init overwrote without --force')
+
+    execFileSync(process.execPath, [CLI, 'init', '--force'], { cwd: dir, stdio: 'pipe' })
+    assert.ok(fs.readFileSync(written, 'utf8').startsWith('---'), '--force did not overwrite')
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('init appends to AGENTS.md rather than replacing it', () => {
+  const fs = require('fs')
+  const os = require('os')
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'pc-agents-'))
+  try {
+    const f = path.join(dir, 'AGENTS.md')
+    fs.writeFileSync(f, '# House rules\n\nSomething the project already relies on.\n')
+    execFileSync(process.execPath, [CLI, 'init', '--target', 'agents'], { cwd: dir, stdio: 'pipe' })
+    let out = fs.readFileSync(f, 'utf8')
+    assert.ok(out.includes('Something the project already relies on'), 'init destroyed existing content')
+    assert.ok(out.includes('prodcheck:begin'))
+
+    // and re-running replaces only its own block
+    execFileSync(process.execPath, [CLI, 'init', '--target', 'agents'], { cwd: dir, stdio: 'pipe' })
+    out = fs.readFileSync(f, 'utf8')
+    assert.strictEqual((out.match(/prodcheck:begin/g) || []).length, 1, 'block duplicated on re-run')
+    assert.ok(out.includes('Something the project already relies on'))
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('init rejects an unknown target', () => {
+  assert.throws(() => execFileSync(process.execPath, [CLI, 'init', '--target', 'nope'],
+    { stdio: 'pipe' }))
+})
+
 // ------------------------------------------------------------------ MCP
 console.log('\nmcp server')
 
