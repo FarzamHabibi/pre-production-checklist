@@ -5,11 +5,12 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**3,718 items** · 3,317 of them (89%) name no product at all.
+**3,932 items** · 3,531 of them (90%) name no product at all.
 
 | Domain | Items | |
 | --- | ---: | --- |
 | [**Security**](#security) | 3,186 | Not getting breached, abused, or taken down. |
+| [**Scale**](#scale) | 214 | Surviving ten times the load, and knowing what breaks first. |
 | [**Performance**](#performance) | 334 | Being fast for a real user, with Lighthouse agreeing. |
 | [**Integrations**](#integrations) | 198 | Being connected: search, analytics, monitoring. |
 | [Stack supplements](#stack-supplements) | 401 | 19 products, only if you use them |
@@ -83,6 +84,26 @@ The bugs AI coding assistants actually write. Also known as vibe coding.
 | [Agent Prompts & PR Review](security/ai-generated-code/08-prompts-and-pr-review.md) | 103 |
 | [Vibe-Coding Release Gate](security/ai-generated-code/09-release-gate.md) | 43 |
 | **Total** | **548** |
+
+---
+
+<a id="scale"></a>
+
+## Scale
+
+Surviving ten times the load, and knowing what breaks first.
+
+| Checklist | Items |
+| --- | ---: |
+| [Capacity Model](scale/01-capacity-model.md) | 21 |
+| [Statelessness](scale/02-statelessness.md) | 26 |
+| [Database at Scale](scale/03-database.md) | 48 |
+| [Caching](scale/04-caching.md) | 25 |
+| [Async Work & Queues](scale/05-async-and-queues.md) | 29 |
+| [Multiple Instances & Regions](scale/06-multi-instance-and-region.md) | 23 |
+| [Cost at Scale](scale/07-cost-at-scale.md) | 19 |
+| [Load Testing & Scale Gates](scale/08-load-testing-and-gates.md) | 23 |
+| **Total** | **214** |
 
 ---
 

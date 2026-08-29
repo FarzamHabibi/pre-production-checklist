@@ -4150,6 +4150,399 @@ If the answer is "the prompt says so", "the frontend prevents it", "the user won
 
 ---
 
+# Scale
+
+Surviving ten times the load, and knowing what breaks first.
+
+## Capacity Model
+
+Before any of the rest of this domain is worth reading: know your numbers.
+
+"Will it scale?" is unanswerable. "Will it survive 500 requests per second with a 40:1 read/write ratio and one tenant holding 30% of the rows?" has an answer, and the work to find it is mostly arithmetic.
+
+
+---
+
+
+## Know where you are
+
+* [ ] Write down current traffic: requests per second at median and at peak, and the ratio between them.
+* [ ] Write down the shape of that traffic — steady, daily cycle, weekly cycle, or spiky — because a peak-to-average ratio of 20 is a different system from one of 2.
+* [ ] Write down current data volume per table that matters, and how fast each is growing.
+* [ ] Write down the read-to-write ratio; it decides whether replicas, caching or sharding is the useful lever.
+* [ ] Identify the largest single tenant or account, and what share of the data and traffic it represents.
+* [ ] Identify how concentrated traffic is in time — a launch, a newsletter send, a cron, a timezone — because concurrency is what breaks things, not daily totals.
+* [ ] Measure current headroom: at what multiple of today's peak does something fail?
+
+## Decide what 10× means here
+
+* [ ] Define which dimension is actually growing — users, requests, data, concurrent connections, or tenants — because they scale differently and rarely together.
+* [ ] Verify the growth assumption came from somewhere, even if that somewhere is "the launch plan says 5,000 signups".
+* [ ] Identify the resource that runs out first: CPU, memory, disk, database connections, IO, or a third-party quota.
+* [ ] Verify that guess has been tested rather than assumed; the answer is very often database connections, and very often surprising.
+* [ ] Identify the second thing that breaks, because you will hit it minutes after fixing the first.
+* [ ] Verify per-user data growth is bounded, or that a user with a hundred times the average records does not take the system down.
+
+## Decide what you are promising
+
+* [ ] Write down the latency target at p95, and whether you are currently meeting it.
+* [ ] Write down the availability target, and whether anyone is actually measuring against it.
+* [ ] Write down what an hour of downtime costs, so headroom can be argued in the same units as the bill.
+* [ ] Verify the target is for the journey users care about, not for a health endpoint.
+* [ ] Verify degraded operation is defined: what gets turned off first when the system is under pressure, and who decides.
+
+## Keep it honest
+
+* [ ] Verify these numbers are written down somewhere the team can find, not held in one person's head.
+* [ ] Verify they are revisited after each significant traffic change rather than dated at launch and forgotten.
+* [ ] Verify no scaling work has been started before the constraint was identified; buying capacity for the wrong resource is the most common way to spend a month.
+
+
+## Statelessness
+
+Everything that quietly assumes there is exactly one of you.
+
+Most of these are invisible on a single instance and obvious on the second one. They are cheap to fix before you scale out and expensive to diagnose afterwards, because the symptom is usually "it works for some users".
+
+
+---
+
+
+## State in the process
+
+* [ ] Inventory every module-level variable that accumulates across requests — caches, counters, maps, singletons.
+* [ ] Verify sessions are in a shared store, not in process memory.
+* [ ] Verify rate limiting is shared; per-instance limits multiply by the instance count, which is not the limit you configured.
+* [ ] Verify in-memory caches are either safe to be inconsistent between instances or moved to a shared cache.
+* [ ] Verify counters, sequence generators and "last seen" values are not held in memory.
+* [ ] Verify feature flag state converges across instances within a bounded time, and that a flag flip does not need a deploy.
+* [ ] Verify WebSocket or SSE connection state does not assume the same instance handles the next request from that user.
+* [ ] Verify anything held in memory is reconstructible after a restart, because instances restart without warning.
+
+## State on disk
+
+* [ ] Verify uploads go to object storage, not to the instance's local filesystem.
+* [ ] Verify generated files — exports, thumbnails, PDFs, reports — are written somewhere every instance can read.
+* [ ] Verify temp files are cleaned up and are not relied upon across requests.
+* [ ] Verify an embedded database file is not being used by something that will run on more than one instance.
+* [ ] Verify logs go to a collector rather than to a local file nobody will read after the container exits.
+* [ ] Verify no local cache directory is treated as durable.
+
+## Scheduling and startup
+
+* [ ] Verify scheduled work does not run on every instance; three replicas means three copies of the nightly email.
+* [ ] Verify in-process timers and intervals are understood to multiply with the instance count.
+* [ ] Verify migrations do not run automatically at boot on every instance, racing each other.
+* [ ] Verify startup is idempotent and safe to run concurrently.
+* [ ] Verify the application starts without needing a warm-up that only the first instance performed.
+* [ ] Verify configuration is read at startup from a source every instance can reach, not from a file someone edited on one box.
+
+## Shutdown and routing
+
+* [ ] Verify the process handles a termination signal by draining in-flight requests before exiting.
+* [ ] Verify the drain period is shorter than the platform's kill timeout and longer than your slowest normal request.
+* [ ] Verify readiness and liveness checks are distinct: readiness controls traffic, liveness controls restarts, and conflating them causes restart loops under load.
+* [ ] Verify an instance marks itself not-ready before it stops accepting work.
+* [ ] Verify session affinity is not required; if it is, verify what happens when that instance disappears.
+* [ ] Verify a rolling deploy does not drop requests, tested rather than assumed.
+
+
+## Database at Scale
+
+The database is where most products actually stop scaling, and usually for one of a dozen well-known reasons rather than anything exotic.
+
+
+---
+
+
+## Queries and indexes
+
+* [ ] Run `EXPLAIN ANALYZE` on the ten slowest queries in production, against production-sized data.
+* [ ] Verify every foreign key used in a join or filter has an index; the constraint does not create one in every engine.
+* [ ] Verify composite index column order matches how the queries actually filter and sort.
+* [ ] Verify no query on a hot path performs a sequential scan on a large table.
+* [ ] Verify unused indexes are removed — each one is a cost on every write and on every vacuum.
+* [ ] Verify N+1 patterns are found by counting queries per request, not by reading code.
+* [ ] Verify the ORM is not lazily loading a relation inside a loop that iterates over a page of results.
+* [ ] Verify `COUNT(*)` on a large table is not run to render a page; use an estimate or a maintained counter.
+* [ ] Verify deep `OFFSET` pagination is replaced by keyset or cursor pagination before the offsets get large.
+* [ ] Verify sorting and filtering by a user-supplied column cannot select an unindexed one.
+* [ ] Verify queries on JSON columns are supported by an appropriate index, or moved into real columns.
+* [ ] Verify full-text search is either properly indexed or moved to a dedicated engine, not implemented with `LIKE '%…%'`.
+* [ ] Verify aggregate queries over large ranges are pre-computed or materialised rather than run per request.
+* [ ] Verify a statement timeout is set, so one runaway query cannot hold a connection indefinitely.
+* [ ] Verify slow queries are logged and that someone reads the log.
+
+## Connections
+
+* [ ] Verify the connection pool size times the maximum instance count does not exceed the database's connection limit.
+* [ ] Verify that arithmetic includes background workers, cron containers, migrations and any admin tooling.
+* [ ] Verify serverless functions use a pooler rather than opening a connection per invocation.
+* [ ] Verify the pooler's mode is compatible with what the application does — transaction pooling breaks prepared statements, `SET` state and advisory locks held across statements.
+* [ ] Verify connection acquisition timeout is set, so exhaustion surfaces as a fast error rather than a hang.
+* [ ] Verify `CONN_MAX_AGE` or equivalent is tuned; both a new connection per request and an infinitely reused one have failure modes.
+* [ ] Verify connection count is monitored with an alert before the ceiling, not at it.
+
+## Locks and transactions
+
+* [ ] Verify transactions are as short as possible, and that no external HTTP call happens inside one.
+* [ ] Verify no transaction stays open across a user interaction.
+* [ ] Verify hot-row contention is identified — a counter, a balance, a sequence — and handled with a suitable pattern rather than a longer lock.
+* [ ] Verify `SELECT … FOR UPDATE` locks the narrowest set of rows that correctness requires.
+* [ ] Verify lock ordering is consistent across code paths, so two operations cannot deadlock by acquiring in opposite order.
+* [ ] Verify deadlocks are logged and counted rather than silently retried forever.
+* [ ] Verify the isolation level is chosen deliberately, and that the code's assumptions match it.
+* [ ] Verify long-running analytical queries do not run against the primary during peak.
+
+## Migrations
+
+* [ ] Verify migrations are backward compatible so that old and new code can run simultaneously during a rolling deploy.
+* [ ] Verify schema changes follow expand-then-contract: add, backfill, switch reads, stop writes, drop — not a single destructive step.
+* [ ] Verify adding a column with a default, changing a type, or adding a constraint does not take a lock that blocks writes on a large table.
+* [ ] Verify indexes on large tables are created concurrently where the engine supports it.
+* [ ] Verify a backfill runs in batches with pauses, rather than one statement over ten million rows.
+* [ ] Verify a migration lock timeout is set so a blocked migration fails fast instead of queueing every write behind it.
+* [ ] Verify migrations have been rehearsed against a production-sized copy, with the duration recorded.
+* [ ] Verify there is a rollback plan for each migration, or an explicit acceptance that there is not.
+
+## Growth and topology
+
+* [ ] Identify which tables grow without bound — events, audit logs, notifications, sessions, webhook deliveries.
+* [ ] Verify each of those has a retention policy, an archival path, or partitioning.
+* [ ] Verify time-series tables are partitioned before they become painful to partition.
+* [ ] Verify deletes at scale are batched; a single `DELETE` over millions of rows is an outage.
+* [ ] Verify autovacuum or equivalent maintenance is keeping up, and that bloat is monitored.
+* [ ] Verify read replicas are used for what can tolerate lag, and that replica lag is monitored.
+* [ ] Verify read-after-write consistency where the user expects it — reading their own change from a lagging replica is a bug report you will not reproduce.
+* [ ] Verify failover has been tested, and that the application reconnects rather than staying broken.
+* [ ] Verify backup restore has been performed end to end and timed, because restore duration at ten times the data is the number that matters.
+* [ ] Verify point-in-time recovery covers the window you would actually need.
+
+
+## Caching
+
+The fastest way to survive load, and the fastest way to serve one customer another customer's data. Both properties come from the same decision: the cache key.
+
+
+---
+
+
+## What and for whom
+
+* [ ] Verify every cache key includes the tenant, user or role when the cached value differs by any of them.
+* [ ] Verify authenticated responses are never stored in a shared or public cache.
+* [ ] Verify a cached fragment rendered for an admin cannot be served to a normal user.
+* [ ] Verify what is cached was chosen because it is expensive and repeated, not because it was easy to wrap.
+* [ ] Verify a TTL was chosen per cache rather than inherited from a library default.
+* [ ] Verify the staleness each TTL allows is acceptable to whoever owns that data.
+
+## Invalidation
+
+* [ ] Verify an invalidation path exists for every cache whose data can change.
+* [ ] Verify invalidation has been tested, not merely written.
+* [ ] Verify a deploy that changes the shape of cached data either changes the key or clears the cache.
+* [ ] Verify cache keys are versioned so a rollback does not read data written by the newer format.
+* [ ] Verify partial invalidation is possible where clearing everything would stampede the origin.
+
+## Behaviour under load
+
+* [ ] Verify a popular expiring key does not send every concurrent request to the origin; use a lock, request coalescing, or stale-while-revalidate.
+* [ ] Verify TTLs carry jitter so a batch of keys written together does not expire together.
+* [ ] Verify misses are cached too, where a stream of requests for a nonexistent record would otherwise hit the database every time.
+* [ ] Verify the cache has a memory limit and an eviction policy, and that the policy is the one you want.
+* [ ] Verify eviction under pressure degrades performance rather than returning errors.
+* [ ] Verify the origin can survive a completely cold cache — that is what a cache restart or a flush gives you, without warning.
+* [ ] Verify hit ratio is monitored per cache, so a change that quietly stops caching is visible.
+* [ ] Verify serialisation cost is measured; for small values it can exceed the cost of recomputing.
+
+## Layers and dependencies
+
+* [ ] Verify each cache layer — browser, CDN, application, database — has a deliberate role rather than overlapping by accident.
+* [ ] Verify the CDN caches what it can and that the hit ratio is watched.
+* [ ] Verify a cache outage degrades the application rather than taking it down; a hard dependency on a cache is not a cache.
+* [ ] Verify cache client timeouts are short, so a slow cache is faster to skip than to wait for.
+* [ ] Verify the cache is not being used as a durable store for anything you cannot regenerate.
+* [ ] Verify cache warming exists if a cold start would be unacceptable, and that it is not itself a thundering herd.
+
+
+## Async Work & Queues
+
+Moving work out of the request is the standard fix for latency and the standard source of the next class of bug: work that runs twice, out of order, or never.
+
+
+---
+
+
+## What belongs where
+
+* [ ] Verify anything the user does not need to wait for has been moved out of the request — email, thumbnails, webhooks, exports, indexing.
+* [ ] Verify the user is told what happened when work moves to the background, rather than being shown a success that has not happened yet.
+* [ ] Verify nothing critical to correctness relies on a background job completing, without a way to detect that it did not.
+* [ ] Verify workers scale independently of web instances, so a backlog does not require scaling the front end.
+
+## Correctness
+
+* [ ] Verify every job is idempotent; queues deliver at least once, so every job will eventually run twice.
+* [ ] Verify idempotency is enforced by a key the job owns, not by hoping duplicates do not happen.
+* [ ] Verify a job that sends money, email or a notification cannot send twice on retry.
+* [ ] Verify jobs tolerate their input having changed or been deleted between enqueue and execution.
+* [ ] Verify job payloads carry an identifier rather than a snapshot of mutable data, or that the snapshot is intentional.
+* [ ] Verify the ordering guarantee you depend on actually exists in the queue you chose; most give none across partitions.
+* [ ] Verify a write to the database and the event announcing it cannot diverge — use a transactional outbox or accept and document the gap.
+
+## Failure
+
+* [ ] Verify retries use exponential backoff with jitter, and a maximum attempt count.
+* [ ] Verify a permanently failing message goes to a dead-letter queue rather than retrying forever.
+* [ ] Verify someone looks at the dead-letter queue, and that it alerts when it is not empty.
+* [ ] Verify one poison message cannot block the whole queue behind it.
+* [ ] Verify the visibility or lease timeout exceeds the slowest normal run, or long jobs will be redelivered while still running.
+* [ ] Verify a worker killed mid-job leaves the system in a recoverable state.
+* [ ] Verify a failing downstream dependency causes jobs to back off rather than to hammer it.
+
+## Flow control
+
+* [ ] Verify queue depth is monitored with an alert, and that the alert threshold reflects how long the backlog would take to drain.
+* [ ] Verify producers cannot outpace consumers indefinitely without anyone noticing.
+* [ ] Verify an unauthenticated or cheap request cannot enqueue expensive work without limit.
+* [ ] Verify fan-out is bounded — one event producing ten thousand jobs is a self-inflicted load test.
+* [ ] Verify a high-volume low-priority job type cannot starve a low-volume critical one.
+* [ ] Verify payload size is bounded, and that large data is passed by reference to object storage rather than through the queue.
+* [ ] Verify batching is used where per-item overhead dominates, and not where it delays the first result.
+
+## Visibility
+
+* [ ] Verify job duration, failure rate and queue wait time are measured per job type.
+* [ ] Verify a job type that stops being enqueued triggers an alert; nothing running looks exactly like nothing failing.
+* [ ] Verify a scheduled job has a dead-man's switch, so a silent scheduler failure is detected.
+* [ ] Verify a correlation id links a job back to the request that created it.
+
+
+## Multiple Instances & Regions
+
+What changes when there is more than one of you, and again when they are far apart.
+
+
+---
+
+
+## Coordination
+
+* [ ] Verify anything that must happen exactly once uses leader election or a distributed lock, not the assumption that only one instance exists.
+* [ ] Verify distributed locks have a TTL, so a crashed holder does not block forever.
+* [ ] Verify lock holders can detect they have lost the lock before acting on it — a lock without fencing is an optimisation, not a guarantee.
+* [ ] Verify no logic depends on instance clocks agreeing; assume skew.
+* [ ] Verify a cron or scheduler runs from one place, or that the job itself is safe to run concurrently.
+* [ ] Verify shared counters and quotas are coordinated rather than tracked per instance.
+
+## Deploys and rollout
+
+* [ ] Verify old and new versions can run simultaneously, because during any rolling deploy they will.
+* [ ] Verify the API contract, queue message format and database schema are all compatible in both directions across one release.
+* [ ] Verify a canary or staged rollout is possible, and that there is a metric that would stop it.
+* [ ] Verify rollback has been performed at least once, not merely documented.
+* [ ] Verify a feature flag evaluates consistently for the same user across instances.
+* [ ] Verify configuration changes propagate without a deploy where they need to, and cannot half-propagate.
+
+## Distance
+
+* [ ] Verify the application is close to its database; a cross-region query on every request is invisible in development and dominant in production.
+* [ ] Verify each region reads from a local replica if latency requires it, and that the resulting lag is acceptable to the feature.
+* [ ] Verify writes have a defined home, and that conflicting writes from two regions are either impossible or resolved deliberately.
+* [ ] Verify static assets and cacheable responses are served from the edge rather than from the origin region.
+* [ ] Verify data residency requirements are met by where the data actually lives, including backups and logs.
+
+## Failure of a whole thing
+
+* [ ] Verify the loss of one instance is invisible to users, tested by killing one.
+* [ ] Verify the loss of an availability zone is survivable, or that the decision not to survive it is deliberate and costed.
+* [ ] Verify failover is automatic or that the manual runbook has been rehearsed and timed.
+* [ ] Verify split brain is impossible or detected — two primaries accepting writes is worse than an outage.
+* [ ] Verify recovery time and recovery point objectives are numbers someone has measured, not aspirations.
+* [ ] Verify the system recovers on its own after the dependency comes back, without a manual restart.
+
+
+## Cost at Scale
+
+Scaling problems and billing problems are the same problem seen from different sides. A system that survives ten times the traffic at eleven times the cost has scaled; at a hundred times the cost, it has not.
+
+
+---
+
+
+## Unit economics
+
+* [ ] Calculate the infrastructure cost of one request, one active user, and one tenant.
+* [ ] Verify which costs scale linearly with usage and which scale worse than linearly.
+* [ ] Identify the query, job or endpoint with the worst cost per invocation.
+* [ ] Verify a feature's cost is attributable, so an expensive one can be found without guessing.
+* [ ] Verify the cost of your largest tenant is known, and that the pricing covers it.
+* [ ] Verify free-tier or trial usage has a ceiling, in resource terms as well as in time.
+
+## Where the bill actually comes from
+
+* [ ] Verify egress bandwidth is measured; it is frequently larger than compute and rarely modelled.
+* [ ] Verify log and metric volume is measured — observability spend routinely overtakes the infrastructure it observes.
+* [ ] Verify per-call third-party costs are metered per user: model tokens, SMS, email, geocoding, image processing.
+* [ ] Verify storage growth is projected, including backups, versions and anything never deleted.
+* [ ] Verify idle cost is known separately from peak cost, so autoscaling savings are not imaginary.
+* [ ] Verify a query that is cheap at a thousand rows has been costed at ten million.
+* [ ] Verify data transfer between regions and between services is accounted for.
+
+## Controls
+
+* [ ] Verify a budget alarm exists on rate of change, not only on a monthly total.
+* [ ] Verify autoscaling has a maximum, so an availability incident cannot become a billing incident.
+* [ ] Verify per-user and per-tenant quotas exist on anything that costs money per call.
+* [ ] Verify the cheapest fix has been considered before the expensive one — a limit, a cache or a smaller payload usually beats more capacity.
+* [ ] Verify committed or reserved capacity has been considered once the baseline is predictable.
+* [ ] Verify someone owns the bill and looks at it monthly, with the ability to explain a change.
+
+
+## Load Testing & Scale Gates
+
+The point of a load test is not to pass. It is to find what breaks first, fix it, and find the next one — and to know the number you can quote when someone asks what the system can take.
+
+
+---
+
+
+## Make the test mean something
+
+* [ ] Verify the test reproduces the real traffic mix — the ratio of reads to writes, the distribution across endpoints, the size of payloads.
+* [ ] Verify the test runs against production-sized data; an empty table is fast in a way production never is.
+* [ ] Verify the data has realistic distribution, including the one tenant with far more rows than the rest.
+* [ ] Verify caches are in a realistic state — an all-hit cache proves nothing, and a fully cold one may be unrealistically harsh.
+* [ ] Verify the test exercises authenticated journeys, not only the public homepage.
+* [ ] Verify it runs from outside your own network, so it includes the edge, the load balancer and TLS.
+* [ ] Verify third-party dependencies are either included or stubbed with realistic latency, not with an instant mock.
+
+## Run it properly
+
+* [ ] Ramp load gradually to find the knee of the curve, rather than running one fixed level and declaring pass or fail.
+* [ ] Record what broke first, and at what load; that is the actual result of the test.
+* [ ] Fix it, then run again — the second bottleneck is never the same as the first.
+* [ ] Run a soak test long enough to expose leaks, connection exhaustion and disk growth.
+* [ ] Run a spike test, because a launch or a newsletter is a spike, not a ramp.
+* [ ] Measure at p95 and p99; an average latency stays fine long after a quarter of users have given up.
+* [ ] Watch the system's own metrics during the test, not just the load tool's output — the tool tells you it hurt, the metrics tell you where.
+* [ ] Verify testing against production, if you do it, has a stated blast radius, a kill switch and someone watching.
+
+## The gate
+
+* [ ] Verify the system handles the peak you expect at launch, with a stated multiple of headroom.
+* [ ] Verify the load at which it degrades is written down, along with how it degrades.
+* [ ] Verify degradation is graceful — shedding load with a 429 or 503 rather than timing out or corrupting state.
+* [ ] Verify database connection count at peak stays under its limit with margin.
+* [ ] Verify queue backlog at peak drains within an acceptable time once the spike passes.
+* [ ] Verify error rate under peak load stays within the target, and that errors are the kind you intended.
+* [ ] Verify there is a documented plan for the load you have not tested: what gets turned off, what gets scaled, who decides.
+* [ ] Verify the numbers from this test are recorded with the release, so the next test has something to compare against.
+
+
+
+---
+
 # Performance
 
 Being fast for a real user, with Lighthouse agreeing.

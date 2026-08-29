@@ -1,7 +1,7 @@
 {
   "name": "prodcheck",
-  "version": "1.2.0",
-  "description": "Pre-production checklists for solo founders — 3,718 items, 89% portable to any stack, 19 stack supplements. CLI + MCP server.",
+  "version": "1.3.0",
+  "description": "Pre-production checklists for solo founders — 3,932 items, 90% portable to any stack, 19 stack supplements. CLI + MCP server.",
   "keywords": [
     "security",
     "checklist",
@@ -23,7 +23,11 @@
     "search-console",
     "structured-data",
     "monitoring",
-    "launch-checklist"
+    "launch-checklist",
+    "scalability",
+    "load-testing",
+    "capacity-planning",
+    "database-performance"
   ],
   "homepage": "https://github.com/FarzamHabibi/pre-production-checklist#readme",
   "bugs": "https://github.com/FarzamHabibi/pre-production-checklist/issues",
@@ -46,7 +50,8 @@
   ],
   "scripts": {
     "build": "./scripts/build.sh",
-    "test": "node cli/test.js"
+    "test": "node cli/test.js",
+    "verify": "./scripts/verify.sh"
   },
   "engines": {
     "node": ">=18"

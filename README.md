@@ -7,7 +7,7 @@ infrastructure, the deploy pipeline, and increasingly the AI agents too — and 
 have a security team to hand it to.
 
 <!-- counts:begin -->
-**3,718 items across 72 checklists** in 3 domains. 89% of them apply to any stack.
+**3,932 items across 80 checklists** in 4 domains. 90% of them apply to any stack.
 <!-- counts:end -->
 
 [![npm](https://img.shields.io/npm/v/prodcheck?color=cb3837&logo=npm)](https://www.npmjs.com/package/prodcheck)
@@ -76,18 +76,25 @@ costs more than it saves.
 
 ```
 checklists/
-├── security/                    3,186 items
-│   ├── core/            1,491   application, data, infrastructure, delivery
-│   ├── ai/                773   LLM features, agents, tools, RAG, MCP
-│   └── ai-generated-code/ 548   the bugs AI coding assistants actually write
-├── performance/                   313   Lighthouse, and what users actually feel
-├── integrations/                  192   search, analytics, monitoring
-├── scale/                       planned — surviving 10× the load
-└── stacks/                        401   19 products, spanning every domain
+├── security/              2,812   not getting breached, abused or taken down
+│   ├── core/              1,491   application, data, infrastructure, delivery
+│   ├── ai/                  773   LLM features, agents, tools, RAG, MCP
+│   └── ai-generated-code/   548   the bugs AI coding assistants actually write
+├── performance/             313   Lighthouse, and what users actually feel
+├── scale/                   214   surviving 10× the load
+├── integrations/            192   search, analytics, monitoring
+└── stacks/                  401   19 products, spanning every domain
+```
+
+Counts above are what each folder holds. A *domain* total is larger, because the stack
+supplements contribute to whichever domain each of their sections extends:
+
+```
+security 3,186   performance 334   scale 214   integrations 198
 ```
 
 Domains are the top level because that is the question you arrive with: *is this about
-security, or speed, or scale?* One more is planned — see the [roadmap](#roadmap).
+security, or speed, or scale?*
 
 ### `security/core/` — applies to you regardless of language
 
@@ -178,6 +185,26 @@ The answer-engine file is written as decisions to make rather than settled pract
 whether `GPTBot`, `ClaudeBot`, `PerplexityBot` and the rest may read your site is a
 choice, and not making it is also a choice.
 
+### `scale/` — surviving ten times the load
+
+Written to be read *before* the traffic arrives, not during the incident.
+
+| | Items | | | Items |
+| --- | ---: | --- | --- | ---: |
+| [Capacity model](checklists/scale/01-capacity-model.md) | 21 | | [Async work & queues](checklists/scale/05-async-and-queues.md) | 29 |
+| [Statelessness](checklists/scale/02-statelessness.md) | 26 | | [Multiple instances & regions](checklists/scale/06-multi-instance-and-region.md) | 23 |
+| [Database at scale](checklists/scale/03-database.md) | 48 | | [Cost at scale](checklists/scale/07-cost-at-scale.md) | 19 |
+| [Caching](checklists/scale/04-caching.md) | 25 | | [Load testing & scale gates](checklists/scale/08-load-testing-and-gates.md) | 23 |
+
+> "Will it scale?" is unanswerable. "Will it survive 500 requests per second with a 40:1
+> read/write ratio and one tenant holding 30% of the rows?" has an answer, and the work to
+> find it is mostly arithmetic.
+
+Start with [the capacity model](checklists/scale/01-capacity-model.md); the rest of the
+domain is much less useful until you know which resource runs out first. Cost is in here
+rather than in a domain of its own because scaling problems and billing problems are the
+same problem seen from two sides.
+
 ### `stacks/` — only if you use them
 
 374 items across 19 supplements. Skip any file for a product you don't use; the core
@@ -263,6 +290,7 @@ Generate a checklist scoped to your project, instead of reading 3,093 items:
 npx prodcheck security --stack django -o SECURITY.md
 npx prodcheck performance -o PERFORMANCE.md
 npx prodcheck integrations -o LAUNCH.md
+npx prodcheck scale -o SCALE.md
 ```
 
 ```bash
@@ -333,17 +361,16 @@ The Markdown under `checklists/` is the source of truth; the JSON is generated f
 - [x] `npx prodcheck` — generate a filtered checklist for your stack
 - [x] MCP server — so your coding agent can query the checklist directly
 
-**Next: one more domain**
+**Domains**
 
-The structure now has room for them, and
+All four planned domains have shipped. The structure has room for more —
+launch, social and legal are the obvious next ones — and
 [the plan](https://github.com/FarzamHabibi/pre-production-checklist/blob/main/README.md#roadmap)
 is written before the content, not after.
 
 - [x] **`performance/`** — shipped: 313 items across 9 checklists.
 - [x] **`integrations/`** — shipped: 192 items across 6 checklists.
-- [ ] **`scale/`** — capacity model, statelessness, the database at 10×, caching,
-      queues and backpressure, multi-instance and multi-region, cost per request,
-      load testing.
+- [x] **`scale/`** — shipped: 214 items across 8 checklists.
 
 **Then: from a document you read to a review that runs**
 

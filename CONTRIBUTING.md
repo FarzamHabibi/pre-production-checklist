@@ -90,3 +90,17 @@ stack returning exactly the stack-agnostic core), the CLI's argument handling, a
 server's protocol behaviour — handshake, notifications, in-band tool errors, and recovery
 from malformed input. CI runs it on every push and pull request, and also fails if the
 generated files are stale or an internal link is broken.
+
+## Before you push
+
+```bash
+./scripts/verify.sh
+```
+
+One command, and the gate for every change to this repository. It checks that the
+generated files are current, the tests pass, no internal link is broken, every count in
+the README, `package.json` and the GitHub sidebar agrees with the data, no checklist ships
+a ticked box, and nothing private is in the diff.
+
+CI runs the same script, so a green local run means a green CI run. The difference is that
+this one tells you before the push, which matters when the fix is a one-line count.
