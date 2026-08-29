@@ -14,7 +14,7 @@ have a security team to hand it to.
 [![ci](https://github.com/FarzamHabibi/pre-production-checklist/actions/workflows/ci.yml/badge.svg)](https://github.com/FarzamHabibi/pre-production-checklist/actions/workflows/ci.yml)
 [![license](https://img.shields.io/badge/content-CC%20BY%204.0-blue)](LICENSE)
 
-### [→ https://farzamhabibi.github.io/pre-production-checklist/](https://farzamhabibi.github.io/pre-production-checklist/) · [browse in the repo](checklists/README.md)
+### [→ prodcheck.js.org](https://prodcheck.js.org) · [browse in the repo](checklists/README.md)
 
 <sub>Built and maintained by the team at **[Arioo](https://arioo.com)** — where we ship
 the kind of product this checklist was written for.</sub>
@@ -317,6 +317,15 @@ MCP is a feature of the **client**, not the model — Cursor running DeepSeek ca
 DeepSeek's website cannot. Config for Claude Code, Claude Desktop, Cursor, VS Code
 Copilot, Gemini CLI, OpenAI Codex CLI, Qwen Code, Cline, Roo, Continue, Windsurf, Zed and
 Cherry Studio is in **[docs/mcp-clients.md](docs/mcp-clients.md)**.
+
+| | |
+| --- | --- |
+| **[n8n](docs/integrations/n8n.md)** · [Dify](docs/integrations/dify.md) · [Flowise](docs/integrations/flowise.md) | Automation and agent platforms |
+| **[OpenRouter](docs/integrations/openrouter.md)** | Any model, through an MCP client |
+| **[DeepSeek, Qwen, Kimi, GLM](docs/integrations/chinese-models.md)** | Base URLs and which clients accept them |
+| **[Open WebUI, LibreChat](docs/integrations/self-hosted-chat.md)** | Self-hosted chat |
+| **[The JSON API](docs/integrations/http-api.md)** | No install at all — one HTTP GET |
+| **[CI](docs/integrations/ci.md)** | Keep the file current, gate on blockers |
 
 ```bash
 claude mcp add prodcheck -- npx -y --package=prodcheck prodcheck-mcp

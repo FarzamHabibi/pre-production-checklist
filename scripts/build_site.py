@@ -41,105 +41,159 @@ def fmt(n):
 CSS = """
 *,*::before,*::after{box-sizing:border-box}
 :root{
-  --bg:#fbfbfa; --fg:#16161a; --muted:#6b6b76; --line:#e4e4e0;
-  --card:#fff; --accent:#1a56db; --accent-soft:#eef2ff; --code:#f4f4f2;
-  --ok:#0f7b45; --warn:#9a3412;
+  --bg:#08080a; --panel:#0e0e12; --fg:#f2f2f4; --dim:#a3a3ad; --faint:#6e6e79;
+  --line:#1e1e25; --line2:#2a2a33; --accent:#7dd3a0; --accent-dim:#3f7d5c;
+  --code:#101015; --radius:14px;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
-  --bg:#0e0e11; --fg:#ececed; --muted:#9a9aa4; --line:#26262c;
-  --card:#151519; --accent:#8ab4ff; --accent-soft:#181c2b; --code:#17171c;
-  --ok:#4ade80; --warn:#fdba74;
-}}
-:root[data-theme=dark]{
-  --bg:#0e0e11; --fg:#ececed; --muted:#9a9aa4; --line:#26262c;
-  --card:#151519; --accent:#8ab4ff; --accent-soft:#181c2b; --code:#17171c;
-  --ok:#4ade80; --warn:#fdba74;
+:root[data-theme=light],
+html:not([data-theme]) body.light{
+  --bg:#fcfcfb; --panel:#fff; --fg:#15151a; --dim:#5c5c66; --faint:#8a8a94;
+  --line:#e7e7e3; --line2:#d8d8d3; --accent:#0f7b52; --accent-dim:#8fcfae;
+  --code:#f5f5f3;
 }
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{
   margin:0;background:var(--bg);color:var(--fg);
-  font:16px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  font-feature-settings:"kern","liga";
+  font:16px/1.7 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
 }
-.wrap{max-width:880px;margin:0 auto;padding:0 20px}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-code,pre,kbd{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace}
-code{background:var(--code);padding:.13em .4em;border-radius:4px;font-size:.9em}
-pre{background:var(--code);padding:14px 16px;border-radius:10px;overflow-x:auto;
-    font-size:13.5px;line-height:1.6;margin:0;border:1px solid var(--line)}
-pre code{background:none;padding:0;font-size:inherit}
-hr{border:0;border-top:1px solid var(--line);margin:56px 0}
-h1,h2,h3{line-height:1.25;letter-spacing:-.017em}
-h2{font-size:1.45rem;margin:0 0 6px}
-h3{font-size:1.05rem;margin:28px 0 8px}
-p{margin:0 0 14px}
-.muted{color:var(--muted)}
-.small{font-size:.875rem}
+.wrap{max-width:920px;margin:0 auto;padding:0 22px}
+.narrow{max-width:720px}
+a{color:var(--fg);text-decoration:none;border-bottom:1px solid var(--line2)}
+a:hover{border-color:var(--accent);color:var(--accent)}
+a.plain,a.btn,nav a{border:0}
+code,pre,kbd,.mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace}
+code{background:var(--code);padding:.14em .42em;border-radius:5px;font-size:.88em;
+     border:1px solid var(--line)}
+pre{background:var(--code);padding:15px 17px;border-radius:11px;overflow-x:auto;
+    font-size:13px;line-height:1.65;margin:0;border:1px solid var(--line);color:var(--fg)}
+pre code{background:none;padding:0;border:0;font-size:inherit}
+hr{border:0;border-top:1px solid var(--line);margin:0}
+h1,h2,h3{line-height:1.22;letter-spacing:-.024em;font-weight:620}
+h2{font-size:1.5rem;margin:0 0 10px}
+h3{font-size:1rem;margin:0 0 6px;letter-spacing:-.01em}
+p{margin:0 0 15px}
+.dim{color:var(--dim)}.faint{color:var(--faint)}
+.small{font-size:.875rem}.tiny{font-size:.8rem}
+.center{text-align:center}
 
-header.top{border-bottom:1px solid var(--line);background:var(--card)}
-header.top .wrap{display:flex;align-items:center;gap:18px;height:54px}
-header.top .brand{font-weight:650;letter-spacing:-.02em;color:var(--fg)}
-header.top nav{margin-left:auto;display:flex;gap:18px;font-size:.9rem}
+header.top{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);
+  background:color-mix(in srgb,var(--bg) 86%,transparent);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:20px;height:56px}
+header.top .brand{font-weight:600;letter-spacing:-.02em;font-size:.95rem}
+header.top .brand b{color:var(--accent)}
+header.top nav{margin-left:auto;display:flex;gap:20px;font-size:.875rem}
+header.top nav a{color:var(--dim)}
+header.top nav a:hover{color:var(--fg)}
+@media(max-width:560px){header.top nav{gap:14px;font-size:.8rem}}
 
-.hero{padding:64px 0 8px}
-.hero .ghbtns{margin-bottom:6px}
-.hero h1{font-size:clamp(1.9rem,5vw,2.7rem);margin:0 0 14px;letter-spacing:-.03em}
-.hero .lede{font-size:1.1rem;color:var(--muted);max-width:62ch;margin:0 0 22px}
-.stat{display:flex;flex-wrap:wrap;gap:8px 22px;margin:0 0 30px;font-size:.9rem}
-.stat b{font-variant-numeric:tabular-nums}
+/* ---- hero ---- */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);
+      padding:96px 0 72px;text-align:center}
+.hero::before{content:"";position:absolute;inset:-180px -10% auto;height:620px;
+  background:radial-gradient(ellipse 55% 50% at 50% 2%,
+    color-mix(in srgb,var(--accent) 30%,transparent) 0%,
+    color-mix(in srgb,var(--accent) 8%,transparent) 42%, transparent 70%);
+  pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(ellipse 62% 52% at 50% 8%,#000 10%,transparent 72%);
+  -webkit-mask-image:radial-gradient(ellipse 62% 52% at 50% 8%,#000 10%,transparent 72%);
+  opacity:.65}
+.hero .wrap{position:relative;z-index:1}
+.mark{width:46px;height:46px;margin:0 auto 26px;display:block;
+      filter:drop-shadow(0 0 22px color-mix(in srgb,var(--accent) 55%,transparent))}
+.hero h1{font-size:clamp(2rem,5.4vw,3.15rem);margin:0 0 18px;letter-spacing:-.036em;
+         font-weight:640;max-width:17ch;margin-inline:auto}
+.hero .lede{font-size:1.06rem;color:var(--dim);max-width:56ch;margin:0 auto 8px}
+.hero .lede b{color:var(--fg);font-weight:600}
+.badge{display:inline-block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);border:1px solid var(--accent-dim);border-radius:999px;
+  padding:4px 12px;margin:0 0 24px;font-weight:600}
+.stat{display:flex;flex-wrap:wrap;justify-content:center;gap:0;margin:30px auto 0;
+      max-width:640px;border:1px solid var(--line);border-radius:var(--radius);
+      background:color-mix(in srgb,var(--panel) 70%,transparent);overflow:hidden}
+.stat div{flex:1 1 0;padding:15px 8px;border-right:1px solid var(--line);min-width:0}
+.stat div:last-child{border-right:0}
+.stat b{display:block;font-size:1.22rem;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.stat span{font-size:.75rem;color:var(--faint);letter-spacing:.03em}
+@media(max-width:560px){
+  .stat{flex-wrap:wrap}
+  .stat div{flex:1 1 50%;border-bottom:1px solid var(--line)}
+  .stat div:nth-child(2n){border-right:0}
+  .stat div:nth-last-child(-n+2){border-bottom:0}
+}
 
-.cards{display:grid;gap:14px;grid-template-columns:1fr 1fr;margin:26px 0 0}
-@media(max-width:720px){.cards{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
-.card h3{margin:0 0 4px;font-size:.95rem;letter-spacing:0}
-.card p{font-size:.875rem;color:var(--muted);margin:0 0 12px}
+.ghbtns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:30px 0 0}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);
+  background:var(--panel);color:var(--fg);border-radius:10px;padding:9px 16px;
+  font-size:.885rem;font-weight:500;transition:border-color .15s,transform .15s}
+.btn:hover{border-color:var(--accent);color:var(--fg);transform:translateY(-1px)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#08080a;font-weight:600}
+.btn.primary:hover{color:#08080a;opacity:.92}
+.btn svg{width:15px;height:15px;fill:currentColor;flex:none}
+
+section.band{padding:72px 0;border-bottom:1px solid var(--line)}
+section.band.alt{background:color-mix(in srgb,var(--panel) 55%,transparent)}
+.eyebrow{font-size:.73rem;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
+  margin:0 0 12px;font-weight:600}
+
+.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin:22px 0 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+      padding:20px;transition:border-color .15s}
+.card:hover{border-color:var(--line2)}
+.card .n{font-size:.72rem;color:var(--accent);font-weight:700;letter-spacing:.08em;
+         display:block;margin:0 0 8px}
+.card p{font-size:.87rem;color:var(--dim);margin:0 0 13px}
+.card .who{font-size:.75rem;color:var(--faint);margin:0 0 10px}
 
 .copy{position:relative}
-.copy pre{padding-top:34px}
-.copy button{
-  position:absolute;top:8px;right:8px;font:inherit;font-size:11.5px;
-  background:var(--bg);color:var(--muted);border:1px solid var(--line);
-  border-radius:6px;padding:3px 9px;cursor:pointer
-}
-.copy button:hover{color:var(--fg);border-color:var(--muted)}
-.copy button[data-done]{color:var(--ok);border-color:var(--ok)}
+.copy pre{padding-top:15px}
+.copy button{position:absolute;top:7px;right:7px;font:inherit;font-size:11px;
+  background:var(--bg);color:var(--faint);border:1px solid var(--line2);
+  border-radius:6px;padding:3px 9px;cursor:pointer;opacity:0;transition:opacity .15s}
+.copy:hover button,.copy button:focus{opacity:1}
+.copy button:hover{color:var(--fg);border-color:var(--accent)}
+.copy button[data-done]{color:var(--accent);border-color:var(--accent);opacity:1}
+@media(hover:none){.copy button{opacity:1}}
 
-.ghbtns{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0}
-.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);
-     background:var(--card);color:var(--fg);border-radius:8px;padding:7px 13px;
-     font-size:.875rem;font-weight:500}
-.btn:hover{text-decoration:none;border-color:var(--muted)}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn.primary:hover{opacity:.9}
+.tools{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));margin:14px 0 0}
+.tool{display:flex;align-items:center;gap:9px;border:1px solid var(--line);
+  border-radius:10px;padding:10px 12px;background:var(--panel);font-size:.85rem}
+.tool:hover{border-color:var(--accent)}
+.tool .tag{margin-left:auto;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--faint);border:1px solid var(--line2);border-radius:5px;padding:1px 6px;flex:none}
+.tool .tag.mcp{color:var(--accent);border-color:var(--accent-dim)}
+.grp{margin:0 0 30px}
+.grp h3{margin:0 0 3px}
+.grp p{font-size:.86rem;color:var(--dim);margin:0}
 
-table{border-collapse:collapse;width:100%;font-size:.9rem;margin:0 0 8px}
-th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-th{font-weight:600;color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
-td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-
-.domain{border:1px solid var(--line);border-radius:12px;background:var(--card);
-        padding:18px 20px;margin:0 0 14px}
-.domain h3{margin:0 0 2px;font-size:1rem}
-.domain .files{display:flex;flex-wrap:wrap;gap:6px 10px;margin:10px 0 0;font-size:.85rem}
+table{border-collapse:collapse;width:100%;font-size:.89rem;margin:0}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-weight:600;color:var(--faint);font-size:.73rem;text-transform:uppercase;letter-spacing:.09em}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--dim)}
+.tbl{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--panel)}
 
 .items{margin:0;padding:0;list-style:none}
-.items li{padding:7px 0 7px 26px;border-bottom:1px solid var(--line);position:relative;
-          font-size:.925rem}
-.items li::before{content:"☐";position:absolute;left:2px;top:6px;color:var(--muted);font-size:.9em}
+.items li{padding:9px 0 9px 27px;border-bottom:1px solid var(--line);position:relative;font-size:.91rem}
+.items li::before{content:"";position:absolute;left:1px;top:14px;width:11px;height:11px;
+  border:1px solid var(--line2);border-radius:3px}
 .items li:last-child{border-bottom:0}
-.sec{margin:34px 0 6px;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;
-     color:var(--muted);font-weight:600}
+.sec{margin:32px 0 4px;font-size:.73rem;text-transform:uppercase;letter-spacing:.12em;
+     color:var(--accent);font-weight:600}
 
-.filter{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:9px;
-        background:var(--card);color:var(--fg);font:inherit;font-size:.9rem;margin:0 0 6px}
-.filter:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.filter{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:11px;
+  background:var(--panel);color:var(--fg);font:inherit;font-size:.9rem;margin:0}
+.filter::placeholder{color:var(--faint)}
+.filter:focus{outline:0;border-color:var(--accent)}
 
-footer{border-top:1px solid var(--line);margin-top:64px;padding:28px 0 56px;
-       font-size:.85rem;color:var(--muted)}
-footer a{color:var(--muted);text-decoration:underline}
+footer{padding:44px 0 72px;font-size:.85rem;color:var(--faint)}
+footer a{color:var(--dim)}
 .skip{position:absolute;left:-9999px}
-.skip:focus{left:8px;top:8px;background:var(--card);padding:8px 12px;border-radius:8px;z-index:9}
+.skip:focus{left:10px;top:10px;background:var(--panel);padding:9px 14px;border-radius:9px;z-index:99}
 """
 
 JS = """
@@ -174,8 +228,18 @@ if (f) {
 """
 
 
-def page(title, desc, body, depth=0, extra_head=""):
+SITE = "https://prodcheck.js.org"
+
+MARK = ('<svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">'
+        '<rect x="3" y="3" width="42" height="42" rx="11" stroke="currentColor" '
+        'stroke-width="2.5" opacity=".38"/>'
+        '<path d="M14 24.5 L21 31.5 L34 17" stroke="currentColor" stroke-width="4" '
+        'stroke-linecap="round" stroke-linejoin="round"/></svg>')
+
+
+def page(title, desc, body, depth=0, canonical="", schema=""):
     up = "../" * depth
+    ld = f'<script type="application/ld+json">{schema}</script>' if schema else ""
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -183,20 +247,32 @@ def page(title, desc, body, depth=0, extra_head=""):
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
+<link rel="canonical" href="{SITE}/{canonical}">
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='13' font-size='14'>&#9745;</text></svg>">
+<meta property="og:url" content="{SITE}/{canonical}">
+<meta property="og:image" content="{SITE}/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="prodcheck">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{e(title)}">
+<meta name="twitter:description" content="{e(desc)}">
+<meta name="twitter:image" content="{SITE}/og.png">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="{up}favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="{up}style.css">
-{extra_head}
+{ld}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top"><div class="wrap">
-  <a class="brand" href="{up}index.html">prodcheck</a>
+  <a class="brand plain" href="{up}index.html">prod<b>check</b></a>
   <nav>
     <a href="{up}checklists.html">Checklists</a>
-    <a href="{up}index.html#use">Use it</a>
+    <a href="{up}index.html#start">Start</a>
+    <a href="{up}index.html#tools">Tools</a>
     <a href="{up}index.html#why">Why</a>
     <a href="{REPO}">GitHub</a>
   </nav>
@@ -204,12 +280,12 @@ def page(title, desc, body, depth=0, extra_head=""):
 <main id="main">
 {body}
 </main>
-<footer><div class="wrap">
+<footer><div class="wrap center">
   <p>Content <a href="{REPO}/blob/main/LICENSE">CC BY 4.0</a> ·
      code <a href="{REPO}/blob/main/LICENSE-CODE">MIT</a> ·
      <a href="{REPO}">source</a> ·
      <a href="{NPM}">npm</a></p>
-  <p>Generated from the repository — every number on this site comes from
+  <p class="tiny">Generated from the repository — every number here comes from
      <a href="{REPO}/blob/main/data/checklist.json">checklist.json</a>.</p>
 </div></footer>
 <script>{JS}</script>
@@ -224,15 +300,42 @@ def codeblock(cid, text, label="copy"):
 
 
 # ------------------------------------------------------------------ index
+INTEG = json.load(open("data/integrations.json", encoding="utf-8"))
+HOW = {h["id"]: h for h in INTEG["how"]}
+
+GH_ICON = ('<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 '
+           '3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53'
+           '-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 '
+           '1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95'
+           ' 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27'
+           ' 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 '
+           '1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 '
+           '2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>')
+
+
+def tool_grid(group):
+    out = [f'<div class="grp"><h3>{e(group["label"])}</h3><p>{e(group["blurb"])}</p>',
+           '<div class="tools">']
+    for t in group["tools"]:
+        how = HOW[t["how"]]
+        cls = "tag mcp" if t["how"] == "mcp" else "tag"
+        href = t["doc"] if t["doc"].startswith("..") else f'{REPO}/blob/main/docs/{t["doc"]}'
+        out.append(f'<a class="tool" href="{href}"><span>{e(t["name"])}</span>'
+                   f'<span class="{cls}">{e(how["label"].split()[0].lower())}</span></a>')
+    out.append("</div></div>")
+    return "".join(out)
+
+
 def build_index():
     domains_tbl = "".join(
-        f'<tr><td><a href="checklists.html#{d}"><b>{e(tree.DOMAIN_LABEL[d])}</b></a><br>'
-        f'<span class="muted small">{e(tree.DOMAIN_BLURB[d])}</span></td>'
+        f'<tr><td><a class="plain" href="checklists.html#{d}"><b>{e(tree.DOMAIN_LABEL[d])}</b></a>'
+        f'<br><span class="dim small">{e(tree.DOMAIN_BLURB[d])}</span></td>'
         f'<td class="n">{fmt(C["by_domain"].get(d, 0))}</td></tr>'
         for d in tree.domains())
 
     mcp = "claude mcp add prodcheck -- npx -y --package=prodcheck prodcheck-mcp"
     npm_cmd = "npx prodcheck security --stack django -o SECURITY.md"
+    http_url = "https://cdn.jsdelivr.net/npm/prodcheck@latest/data/checklist.json"
     prompt = """Review this codebase against the prodcheck checklist.
 
 If you have the prodcheck MCP tools, call checklist_for_stack with the stacks this
@@ -250,145 +353,189 @@ Rules:
 Start with the items that would block a release. Output a table:
 item | verdict | file:line | one-sentence reason."""
 
+    ai_items = sum(1 for i in doc["items"]
+                   if i["area"] in ("ai", "ai-generated-code"))
+
+    schema = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "prodcheck",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "description": f"{C['total']} pre-production checklist items across security, "
+                       "performance, scale, integrations and post-launch, with a CLI and "
+                       "an MCP server.",
+        "url": SITE,
+        "codeRepository": REPO,
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+        "author": {"@type": "Organization", "name": "Arioo", "url": "https://arioo.com"},
+    }, separators=(",", ":"))
+
     body = f"""
-<div class="wrap">
-<section class="hero">
+<section class="hero"><div class="wrap">
+  {MARK}
+  <p class="badge">Free · open source</p>
   <h1>The checklist you wish someone had given you before launch.</h1>
-  <p class="lede">{fmt(C['total'])} items across five domains — security, performance,
-  scale, integrations and what to do after it goes wrong. Built for solo founders and
-  small teams with no security team to hand it to.</p>
-  <p class="stat">
-    <span><b>{fmt(C['total'])}</b> items</span>
-    <span><b>{len(tree.domains())}</b> domains</span>
-    <span><b>{fmt(C['release_gate'])}</b> release blockers</span>
-    <span><b>{round(100 * C['stack_agnostic'] / C['total'])}%</b> apply to any stack</span>
-    <span><b>{len(doc['stacks'])}</b> stack supplements</span>
-  </p>
+  <p class="lede"><b>{fmt(C['total'])} things to check</b> before you ship — security,
+  speed, scale, being findable, and what to do when it breaks anyway.</p>
+  <p class="lede small">Built for solo founders and small teams with no security team to
+  hand it to.</p>
+
+  <div class="stat">
+    <div><b>{fmt(C['total'])}</b><span>ITEMS</span></div>
+    <div><b>{len(tree.domains())}</b><span>DOMAINS</span></div>
+    <div><b>{fmt(C['release_gate'])}</b><span>BLOCKERS</span></div>
+    <div><b>{round(100 * C['stack_agnostic'] / C['total'])}%</b><span>ANY STACK</span></div>
+  </div>
 
   <div class="ghbtns">
     <a class="btn primary" href="checklists.html">Browse the checklists</a>
-    <a class="btn" href="{REPO}">★ Star on GitHub</a>
-    <a class="btn" href="{REPO}/fork">Fork</a>
+    <a class="btn" href="{REPO}">{GH_ICON} Star</a>
+    <a class="btn" href="{REPO}/fork">{GH_ICON} Fork</a>
     <a class="btn" href="{NPM}">npm</a>
   </div>
-</section>
+</div></section>
 
-<hr style="margin:44px 0">
+<section class="band" id="start"><div class="wrap narrow">
+  <p class="eyebrow">Start here</p>
+  <h2>Four ways in. Pick one.</h2>
+  <p class="dim">No account, no API key, no sign-up. If you are not sure which, use the
+  second — it just writes a file into your project.</p>
 
-<section id="use">
-<h2>Three ways to use it</h2>
-<p class="muted">No account, no API key, no sign-up. Pick one.</p>
+  <div class="cards">
+    <div class="card">
+      <span class="n">01</span>
+      <h3>Give it to your AI assistant</h3>
+      <p class="who">{e(HOW['mcp']['who'])}</p>
+      <p>{e(HOW['mcp']['blurb'])}</p>
+      {codeblock('c-mcp', mcp)}
+      <p class="tiny" style="margin:11px 0 0"><a href="{REPO}/blob/main/docs/mcp-clients.md">Config for every client →</a></p>
+    </div>
 
-<div class="cards">
-  <div class="card">
-    <h3>1 · Give it to your assistant</h3>
-    <p>MCP server. The assistant pulls only the items relevant to what it is doing.
-    Works with Claude, Cursor, Copilot, Gemini CLI, Codex, Cline, Cherry Studio —
-    and with DeepSeek, Qwen, Kimi or GLM through any of them.</p>
-    {codeblock('c-mcp', mcp)}
-    <p class="small" style="margin:10px 0 0"><a href="{REPO}/blob/main/docs/mcp-clients.md">Config for every client →</a></p>
+    <div class="card">
+      <span class="n">02</span>
+      <h3>Write a file into your repo</h3>
+      <p class="who">{e(HOW['cli']['who'])}</p>
+      <p>{e(HOW['cli']['blurb'])}</p>
+      {codeblock('c-npm', npm_cmd)}
+      <p class="tiny" style="margin:11px 0 0"><a href="{REPO}#command-line">All commands →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="n">03</span>
+      <h3>Fetch it over HTTP</h3>
+      <p class="who">{e(HOW['http']['who'])}</p>
+      <p>{e(HOW['http']['blurb'])}</p>
+      {codeblock('c-http', http_url)}
+      <p class="tiny" style="margin:11px 0 0"><a href="{REPO}/blob/main/docs/integrations/http-api.md">The JSON API →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="n">04</span>
+      <h3>Paste a prompt</h3>
+      <p class="who">{e(HOW['prompt']['who'])}</p>
+      <p>{e(HOW['prompt']['blurb'])}</p>
+      {codeblock('c-gate', 'npx prodcheck --gate -o BLOCKERS.md')}
+      <p class="tiny" style="margin:11px 0 0"><a href="{REPO}/blob/main/docs/prompts.md">Six ready-made prompts →</a></p>
+    </div>
   </div>
 
-  <div class="card">
-    <h3>2 · Generate a file</h3>
-    <p>A checklist scoped to your stack, written into your repo as a working document
-    you commit and tick off.</p>
-    {codeblock('c-npm', npm_cmd)}
-    <p class="small" style="margin:10px 0 0"><a href="{REPO}#command-line">All commands →</a></p>
+  <details style="margin:26px 0 0">
+    <summary class="dim small" style="cursor:pointer">The review prompt, if you want it now</summary>
+    <div style="margin:12px 0 0">{codeblock('c-prompt', prompt, 'copy prompt')}</div>
+  </details>
+</div></section>
+
+<section class="band alt" id="tools"><div class="wrap narrow">
+  <p class="eyebrow">Your tools</p>
+  <h2>Works with what you already use</h2>
+  <p class="dim">One thing worth knowing first: <b>MCP is a feature of the app, not of the
+  model.</b> Cursor running DeepSeek can use it; DeepSeek's website cannot. If your app is
+  not listed, method 03 or 04 above works everywhere.</p>
+  {"".join(tool_grid(g) for g in INTEG["groups"])}
+</div></section>
+
+<section class="band" id="domains"><div class="wrap narrow">
+  <p class="eyebrow">Contents</p>
+  <h2>Five domains</h2>
+  <div class="tbl" style="margin-top:16px">
+  <table><tbody>{domains_tbl}</tbody></table>
   </div>
-</div>
+  <p class="small dim" style="margin-top:14px">Stack supplements add
+  {fmt(sum(1 for i in doc['items'] if i['stack'] != 'any'))} more items across
+  {len(doc['stacks'])} products. They are opt-in — without <code>--stack</code> you get
+  only the items that name no product, so a Django team never sees an iOS item.</p>
+</div></section>
 
-<h3 style="margin-top:26px">3 · Paste a prompt</h3>
-<p class="muted small">For a chat window with no MCP — ChatGPT, Gemini, DeepSeek, Kimi,
-Qwen, GLM. Paste this, then the checklist file.</p>
-{codeblock('c-prompt', prompt, 'copy prompt')}
-<p class="small"><a href="{REPO}/blob/main/docs/prompts.md">Five more prompts — triage, PR review, working through it with you →</a></p>
-</section>
+<section class="band alt" id="why"><div class="wrap narrow">
+  <p class="eyebrow">Why</p>
+  <h2>Why this exists</h2>
+  <p>It started as the pre-launch security review for <a href="https://arioo.com">Arioo</a>.
+  Nothing available covered more than a fraction of what we actually ship — a backend, a
+  web app, native clients, a deploy pipeline, and a set of AI agents with real tools
+  attached — so the checklist got written.</p>
+  <p><b>This is the checklist, not a report.</b> It is the set of questions, generalised
+  away from one stack and rewritten as a working document anyone can run against their
+  own product.</p>
 
-<hr>
+  <h3 style="margin-top:30px">Solo founders have no security team</h3>
+  <p class="dim">You write the code, configure the infrastructure, set up the pipeline,
+  and then you are also the person who decides whether it is safe to launch. There is
+  nobody to hand it to. Most public checklists are either too shallow to catch anything
+  real, or written for companies with a security function.</p>
 
-<section id="domains">
-<h2>What is in it</h2>
-<table>
-<thead><tr><th>Domain</th><th class="n">Items</th></tr></thead>
-<tbody>{domains_tbl}</tbody>
-</table>
-<p class="small muted">Stack supplements add
-{fmt(sum(1 for i in doc['items'] if i['stack'] != 'any'))} more items across
-{len(doc['stacks'])} products. They are opt-in — without <code>--stack</code> you get
-only the items that name no product.</p>
-</section>
+  <h3 style="margin-top:26px">AI-assisted development changed the shape of the problem</h3>
+  <p class="dim">{fmt(ai_items)} items here did not need to exist a few years ago. When you
+  ship an agent with tools, or review code a model wrote faster than you would review a
+  colleague's, you inherit failure modes standard checklists do not cover.</p>
 
-<hr>
+  <h3 style="margin-top:26px">Built with AI, and honest about it</h3>
+  <p class="dim">Compiled and expanded with Claude and ChatGPT, working from a real
+  pre-production review rather than generating items from nothing. That matters twice: it
+  is the honest provenance for something that asks you to trust it, and the
+  <code>ai-generated-code</code> checklists apply to this repository too. Its own test
+  suite has caught several bugs in AI-written code here, which is the argument that
+  section makes.</p>
+</div></section>
 
-<section id="why">
-<h2>Why this exists</h2>
-<p>It started as the pre-launch security review for
-<a href="https://arioo.com">Arioo</a>. Nothing available covered more than a fraction of
-what we actually ship — a backend, a web app, native clients, a deploy pipeline, and a
-set of AI agents with real tools attached — so the checklist got written.</p>
-<p><b>This is the checklist, not a report.</b> It is the set of questions, generalised
-away from one stack and rewritten as a working document anyone can run against their own
-product.</p>
-<h3>Solo founders have no security team</h3>
-<p>You write the code, configure the infrastructure, set up the pipeline, and then you
-are also the person who decides whether it is safe to launch. There is nobody to hand it
-to. Most public checklists are either too shallow to catch anything real, or written for
-companies with a security function.</p>
-<h3>AI-assisted development changed the shape of the problem</h3>
-<p>Over 1,300 items here — the <code>ai</code> and <code>ai-generated-code</code> areas —
-did not need to exist a few years ago. When you ship an agent with tools, or review code a
-model wrote faster than you would review a colleague's, you inherit failure modes standard
-checklists do not cover.</p>
-<h3>Built with AI, and honest about it</h3>
-<p>Compiled and expanded with Claude and ChatGPT, working from a real pre-production
-review rather than generating items from nothing. That matters twice: it is the honest
-provenance for something that asks you to trust it, and the <code>ai-generated-code</code>
-checklists apply to this repository too. Its own test suite has caught several bugs in
-AI-written code here, which is the argument that section makes.</p>
-</section>
+<section class="band" id="contribute"><div class="wrap narrow">
+  <p class="eyebrow">Contributing</p>
+  <h2>Corrections are worth more than additions</h2>
+  <p class="dim">If an item is wrong, outdated, or plausible-sounding but false, that is
+  exactly the failure mode this repository warns about. The most useful addition is a
+  stack file for a stack that is not covered — there are open issues for FastAPI, AWS,
+  Kubernetes, Vercel, Firebase, Stripe and GraphQL, all labelled
+  <code>good first issue</code>.</p>
+  <div class="ghbtns" style="justify-content:flex-start">
+    <a class="btn" href="{REPO}/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>
+    <a class="btn" href="{REPO}/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">Good first issues</a>
+    <a class="btn" href="{REPO}/issues">Report something wrong</a>
+  </div>
+</div></section>
 
-<hr>
-
-<section id="contribute">
-<h2>Contributing</h2>
-<p>The most useful contribution is a stack file for a stack that is not covered — there
-are open issues for FastAPI, AWS, Kubernetes, Vercel, Firebase, Stripe and GraphQL, all
-labelled <code>good first issue</code>. The format is documented end to end.</p>
-<p>Corrections are worth more than additions. If an item is wrong, outdated, or
-plausible-sounding but false, that is exactly the failure mode this repository warns
-about — <a href="{REPO}/issues">open an issue</a>.</p>
-<div class="ghbtns">
-  <a class="btn" href="{REPO}/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>
-  <a class="btn" href="{REPO}/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">Good first issues</a>
-</div>
-</section>
-
-<hr>
-
-<section id="license">
-<h2>Licence</h2>
-<table>
-<tbody>
-<tr><td>Content — the checklists and the data</td>
-    <td><a href="{REPO}/blob/main/LICENSE">CC BY 4.0</a></td></tr>
-<tr><td>Code — the CLI, the MCP server, the scripts</td>
-    <td><a href="{REPO}/blob/main/LICENSE-CODE">MIT</a></td></tr>
-</tbody>
-</table>
-<p class="small muted">Two licences because they are two different things. Creative
-Commons is not written for software, and a CC-licensed npm package gets stopped by
-corporate legal review.</p>
-<p class="small muted">A starting point, not a guarantee, not a compliance certification,
-and not a substitute for a professional audit. Completing every item does not make an
-application secure. Use it to find problems, not to declare their absence.</p>
-</section>
-</div>
+<section class="band alt" id="license"><div class="wrap narrow">
+  <p class="eyebrow">Licence</p>
+  <h2>Two licences, because they are two things</h2>
+  <div class="tbl"><table><tbody>
+  <tr><td>Content — the checklists and the data</td>
+      <td><a href="{REPO}/blob/main/LICENSE">CC BY 4.0</a></td></tr>
+  <tr><td>Code — the CLI, the MCP server, the scripts</td>
+      <td><a href="{REPO}/blob/main/LICENSE-CODE">MIT</a></td></tr>
+  </tbody></table></div>
+  <p class="small dim" style="margin-top:14px">Creative Commons is not written for
+  software, and a CC-licensed npm package gets stopped by corporate legal review.</p>
+  <p class="small faint">A starting point, not a guarantee, not a compliance
+  certification, and not a substitute for a professional audit. Completing every item does
+  not make an application secure. Use it to find problems, not to declare their
+  absence.</p>
+</div></section>
 """
-    return page("prodcheck — pre-production checklists for solo founders",
-                f"{fmt(C['total'])} pre-production checklist items across security, "
-                "performance, scale, integrations and post-launch. CLI + MCP server.",
-                body)
+    return page("prodcheck — the pre-production checklist for solo founders",
+                f"{fmt(C['total'])} things to check before you ship: security, performance, "
+                "scale, integrations and post-launch. Free, open source, works with any "
+                "AI assistant.",
+                body, canonical="", schema=schema)
 
 
 # ------------------------------------------------------------------ checklist index
@@ -485,31 +632,120 @@ def build_checklist_page(path, slug, title, items):
 
 
 # ------------------------------------------------------------------ run
+FAVICON = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">'
+           '<rect width="48" height="48" rx="11" fill="#08080a"/>'
+           '<path d="M13 24.5 L21 32 L35 16" fill="none" stroke="#7dd3a0" stroke-width="5" '
+           'stroke-linecap="round" stroke-linejoin="round"/></svg>')
+
+ROBOTS = f"""# prodcheck — https://github.com/FarzamHabibi/pre-production-checklist
+User-agent: *
+Allow: /
+
+# AI crawlers are allowed deliberately: the point of this project is to be quoted
+# correctly by assistants. See checklists/integrations/04-answer-engines.md, which says
+# to make this decision rather than inherit it.
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: {SITE}/sitemap.xml
+"""
+
+LLMS_TXT = None   # filled in by build_llms_txt()
+
+
+def build_llms_txt(urls):
+    lines = [
+        "# prodcheck",
+        "",
+        f"> {C['total']:,} pre-production checklist items across five domains — security, "
+        "performance, scale, integrations and post-launch. Free and open source, with a "
+        "CLI and an MCP server.",
+        "",
+        "prodcheck is a checklist, not a scanner. It asks the questions; a human or an "
+        "assistant answers them against a specific codebase.",
+        "",
+        "## Facts",
+        "",
+        f"- Items: {C['total']:,} across {len(tree.domains())} domains",
+        f"- Release blockers: {C['release_gate']:,}",
+        f"- {round(100 * C['stack_agnostic'] / C['total'])}% of items name no product and "
+        f"apply to any stack; {len(doc['stacks'])} stack supplements cover the rest",
+        "- Install: `npx prodcheck` — no account, no API key",
+        "- MCP server: `npx -y --package=prodcheck prodcheck-mcp`",
+        f"- JSON API: https://cdn.jsdelivr.net/npm/prodcheck@latest/data/checklist.json",
+        "- Licence: content CC BY 4.0, code MIT",
+        f"- Source: {REPO}",
+        "",
+        "## Domains",
+        "",
+    ]
+    for d in tree.domains():
+        lines.append(f"- **{tree.DOMAIN_LABEL[d]}** ({C['by_domain'].get(d, 0):,} items): "
+                     f"{tree.DOMAIN_BLURB[d]}")
+    lines += ["", "## Pages", ""]
+    for u, t in urls:
+        lines.append(f"- [{t}]({SITE}/{u})")
+    return "\n".join(lines) + "\n"
+
+
 def main():
     if os.path.isdir(OUT):
         shutil.rmtree(OUT)
     os.makedirs(os.path.join(OUT, "c"))
 
+    urls = []
     open(os.path.join(OUT, "style.css"), "w", encoding="utf-8").write(CSS)
+    open(os.path.join(OUT, "favicon.svg"), "w", encoding="utf-8").write(FAVICON)
     open(os.path.join(OUT, ".nojekyll"), "w").write("")
+    open(os.path.join(OUT, "CNAME"), "w").write("prodcheck.js.org\n")
+    open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8").write(ROBOTS)
+
+    for src in ("og.png", "og.svg"):
+        p = os.path.join("site-assets", src)
+        if os.path.exists(p):
+            shutil.copyfile(p, os.path.join(OUT, src))
+
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(build_index())
+    urls.append(("", "prodcheck — the pre-production checklist for solo founders"))
     open(os.path.join(OUT, "checklists.html"), "w", encoding="utf-8").write(
         build_checklists_index())
+    urls.append(("checklists.html", "All checklists"))
 
     pages = 0
     for d, a, path, stem in tree.walk():
         items = [i for i in doc["items"] if i["source"]["file"] == path]
         slug = f"{d}--{(a + '--') if a else ''}{stem}"
+        title = tree.title_of(path)
         open(os.path.join(OUT, "c", slug + ".html"), "w", encoding="utf-8").write(
-            build_checklist_page(path, slug, tree.title_of(path), items))
+            build_checklist_page(path, slug, title, items))
+        urls.append((f"c/{slug}.html", f"{title} ({tree.DOMAIN_LABEL[d]})"))
         pages += 1
     for path, s in tree.stack_files():
         items = [i for i in doc["items"] if i["source"]["file"] == path]
+        title = tree.title_of(path)
         open(os.path.join(OUT, "c", f"stacks--{s}.html"), "w", encoding="utf-8").write(
-            build_checklist_page(path, f"stacks--{s}", tree.title_of(path), items))
+            build_checklist_page(path, f"stacks--{s}", title, items))
+        urls.append((f"c/stacks--{s}.html", f"{title} (stack supplement)"))
         pages += 1
 
-    print(f"site/ — {pages + 2} pages, every count from data/checklist.json")
+    sm = ['<?xml version="1.0" encoding="UTF-8"?>',
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for u, _ in urls:
+        pri = "1.0" if u == "" else ("0.8" if u == "checklists.html" else "0.6")
+        sm.append(f"  <url><loc>{SITE}/{u}</loc><priority>{pri}</priority></url>")
+    sm.append("</urlset>")
+    open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8").write("\n".join(sm) + "\n")
+
+    open(os.path.join(OUT, "llms.txt"), "w", encoding="utf-8").write(build_llms_txt(urls))
+
+    print(f"site/ — {pages + 2} pages, sitemap, robots.txt, llms.txt, CNAME; "
+          "every count from data/checklist.json")
 
 
 if __name__ == "__main__":

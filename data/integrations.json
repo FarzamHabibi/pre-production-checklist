@@ -1,0 +1,89 @@
+{
+  "_comment": "Single source for the integration guides. scripts/build_site.py renders the site section from this, and scripts/verify.sh checks every entry has a doc file. Add an entry, add the file, done.",
+  "how": [
+    {
+      "id": "mcp",
+      "label": "MCP server",
+      "who": "Coding assistants and desktop clients",
+      "blurb": "The assistant queries the checklist itself and pulls only what is relevant to the file it is looking at. Best option when your tool supports it.",
+      "snippet": "npx -y --package=prodcheck prodcheck-mcp"
+    },
+    {
+      "id": "cli",
+      "label": "Command line",
+      "who": "Anyone with Node installed",
+      "blurb": "Writes a checklist file scoped to your stack into your own repository, to commit and tick off.",
+      "snippet": "npx prodcheck security --stack django -o SECURITY.md"
+    },
+    {
+      "id": "http",
+      "label": "Plain HTTP",
+      "who": "Automation platforms, scripts, anything that can fetch a URL",
+      "blurb": "Every item as JSON on a CDN. No install, no MCP, no Node — an HTTP node in any workflow tool can read it.",
+      "snippet": "https://cdn.jsdelivr.net/npm/prodcheck@latest/data/checklist.json"
+    },
+    {
+      "id": "prompt",
+      "label": "Paste a prompt",
+      "who": "Any chat window",
+      "blurb": "ChatGPT, Gemini, DeepSeek, Kimi, Qwen, GLM — generate a file and paste it after a ready-made prompt.",
+      "snippet": "npx prodcheck --gate -o BLOCKERS.md"
+    }
+  ],
+  "groups": [
+    {
+      "id": "assistants",
+      "label": "Coding assistants",
+      "blurb": "These speak MCP. Point them at the server once and the checklist is available in every conversation.",
+      "tools": [
+        { "id": "claude-code", "name": "Claude Code", "how": "mcp", "doc": "mcp-clients.md#claude-code" },
+        { "id": "claude-desktop", "name": "Claude Desktop", "how": "mcp", "doc": "mcp-clients.md#claude-desktop" },
+        { "id": "cursor", "name": "Cursor", "how": "mcp", "doc": "mcp-clients.md#cursor" },
+        { "id": "vscode", "name": "VS Code · Copilot", "how": "mcp", "doc": "mcp-clients.md#vs-code--github-copilot-agent-mode" },
+        { "id": "gemini-cli", "name": "Gemini CLI", "how": "mcp", "doc": "mcp-clients.md#gemini-cli" },
+        { "id": "codex", "name": "OpenAI Codex CLI", "how": "mcp", "doc": "mcp-clients.md#openai-codex-cli" },
+        { "id": "qwen-code", "name": "Qwen Code", "how": "mcp", "doc": "mcp-clients.md#qwen-code" },
+        { "id": "cline", "name": "Cline · Roo · Continue", "how": "mcp", "doc": "mcp-clients.md#cline-roo-code-continue-windsurf-zed" },
+        { "id": "windsurf", "name": "Windsurf · Zed", "how": "mcp", "doc": "mcp-clients.md#cline-roo-code-continue-windsurf-zed" },
+        { "id": "cherry-studio", "name": "Cherry Studio", "how": "mcp", "doc": "mcp-clients.md#cherry-studio" }
+      ]
+    },
+    {
+      "id": "models",
+      "label": "Model providers",
+      "blurb": "A model is not an MCP client. These reach the checklist through a client above, or by pasting a prompt.",
+      "tools": [
+        { "id": "openrouter", "name": "OpenRouter", "how": "mcp", "doc": "integrations/openrouter.md" },
+        { "id": "openai", "name": "ChatGPT · GPT", "how": "prompt", "doc": "prompts.md" },
+        { "id": "gemini", "name": "Gemini", "how": "prompt", "doc": "prompts.md" },
+        { "id": "deepseek", "name": "DeepSeek", "how": "prompt", "doc": "integrations/chinese-models.md" },
+        { "id": "qwen", "name": "Qwen", "how": "prompt", "doc": "integrations/chinese-models.md" },
+        { "id": "kimi", "name": "Kimi · Moonshot", "how": "prompt", "doc": "integrations/chinese-models.md" },
+        { "id": "glm", "name": "GLM · Zhipu", "how": "prompt", "doc": "integrations/chinese-models.md" }
+      ]
+    },
+    {
+      "id": "automation",
+      "label": "Automation & agent platforms",
+      "blurb": "These can fetch the JSON over HTTP, which needs no install at all. Some also speak MCP.",
+      "tools": [
+        { "id": "n8n", "name": "n8n", "how": "http", "doc": "integrations/n8n.md" },
+        { "id": "dify", "name": "Dify", "how": "http", "doc": "integrations/dify.md" },
+        { "id": "flowise", "name": "Flowise", "how": "http", "doc": "integrations/flowise.md" },
+        { "id": "make", "name": "Make · Zapier", "how": "http", "doc": "integrations/http-api.md" },
+        { "id": "openwebui", "name": "Open WebUI · LibreChat", "how": "http", "doc": "integrations/self-hosted-chat.md" },
+        { "id": "custom", "name": "Your own script", "how": "http", "doc": "integrations/http-api.md" }
+      ]
+    },
+    {
+      "id": "ci",
+      "label": "CI and the terminal",
+      "blurb": "No model involved. Generate a file, or check the release blockers in a pipeline.",
+      "tools": [
+        { "id": "npm", "name": "npm · npx", "how": "cli", "doc": "../README.md#command-line" },
+        { "id": "gha", "name": "GitHub Actions", "how": "cli", "doc": "integrations/ci.md" },
+        { "id": "docker", "name": "Any CI with Node", "how": "cli", "doc": "integrations/ci.md" }
+      ]
+    }
+  ]
+}

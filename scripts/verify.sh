@@ -112,17 +112,39 @@ PY
 ); then ok; else bad; echo "$out" | head -10 | sed 's/^/     /'; fi
 
 # ---------------------------------------------------------------- site
-step "site builds, with no hardcoded counts"
+step "site builds, complete and in sync"
 if out=$(python3 scripts/build_site.py 2>&1); then
   # every number on the site must come from the data, so the site cannot disagree
   # with the checklists. A literal count typed into the generator would survive a
   # data change; this catches that.
   total=$(python3 -c "import json;print(json.load(open('data/checklist.json'))['counts']['total'])")
-  if ! grep -q "$(python3 -c "print(f'{$total:,}')")" site/index.html; then
-    bad; echo "     site/index.html does not state the current total ($total)"
-  elif stale=$(grep -oE '\b(3,[0-9]{3}|4,[0-9]{3})\b' scripts/build_site.py | head -1); then
-    bad; echo "     scripts/build_site.py contains a hardcoded count: $stale"
-  else ok; fi
+  pretty=$(python3 -c "print(f'{$total:,}')")
+  miss=""
+  grep -q "$pretty" site/index.html || miss="index.html missing the current total ($pretty)"
+  grep -q "$pretty" site/llms.txt   || miss="llms.txt missing the current total"
+  for f in sitemap.xml robots.txt llms.txt CNAME favicon.svg og.png style.css; do
+    [ -f "site/$f" ] || miss="site/$f not generated"
+  done
+  if stale=$(grep -oE '\b[0-9],[0-9]{3}\b' scripts/build_site.py | head -1); then
+    miss="scripts/build_site.py contains a hardcoded count: $stale"
+  fi
+  # every integration listed in the manifest must have the doc it points at
+  docmiss=$(python3 - <<'PY2'
+import json, os
+m = json.load(open("data/integrations.json", encoding="utf-8"))
+bad = []
+for g in m["groups"]:
+    for t in g["tools"]:
+        d = t["doc"].split("#")[0]
+        if d.startswith(".."):
+            continue
+        if not os.path.exists(os.path.join("docs", d)):
+            bad.append(f'{t["id"]} -> docs/{d}')
+print("; ".join(bad))
+PY2
+)
+  [ -n "$docmiss" ] && miss="integrations manifest points at missing docs: $docmiss"
+  if [ -n "$miss" ]; then bad; echo "     $miss"; else ok; fi
 else
   bad; echo "$out" | tail -4 | sed 's/^/     /'
 fi
