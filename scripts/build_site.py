@@ -333,7 +333,7 @@ MARK = ('<svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">'
 
 
 def page(title, desc, body, depth=0, canonical="", schema=""):
-    up = "../" * depth
+    up = "../" * depth if depth else "./"
     ld = f'<script type="application/ld+json">{schema}</script>' if schema else ""
     return f"""<!doctype html>
 <html lang="en">
@@ -363,12 +363,12 @@ def page(title, desc, body, depth=0, canonical="", schema=""):
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top"><div class="wrap">
-  <a class="brand plain" href="{up}index.html">{MARK}<span>prod<b>check</b></span></a>
+  <a class="brand plain" href="{up}">{MARK}<span>prod<b>check</b></span></a>
   <nav>
-    <a href="{up}checklists.html">Checklists</a>
-    <a href="{up}index.html#start">Start</a>
-    <a href="{up}index.html#tools">Tools</a>
-    <a href="{up}index.html#why">Why</a>
+    <a href="{up}checklists/">Checklists</a>
+    <a href="{up}#start">Start</a>
+    <a href="{up}#tools">Tools</a>
+    <a href="{up}#why">Why</a>
     <a href="{REPO}">GitHub</a>
   </nav>
 </div></header>
@@ -433,7 +433,7 @@ def tool_grid(group):
 
 def build_index():
     domains_tbl = "".join(
-        f'<tr><td><a class="plain" href="checklists.html#{d}"><b>{e(tree.DOMAIN_LABEL[d])}</b></a>'
+        f'<tr><td><a class="plain" href="checklists/#{d}"><b>{e(tree.DOMAIN_LABEL[d])}</b></a>'
         f'<br><span class="dim small">{e(tree.DOMAIN_BLURB[d])}</span></td>'
         f'<td class="n">{fmt(C["by_domain"].get(d, 0))}</td></tr>'
         for d in tree.domains())
@@ -509,7 +509,7 @@ item | verdict | file:line | one-sentence reason."""
   </div>
 
   <div class="ghbtns">
-    <a class="btn primary" href="checklists.html">Browse the checklists</a>
+    <a class="btn primary" href="checklists/">Browse the checklists</a>
     <a class="btn" href="{REPO}">{GH_ICON} Star</a>
     <a class="btn" href="{REPO}/fork">{GH_ICON} Fork</a>
     <a class="btn" href="{NPM}">{NPM_ICON} npm</a>
@@ -685,7 +685,7 @@ def build_checklists_index():
             out.append('<div class="domain">')
             for path, stem in tree.files(d, a):
                 n = sum(1 for i in doc["items"] if i["source"]["file"] == path)
-                href = f"c/{d}--{(a + '--') if a else ''}{stem}.html"
+                href = f"../c/{d}--{(a + '--') if a else ''}{stem}/"
                 out.append(f'<div style="display:flex;gap:12px;padding:5px 0">'
                            f'<a href="{href}" style="flex:1">{e(tree.title_of(path))}</a>'
                            f'<span class="muted small">{n}</span></div>')
@@ -698,11 +698,11 @@ def build_checklists_index():
     for path, slug in tree.stack_files():
         n = sum(1 for i in doc["items"] if i["source"]["file"] == path)
         out.append(f'<div style="display:flex;gap:12px;padding:5px 0">'
-                   f'<a href="c/stacks--{slug}.html" style="flex:1">{e(tree.title_of(path))}</a>'
+                   f'<a href="../c/stacks--{slug}/" style="flex:1">{e(tree.title_of(path))}</a>'
                    f'<span class="muted small">{n}</span></div>')
     out.append('</div></div>')
     return page("Checklists — prodcheck", "Browse all prodcheck checklists.",
-                "\n".join(out))
+                "\n".join(out), depth=1, canonical="checklists/")
 
 
 # ------------------------------------------------------------------ one checklist
@@ -719,7 +719,7 @@ def inline(text):
     return s
 
 
-def build_checklist_page(path, slug, title, items):
+def build_checklist_page(path, slug, title, items, canonical=""):
     secs, cur = [], None
     for i in items:
         if i["section"] != cur:
@@ -728,7 +728,7 @@ def build_checklist_page(path, slug, title, items):
         secs[-1][1].append(i)
 
     body = [f'<div class="wrap"><section style="padding:40px 0 4px">',
-            f'<p class="small muted"><a href="../checklists.html">← all checklists</a></p>',
+            f'<p class="small muted"><a href="../../checklists/">← all checklists</a></p>',
             f'<h1 style="font-size:1.75rem;margin:0 0 8px">{e(title)}</h1>',
             f'<p class="muted small"><span id="count">{len(items)}</span> items · '
             f'<a href="{REPO}/blob/main/{path}">source</a></p>',
@@ -756,7 +756,7 @@ def build_checklist_page(path, slug, title, items):
     body.append(f'<pre id="raw" hidden>{e(chr(10).join(raw))}</pre>')
     body.append("</div>")
     return page(f"{title} — prodcheck", f"{len(items)} checklist items: {title}.",
-                "\n".join(body), depth=1)
+                "\n".join(body), depth=2, canonical=canonical)
 
 
 # ------------------------------------------------------------------ run
@@ -862,25 +862,28 @@ def main():
 
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(build_index())
     urls.append(("", "prodcheck — the pre-production checklist for solo founders"))
-    open(os.path.join(OUT, "checklists.html"), "w", encoding="utf-8").write(
+    os.makedirs(os.path.join(OUT, "checklists"), exist_ok=True)
+    open(os.path.join(OUT, "checklists", "index.html"), "w", encoding="utf-8").write(
         build_checklists_index())
-    urls.append(("checklists.html", "All checklists"))
+    urls.append(("checklists/", "All checklists"))
 
     pages = 0
     for d, a, path, stem in tree.walk():
         items = [i for i in doc["items"] if i["source"]["file"] == path]
         slug = f"{d}--{(a + '--') if a else ''}{stem}"
         title = tree.title_of(path)
-        open(os.path.join(OUT, "c", slug + ".html"), "w", encoding="utf-8").write(
-            build_checklist_page(path, slug, title, items))
-        urls.append((f"c/{slug}.html", f"{title} ({tree.DOMAIN_LABEL[d]})"))
+        os.makedirs(os.path.join(OUT, "c", slug), exist_ok=True)
+        open(os.path.join(OUT, "c", slug, "index.html"), "w", encoding="utf-8").write(
+            build_checklist_page(path, slug, title, items, f"c/{slug}/"))
+        urls.append((f"c/{slug}/", f"{title} ({tree.DOMAIN_LABEL[d]})"))
         pages += 1
     for path, s in tree.stack_files():
         items = [i for i in doc["items"] if i["source"]["file"] == path]
         title = tree.title_of(path)
-        open(os.path.join(OUT, "c", f"stacks--{s}.html"), "w", encoding="utf-8").write(
-            build_checklist_page(path, f"stacks--{s}", title, items))
-        urls.append((f"c/stacks--{s}.html", f"{title} (stack supplement)"))
+        os.makedirs(os.path.join(OUT, "c", f"stacks--{s}"), exist_ok=True)
+        open(os.path.join(OUT, "c", f"stacks--{s}", "index.html"), "w", encoding="utf-8").write(
+            build_checklist_page(path, f"stacks--{s}", title, items, f"c/stacks--{s}/"))
+        urls.append((f"c/stacks--{s}/", f"{title} (stack supplement)"))
         pages += 1
 
     sm = ['<?xml version="1.0" encoding="UTF-8"?>',
@@ -891,9 +894,21 @@ def main():
     sm.append("</urlset>")
     open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8").write("\n".join(sm) + "\n")
 
+    open(os.path.join(OUT, "404.html"), "w", encoding="utf-8").write(page(
+        "Not found — prodcheck", "That page does not exist.",
+        '<div class="wrap"><section class="band"><p class="eyebrow">404</p>'
+        '<h2>That page does not exist.</h2>'
+        '<p class="dim">It may have moved, or the link may be wrong.</p>'
+        '<div class="ghbtns" style="justify-content:flex-start">'
+        '<a class="btn primary" href="/checklists/">Browse the checklists</a>'
+        '<a class="btn" href="/">Home</a></div></section></div>'))
+
     open(os.path.join(OUT, "llms.txt"), "w", encoding="utf-8").write(build_llms_txt(urls))
 
-    print(f"site/ — {pages + 2} pages, sitemap, robots.txt, llms.txt, CNAME; "
+    extras = ["sitemap.xml", "robots.txt", "llms.txt", "404.html", "_headers"]
+    if CUSTOM_DOMAIN:
+        extras.append("CNAME")
+    print(f"site/ — {pages + 2} pages + {', '.join(extras)}; "
           "every count from data/checklist.json")
 
 

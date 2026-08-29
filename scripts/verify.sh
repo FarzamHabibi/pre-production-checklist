@@ -155,6 +155,30 @@ if out=$(python3 scripts/build_site.py 2>&1); then
     miss="README links to https://$readme_site but pages canonicalise to https://$sitebase"
   fi
 
+  # The markdown link check above never looked at the generated site. Restructuring the
+  # output to directory URLs broke 91 of its links and the gate stayed green.
+  sitelinks=$(python3 - <<'PY2'
+import re, os
+bad = []
+for root, _, files in os.walk("site"):
+    for f in files:
+        if not f.endswith(".html"):
+            continue
+        p = os.path.join(root, f)
+        for m in re.finditer(r'(?:href|src)="([^"#:]+)"', open(p, encoding="utf-8").read()):
+            t = m.group(1)
+            if t.startswith(("http", "mailto", "data:", "/")) or not t:
+                continue
+            tgt = os.path.normpath(os.path.join(root, t))
+            if os.path.isdir(tgt):
+                tgt = os.path.join(tgt, "index.html")
+            if not os.path.exists(tgt):
+                bad.append(f"{p} -> {t}")
+print("; ".join(bad[:3]) + (f" (+{len(bad)-3} more)" if len(bad) > 3 else ""))
+PY2
+)
+  [ -n "$sitelinks" ] && miss="broken links in the generated site: $sitelinks"
+
   # every integration listed in the manifest must have the doc it points at
   docmiss=$(python3 - <<'PY2'
 import json, os

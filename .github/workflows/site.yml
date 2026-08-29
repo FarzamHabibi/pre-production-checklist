@@ -25,6 +25,11 @@ jobs:
           persist-credentials: false
 
       - name: Build the site
+        env:
+          # Cloudflare Pages is the primary host — it can serve the response headers in
+          # _headers, which GitHub Pages cannot. This mirror's pages canonicalise there
+          # so search engines are not shown the same content at two addresses.
+          PRODCHECK_SITE: https://prodcheck.pages.dev
         run: python3 scripts/build_site.py
 
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0

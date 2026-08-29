@@ -4,7 +4,7 @@
 
 Prepared text for Product Hunt, Hacker News and the rest. Written to be edited, not
 posted verbatim — the numbers are current as of the last build, so re-check them against
-[the site](https://farzamhabibi.github.io/pre-production-checklist/) before posting.
+[the site](https://prodcheck.pages.dev) before posting.
 
 Counts to verify first: run `npx prodcheck info`.
 
@@ -124,7 +124,7 @@ Follow-ups, one idea each: the AI surface; the post-launch domain; MCP; the hone
 Run through [`checklists/integrations/`](../checklists/integrations/) against this project
 itself — it would be a poor look to ship an SEO checklist from a site with no sitemap.
 
-- [ ] Site is live and the custom domain resolves
+- [ ] Site is live at https://prodcheck.pages.dev
 - [ ] `sitemap.xml`, `robots.txt` and `llms.txt` served
 - [ ] Open Graph image renders — paste the URL into Slack and X and look
 - [ ] Search Console and Bing Webmaster verified, sitemap submitted
