@@ -5,12 +5,13 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**3,186 items** · 2,812 of them (88%) name no product at all.
+**3,520 items** · 3,125 of them (89%) name no product at all.
 
 | Domain | Items | |
 | --- | ---: | --- |
 | [**Security**](#security) | 3,186 | Not getting breached, abused, or taken down. |
-| [Stack supplements](#stack-supplements) | 374 | 19 products, only if you use them |
+| [**Performance**](#performance) | 334 | Being fast for a real user, with Lighthouse agreeing. |
+| [Stack supplements](#stack-supplements) | 395 | 19 products, only if you use them |
 
 ---
 
@@ -84,6 +85,27 @@ The bugs AI coding assistants actually write. Also known as vibe coding.
 
 ---
 
+<a id="performance"></a>
+
+## Performance
+
+Being fast for a real user, with Lighthouse agreeing.
+
+| Checklist | Items |
+| --- | ---: |
+| [Measurement](performance/01-measurement.md) | 29 |
+| [Core Web Vitals](performance/02-core-web-vitals.md) | 41 |
+| [Loading & the Critical Path](performance/03-loading-and-critical-path.md) | 37 |
+| [JavaScript](performance/04-javascript.md) | 43 |
+| [Images & Media](performance/05-images-and-media.md) | 33 |
+| [CSS & Rendering](performance/06-css-and-rendering.md) | 28 |
+| [Backend & Delivery](performance/07-backend-and-delivery.md) | 40 |
+| [Accessibility](performance/08-accessibility.md) | 41 |
+| [Performance Release Gate](performance/09-release-gate.md) | 21 |
+| **Total** | **313** |
+
+---
+
 <a id="stack-supplements"></a>
 
 ## Stack supplements
@@ -96,7 +118,7 @@ One file per product, spanning every domain: each section says which checklist i
 | --- | ---: |
 | [Android / Kotlin](stacks/android-kotlin.md) | 37 |
 | [Cloudflare](stacks/cloudflare.md) | 29 |
-| [Django](stacks/django.md) | 27 |
+| [Django](stacks/django.md) | 34 |
 | [Docker / containers](stacks/docker.md) | 17 |
 | [Express](stacks/express.md) | 21 |
 | [Flutter](stacks/flutter.md) | 15 |
@@ -107,13 +129,13 @@ One file per product, spanning every domain: each section says which checklist i
 | [Laravel](stacks/laravel.md) | 23 |
 | [macOS](stacks/macos.md) | 5 |
 | [NestJS](stacks/nestjs.md) | 6 |
-| [Next.js / React](stacks/nextjs-react.md) | 23 |
+| [Next.js / React](stacks/nextjs-react.md) | 37 |
 | [PostgreSQL](stacks/postgres.md) | 4 |
 | [Ruby on Rails](stacks/rails.md) | 30 |
 | [React Native](stacks/react-native.md) | 16 |
 | [Spring Boot](stacks/spring.md) | 20 |
 | [Supabase](stacks/supabase.md) | 23 |
-| **Total** | **374** |
+| **Total** | **395** |
 
 ---
 

@@ -23,15 +23,22 @@
           "label": "AI-generated code"
         }
       ]
+    },
+    {
+      "id": "performance",
+      "label": "Performance",
+      "description": "Being fast for a real user, with Lighthouse agreeing.",
+      "areas": []
     }
   ],
   "counts": {
-    "total": 3186,
+    "total": 3520,
     "by_domain": {
-      "security": 3186
+      "security": 3186,
+      "performance": 334
     },
-    "stack_agnostic": 2812,
-    "release_gate": 239
+    "stack_agnostic": 3125,
+    "release_gate": 260
   },
   "stacks": [
     "Android / Kotlin",
@@ -45069,6 +45076,5014 @@
       }
     },
     {
+      "id": "performance.01-measurement.a33a59c3",
+      "text": "Run Lighthouse from a clean profile with extensions disabled; a single extension can cost tens of points.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Lab data",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "performance.01-measurement.247436be",
+      "text": "Run it at least three times and take the median — single-run scores vary by 5 points or more on identical builds.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Lab data",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "performance.01-measurement.7bf0f260",
+      "text": "Verify the throttling setting is deliberate: simulated, applied, or none, and the same one every time you compare.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Lab data",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "performance.01-measurement.279c0724",
+      "text": "Test the mobile configuration, not only desktop; most scoring problems are mobile-only.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Lab data",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "performance.01-measurement.827de978",
+      "text": "Test against a production or production-like build, never a development server with hot reload attached.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Lab data",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "performance.01-measurement.3233f978",
+      "text": "Test the pages that carry traffic, not only the homepage — a landing page, a listing page, a detail page, and a logged-in page.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Lab data",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "performance.01-measurement.f3f87074",
+      "text": "Test both cold and warm cache; the second visit is a different product.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Lab data",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "performance.01-measurement.81b2e76b",
+      "text": "Test the logged-in experience separately if it renders differently — Lighthouse defaults to logged-out.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Lab data",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 21
+      }
+    },
+    {
+      "id": "performance.01-measurement.aeb27cb7",
+      "text": "Verify a real-user monitoring script reports Core Web Vitals from actual sessions, not only synthetic runs.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Field data",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "performance.01-measurement.18d655fc",
+      "text": "Verify the origin appears in the Chrome UX Report, and check whether its data is origin-level or per-URL.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Field data",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "performance.01-measurement.9776ae44",
+      "text": "Hold yourself to the **75th percentile**, which is what Google scores — an average hides the quarter of users having a bad time.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Field data",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "performance.01-measurement.0a73e5c1",
+      "text": "Segment field data by device class and connection; a good p75 overall can hide a terrible p75 on low-end Android.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Field data",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "performance.01-measurement.b54770e2",
+      "text": "Segment by country or region if you serve more than one — latency to your origin is not uniform.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Field data",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "performance.01-measurement.39fd684a",
+      "text": "Verify field metrics are attributed: which element was LCP, which script caused the longest task, which node shifted.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Field data",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "performance.01-measurement.8796296c",
+      "text": "Verify field data is retained long enough to see a regression against the release that caused it.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Field data",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "performance.01-measurement.35281fe0",
+      "text": "Set a performance budget with numbers, not adjectives: total transferred bytes, JavaScript bytes, request count, and a time target.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Budgets and regression",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "performance.01-measurement.0b0e6485",
+      "text": "Verify the budget is enforced in CI, so a regression fails a pull request rather than surfacing a month later.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Budgets and regression",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "performance.01-measurement.dbfbc3ca",
+      "text": "Verify bundle size is reported per pull request, with the delta, not only the absolute number.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Budgets and regression",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "performance.01-measurement.d267b646",
+      "text": "Verify a third-party script cannot be added without the budget noticing.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Budgets and regression",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "performance.01-measurement.7ebd5093",
+      "text": "Alert on a field-metric regression, tied to the deploy that introduced it.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Budgets and regression",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "performance.01-measurement.2e3dce1a",
+      "text": "Record the current numbers before optimising, so improvement is demonstrable rather than asserted.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Budgets and regression",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "performance.01-measurement.368c2a16",
+      "text": "Verify no item is being optimised because it raises the score without helping a user — score is the proxy, not the goal.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Honest scoping",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "performance.01-measurement.12d1e28c",
+      "text": "Verify the slowest real journey has been measured end to end, not just the pages that score well.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Honest scoping",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "performance.01-measurement.ce64e912",
+      "text": "Verify improvements are checked on a mid-range device, not only a flagship phone or a laptop.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Honest scoping",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "performance.01-measurement.1747bebe",
+      "text": "Identify which metric is actually costing you conversions before spending a week on the other three.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Honest scoping",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "performance.01-measurement.228c33c4",
+      "text": "Verify you can name, for the worst page, which resource is the LCP element and which script owns the longest task.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Attribution",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 51
+      }
+    },
+    {
+      "id": "performance.01-measurement.8b7fef7a",
+      "text": "Verify a regression can be traced to a release, not merely to a week.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Attribution",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 52
+      }
+    },
+    {
+      "id": "performance.01-measurement.3c2bf1f7",
+      "text": "Verify synthetic monitoring runs on a schedule against production, not only in CI against a preview.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Attribution",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 53
+      }
+    },
+    {
+      "id": "performance.01-measurement.bae28aff",
+      "text": "Verify someone is accountable for the numbers, and looks at them on a cadence.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Measurement",
+      "section": "Attribution",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/01-measurement.md",
+        "line": 54
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.10680ca4",
+      "text": "Identify the LCP element on every important template; optimising the wrong element is the most common wasted effort here.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Largest Contentful Paint — identify it first",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.0e6ee89e",
+      "text": "Verify the LCP element is present in the initial HTML response, not inserted later by JavaScript.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Largest Contentful Paint — identify it first",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.fa78519c",
+      "text": "Verify the LCP resource is discoverable by the browser's preload scanner — a CSS `background-image` or a JS-injected `src` is not.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Largest Contentful Paint — identify it first",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.8b72b93a",
+      "text": "Verify the LCP image is **not** lazy loaded; `loading=\"lazy\"` on the hero image is a guaranteed LCP regression.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Largest Contentful Paint — identify it first",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.62006d15",
+      "text": "Verify the LCP image carries `fetchpriority=\"high\"`.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Largest Contentful Paint — identify it first",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.5be9bcd7",
+      "text": "Verify the LCP image is preloaded when it is discovered late, and that the preload matches the `srcset` candidate actually chosen.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Largest Contentful Paint — identify it first",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.8da48b6d",
+      "text": "Break LCP into its four parts — time to first byte, resource load delay, resource load duration, element render delay — and attack the largest.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Largest Contentful Paint — the four parts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.2bd656a7",
+      "text": "Verify TTFB is not the dominant part; if it is, the fix is in `07-backend-and-delivery.md`, not in the front end.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Largest Contentful Paint — the four parts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.679b740b",
+      "text": "Verify no render-blocking stylesheet or synchronous script sits between the HTML and the LCP element.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Largest Contentful Paint — the four parts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.7137990a",
+      "text": "Verify web fonts do not delay LCP text: `font-display: swap` or `optional`, and preload the face used above the fold.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Largest Contentful Paint — the four parts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.5cff850b",
+      "text": "Verify a hero carousel or slider does not make LCP depend on JavaScript initialising.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Largest Contentful Paint — the four parts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.597f4113",
+      "text": "Verify client-side data fetching does not gate the hero content; render the shell with content, not a spinner.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Largest Contentful Paint — the four parts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.3643aad7",
+      "text": "Verify a cookie banner or consent gate does not delay or replace the LCP element.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Largest Contentful Paint — the four parts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.a98c5f44",
+      "text": "Verify the LCP image is served at the size it is displayed, not scaled down from something far larger.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Largest Contentful Paint — the four parts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.f1786091",
+      "text": "Identify the interactions with the worst INP — usually a filter, a menu, a search box, or the first click after load.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Interaction to Next Paint",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.68d2ab26",
+      "text": "Verify no task on the main thread runs longer than 50ms during load; long tasks are what makes an early click feel broken.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Interaction to Next Paint",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.f09d6bb6",
+      "text": "Break INP into input delay, processing time and presentation delay, and confirm which one you are actually fixing.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Interaction to Next Paint",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.d9327e15",
+      "text": "Verify event handlers yield back to the main thread for anything expensive, rather than blocking until finished.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Interaction to Next Paint",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.7613ba33",
+      "text": "Verify visual feedback is rendered before the expensive work runs, so the interface acknowledges the click immediately.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Interaction to Next Paint",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.30f5472a",
+      "text": "Verify handlers do not force synchronous layout by reading geometry after writing to the DOM.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Interaction to Next Paint",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.16287790",
+      "text": "Verify a single keystroke does not trigger a full re-render of a large list; debounce input and virtualise long lists.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Interaction to Next Paint",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.611b840d",
+      "text": "Verify third-party scripts are not occupying the main thread when users typically first interact.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Interaction to Next Paint",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 41
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.10cee9da",
+      "text": "Verify hydration is not still running when the page looks ready — an interactive-looking page that ignores clicks is an INP failure.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Interaction to Next Paint",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 42
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.4ae9e9ea",
+      "text": "Verify animations during interaction run on the compositor, not on layout-triggering properties.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Interaction to Next Paint",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 43
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.9206d7d2",
+      "text": "Verify INP is measured on the interactions users actually perform, not only the first one.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Interaction to Next Paint",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.8682a68e",
+      "text": "Verify every `<img>` and `<video>` has explicit `width` and `height`, or a CSS `aspect-ratio`.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Cumulative Layout Shift",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.a0d15249",
+      "text": "Verify space is reserved for ads, embeds and iframes before they load, at their final size.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Cumulative Layout Shift",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 49
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.f082d760",
+      "text": "Verify late-injected banners — cookie notices, promo bars, app-install prompts — do not push content down; overlay them instead.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Cumulative Layout Shift",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 50
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.ff1f2bde",
+      "text": "Verify font swapping does not reflow text: match fallback metrics with `size-adjust`, `ascent-override` and friends.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Cumulative Layout Shift",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 51
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.400b80d4",
+      "text": "Verify dynamically inserted content appears below the current viewport or in reserved space.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Cumulative Layout Shift",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 52
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.94a44d48",
+      "text": "Verify animations use `transform` and `opacity` rather than `top`, `left`, `width` or `height`.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Cumulative Layout Shift",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 53
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.3e868341",
+      "text": "Verify skeleton placeholders occupy exactly the size of the content that replaces them.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Cumulative Layout Shift",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 54
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.d47d6ace",
+      "text": "Verify layout shift is measured after load too — CLS accumulates over the whole page lifetime, including scrolling and interaction.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Cumulative Layout Shift",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 55
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.ee58fab9",
+      "text": "Verify the page is eligible for the back/forward cache; an ineligible page reloads and re-shifts on every back navigation.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Cumulative Layout Shift",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.d22672e8",
+      "text": "Verify Time to First Byte is measured separately from LCP so a server problem is not mistaken for a front-end one.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "The supporting metrics",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 60
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.bfed4ec0",
+      "text": "Verify First Contentful Paint is close behind TTFB; a large gap means render-blocking resources.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "The supporting metrics",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 61
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.1ddd7e2d",
+      "text": "Verify Total Blocking Time in the lab correlates with the INP you see in the field; a large divergence means you are testing the wrong interaction.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "The supporting metrics",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 62
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.963075bf",
+      "text": "Verify the DOM node count is not so large that style and layout recalculation dominate every interaction.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "The supporting metrics",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 63
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.cf9e975f",
+      "text": "Verify CLS is checked after interaction and scrolling, not only on load — most real shifts happen later.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Measuring them honestly",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 67
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.f316ddbd",
+      "text": "Verify INP is measured on a mid-range Android device, where it is usually two to three times worse than on a laptop.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Measuring them honestly",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 68
+      }
+    },
+    {
+      "id": "performance.02-core-web-vitals.dc7b8617",
+      "text": "Verify soft navigations in a single-page app are measured; a client-side route change that takes four seconds records nothing by default.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Core Web Vitals",
+      "section": "Measuring them honestly",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/02-core-web-vitals.md",
+        "line": 69
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.c3b895ae",
+      "text": "Inventory every render-blocking stylesheet and script on the critical path, and justify each one.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Render-blocking resources",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 12
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.d6206804",
+      "text": "Verify every `<script>` in `<head>` is `defer`, `async`, or genuinely required to be synchronous.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Render-blocking resources",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.037d85ed",
+      "text": "Verify stylesheets not needed for the initial view are loaded without blocking, via `media` or a print-onload pattern.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Render-blocking resources",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.e0a9c4ef",
+      "text": "Verify critical CSS is inlined and the remainder deferred, and that the inlined block is actually the critical part rather than the whole sheet.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Render-blocking resources",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.93db9961",
+      "text": "Verify `@import` is not used in CSS; it serialises requests that could have been parallel.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Render-blocking resources",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.97ebde1b",
+      "text": "Verify the HTML response starts flushing before the server has finished all its work, where the framework supports streaming.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Render-blocking resources",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.f8367eca",
+      "text": "Verify `preconnect` is used for the origins that serve critical resources, and limited to a handful — each one costs a connection.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Resource hints, used sparingly",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 21
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.0fb7ee9b",
+      "text": "Verify `dns-prefetch` is used for origins that are needed but not critical.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Resource hints, used sparingly",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.22b92012",
+      "text": "Verify `preload` is reserved for resources the parser would otherwise discover late; preloading everything demotes everything.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Resource hints, used sparingly",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.4f4923a9",
+      "text": "Verify every `preload` is actually used within a few seconds — an unused preload is a wasted download and a console warning.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Resource hints, used sparingly",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.91087d82",
+      "text": "Verify `preload` `as` and `type` attributes are correct, or the resource is fetched twice.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Resource hints, used sparingly",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.58d7bc29",
+      "text": "Verify `modulepreload` is used for the critical module graph rather than plain `preload`.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Resource hints, used sparingly",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.cb6e3eb1",
+      "text": "Verify `fetchpriority` is set deliberately on the few resources where it matters, and not sprinkled.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Resource hints, used sparingly",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.13cdc361",
+      "text": "Consider `103 Early Hints` for the resources you already know the page needs.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Resource hints, used sparingly",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.63910665",
+      "text": "Inventory every font family, weight and style actually used, and remove the ones that are not.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Fonts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.8bc06d4a",
+      "text": "Verify fonts are self-hosted or served from the same origin as the page where possible, removing a connection from the critical path.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Fonts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.6c69fad3",
+      "text": "Verify `font-display` is set — `swap` for body text, `optional` where a swap would be more jarring than the fallback.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Fonts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.774ef37a",
+      "text": "Verify the font used by above-the-fold text is preloaded.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Fonts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.b24673ff",
+      "text": "Verify fonts are subset to the characters and scripts you actually serve.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Fonts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.8207eef1",
+      "text": "Verify variable fonts are used where several weights are needed, rather than several files.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Fonts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.761690b8",
+      "text": "Verify the fallback stack is metrically similar to the web font, so the swap does not reflow.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Fonts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.9af1fd9f",
+      "text": "Verify icon fonts are not blocking render; inline SVG is usually both smaller and safer.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Fonts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.52491aa6",
+      "text": "Verify the entry URL does not redirect; each hop on the critical path costs a full round trip.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Navigation and entry",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 43
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.fad4e626",
+      "text": "Verify HTTP-to-HTTPS and apex-to-www redirects happen at the edge, not at the origin.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Navigation and entry",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.d0369ed3",
+      "text": "Verify HSTS is set so browsers skip the upgrade redirect entirely.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Navigation and entry",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.0f0cd69b",
+      "text": "Verify the initial HTML is not so large that parsing dominates; move data that is not needed for first render out of the document.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Navigation and entry",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.8c2e7140",
+      "text": "Verify server-rendered data embedded in the HTML is not duplicated by a client fetch of the same data.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Navigation and entry",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.4c910dfc",
+      "text": "Consider speculation rules or prefetch for the next navigation users predictably make.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Navigation and entry",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.ce94e204",
+      "text": "Verify prefetching is not so aggressive that it competes with the current page for bandwidth.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Navigation and entry",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 49
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.3db5751f",
+      "text": "Verify a service worker, if present, does not delay the first response while it installs or claims clients.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Repeat visits and prefetching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 53
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.19580bbf",
+      "text": "Verify the service worker's caching strategy is deliberate per resource type, and that a stale HTML shell cannot pin users to an old release.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Repeat visits and prefetching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 54
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.1679714e",
+      "text": "Verify `<iframe loading=\"lazy\">` is used for embeds below the fold.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Repeat visits and prefetching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 55
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.76c44e62",
+      "text": "Verify prefetch on hover or on viewport entry is used for the next likely navigation, and cancelled when the intent goes away.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Repeat visits and prefetching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.c81c544a",
+      "text": "Verify the back/forward cache is not disabled by an `unload` handler, a `Cache-Control: no-store` header, or an open connection.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Repeat visits and prefetching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 57
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.c31f67b9",
+      "text": "Verify `document.write` appears nowhere; it blocks the parser and disables the preload scanner.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Repeat visits and prefetching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 58
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.193c6691",
+      "text": "Verify the module/nomodule split, if used, does not serve both bundles to the same browser.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Repeat visits and prefetching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 59
+      }
+    },
+    {
+      "id": "performance.03-loading-and-critical-path.4ea6800f",
+      "text": "Verify the HTML document itself is not de-prioritised behind a service worker or a redirect chain on repeat visits.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Loading & the Critical Path",
+      "section": "Repeat visits and prefetching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/03-loading-and-critical-path.md",
+        "line": 60
+      }
+    },
+    {
+      "id": "performance.04-javascript.92c17e0c",
+      "text": "Run a bundle analysis and be able to name the five largest modules in the main bundle.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Know what you ship",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 12
+      }
+    },
+    {
+      "id": "performance.04-javascript.95959ffb",
+      "text": "Verify no dependency in the critical bundle is there for a feature most users never reach.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Know what you ship",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "performance.04-javascript.3e93a656",
+      "text": "Verify the dependency tree has no duplicated packages at different versions.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Know what you ship",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "performance.04-javascript.2aff28ef",
+      "text": "Verify heavy general-purpose libraries are not pulled in whole for one function.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Know what you ship",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "performance.04-javascript.6ce51c17",
+      "text": "Verify date, i18n and icon libraries are imported by path or tree-shaken, not wholesale.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Know what you ship",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "performance.04-javascript.5869dbfb",
+      "text": "Verify `sideEffects` is declared correctly so tree shaking actually removes what it can.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Know what you ship",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "performance.04-javascript.1680ba03",
+      "text": "Verify the production build has minification, dead-code elimination and mangling enabled.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Know what you ship",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "performance.04-javascript.030a1903",
+      "text": "Verify development-only code — dev tools, mock handlers, verbose logging — is stripped from the production bundle.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Know what you ship",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "performance.04-javascript.e6f3151f",
+      "text": "Verify JavaScript is split per route, so a landing page does not download the dashboard.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Split and defer",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "performance.04-javascript.02112cb4",
+      "text": "Verify components below the fold or behind an interaction are dynamically imported.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Split and defer",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "performance.04-javascript.7b108f1a",
+      "text": "Verify heavy, rarely used features — a rich text editor, a chart library, a map, a video player — are loaded on demand.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Split and defer",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "performance.04-javascript.4d3c3e99",
+      "text": "Verify code splitting has not created a waterfall where one chunk must load before the next is even requested.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Split and defer",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "performance.04-javascript.b981e181",
+      "text": "Verify the number of chunks is reasonable; hundreds of tiny requests has its own cost.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Split and defer",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "performance.04-javascript.bc5d12b8",
+      "text": "Verify polyfills are served only to browsers that need them, not to every visitor.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Split and defer",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "performance.04-javascript.a9f81d8e",
+      "text": "Verify the build targets the browsers you actually support, rather than transpiling to a decade-old baseline.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Split and defer",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "performance.04-javascript.129122a1",
+      "text": "Measure total blocking time and identify the specific scripts responsible.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "The main thread",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "performance.04-javascript.e7a29616",
+      "text": "Verify no single script evaluation blocks the main thread for more than 50ms during load.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "The main thread",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "performance.04-javascript.3ddd038a",
+      "text": "Verify expensive computation — parsing, sorting, filtering, encryption, image processing — runs in a web worker.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "The main thread",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "performance.04-javascript.a87b17ef",
+      "text": "Verify long lists are virtualised rather than rendered in full.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "The main thread",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "performance.04-javascript.9a86300b",
+      "text": "Verify large JSON payloads are not parsed on the main thread during load.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "The main thread",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "performance.04-javascript.b70c3a43",
+      "text": "Verify state updates do not cascade into re-rendering large subtrees on every keystroke or scroll event.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "The main thread",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "performance.04-javascript.06004a55",
+      "text": "Verify scroll and resize handlers are passive or throttled, and do not read layout on every frame.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "The main thread",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "performance.04-javascript.44ef02ce",
+      "text": "Verify `requestAnimationFrame` callbacks do no work that could be done once outside the frame loop.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "The main thread",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "performance.04-javascript.684da2a3",
+      "text": "Verify the rendering strategy per route is deliberate: static, server-rendered, client-rendered or streamed.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Hydration and rendering strategy",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "performance.04-javascript.2b4fca22",
+      "text": "Verify hydration is not re-rendering the entire page to attach a few event handlers.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Hydration and rendering strategy",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "performance.04-javascript.1ed17849",
+      "text": "Verify selective, progressive or island hydration is used where the framework offers it.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Hydration and rendering strategy",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "performance.04-javascript.dac83360",
+      "text": "Verify server-rendered markup matches what the client renders; a hydration mismatch costs a full re-render and often a layout shift.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Hydration and rendering strategy",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "performance.04-javascript.9f9cb191",
+      "text": "Verify data needed for the first render is delivered with the HTML rather than fetched after it.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Hydration and rendering strategy",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "performance.04-javascript.82947046",
+      "text": "Verify the client does not re-fetch data that the server already embedded.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Hydration and rendering strategy",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 49
+      }
+    },
+    {
+      "id": "performance.04-javascript.74fcaa9c",
+      "text": "Inventory every third-party script, who owns it, and what it costs in bytes and main-thread time.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Third-party scripts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 53
+      }
+    },
+    {
+      "id": "performance.04-javascript.a891786c",
+      "text": "Verify each one still earns its place; analytics, heatmaps, chat widgets and A/B tools accumulate and are rarely removed.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Third-party scripts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 54
+      }
+    },
+    {
+      "id": "performance.04-javascript.9cbe6a14",
+      "text": "Verify third parties load with `async` or `defer`, and after the content, not before it.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Third-party scripts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 55
+      }
+    },
+    {
+      "id": "performance.04-javascript.ff15e7ce",
+      "text": "Verify a heavy embed — chat, video, map, social feed — uses a facade that loads the real widget only on interaction.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Third-party scripts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "performance.04-javascript.a150071d",
+      "text": "Verify a tag manager cannot inject an unbudgeted script without anyone noticing.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Third-party scripts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 57
+      }
+    },
+    {
+      "id": "performance.04-javascript.4e41d876",
+      "text": "Verify a third-party outage degrades the page rather than blocking it.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Third-party scripts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 58
+      }
+    },
+    {
+      "id": "performance.04-javascript.223da1b7",
+      "text": "Verify third-party scripts are pinned or self-hosted where the vendor allows it, so their deploy is not your regression.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Third-party scripts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 59
+      }
+    },
+    {
+      "id": "performance.04-javascript.ba1e0b82",
+      "text": "Verify consent tooling does not itself become the largest blocking script on the page.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Third-party scripts",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 60
+      }
+    },
+    {
+      "id": "performance.04-javascript.df28db44",
+      "text": "Verify `IntersectionObserver` is used instead of scroll handlers for visibility work.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Browser behaviour",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 64
+      }
+    },
+    {
+      "id": "performance.04-javascript.8d79c836",
+      "text": "Verify event listeners on scroll and touch are registered as `passive` where they do not call `preventDefault`.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Browser behaviour",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 65
+      }
+    },
+    {
+      "id": "performance.04-javascript.df239260",
+      "text": "Verify no `unload` handler exists; use `pagehide` and `visibilitychange` so the page stays eligible for the back/forward cache.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Browser behaviour",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 66
+      }
+    },
+    {
+      "id": "performance.04-javascript.24b5520b",
+      "text": "Verify timers and observers are cleaned up on unmount, so a long session does not accumulate work every frame.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Browser behaviour",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 67
+      }
+    },
+    {
+      "id": "performance.04-javascript.7c7a4311",
+      "text": "Verify detached DOM nodes are not retained by closures or global caches.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Browser behaviour",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 68
+      }
+    },
+    {
+      "id": "performance.04-javascript.1ee4b095",
+      "text": "Verify `import()` calls for predictable next steps are prefetched rather than fetched at click time.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "JavaScript",
+      "section": "Browser behaviour",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/04-javascript.md",
+        "line": 69
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.49098f34",
+      "text": "Verify modern formats are served — AVIF or WebP — with a fallback for browsers that need one.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Format and compression",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 12
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.7dbd9220",
+      "text": "Verify compression quality has been chosen by looking at the result, not left at a library default.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Format and compression",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.478e9968",
+      "text": "Verify photographic and graphic content use appropriate formats; a PNG screenshot of a photo is a common and expensive mistake.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Format and compression",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.7ef796bd",
+      "text": "Verify SVGs are minified and stripped of editor metadata.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Format and compression",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.8484703d",
+      "text": "Verify animated GIFs are replaced with video; a short GIF routinely costs more than the entire rest of the page.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Format and compression",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.d53ad8e0",
+      "text": "Verify an image CDN or build-time pipeline handles conversion, so correctness does not depend on whoever uploads.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Format and compression",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.074c93ff",
+      "text": "Verify no image is served substantially larger than its largest rendered size.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Sizing and responsiveness",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 21
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.6ff22c1e",
+      "text": "Verify `srcset` offers candidates that match the layout's real breakpoints.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Sizing and responsiveness",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.06025871",
+      "text": "Verify `sizes` describes the actual rendered width; a wrong `sizes` makes `srcset` pick badly on every device.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Sizing and responsiveness",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.8fbac4d2",
+      "text": "Verify high-density displays are served appropriate candidates without sending a 3× image to everyone.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Sizing and responsiveness",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.4784f615",
+      "text": "Verify every image has intrinsic dimensions or an aspect ratio so it reserves space before loading.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Sizing and responsiveness",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.ad7ce1c3",
+      "text": "Verify user-uploaded images are resized on ingest rather than served at whatever size they arrived.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Sizing and responsiveness",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.063f2d23",
+      "text": "Verify images below the fold use `loading=\"lazy\"`.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Loading behaviour",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.d477e4a0",
+      "text": "Verify images above the fold do **not** — especially the LCP element.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Loading behaviour",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.f7837503",
+      "text": "Verify `decoding=\"async\"` is set where decode time would otherwise block.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Loading behaviour",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.e50d762b",
+      "text": "Verify CSS `background-image` is not used for meaningful above-the-fold imagery; the preload scanner cannot see it.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Loading behaviour",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.0766bb39",
+      "text": "Verify placeholders and blur-up techniques do not introduce a layout shift when the real image arrives.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Loading behaviour",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.ebb0c650",
+      "text": "Verify offscreen carousel slides are not all loaded eagerly.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Loading behaviour",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.ae05bc8c",
+      "text": "Verify video does not autoplay with audio, and that autoplaying background video is muted, short and small.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Video and other media",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.349da5be",
+      "text": "Verify `preload=\"none\"` or `metadata` is used unless the video is the point of the page.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Video and other media",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.7eed3f71",
+      "text": "Verify a poster image is set so the player does not render an empty box.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Video and other media",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 41
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.34bf10e1",
+      "text": "Verify video is served in a modern codec and adaptively where length justifies it.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Video and other media",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 42
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.93207484",
+      "text": "Verify embedded third-party players use a facade until the user chooses to play.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Video and other media",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 43
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.58d655b4",
+      "text": "Verify total media weight for the page has a budget, and that it is checked.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Video and other media",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.23f28981",
+      "text": "Verify images are served from a CDN with a long cache lifetime and a content-based URL.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Delivery",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.4da1d24b",
+      "text": "Verify images are not passing through the application server on every request.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Delivery",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 49
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.30035e09",
+      "text": "Verify the image pipeline sets correct `Content-Type` and `Vary` headers so caches do not serve the wrong format.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Delivery",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 50
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.b63cde67",
+      "text": "Verify `<picture>` is used where the crop or subject needs to change at breakpoints, rather than squeezing one image.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Art direction and the rest",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 54
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.87394fee",
+      "text": "Verify `object-fit` and `object-position` are set where an image must fill a fixed box, so it neither stretches nor shifts.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Art direction and the rest",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 55
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.9f9adbae",
+      "text": "Verify image sprites are not still in use; under HTTP/2 they cost more than they save.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Art direction and the rest",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.8bd0401c",
+      "text": "Verify the favicon and touch icons are small and cached, and are not a full-size PNG.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Art direction and the rest",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 57
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.93a6b2d3",
+      "text": "Verify Open Graph and social preview images are sized to spec and served from a CDN, not generated per request.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Art direction and the rest",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 58
+      }
+    },
+    {
+      "id": "performance.05-images-and-media.e915a803",
+      "text": "Verify user-facing image upload has a size limit and rejects formats the pipeline cannot process.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Images & Media",
+      "section": "Art direction and the rest",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/05-images-and-media.md",
+        "line": 59
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.4e3aecc1",
+      "text": "Measure unused CSS on the pages that matter, and confirm the number is understood rather than merely observed.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Size and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 12
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.3573c50b",
+      "text": "Verify a global stylesheet is not shipping every page's styles to every page.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Size and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.c1ee1179",
+      "text": "Verify CSS is minified and compressed in production.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Size and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.cfec9506",
+      "text": "Verify unused framework utilities or components are purged from the build.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Size and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.170e638b",
+      "text": "Verify the number of stylesheet requests on the critical path is small.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Size and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.e7d41c60",
+      "text": "Verify CSS-in-JS, if used, extracts to static CSS at build time rather than generating styles at runtime.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Size and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.b809b7ab",
+      "text": "Verify no code reads layout properties and writes styles in the same loop, forcing repeated synchronous layout.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Rendering cost",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 21
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.dbd17c69",
+      "text": "Verify animations are limited to `transform` and `opacity`, which the compositor can handle without layout or paint.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Rendering cost",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.f37888a0",
+      "text": "Verify `will-change` is applied to a small number of elements and removed when the animation ends.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Rendering cost",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.75f2b6b1",
+      "text": "Verify large offscreen sections use `content-visibility: auto` with `contain-intrinsic-size` so they are not laid out until needed.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Rendering cost",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.d4014d3b",
+      "text": "Verify `contain` is used where a subtree's layout genuinely cannot affect the rest of the page.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Rendering cost",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.245c703e",
+      "text": "Verify the DOM is not unnecessarily deep or large; both style recalculation and layout scale with it.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Rendering cost",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.824e3212",
+      "text": "Verify expensive visual effects — large blurs, shadows on many elements, filters on scrolling containers — are measured rather than assumed cheap.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Rendering cost",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.679a8545",
+      "text": "Verify `position: fixed` and `sticky` elements are not causing repaints on every scroll frame.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Rendering cost",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.8c2f50ac",
+      "text": "Verify theme switching does not render the page twice or flash the wrong theme.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Correctness that affects speed",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.dc4830c4",
+      "text": "Verify above-the-fold layout does not depend on a JavaScript measurement pass.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Correctness that affects speed",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.2b054b91",
+      "text": "Verify media queries match the breakpoints the layout actually uses, so no device downloads styles it will not apply.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Correctness that affects speed",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.ec9049a3",
+      "text": "Verify `prefers-reduced-motion` is honoured, which also removes work for those users.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Correctness that affects speed",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.c272317d",
+      "text": "Verify `contain-intrinsic-size` accompanies `content-visibility: auto`, or scrollbar length jumps as sections render.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Modern rendering controls",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.c3ff82d4",
+      "text": "Verify view transitions, if used, do not block the next paint on a long-running script.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Modern rendering controls",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.d03cbbc5",
+      "text": "Verify scroll-linked animations use `animation-timeline` or `IntersectionObserver` rather than a scroll handler that runs on every frame.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Modern rendering controls",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 41
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.ff032f0e",
+      "text": "Verify CSS custom properties are not being written on high-frequency events; each write invalidates everything that depends on them.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Modern rendering controls",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 42
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.5b4efdfb",
+      "text": "Verify universal and deeply descendant selectors are not applied to large subtrees.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Modern rendering controls",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 43
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.a4445160",
+      "text": "Verify print styles exist and do not pull in the full stylesheet at render time.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Modern rendering controls",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.c2c44c61",
+      "text": "Verify an SVG sprite sheet is not shipping hundreds of icons to a page that uses three.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Modern rendering controls",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.070501ea",
+      "text": "Verify duplicated declarations across component stylesheets are not multiplying the transferred CSS.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Modern rendering controls",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.c4bb820a",
+      "text": "Verify the critical CSS is regenerated when the layout changes, rather than going stale and describing an old page.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Modern rendering controls",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "performance.06-css-and-rendering.b44d1305",
+      "text": "Verify a CSS framework's reset or preflight is included once, not per component bundle.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "CSS & Rendering",
+      "section": "Modern rendering controls",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/06-css-and-rendering.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.3fe944ab",
+      "text": "Measure TTFB separately for cached and uncached responses, and know which one most users get.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Time to first byte",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 12
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.709ab180",
+      "text": "Break server response time into its parts — routing, authentication, database, template rendering, serialisation — and know which dominates.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Time to first byte",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.1d8cca6b",
+      "text": "Verify no page render performs an N+1 query pattern.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Time to first byte",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.b66c6a9b",
+      "text": "Verify queries on the render path are indexed for the access pattern they actually use.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Time to first byte",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.931cc614",
+      "text": "Verify external API calls on the render path are parallel where they are independent, and have timeouts.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Time to first byte",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.2debbf3a",
+      "text": "Verify a slow third-party dependency degrades the page rather than holding the response open.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Time to first byte",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.05f3fd43",
+      "text": "Verify serverless cold starts are measured, and mitigated if they land on user-facing routes.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Time to first byte",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.50793a22",
+      "text": "Verify the application is deployed close to its users, or that the parts that need to be are.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Time to first byte",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.fb9034c6",
+      "text": "Verify the database is close to the application; a cross-region query on every request is invisible locally and obvious in the field.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Time to first byte",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.c59179f4",
+      "text": "Verify static assets have content-hashed URLs and a long `max-age` with `immutable`.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Caching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.87e91bcb",
+      "text": "Verify HTML is not cached with the same policy as assets, and that a deploy is visible immediately.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Caching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.7f1f719e",
+      "text": "Verify `stale-while-revalidate` is used where a slightly old response is better than a slow one.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Caching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.1d304d03",
+      "text": "Verify the CDN caches what it can, and that the cache hit ratio is monitored rather than assumed.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Caching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.92fe80f1",
+      "text": "Verify cache keys do not include something that varies per user unnecessarily — a cookie, a query parameter, a header.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Caching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.f6f0b041",
+      "text": "Verify authenticated responses are never cached publicly.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Caching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.ef50e6ef",
+      "text": "Verify `Vary` is correct so compressed and uncompressed, or different formats, are not served to the wrong client.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Caching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.2f188aa0",
+      "text": "Verify conditional requests work: `ETag` or `Last-Modified` returning 304 rather than the whole body.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Caching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.914fc178",
+      "text": "Verify an application-level cache exists for expensive computed responses, with an invalidation path that someone has tested.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Caching",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.375327aa",
+      "text": "Verify compression is enabled — Brotli where supported, gzip otherwise — for text, JSON, CSS, JS and SVG.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Transfer",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.0dc8c6bb",
+      "text": "Verify already-compressed formats are not being compressed again.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Transfer",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.c2df5ea2",
+      "text": "Verify HTTP/2 is in use, and HTTP/3 where the CDN supports it.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Transfer",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.65f53dd9",
+      "text": "Verify TLS session resumption is working so repeat visits skip a full handshake.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Transfer",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.abf99000",
+      "text": "Verify the number of distinct origins the page connects to is small; each one costs DNS, TCP and TLS.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Transfer",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.84d96853",
+      "text": "Verify API responses return what the page needs and not the entire record set.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "API and payload",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.6c739bf7",
+      "text": "Verify the client does not make a waterfall of dependent requests where one combined request would do.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "API and payload",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.e8f7632d",
+      "text": "Verify pagination is used, with a sane default page size.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "API and payload",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.4770ad2d",
+      "text": "Verify large lists support incremental or cursor-based loading rather than fetching everything.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "API and payload",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.9971a424",
+      "text": "Verify response payloads are measured; a 2MB JSON response costs parse time as well as transfer.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "API and payload",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.99b8353f",
+      "text": "Verify database connection pooling is configured for the instance count, so a scale-up does not exhaust connections.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Origin and infrastructure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 52
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.9cb6cba8",
+      "text": "Verify identical concurrent requests are coalesced rather than each doing the same expensive work.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Origin and infrastructure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 53
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.206d0c19",
+      "text": "Verify a GraphQL or flexible API cannot be asked for a response far more expensive than the page needs.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Origin and infrastructure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 54
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.c80e6560",
+      "text": "Verify the compression level is chosen deliberately; maximum Brotli on dynamic responses can cost more CPU time than it saves in transfer.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Origin and infrastructure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 55
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.cf1da6c4",
+      "text": "Verify keep-alive timeouts on the origin exceed the load balancer's, so connections are not closed mid-request.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Origin and infrastructure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.56eb6d4f",
+      "text": "Verify DNS TTL is low enough to fail over and high enough not to pay for a lookup on every visit.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Origin and infrastructure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 57
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.2d884849",
+      "text": "Verify an origin shield or tiered cache is used if many edge locations are pulling the same objects.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Origin and infrastructure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 58
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.271e73c4",
+      "text": "Verify incremental or on-demand regeneration, if used, serves stale content while revalidating rather than blocking.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Origin and infrastructure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 59
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.a6916f39",
+      "text": "Verify health checks and monitoring probes are not a meaningful share of origin load.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Origin and infrastructure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 60
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.db0aecf3",
+      "text": "Verify background jobs cannot starve the request path of CPU or database connections.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Origin and infrastructure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 61
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.e44d3577",
+      "text": "Verify the response is streamed where the framework allows it, so the browser starts parsing before the server finishes.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Origin and infrastructure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 62
+      }
+    },
+    {
+      "id": "performance.07-backend-and-delivery.73da38fb",
+      "text": "Verify large responses are paginated or streamed rather than buffered entirely in memory first.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Backend & Delivery",
+      "section": "Origin and infrastructure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/07-backend-and-delivery.md",
+        "line": 63
+      }
+    },
+    {
+      "id": "performance.08-accessibility.696d553b",
+      "text": "Verify body text meets a 4.5:1 contrast ratio against its background, and large text 3:1.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Colour and contrast",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "performance.08-accessibility.5c07086e",
+      "text": "Verify interface components and meaningful graphics meet 3:1 against adjacent colours.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Colour and contrast",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "performance.08-accessibility.7cb6d62d",
+      "text": "Verify text over images or gradients meets contrast at every point it can land.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Colour and contrast",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "performance.08-accessibility.99712581",
+      "text": "Verify information is never carried by colour alone — errors, status, required fields, chart series.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Colour and contrast",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "performance.08-accessibility.6d1dd9b8",
+      "text": "Verify contrast holds in both light and dark themes, and in any high-contrast mode you claim to support.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Colour and contrast",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "performance.08-accessibility.85883810",
+      "text": "Verify placeholder text is not used as the only label, and that disabled controls are still legible.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Colour and contrast",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "performance.08-accessibility.7a217871",
+      "text": "Verify every image has an `alt` that describes its purpose, and that decorative images have `alt=\"\"`.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Names, roles and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "performance.08-accessibility.2e57930f",
+      "text": "Verify every form control has a programmatically associated label, not just adjacent text.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Names, roles and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "performance.08-accessibility.ec09ad73",
+      "text": "Verify every button and link has an accessible name — an icon-only button needs one explicitly.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Names, roles and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "performance.08-accessibility.dab9908e",
+      "text": "Verify link text makes sense out of context; \"read more\" repeated twelve times does not.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Names, roles and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "performance.08-accessibility.19ba7096",
+      "text": "Verify heading levels descend without skipping, and that there is exactly one `h1` per page.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Names, roles and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "performance.08-accessibility.e71e5674",
+      "text": "Verify landmarks are present — `header`, `nav`, `main`, `footer` — and that `main` wraps the primary content.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Names, roles and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "performance.08-accessibility.c01e8155",
+      "text": "Verify the page has a `lang` attribute, and that content in another language is marked.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Names, roles and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "performance.08-accessibility.75a9152e",
+      "text": "Verify tables use `th` with `scope`, and that layout is not done with tables.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Names, roles and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "performance.08-accessibility.4b20f849",
+      "text": "Verify lists are marked up as lists, and that native elements are preferred over ARIA re-implementations.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Names, roles and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "performance.08-accessibility.1fd7dff2",
+      "text": "Verify ARIA roles and properties are valid and match the element's actual behaviour; incorrect ARIA is worse than none.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Names, roles and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "performance.08-accessibility.d538a8d9",
+      "text": "Verify `aria-hidden` is never applied to something focusable.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Names, roles and structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "performance.08-accessibility.34097cd4",
+      "text": "Verify every interactive element is reachable and operable with the keyboard alone.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Keyboard and focus",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "performance.08-accessibility.3ff7c57e",
+      "text": "Verify focus is always visible, and that the indicator meets contrast against its background.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Keyboard and focus",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "performance.08-accessibility.ded50d0a",
+      "text": "Verify focus order follows the visual order, and that positive `tabindex` values are not used.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Keyboard and focus",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "performance.08-accessibility.ecbcb4ed",
+      "text": "Verify modals trap focus while open, return it on close, and close on Escape.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Keyboard and focus",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "performance.08-accessibility.5c0b339d",
+      "text": "Verify a skip link is present and works, so keyboard users are not walked through the whole navigation.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Keyboard and focus",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 41
+      }
+    },
+    {
+      "id": "performance.08-accessibility.07f69490",
+      "text": "Verify custom controls implement the keyboard interactions their role implies — arrow keys in a listbox, Space and Enter on a button.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Keyboard and focus",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 42
+      }
+    },
+    {
+      "id": "performance.08-accessibility.5e6fb7de",
+      "text": "Verify no keyboard trap exists in embedded content such as iframes and third-party widgets.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Keyboard and focus",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 43
+      }
+    },
+    {
+      "id": "performance.08-accessibility.c5efb52f",
+      "text": "Verify dropdowns and menus are not hover-only.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Keyboard and focus",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "performance.08-accessibility.9de91505",
+      "text": "Verify content that appears without a page load — validation, toasts, search results, loading states — is announced with a live region.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Dynamic content and input",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "performance.08-accessibility.eefc6ff3",
+      "text": "Verify error messages are associated with their field and describe how to fix the problem.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Dynamic content and input",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 49
+      }
+    },
+    {
+      "id": "performance.08-accessibility.ef96dba1",
+      "text": "Verify required fields are indicated programmatically, not only visually.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Dynamic content and input",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 50
+      }
+    },
+    {
+      "id": "performance.08-accessibility.42c09dd4",
+      "text": "Verify `autocomplete` attributes are set on personal-data fields.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Dynamic content and input",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 51
+      }
+    },
+    {
+      "id": "performance.08-accessibility.124e86c8",
+      "text": "Verify a time limit can be extended or turned off.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Dynamic content and input",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 52
+      }
+    },
+    {
+      "id": "performance.08-accessibility.6c993475",
+      "text": "Verify `prefers-reduced-motion` disables non-essential animation, including autoplaying carousels and parallax.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Dynamic content and input",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 53
+      }
+    },
+    {
+      "id": "performance.08-accessibility.7685940f",
+      "text": "Verify nothing flashes more than three times per second.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Dynamic content and input",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 54
+      }
+    },
+    {
+      "id": "performance.08-accessibility.ebab32ff",
+      "text": "Verify the page is usable at 200% zoom without horizontal scrolling or lost content.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Layout and target size",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 58
+      }
+    },
+    {
+      "id": "performance.08-accessibility.b90614b5",
+      "text": "Verify it reflows at 320 CSS pixels wide without a horizontal scrollbar.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Layout and target size",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 59
+      }
+    },
+    {
+      "id": "performance.08-accessibility.2c8df241",
+      "text": "Verify touch targets are at least 24 by 24 CSS pixels, with spacing between adjacent ones.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Layout and target size",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 60
+      }
+    },
+    {
+      "id": "performance.08-accessibility.8b564a50",
+      "text": "Verify content is usable in both portrait and landscape unless orientation is essential.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Layout and target size",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 61
+      }
+    },
+    {
+      "id": "performance.08-accessibility.850b22bb",
+      "text": "Verify the viewport meta tag does not disable zooming.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Layout and target size",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 62
+      }
+    },
+    {
+      "id": "performance.08-accessibility.1b4b5a8b",
+      "text": "Navigate the primary journey with the keyboard only, and record what breaks.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Beyond the automated check",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 66
+      }
+    },
+    {
+      "id": "performance.08-accessibility.6cb48984",
+      "text": "Navigate the same journey with a screen reader — VoiceOver, NVDA or TalkBack — and record what is confusing rather than merely wrong.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Beyond the automated check",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 67
+      }
+    },
+    {
+      "id": "performance.08-accessibility.547e251d",
+      "text": "Verify video has captions and audio has a transcript.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Beyond the automated check",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 68
+      }
+    },
+    {
+      "id": "performance.08-accessibility.2448d9ba",
+      "text": "Verify an accessibility statement exists and names a way to report a problem.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Accessibility",
+      "section": "Beyond the automated check",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/performance/08-accessibility.md",
+        "line": 69
+      }
+    },
+    {
+      "id": "performance.09-release-gate.eb10ba6e",
+      "text": "Verify the p75 field LCP is under 2.5 seconds on mobile, or that the exception is written down with an owner and a date.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "Thresholds",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 12
+      }
+    },
+    {
+      "id": "performance.09-release-gate.4ebda75c",
+      "text": "Verify the p75 field INP is under 200 milliseconds.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "Thresholds",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "performance.09-release-gate.f77233ee",
+      "text": "Verify the p75 field CLS is under 0.1.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "Thresholds",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "performance.09-release-gate.4bfeb34d",
+      "text": "Verify the lab Lighthouse performance score on mobile meets the target agreed for this project, measured as a median of several runs.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "Thresholds",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "performance.09-release-gate.15c17a87",
+      "text": "Verify the Lighthouse accessibility score is 100, or that every remaining item is a known false positive with a note.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "Thresholds",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "performance.09-release-gate.a32e2c1d",
+      "text": "Verify the Lighthouse best-practices and SEO scores are at target.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "Thresholds",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "performance.09-release-gate.8adb011e",
+      "text": "Verify these numbers were measured on the templates that carry traffic, not only the homepage.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "Thresholds",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "performance.09-release-gate.8195c507",
+      "text": "Verify the performance budget is not exceeded by this release.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "No regressions",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "performance.09-release-gate.2b96dfda",
+      "text": "Verify no new render-blocking resource was added to the critical path.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "No regressions",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "performance.09-release-gate.de4e1224",
+      "text": "Verify no new third-party script was added without an owner and a measured cost.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "No regressions",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "performance.09-release-gate.e278a863",
+      "text": "Verify bundle size did not increase without a deliberate decision recorded in the pull request.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "No regressions",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "performance.09-release-gate.4650c770",
+      "text": "Verify the LCP element on each key template is still what it was, and still discoverable in the HTML.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "No regressions",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "performance.09-release-gate.6556e795",
+      "text": "Verify no image above the fold gained `loading=\"lazy\"`.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "No regressions",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "performance.09-release-gate.2ea04ebc",
+      "text": "Verify the CI performance check ran on this commit and passed.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "No regressions",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "performance.09-release-gate.43de42f7",
+      "text": "Verify a third party degrading the score has been quantified, so the conversation with the vendor has a number in it.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "When something is out of your hands",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "performance.09-release-gate.f38a5311",
+      "text": "Verify a facade, a delayed load or a self-hosted copy has been considered before accepting the cost.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "When something is out of your hands",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "performance.09-release-gate.400f5dd3",
+      "text": "Verify the decision to ship despite a failing metric is recorded with who made it and when it is revisited.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "When something is out of your hands",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "performance.09-release-gate.a37141a2",
+      "text": "Verify field metrics are watched for the week after release, tied to this deploy.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "When something is out of your hands",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "performance.09-release-gate.365c7cc1",
+      "text": "Verify the gate ran against mobile emulation with throttling, not desktop on a fast connection.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "Coverage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "performance.09-release-gate.e012f0d6",
+      "text": "Verify the logged-in experience was measured if it is where users spend their time.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "Coverage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "performance.09-release-gate.4b474b02",
+      "text": "Verify the numbers in this gate are stored with the release, so the next regression has something to compare against.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Performance Release Gate",
+      "section": "Coverage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/performance/09-release-gate.md",
+        "line": 41
+      }
+    },
+    {
       "id": "stacks.android-kotlin.83d704b9",
       "text": "Audit every `android:exported=\"true\"` in the manifest — since API 31 it must be declared explicitly, which is a good moment to ask whether each one should be reachable by any app on the device.",
       "domain": "security",
@@ -46554,6 +51569,118 @@
       "source": {
         "file": "checklists/stacks/django.md",
         "line": 63
+      }
+    },
+    {
+      "id": "stacks.django.40bd9add",
+      "text": "Verify `select_related` and `prefetch_related` are used on the querysets that render each page; the ORM makes N+1 effortless.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Django",
+      "section": "Backend & Delivery",
+      "subsection": null,
+      "stack": "Django",
+      "stack_id": "django",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/django.md",
+        "line": 68
+      }
+    },
+    {
+      "id": "stacks.django.76527c18",
+      "text": "Verify `django-debug-toolbar` or `nplusone` has been run against the real templates in development to count queries per page.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Django",
+      "section": "Backend & Delivery",
+      "subsection": null,
+      "stack": "Django",
+      "stack_id": "django",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/django.md",
+        "line": 69
+      }
+    },
+    {
+      "id": "stacks.django.439c7a91",
+      "text": "Verify `CONN_MAX_AGE` is set so a connection is not opened per request, and is compatible with your pooling setup.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Django",
+      "section": "Backend & Delivery",
+      "subsection": null,
+      "stack": "Django",
+      "stack_id": "django",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/django.md",
+        "line": 70
+      }
+    },
+    {
+      "id": "stacks.django.f6300436",
+      "text": "Verify template fragment caching or the cache framework is used for expensive rendered sections.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Django",
+      "section": "Backend & Delivery",
+      "subsection": null,
+      "stack": "Django",
+      "stack_id": "django",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/django.md",
+        "line": 71
+      }
+    },
+    {
+      "id": "stacks.django.8e86765b",
+      "text": "Verify `.only()` and `.defer()` are used where a view loads large columns it does not display.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Django",
+      "section": "Backend & Delivery",
+      "subsection": null,
+      "stack": "Django",
+      "stack_id": "django",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/django.md",
+        "line": 72
+      }
+    },
+    {
+      "id": "stacks.django.1b63200a",
+      "text": "Verify `QuerySet.count()` is not called on large tables in a hot path when `exists()` would do.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Django",
+      "section": "Backend & Delivery",
+      "subsection": null,
+      "stack": "Django",
+      "stack_id": "django",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/django.md",
+        "line": 73
+      }
+    },
+    {
+      "id": "stacks.django.26a0474c",
+      "text": "Verify `django-silk` or equivalent has profiled the slowest views against production-like data volumes, not a seeded fixture.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Django",
+      "section": "Measurement",
+      "subsection": null,
+      "stack": "Django",
+      "stack_id": "django",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/django.md",
+        "line": 78
       }
     },
     {
@@ -49562,6 +54689,230 @@
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
         "line": 50
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.f4af9b44",
+      "text": "Verify `next/dynamic` is used for components that are below the fold or behind an interaction.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "JavaScript",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 55
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.fd98a938",
+      "text": "Verify Server Components are used where the component does not need interactivity, so its code never reaches the client.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "JavaScript",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.63d445ec",
+      "text": "Verify `use client` is placed at the leaf that needs it, not near the root — every component below it ships to the browser.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "JavaScript",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 57
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.7ed90f96",
+      "text": "Verify `next/script` strategy is set per script (`afterInteractive`, `lazyOnload`, `worker`) rather than left to default.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "JavaScript",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 58
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.2f4d4e58",
+      "text": "Verify the App Router's client bundle is not carrying data-fetching libraries that only the server uses.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "JavaScript",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 59
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.c5ead5ad",
+      "text": "Verify React `key` stability and memoisation are not causing whole lists to re-render on every state change.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "JavaScript",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 60
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.603daa59",
+      "text": "Verify `next/image` is used rather than a bare `<img>`, so sizing, formats and lazy loading are handled.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "Images & Media",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 65
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.36f08207",
+      "text": "Verify the hero image sets `priority`, which applies `fetchpriority=\"high\"` and disables lazy loading.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "Images & Media",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 66
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.28758f05",
+      "text": "Verify `sizes` is set on any `fill` image; without it Next serves the largest candidate to everyone.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "Images & Media",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 67
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.7828398c",
+      "text": "Verify the image optimiser is not being bypassed with `unoptimized` for convenience.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "Images & Media",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 68
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.060bc8e4",
+      "text": "Verify the caching and revalidation strategy per route is deliberate — static, ISR with a revalidate window, or dynamic.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "Backend & Delivery",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 73
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.d3f3164a",
+      "text": "Verify `fetch` calls declare their cache behaviour explicitly rather than relying on a framework default that changes between versions.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "Backend & Delivery",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 74
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.d144ee59",
+      "text": "Verify a single dynamic segment has not opted the whole route tree out of static rendering.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "Backend & Delivery",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 75
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.8b470f9d",
+      "text": "Verify streaming and Suspense boundaries are placed so the shell renders before slow data arrives.",
+      "domain": "performance",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "Backend & Delivery",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 76
       }
     },
     {

@@ -23,10 +23,11 @@ DOMAINS
 
 OPTIONS
   -a, --area <name,...>    area within a domain, e.g. core, ai, ai-generated-code
-  -s, --stack <name,...>   include supplements for these products (repeatable)
+  -s, --stack <name,...>   include supplements for these products (repeatable).
+                           Without it you get only items that name no product.
   -q, --search <text>      case-insensitive match on item text
       --gate               only release-blocking items
-      --agnostic           only items that name no product at all
+      --all-stacks         include every product supplement, not just yours
   -o, --out <file>         write to a file instead of stdout
   -f, --format <fmt>       markdown (default) | text | json | count
   -n, --limit <n>          cap the number of items
@@ -71,7 +72,7 @@ function parse (argv) {
       // --domain and --group are the pre-1.0 spellings, kept so existing scripts work
       case '-d': case '--domain': case '-g': case '--group': o.domains.push(...list(next())); break
       case '--gate': o.gate = true; break
-      case '--agnostic': o.onlyAgnostic = true; break
+      case '--all-stacks': o.allStacks = true; break
       case '-h': case '--help': o.help = true; break
       case '-v': case '--version': o.version = true; break
       default:

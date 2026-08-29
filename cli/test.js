@@ -102,20 +102,36 @@ test('a stack resolves by file slug as well as display label', () => {
 test('domain, area and gate filters narrow the set', () => {
   const doc = D.load()
   for (const d of D.knownDomains()) {
-    assert.strictEqual(D.query({ domains: [d] }).length, doc.counts.by_domain[d])
+    assert.strictEqual(D.query({ domains: [d], allStacks: true }).length, doc.counts.by_domain[d])
   }
   const areaTotal = D.knownAreas('security')
-    .reduce((n, a) => n + D.query({ domains: ['security'], areas: [a] }).length, 0)
-  const noArea = D.query({ domains: ['security'] }).filter((i) => !i.area).length
+    .reduce((n, a) => n + D.query({ domains: ['security'], areas: [a], allStacks: true }).length, 0)
+  const noArea = D.query({ domains: ['security'], allStacks: true }).filter((i) => !i.area).length
   assert.strictEqual(areaTotal + noArea, doc.counts.by_domain.security,
     'areas plus area-less items must account for the whole domain')
-  const gate = D.query({ gate: true })
+  const gate = D.query({ gate: true, allStacks: true })
   assert.strictEqual(gate.length, doc.counts.release_gate)
   assert.ok(gate.every((i) => i.release_gate === true))
 })
 
+test('product supplements are opt-in', () => {
+  // Generating a checklist that mixes Rails, Django and iOS items for someone who uses
+  // none of them teaches the reader to skim. No --stack means no supplements.
+  const plain = D.query({ domains: ['performance'] })
+  assert.ok(plain.every((i) => i.stack === 'any'), 'default must not include supplements')
+
+  const withStack = D.query({ domains: ['performance'], stacks: ['nextjs-react'] })
+  assert.ok(withStack.length > plain.length, 'naming a stack must add items')
+  assert.ok(withStack.some((i) => i.stack === 'Next.js / React'))
+  assert.ok(withStack.every((i) => i.domain === 'performance'),
+    'a domain query must not leak another domain from the same stack file')
+
+  const all = D.query({ domains: ['performance'], allStacks: true })
+  assert.ok(all.length > withStack.length, '--all-stacks must include every supplement')
+})
+
 test('search is case-insensitive and actually matches', () => {
-  const hits = D.query({ search: 'CORS' })
+  const hits = D.query({ search: 'CORS', allStacks: true })
   assert.ok(hits.length > 0)
   assert.ok(hits.every((i) => i.text.toLowerCase().includes('cors')))
 })

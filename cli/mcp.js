@@ -45,6 +45,7 @@ const TOOLS = [
           description: 'Narrow to an area within a domain, e.g. core, ai, ai-generated-code.'
         },
         release_gate_only: { type: 'boolean', description: 'Only items that should block a release.' },
+        all_stacks: { type: 'boolean', description: 'Include every product supplement rather than only the ones named in `stacks`. Rarely what you want.' },
         limit: { type: 'integer', description: 'Cap the number of items returned. Omit for all.' }
       }
     }
@@ -113,7 +114,8 @@ function runTool (name, args) {
       const stacks = a.stacks || []
       const { matched, unknown } = D.resolveStacks(stacks)
       const items = D.query({
-        stacks, domains: a.domains, areas: a.areas, gate: a.release_gate_only, limit: a.limit
+        stacks, domains: a.domains, areas: a.areas, gate: a.release_gate_only,
+        allStacks: a.all_stacks, limit: a.limit
       })
       const notes = [`${items.length} items.`]
       if (matched.length) notes.push(`Supplements included: ${matched.join(', ')}.`)
@@ -128,12 +130,13 @@ function runTool (name, args) {
     case 'search_checklist': {
       if (!a.query) throw new Error('search_checklist requires a "query" argument')
       const items = D.query({
-        search: a.query, stacks: a.stacks, domains: a.domains, limit: a.limit || 50
+        search: a.query, stacks: a.stacks, domains: a.domains, allStacks: !a.stacks,
+        limit: a.limit || 50
       })
       return renderItems(items, `${items.length} items matching "${a.query}".`)
     }
     case 'release_gate': {
-      const items = D.query({ stacks: a.stacks, gate: true })
+      const items = D.query({ stacks: a.stacks, gate: true, allStacks: !a.stacks })
       return renderItems(items, `${items.length} release-blocking items.`)
     }
     case 'list_checklists': {

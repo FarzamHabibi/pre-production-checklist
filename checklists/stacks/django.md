@@ -61,3 +61,18 @@ Items from the core checklists that are specific to **Django**. If you do not us
 
 * [ ] Verify `django-debug-toolbar` and `django-extensions` are not installed in production.
 * [ ] Verify `pip-audit` or `safety` runs in CI and no known-vulnerable package ships.
+
+## Backend & Delivery
+<sub>from [`performance/07-backend-and-delivery.md`](../performance/07-backend-and-delivery.md)</sub>
+
+* [ ] Verify `select_related` and `prefetch_related` are used on the querysets that render each page; the ORM makes N+1 effortless.
+* [ ] Verify `django-debug-toolbar` or `nplusone` has been run against the real templates in development to count queries per page.
+* [ ] Verify `CONN_MAX_AGE` is set so a connection is not opened per request, and is compatible with your pooling setup.
+* [ ] Verify template fragment caching or the cache framework is used for expensive rendered sections.
+* [ ] Verify `.only()` and `.defer()` are used where a view loads large columns it does not display.
+* [ ] Verify `QuerySet.count()` is not called on large tables in a hot path when `exists()` would do.
+
+## Measurement
+<sub>from [`performance/01-measurement.md`](../performance/01-measurement.md)</sub>
+
+* [ ] Verify `django-silk` or equivalent has profiled the slowest views against production-like data volumes, not a seeded fixture.

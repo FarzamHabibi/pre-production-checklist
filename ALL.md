@@ -4150,6 +4150,554 @@ If the answer is "the prompt says so", "the frontend prevents it", "the user won
 
 ---
 
+# Performance
+
+Being fast for a real user, with Lighthouse agreeing.
+
+## Measurement
+
+Do this first. Every other file here assumes you can tell whether a change helped, and on a real user's phone rather than your laptop.
+
+Lighthouse is a lab tool: one run, one simulated device, one network. It is excellent for *finding* problems and unreliable for *proving* them fixed. Field data — what your actual users experienced — is the scoreboard that matters.
+
+
+---
+
+
+## Lab data
+
+* [ ] Run Lighthouse from a clean profile with extensions disabled; a single extension can cost tens of points.
+* [ ] Run it at least three times and take the median — single-run scores vary by 5 points or more on identical builds.
+* [ ] Verify the throttling setting is deliberate: simulated, applied, or none, and the same one every time you compare.
+* [ ] Test the mobile configuration, not only desktop; most scoring problems are mobile-only.
+* [ ] Test against a production or production-like build, never a development server with hot reload attached.
+* [ ] Test the pages that carry traffic, not only the homepage — a landing page, a listing page, a detail page, and a logged-in page.
+* [ ] Test both cold and warm cache; the second visit is a different product.
+* [ ] Test the logged-in experience separately if it renders differently — Lighthouse defaults to logged-out.
+
+## Field data
+
+* [ ] Verify a real-user monitoring script reports Core Web Vitals from actual sessions, not only synthetic runs.
+* [ ] Verify the origin appears in the Chrome UX Report, and check whether its data is origin-level or per-URL.
+* [ ] Hold yourself to the **75th percentile**, which is what Google scores — an average hides the quarter of users having a bad time.
+* [ ] Segment field data by device class and connection; a good p75 overall can hide a terrible p75 on low-end Android.
+* [ ] Segment by country or region if you serve more than one — latency to your origin is not uniform.
+* [ ] Verify field metrics are attributed: which element was LCP, which script caused the longest task, which node shifted.
+* [ ] Verify field data is retained long enough to see a regression against the release that caused it.
+
+## Budgets and regression
+
+* [ ] Set a performance budget with numbers, not adjectives: total transferred bytes, JavaScript bytes, request count, and a time target.
+* [ ] Verify the budget is enforced in CI, so a regression fails a pull request rather than surfacing a month later.
+* [ ] Verify bundle size is reported per pull request, with the delta, not only the absolute number.
+* [ ] Verify a third-party script cannot be added without the budget noticing.
+* [ ] Alert on a field-metric regression, tied to the deploy that introduced it.
+* [ ] Record the current numbers before optimising, so improvement is demonstrable rather than asserted.
+
+## Honest scoping
+
+* [ ] Verify no item is being optimised because it raises the score without helping a user — score is the proxy, not the goal.
+* [ ] Verify the slowest real journey has been measured end to end, not just the pages that score well.
+* [ ] Verify improvements are checked on a mid-range device, not only a flagship phone or a laptop.
+* [ ] Identify which metric is actually costing you conversions before spending a week on the other three.
+
+## Attribution
+
+* [ ] Verify you can name, for the worst page, which resource is the LCP element and which script owns the longest task.
+* [ ] Verify a regression can be traced to a release, not merely to a week.
+* [ ] Verify synthetic monitoring runs on a schedule against production, not only in CI against a preview.
+* [ ] Verify someone is accountable for the numbers, and looks at them on a cadence.
+
+
+## Core Web Vitals
+
+LCP, INP and CLS, one at a time, with the causes that actually move each of them.
+
+Each metric has a small number of real culprits. Work the list for the metric you are failing rather than applying generic advice to all three.
+
+
+---
+
+
+## Largest Contentful Paint — identify it first
+
+* [ ] Identify the LCP element on every important template; optimising the wrong element is the most common wasted effort here.
+* [ ] Verify the LCP element is present in the initial HTML response, not inserted later by JavaScript.
+* [ ] Verify the LCP resource is discoverable by the browser's preload scanner — a CSS `background-image` or a JS-injected `src` is not.
+* [ ] Verify the LCP image is **not** lazy loaded; `loading="lazy"` on the hero image is a guaranteed LCP regression.
+* [ ] Verify the LCP image carries `fetchpriority="high"`.
+* [ ] Verify the LCP image is preloaded when it is discovered late, and that the preload matches the `srcset` candidate actually chosen.
+
+## Largest Contentful Paint — the four parts
+
+* [ ] Break LCP into its four parts — time to first byte, resource load delay, resource load duration, element render delay — and attack the largest.
+* [ ] Verify TTFB is not the dominant part; if it is, the fix is in `07-backend-and-delivery.md`, not in the front end.
+* [ ] Verify no render-blocking stylesheet or synchronous script sits between the HTML and the LCP element.
+* [ ] Verify web fonts do not delay LCP text: `font-display: swap` or `optional`, and preload the face used above the fold.
+* [ ] Verify a hero carousel or slider does not make LCP depend on JavaScript initialising.
+* [ ] Verify client-side data fetching does not gate the hero content; render the shell with content, not a spinner.
+* [ ] Verify a cookie banner or consent gate does not delay or replace the LCP element.
+* [ ] Verify the LCP image is served at the size it is displayed, not scaled down from something far larger.
+
+## Interaction to Next Paint
+
+* [ ] Identify the interactions with the worst INP — usually a filter, a menu, a search box, or the first click after load.
+* [ ] Verify no task on the main thread runs longer than 50ms during load; long tasks are what makes an early click feel broken.
+* [ ] Break INP into input delay, processing time and presentation delay, and confirm which one you are actually fixing.
+* [ ] Verify event handlers yield back to the main thread for anything expensive, rather than blocking until finished.
+* [ ] Verify visual feedback is rendered before the expensive work runs, so the interface acknowledges the click immediately.
+* [ ] Verify handlers do not force synchronous layout by reading geometry after writing to the DOM.
+* [ ] Verify a single keystroke does not trigger a full re-render of a large list; debounce input and virtualise long lists.
+* [ ] Verify third-party scripts are not occupying the main thread when users typically first interact.
+* [ ] Verify hydration is not still running when the page looks ready — an interactive-looking page that ignores clicks is an INP failure.
+* [ ] Verify animations during interaction run on the compositor, not on layout-triggering properties.
+* [ ] Verify INP is measured on the interactions users actually perform, not only the first one.
+
+## Cumulative Layout Shift
+
+* [ ] Verify every `<img>` and `<video>` has explicit `width` and `height`, or a CSS `aspect-ratio`.
+* [ ] Verify space is reserved for ads, embeds and iframes before they load, at their final size.
+* [ ] Verify late-injected banners — cookie notices, promo bars, app-install prompts — do not push content down; overlay them instead.
+* [ ] Verify font swapping does not reflow text: match fallback metrics with `size-adjust`, `ascent-override` and friends.
+* [ ] Verify dynamically inserted content appears below the current viewport or in reserved space.
+* [ ] Verify animations use `transform` and `opacity` rather than `top`, `left`, `width` or `height`.
+* [ ] Verify skeleton placeholders occupy exactly the size of the content that replaces them.
+* [ ] Verify layout shift is measured after load too — CLS accumulates over the whole page lifetime, including scrolling and interaction.
+* [ ] Verify the page is eligible for the back/forward cache; an ineligible page reloads and re-shifts on every back navigation.
+
+## The supporting metrics
+
+* [ ] Verify Time to First Byte is measured separately from LCP so a server problem is not mistaken for a front-end one.
+* [ ] Verify First Contentful Paint is close behind TTFB; a large gap means render-blocking resources.
+* [ ] Verify Total Blocking Time in the lab correlates with the INP you see in the field; a large divergence means you are testing the wrong interaction.
+* [ ] Verify the DOM node count is not so large that style and layout recalculation dominate every interaction.
+
+## Measuring them honestly
+
+* [ ] Verify CLS is checked after interaction and scrolling, not only on load — most real shifts happen later.
+* [ ] Verify INP is measured on a mid-range Android device, where it is usually two to three times worse than on a laptop.
+* [ ] Verify soft navigations in a single-page app are measured; a client-side route change that takes four seconds records nothing by default.
+
+
+## Loading & the Critical Path
+
+What the browser has to do between the first byte and something useful on screen — and everything you can take out of that path.
+
+
+---
+
+
+## Render-blocking resources
+
+* [ ] Inventory every render-blocking stylesheet and script on the critical path, and justify each one.
+* [ ] Verify every `<script>` in `<head>` is `defer`, `async`, or genuinely required to be synchronous.
+* [ ] Verify stylesheets not needed for the initial view are loaded without blocking, via `media` or a print-onload pattern.
+* [ ] Verify critical CSS is inlined and the remainder deferred, and that the inlined block is actually the critical part rather than the whole sheet.
+* [ ] Verify `@import` is not used in CSS; it serialises requests that could have been parallel.
+* [ ] Verify the HTML response starts flushing before the server has finished all its work, where the framework supports streaming.
+
+## Resource hints, used sparingly
+
+* [ ] Verify `preconnect` is used for the origins that serve critical resources, and limited to a handful — each one costs a connection.
+* [ ] Verify `dns-prefetch` is used for origins that are needed but not critical.
+* [ ] Verify `preload` is reserved for resources the parser would otherwise discover late; preloading everything demotes everything.
+* [ ] Verify every `preload` is actually used within a few seconds — an unused preload is a wasted download and a console warning.
+* [ ] Verify `preload` `as` and `type` attributes are correct, or the resource is fetched twice.
+* [ ] Verify `modulepreload` is used for the critical module graph rather than plain `preload`.
+* [ ] Verify `fetchpriority` is set deliberately on the few resources where it matters, and not sprinkled.
+* [ ] Consider `103 Early Hints` for the resources you already know the page needs.
+
+## Fonts
+
+* [ ] Inventory every font family, weight and style actually used, and remove the ones that are not.
+* [ ] Verify fonts are self-hosted or served from the same origin as the page where possible, removing a connection from the critical path.
+* [ ] Verify `font-display` is set — `swap` for body text, `optional` where a swap would be more jarring than the fallback.
+* [ ] Verify the font used by above-the-fold text is preloaded.
+* [ ] Verify fonts are subset to the characters and scripts you actually serve.
+* [ ] Verify variable fonts are used where several weights are needed, rather than several files.
+* [ ] Verify the fallback stack is metrically similar to the web font, so the swap does not reflow.
+* [ ] Verify icon fonts are not blocking render; inline SVG is usually both smaller and safer.
+
+## Navigation and entry
+
+* [ ] Verify the entry URL does not redirect; each hop on the critical path costs a full round trip.
+* [ ] Verify HTTP-to-HTTPS and apex-to-www redirects happen at the edge, not at the origin.
+* [ ] Verify HSTS is set so browsers skip the upgrade redirect entirely.
+* [ ] Verify the initial HTML is not so large that parsing dominates; move data that is not needed for first render out of the document.
+* [ ] Verify server-rendered data embedded in the HTML is not duplicated by a client fetch of the same data.
+* [ ] Consider speculation rules or prefetch for the next navigation users predictably make.
+* [ ] Verify prefetching is not so aggressive that it competes with the current page for bandwidth.
+
+## Repeat visits and prefetching
+
+* [ ] Verify a service worker, if present, does not delay the first response while it installs or claims clients.
+* [ ] Verify the service worker's caching strategy is deliberate per resource type, and that a stale HTML shell cannot pin users to an old release.
+* [ ] Verify `<iframe loading="lazy">` is used for embeds below the fold.
+* [ ] Verify prefetch on hover or on viewport entry is used for the next likely navigation, and cancelled when the intent goes away.
+* [ ] Verify the back/forward cache is not disabled by an `unload` handler, a `Cache-Control: no-store` header, or an open connection.
+* [ ] Verify `document.write` appears nowhere; it blocks the parser and disables the preload scanner.
+* [ ] Verify the module/nomodule split, if used, does not serve both bundles to the same browser.
+* [ ] Verify the HTML document itself is not de-prioritised behind a service worker or a redirect chain on repeat visits.
+
+
+## JavaScript
+
+Usually the largest single lever, and the one most likely to have grown without anyone deciding it should.
+
+
+---
+
+
+## Know what you ship
+
+* [ ] Run a bundle analysis and be able to name the five largest modules in the main bundle.
+* [ ] Verify no dependency in the critical bundle is there for a feature most users never reach.
+* [ ] Verify the dependency tree has no duplicated packages at different versions.
+* [ ] Verify heavy general-purpose libraries are not pulled in whole for one function.
+* [ ] Verify date, i18n and icon libraries are imported by path or tree-shaken, not wholesale.
+* [ ] Verify `sideEffects` is declared correctly so tree shaking actually removes what it can.
+* [ ] Verify the production build has minification, dead-code elimination and mangling enabled.
+* [ ] Verify development-only code — dev tools, mock handlers, verbose logging — is stripped from the production bundle.
+
+## Split and defer
+
+* [ ] Verify JavaScript is split per route, so a landing page does not download the dashboard.
+* [ ] Verify components below the fold or behind an interaction are dynamically imported.
+* [ ] Verify heavy, rarely used features — a rich text editor, a chart library, a map, a video player — are loaded on demand.
+* [ ] Verify code splitting has not created a waterfall where one chunk must load before the next is even requested.
+* [ ] Verify the number of chunks is reasonable; hundreds of tiny requests has its own cost.
+* [ ] Verify polyfills are served only to browsers that need them, not to every visitor.
+* [ ] Verify the build targets the browsers you actually support, rather than transpiling to a decade-old baseline.
+
+## The main thread
+
+* [ ] Measure total blocking time and identify the specific scripts responsible.
+* [ ] Verify no single script evaluation blocks the main thread for more than 50ms during load.
+* [ ] Verify expensive computation — parsing, sorting, filtering, encryption, image processing — runs in a web worker.
+* [ ] Verify long lists are virtualised rather than rendered in full.
+* [ ] Verify large JSON payloads are not parsed on the main thread during load.
+* [ ] Verify state updates do not cascade into re-rendering large subtrees on every keystroke or scroll event.
+* [ ] Verify scroll and resize handlers are passive or throttled, and do not read layout on every frame.
+* [ ] Verify `requestAnimationFrame` callbacks do no work that could be done once outside the frame loop.
+
+## Hydration and rendering strategy
+
+* [ ] Verify the rendering strategy per route is deliberate: static, server-rendered, client-rendered or streamed.
+* [ ] Verify hydration is not re-rendering the entire page to attach a few event handlers.
+* [ ] Verify selective, progressive or island hydration is used where the framework offers it.
+* [ ] Verify server-rendered markup matches what the client renders; a hydration mismatch costs a full re-render and often a layout shift.
+* [ ] Verify data needed for the first render is delivered with the HTML rather than fetched after it.
+* [ ] Verify the client does not re-fetch data that the server already embedded.
+
+## Third-party scripts
+
+* [ ] Inventory every third-party script, who owns it, and what it costs in bytes and main-thread time.
+* [ ] Verify each one still earns its place; analytics, heatmaps, chat widgets and A/B tools accumulate and are rarely removed.
+* [ ] Verify third parties load with `async` or `defer`, and after the content, not before it.
+* [ ] Verify a heavy embed — chat, video, map, social feed — uses a facade that loads the real widget only on interaction.
+* [ ] Verify a tag manager cannot inject an unbudgeted script without anyone noticing.
+* [ ] Verify a third-party outage degrades the page rather than blocking it.
+* [ ] Verify third-party scripts are pinned or self-hosted where the vendor allows it, so their deploy is not your regression.
+* [ ] Verify consent tooling does not itself become the largest blocking script on the page.
+
+## Browser behaviour
+
+* [ ] Verify `IntersectionObserver` is used instead of scroll handlers for visibility work.
+* [ ] Verify event listeners on scroll and touch are registered as `passive` where they do not call `preventDefault`.
+* [ ] Verify no `unload` handler exists; use `pagehide` and `visibilitychange` so the page stays eligible for the back/forward cache.
+* [ ] Verify timers and observers are cleaned up on unmount, so a long session does not accumulate work every frame.
+* [ ] Verify detached DOM nodes are not retained by closures or global caches.
+* [ ] Verify `import()` calls for predictable next steps are prefetched rather than fetched at click time.
+
+
+## Images & Media
+
+Usually the largest bytes on the page, and the easiest large win — most of it is configuration rather than engineering.
+
+
+---
+
+
+## Format and compression
+
+* [ ] Verify modern formats are served — AVIF or WebP — with a fallback for browsers that need one.
+* [ ] Verify compression quality has been chosen by looking at the result, not left at a library default.
+* [ ] Verify photographic and graphic content use appropriate formats; a PNG screenshot of a photo is a common and expensive mistake.
+* [ ] Verify SVGs are minified and stripped of editor metadata.
+* [ ] Verify animated GIFs are replaced with video; a short GIF routinely costs more than the entire rest of the page.
+* [ ] Verify an image CDN or build-time pipeline handles conversion, so correctness does not depend on whoever uploads.
+
+## Sizing and responsiveness
+
+* [ ] Verify no image is served substantially larger than its largest rendered size.
+* [ ] Verify `srcset` offers candidates that match the layout's real breakpoints.
+* [ ] Verify `sizes` describes the actual rendered width; a wrong `sizes` makes `srcset` pick badly on every device.
+* [ ] Verify high-density displays are served appropriate candidates without sending a 3× image to everyone.
+* [ ] Verify every image has intrinsic dimensions or an aspect ratio so it reserves space before loading.
+* [ ] Verify user-uploaded images are resized on ingest rather than served at whatever size they arrived.
+
+## Loading behaviour
+
+* [ ] Verify images below the fold use `loading="lazy"`.
+* [ ] Verify images above the fold do **not** — especially the LCP element.
+* [ ] Verify `decoding="async"` is set where decode time would otherwise block.
+* [ ] Verify CSS `background-image` is not used for meaningful above-the-fold imagery; the preload scanner cannot see it.
+* [ ] Verify placeholders and blur-up techniques do not introduce a layout shift when the real image arrives.
+* [ ] Verify offscreen carousel slides are not all loaded eagerly.
+
+## Video and other media
+
+* [ ] Verify video does not autoplay with audio, and that autoplaying background video is muted, short and small.
+* [ ] Verify `preload="none"` or `metadata` is used unless the video is the point of the page.
+* [ ] Verify a poster image is set so the player does not render an empty box.
+* [ ] Verify video is served in a modern codec and adaptively where length justifies it.
+* [ ] Verify embedded third-party players use a facade until the user chooses to play.
+* [ ] Verify total media weight for the page has a budget, and that it is checked.
+
+## Delivery
+
+* [ ] Verify images are served from a CDN with a long cache lifetime and a content-based URL.
+* [ ] Verify images are not passing through the application server on every request.
+* [ ] Verify the image pipeline sets correct `Content-Type` and `Vary` headers so caches do not serve the wrong format.
+
+## Art direction and the rest
+
+* [ ] Verify `<picture>` is used where the crop or subject needs to change at breakpoints, rather than squeezing one image.
+* [ ] Verify `object-fit` and `object-position` are set where an image must fill a fixed box, so it neither stretches nor shifts.
+* [ ] Verify image sprites are not still in use; under HTTP/2 they cost more than they save.
+* [ ] Verify the favicon and touch icons are small and cached, and are not a full-size PNG.
+* [ ] Verify Open Graph and social preview images are sized to spec and served from a CDN, not generated per request.
+* [ ] Verify user-facing image upload has a size limit and rejects formats the pipeline cannot process.
+
+
+## CSS & Rendering
+
+Smaller wins than JavaScript in bytes, larger than expected in interaction smoothness.
+
+
+---
+
+
+## Size and structure
+
+* [ ] Measure unused CSS on the pages that matter, and confirm the number is understood rather than merely observed.
+* [ ] Verify a global stylesheet is not shipping every page's styles to every page.
+* [ ] Verify CSS is minified and compressed in production.
+* [ ] Verify unused framework utilities or components are purged from the build.
+* [ ] Verify the number of stylesheet requests on the critical path is small.
+* [ ] Verify CSS-in-JS, if used, extracts to static CSS at build time rather than generating styles at runtime.
+
+## Rendering cost
+
+* [ ] Verify no code reads layout properties and writes styles in the same loop, forcing repeated synchronous layout.
+* [ ] Verify animations are limited to `transform` and `opacity`, which the compositor can handle without layout or paint.
+* [ ] Verify `will-change` is applied to a small number of elements and removed when the animation ends.
+* [ ] Verify large offscreen sections use `content-visibility: auto` with `contain-intrinsic-size` so they are not laid out until needed.
+* [ ] Verify `contain` is used where a subtree's layout genuinely cannot affect the rest of the page.
+* [ ] Verify the DOM is not unnecessarily deep or large; both style recalculation and layout scale with it.
+* [ ] Verify expensive visual effects — large blurs, shadows on many elements, filters on scrolling containers — are measured rather than assumed cheap.
+* [ ] Verify `position: fixed` and `sticky` elements are not causing repaints on every scroll frame.
+
+## Correctness that affects speed
+
+* [ ] Verify theme switching does not render the page twice or flash the wrong theme.
+* [ ] Verify above-the-fold layout does not depend on a JavaScript measurement pass.
+* [ ] Verify media queries match the breakpoints the layout actually uses, so no device downloads styles it will not apply.
+* [ ] Verify `prefers-reduced-motion` is honoured, which also removes work for those users.
+
+## Modern rendering controls
+
+* [ ] Verify `contain-intrinsic-size` accompanies `content-visibility: auto`, or scrollbar length jumps as sections render.
+* [ ] Verify view transitions, if used, do not block the next paint on a long-running script.
+* [ ] Verify scroll-linked animations use `animation-timeline` or `IntersectionObserver` rather than a scroll handler that runs on every frame.
+* [ ] Verify CSS custom properties are not being written on high-frequency events; each write invalidates everything that depends on them.
+* [ ] Verify universal and deeply descendant selectors are not applied to large subtrees.
+* [ ] Verify print styles exist and do not pull in the full stylesheet at render time.
+* [ ] Verify an SVG sprite sheet is not shipping hundreds of icons to a page that uses three.
+* [ ] Verify duplicated declarations across component stylesheets are not multiplying the transferred CSS.
+* [ ] Verify the critical CSS is regenerated when the layout changes, rather than going stale and describing an old page.
+* [ ] Verify a CSS framework's reset or preflight is included once, not per component bundle.
+
+
+## Backend & Delivery
+
+Everything before the browser has anything to work with. A perfect front end cannot rescue a slow first byte.
+
+
+---
+
+
+## Time to first byte
+
+* [ ] Measure TTFB separately for cached and uncached responses, and know which one most users get.
+* [ ] Break server response time into its parts — routing, authentication, database, template rendering, serialisation — and know which dominates.
+* [ ] Verify no page render performs an N+1 query pattern.
+* [ ] Verify queries on the render path are indexed for the access pattern they actually use.
+* [ ] Verify external API calls on the render path are parallel where they are independent, and have timeouts.
+* [ ] Verify a slow third-party dependency degrades the page rather than holding the response open.
+* [ ] Verify serverless cold starts are measured, and mitigated if they land on user-facing routes.
+* [ ] Verify the application is deployed close to its users, or that the parts that need to be are.
+* [ ] Verify the database is close to the application; a cross-region query on every request is invisible locally and obvious in the field.
+
+## Caching
+
+* [ ] Verify static assets have content-hashed URLs and a long `max-age` with `immutable`.
+* [ ] Verify HTML is not cached with the same policy as assets, and that a deploy is visible immediately.
+* [ ] Verify `stale-while-revalidate` is used where a slightly old response is better than a slow one.
+* [ ] Verify the CDN caches what it can, and that the cache hit ratio is monitored rather than assumed.
+* [ ] Verify cache keys do not include something that varies per user unnecessarily — a cookie, a query parameter, a header.
+* [ ] Verify authenticated responses are never cached publicly.
+* [ ] Verify `Vary` is correct so compressed and uncompressed, or different formats, are not served to the wrong client.
+* [ ] Verify conditional requests work: `ETag` or `Last-Modified` returning 304 rather than the whole body.
+* [ ] Verify an application-level cache exists for expensive computed responses, with an invalidation path that someone has tested.
+
+## Transfer
+
+* [ ] Verify compression is enabled — Brotli where supported, gzip otherwise — for text, JSON, CSS, JS and SVG.
+* [ ] Verify already-compressed formats are not being compressed again.
+* [ ] Verify HTTP/2 is in use, and HTTP/3 where the CDN supports it.
+* [ ] Verify TLS session resumption is working so repeat visits skip a full handshake.
+* [ ] Verify the number of distinct origins the page connects to is small; each one costs DNS, TCP and TLS.
+
+## API and payload
+
+* [ ] Verify API responses return what the page needs and not the entire record set.
+* [ ] Verify the client does not make a waterfall of dependent requests where one combined request would do.
+* [ ] Verify pagination is used, with a sane default page size.
+* [ ] Verify large lists support incremental or cursor-based loading rather than fetching everything.
+* [ ] Verify response payloads are measured; a 2MB JSON response costs parse time as well as transfer.
+
+## Origin and infrastructure
+
+* [ ] Verify database connection pooling is configured for the instance count, so a scale-up does not exhaust connections.
+* [ ] Verify identical concurrent requests are coalesced rather than each doing the same expensive work.
+* [ ] Verify a GraphQL or flexible API cannot be asked for a response far more expensive than the page needs.
+* [ ] Verify the compression level is chosen deliberately; maximum Brotli on dynamic responses can cost more CPU time than it saves in transfer.
+* [ ] Verify keep-alive timeouts on the origin exceed the load balancer's, so connections are not closed mid-request.
+* [ ] Verify DNS TTL is low enough to fail over and high enough not to pay for a lookup on every visit.
+* [ ] Verify an origin shield or tiered cache is used if many edge locations are pulling the same objects.
+* [ ] Verify incremental or on-demand regeneration, if used, serves stale content while revalidating rather than blocking.
+* [ ] Verify health checks and monitoring probes are not a meaningful share of origin load.
+* [ ] Verify background jobs cannot starve the request path of CPU or database connections.
+* [ ] Verify the response is streamed where the framework allows it, so the browser starts parsing before the server finishes.
+* [ ] Verify large responses are paginated or streamed rather than buffered entirely in memory first.
+
+
+## Accessibility
+
+Lighthouse's accessibility category is a floor, not a ceiling — it catches roughly a third of real issues and nothing about whether the page is actually usable.
+
+It is in this domain because it is scored alongside performance and because the overlap is real: a page that is fast for a screen reader user is usually a page with less unnecessary markup and JavaScript.
+
+
+---
+
+
+## Colour and contrast
+
+* [ ] Verify body text meets a 4.5:1 contrast ratio against its background, and large text 3:1.
+* [ ] Verify interface components and meaningful graphics meet 3:1 against adjacent colours.
+* [ ] Verify text over images or gradients meets contrast at every point it can land.
+* [ ] Verify information is never carried by colour alone — errors, status, required fields, chart series.
+* [ ] Verify contrast holds in both light and dark themes, and in any high-contrast mode you claim to support.
+* [ ] Verify placeholder text is not used as the only label, and that disabled controls are still legible.
+
+## Names, roles and structure
+
+* [ ] Verify every image has an `alt` that describes its purpose, and that decorative images have `alt=""`.
+* [ ] Verify every form control has a programmatically associated label, not just adjacent text.
+* [ ] Verify every button and link has an accessible name — an icon-only button needs one explicitly.
+* [ ] Verify link text makes sense out of context; "read more" repeated twelve times does not.
+* [ ] Verify heading levels descend without skipping, and that there is exactly one `h1` per page.
+* [ ] Verify landmarks are present — `header`, `nav`, `main`, `footer` — and that `main` wraps the primary content.
+* [ ] Verify the page has a `lang` attribute, and that content in another language is marked.
+* [ ] Verify tables use `th` with `scope`, and that layout is not done with tables.
+* [ ] Verify lists are marked up as lists, and that native elements are preferred over ARIA re-implementations.
+* [ ] Verify ARIA roles and properties are valid and match the element's actual behaviour; incorrect ARIA is worse than none.
+* [ ] Verify `aria-hidden` is never applied to something focusable.
+
+## Keyboard and focus
+
+* [ ] Verify every interactive element is reachable and operable with the keyboard alone.
+* [ ] Verify focus is always visible, and that the indicator meets contrast against its background.
+* [ ] Verify focus order follows the visual order, and that positive `tabindex` values are not used.
+* [ ] Verify modals trap focus while open, return it on close, and close on Escape.
+* [ ] Verify a skip link is present and works, so keyboard users are not walked through the whole navigation.
+* [ ] Verify custom controls implement the keyboard interactions their role implies — arrow keys in a listbox, Space and Enter on a button.
+* [ ] Verify no keyboard trap exists in embedded content such as iframes and third-party widgets.
+* [ ] Verify dropdowns and menus are not hover-only.
+
+## Dynamic content and input
+
+* [ ] Verify content that appears without a page load — validation, toasts, search results, loading states — is announced with a live region.
+* [ ] Verify error messages are associated with their field and describe how to fix the problem.
+* [ ] Verify required fields are indicated programmatically, not only visually.
+* [ ] Verify `autocomplete` attributes are set on personal-data fields.
+* [ ] Verify a time limit can be extended or turned off.
+* [ ] Verify `prefers-reduced-motion` disables non-essential animation, including autoplaying carousels and parallax.
+* [ ] Verify nothing flashes more than three times per second.
+
+## Layout and target size
+
+* [ ] Verify the page is usable at 200% zoom without horizontal scrolling or lost content.
+* [ ] Verify it reflows at 320 CSS pixels wide without a horizontal scrollbar.
+* [ ] Verify touch targets are at least 24 by 24 CSS pixels, with spacing between adjacent ones.
+* [ ] Verify content is usable in both portrait and landscape unless orientation is essential.
+* [ ] Verify the viewport meta tag does not disable zooming.
+
+## Beyond the automated check
+
+* [ ] Navigate the primary journey with the keyboard only, and record what breaks.
+* [ ] Navigate the same journey with a screen reader — VoiceOver, NVDA or TalkBack — and record what is confusing rather than merely wrong.
+* [ ] Verify video has captions and audio has a transcript.
+* [ ] Verify an accessibility statement exists and names a way to report a problem.
+
+
+## Performance Release Gate
+
+What has to hold before this ships. Everything here is a number, because a gate made of adjectives is not a gate.
+
+
+---
+
+
+## Thresholds
+
+* [ ] Verify the p75 field LCP is under 2.5 seconds on mobile, or that the exception is written down with an owner and a date.
+* [ ] Verify the p75 field INP is under 200 milliseconds.
+* [ ] Verify the p75 field CLS is under 0.1.
+* [ ] Verify the lab Lighthouse performance score on mobile meets the target agreed for this project, measured as a median of several runs.
+* [ ] Verify the Lighthouse accessibility score is 100, or that every remaining item is a known false positive with a note.
+* [ ] Verify the Lighthouse best-practices and SEO scores are at target.
+* [ ] Verify these numbers were measured on the templates that carry traffic, not only the homepage.
+
+## No regressions
+
+* [ ] Verify the performance budget is not exceeded by this release.
+* [ ] Verify no new render-blocking resource was added to the critical path.
+* [ ] Verify no new third-party script was added without an owner and a measured cost.
+* [ ] Verify bundle size did not increase without a deliberate decision recorded in the pull request.
+* [ ] Verify the LCP element on each key template is still what it was, and still discoverable in the HTML.
+* [ ] Verify no image above the fold gained `loading="lazy"`.
+* [ ] Verify the CI performance check ran on this commit and passed.
+
+## When something is out of your hands
+
+* [ ] Verify a third party degrading the score has been quantified, so the conversation with the vendor has a number in it.
+* [ ] Verify a facade, a delayed load or a self-hosted copy has been considered before accepting the cost.
+* [ ] Verify the decision to ship despite a failing metric is recorded with who made it and when it is revisited.
+* [ ] Verify field metrics are watched for the week after release, tied to this deploy.
+
+## Coverage
+
+* [ ] Verify the gate ran against mobile emulation with throttling, not desktop on a fast connection.
+* [ ] Verify the logged-in experience was measured if it is where users spend their time.
+* [ ] Verify the numbers in this gate are stored with the release, so the next regression has something to compare against.
+
+
+
+---
+
 # Stack supplements
 
 ## Android / Kotlin
@@ -4383,6 +4931,21 @@ Items from the core checklists that are specific to **Django**. If you do not us
 
 * [ ] Verify `django-debug-toolbar` and `django-extensions` are not installed in production.
 * [ ] Verify `pip-audit` or `safety` runs in CI and no known-vulnerable package ships.
+
+## Backend & Delivery
+<sub>from [`performance/07-backend-and-delivery.md`](checklists/performance/07-backend-and-delivery.md)</sub>
+
+* [ ] Verify `select_related` and `prefetch_related` are used on the querysets that render each page; the ORM makes N+1 effortless.
+* [ ] Verify `django-debug-toolbar` or `nplusone` has been run against the real templates in development to count queries per page.
+* [ ] Verify `CONN_MAX_AGE` is set so a connection is not opened per request, and is compatible with your pooling setup.
+* [ ] Verify template fragment caching or the cache framework is used for expensive rendered sections.
+* [ ] Verify `.only()` and `.defer()` are used where a view loads large columns it does not display.
+* [ ] Verify `QuerySet.count()` is not called on large tables in a hot path when `exists()` would do.
+
+## Measurement
+<sub>from [`performance/01-measurement.md`](checklists/performance/01-measurement.md)</sub>
+
+* [ ] Verify `django-silk` or equivalent has profiled the slowest views against production-like data volumes, not a seeded fixture.
 
 
 ## Docker / containers
@@ -4944,6 +5507,32 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 <sub>from [`security/ai-generated-code/08-prompts-and-pr-review.md`](checklists/security/ai-generated-code/08-prompts-and-pr-review.md)</sub>
 
 * [ ] Server Action.
+
+## JavaScript
+<sub>from [`performance/04-javascript.md`](checklists/performance/04-javascript.md)</sub>
+
+* [ ] Verify `next/dynamic` is used for components that are below the fold or behind an interaction.
+* [ ] Verify Server Components are used where the component does not need interactivity, so its code never reaches the client.
+* [ ] Verify `use client` is placed at the leaf that needs it, not near the root — every component below it ships to the browser.
+* [ ] Verify `next/script` strategy is set per script (`afterInteractive`, `lazyOnload`, `worker`) rather than left to default.
+* [ ] Verify the App Router's client bundle is not carrying data-fetching libraries that only the server uses.
+* [ ] Verify React `key` stability and memoisation are not causing whole lists to re-render on every state change.
+
+## Images & Media
+<sub>from [`performance/05-images-and-media.md`](checklists/performance/05-images-and-media.md)</sub>
+
+* [ ] Verify `next/image` is used rather than a bare `<img>`, so sizing, formats and lazy loading are handled.
+* [ ] Verify the hero image sets `priority`, which applies `fetchpriority="high"` and disables lazy loading.
+* [ ] Verify `sizes` is set on any `fill` image; without it Next serves the largest candidate to everyone.
+* [ ] Verify the image optimiser is not being bypassed with `unoptimized` for convenience.
+
+## Backend & Delivery
+<sub>from [`performance/07-backend-and-delivery.md`](checklists/performance/07-backend-and-delivery.md)</sub>
+
+* [ ] Verify the caching and revalidation strategy per route is deliberate — static, ISR with a revalidate window, or dynamic.
+* [ ] Verify `fetch` calls declare their cache behaviour explicitly rather than relying on a framework default that changes between versions.
+* [ ] Verify a single dynamic segment has not opted the whole route tree out of static rendering.
+* [ ] Verify streaming and Suspense boundaries are placed so the shell renders before slow data arrives.
 
 
 ## PostgreSQL

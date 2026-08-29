@@ -7,7 +7,7 @@ infrastructure, the deploy pipeline, and increasingly the AI agents too — and 
 have a security team to hand it to.
 
 <!-- counts:begin -->
-**3,186 items across 57 checklists** in 1 domain. 88% of them apply to any stack.
+**3,520 items across 66 checklists** in 2 domains. 89% of them apply to any stack.
 <!-- counts:end -->
 
 [![npm](https://img.shields.io/npm/v/prodcheck?color=cb3837&logo=npm)](https://www.npmjs.com/package/prodcheck)
@@ -64,6 +64,7 @@ You are not meant to read this top to bottom. In order of signal-per-minute:
 | **3** | [Authentication & authorization](checklists/security/core/02-authorization.md) | Where almost every exploitable bug actually lives |
 | **4** | [Prompt injection](checklists/security/ai/02-prompt-injection.md) | Only if you ship an LLM feature — but then, urgently |
 | **5** | [Your service as a weapon](checklists/security/core/18-abuse-and-availability.md#your-service-as-a-weapon) | The one nobody looks for until the suspension email arrives |
+| **6** | [Core Web Vitals](checklists/performance/02-core-web-vitals.md) | If users say it's slow, start here rather than with a score |
 
 Then work section by section. Switching between edge config and database policies
 costs more than it saves.
@@ -78,15 +79,14 @@ checklists/
 │   ├── core/            1,491   application, data, infrastructure, delivery
 │   ├── ai/                773   LLM features, agents, tools, RAG, MCP
 │   └── ai-generated-code/ 548   the bugs AI coding assistants actually write
+├── performance/                   313   Lighthouse, and what users actually feel
 ├── scale/                       planned — surviving 10× the load
-├── performance/                 planned — Lighthouse and what users actually feel
 ├── integrations/                planned — search, analytics, monitoring
 └── stacks/                        374   19 products, spanning every domain
 ```
 
 Domains are the top level because that is the question you arrive with: *is this about
-security, or speed, or scale?* Three more are planned — see the [roadmap](#roadmap).
-Everything shipped today is security.
+security, or speed, or scale?* Two more are planned — see the [roadmap](#roadmap).
 
 ### `security/core/` — applies to you regardless of language
 
@@ -134,6 +134,30 @@ provider-agnostic.
 Also known as *vibe coding*. 548 items organized by **class of bug**, not by which
 assistant produced it. Written from real review findings on AI-generated code.
 [Browse →](checklists/README.md#security)
+
+### `performance/` — Lighthouse, and what users actually feel
+
+Aimed at the highest achievable score across all four Lighthouse categories, with one
+constraint that decides what goes in: **an item has to be about something a real user
+experiences.** Lighthouse is the scoreboard, not the goal — anything whose only
+justification is "raises the score" was left out.
+
+| | Items | | | Items |
+| --- | ---: | --- | --- | ---: |
+| [Measurement](checklists/performance/01-measurement.md) | 29 | | [CSS & rendering](checklists/performance/06-css-and-rendering.md) | 28 |
+| [Core Web Vitals](checklists/performance/02-core-web-vitals.md) | 41 | | [Backend & delivery](checklists/performance/07-backend-and-delivery.md) | 40 |
+| [Loading & critical path](checklists/performance/03-loading-and-critical-path.md) | 37 | | [Accessibility](checklists/performance/08-accessibility.md) | 41 |
+| [JavaScript](checklists/performance/04-javascript.md) | 43 | | [Release gate](checklists/performance/09-release-gate.md) | 21 |
+| [Images & media](checklists/performance/05-images-and-media.md) | 33 | | | |
+
+> Lighthouse is a lab tool: one run, one simulated device, one network. It is excellent
+> for *finding* problems and unreliable for *proving* them fixed. Field data at the 75th
+> percentile is the scoreboard that matters.
+
+Accessibility sits here because it is scored alongside performance, and because the
+overlap is real — a page that is fast for a screen reader is usually a page with less
+unnecessary markup and JavaScript. The Lighthouse accessibility category is treated as a
+floor, not a ceiling; it catches roughly a third of real issues.
 
 ### `stacks/` — only if you use them
 
@@ -218,6 +242,7 @@ Generate a checklist scoped to your project, instead of reading 3,093 items:
 
 ```bash
 npx prodcheck security --stack django -o SECURITY.md
+npx prodcheck performance -o PERFORMANCE.md
 ```
 
 ```bash
@@ -227,6 +252,7 @@ npx prodcheck security --area ai -o AI-SECURITY.md
 npx prodcheck --gate --stack supabase,cloudflare  # release blockers, every domain
 npx prodcheck --search cors --format text
 npx prodcheck security --stack rails --format json
+npx prodcheck performance --stack nextjs-react -o PERF.md
 ```
 
 The domain is a positional argument — `prodcheck security`, and in time
@@ -287,15 +313,13 @@ The Markdown under `checklists/` is the source of truth; the JSON is generated f
 - [x] `npx prodcheck` — generate a filtered checklist for your stack
 - [x] MCP server — so your coding agent can query the checklist directly
 
-**Next: three more domains**
+**Next: two more domains**
 
 The structure now has room for them, and
 [the plan](https://github.com/FarzamHabibi/pre-production-checklist/blob/main/README.md#roadmap)
 is written before the content, not after.
 
-- [ ] **`performance/`** — Lighthouse across all four categories, Core Web Vitals with the
-      causes that actually move them, and the field metrics Lighthouse only approximates.
-      Constraint: an item has to be about something a real user feels, not just a score.
+- [x] **`performance/`** — shipped: 313 items across 9 checklists.
 - [ ] **`integrations/`** — Search Console and Bing Webmaster verified, sitemaps and
       IndexNow, SEO fundamentals, structured data, answer-engine readiness (`llms.txt`,
       AI crawler access decided deliberately), analytics with consent, monitoring and

@@ -28,6 +28,7 @@ RELEASE_GATE_FILES = {
     "checklists/security/core/17-release-gates.md",
     "checklists/security/ai/11-release-gate.md",
     "checklists/security/ai-generated-code/09-release-gate.md",
+    "checklists/performance/09-release-gate.md",
 }
 
 STACK_LABEL = {

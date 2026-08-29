@@ -95,10 +95,13 @@ function query (opts = {}) {
   const doc = load()
   let items = doc.items
 
+  // No --stack means no product supplements. Generating a checklist that mixes Rails,
+  // Django and iOS items for someone who uses none of them is worse than useless — it
+  // teaches the reader to skim. `allStacks` is the deliberate "show me everything" view.
   if (opts.stacks && opts.stacks.length) {
     const want = new Set(resolveStacks(opts.stacks).matched)
     items = items.filter((i) => i.stack === 'any' || want.has(i.stack))
-  } else if (opts.onlyAgnostic) {
+  } else if (!opts.allStacks) {
     items = items.filter((i) => i.stack === 'any')
   }
   if (opts.domains && opts.domains.length) {
