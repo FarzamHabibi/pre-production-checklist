@@ -122,12 +122,25 @@ if out=$(python3 scripts/build_site.py 2>&1); then
   miss=""
   grep -q "$pretty" site/index.html || miss="index.html missing the current total ($pretty)"
   grep -q "$pretty" site/llms.txt   || miss="llms.txt missing the current total"
-  for f in sitemap.xml robots.txt llms.txt CNAME favicon.svg og.png style.css; do
+  # CNAME is deliberately absent until the custom domain resolves — see build_site.py
+  for f in sitemap.xml robots.txt llms.txt favicon.svg og.png style.css; do
     [ -f "site/$f" ] || miss="site/$f not generated"
   done
   if stale=$(grep -oE '\b[0-9],[0-9]{3}\b' scripts/build_site.py | head -1); then
     miss="scripts/build_site.py contains a hardcoded count: $stale"
   fi
+  # a CNAME must match the base URL the pages actually claim, or Pages redirects the
+  # working host to one that may not resolve — which is how the site went dark once
+  sitehost=$(grep -m1 -o 'rel="canonical" href="https://[^/"]*' site/index.html | sed 's|.*https://||')
+  if [ -f site/CNAME ]; then
+    cname=$(tr -d '\n' < site/CNAME)
+    [ "$cname" = "$sitehost" ] || miss="site/CNAME is $cname but pages canonicalise to $sitehost"
+  fi
+  # and the canonical host must be one that resolves
+  if ! curl -s -o /dev/null --max-time 12 "https://$sitehost/" 2>/dev/null; then
+    echo "     note: could not reach https://$sitehost (network, not necessarily a fault)"
+  fi
+
   # every integration listed in the manifest must have the doc it points at
   docmiss=$(python3 - <<'PY2'
 import json, os

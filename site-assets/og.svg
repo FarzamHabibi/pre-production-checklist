@@ -42,6 +42,6 @@
     <text x="450" y="80" font-size="16" fill="#6e6e79" letter-spacing="1.4">BLOCKERS</text>
     <text x="700" y="52" font-size="34" font-weight="650" fill="#7dd3a0">Free</text>
     <text x="700" y="80" font-size="16" fill="#6e6e79" letter-spacing="1.4">OPEN SOURCE</text>
-    <text x="1024" y="80" font-size="18" fill="#6e6e79" text-anchor="end">prodcheck.js.org</text>
+    <text x="1024" y="80" font-size="16" fill="#6e6e79" text-anchor="end">github.com/FarzamHabibi/pre-production-checklist</text>
   </g>
 </svg>

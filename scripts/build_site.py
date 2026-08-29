@@ -150,11 +150,8 @@ header.top nav a:hover{color:var(--fg)}
   letter-spacing:-.025em;line-height:1.2}
 .statrow b.accent{color:var(--accent)}
 .statrow span{font-size:.7rem;color:var(--faint);letter-spacing:.11em}
-.statrow .dom{flex:0 0 auto;align-self:flex-end;font-size:.82rem;color:var(--faint)}
-@media(max-width:620px){
-  .statrow div{flex:1 1 50%;padding-bottom:16px}
-  .statrow .dom{flex-basis:100%;padding-top:4px}
-}
+@media(max-width:620px){.statrow div{flex:1 1 33%;padding-bottom:16px;min-width:0}}
+@media(max-width:420px){.statrow div{flex:1 1 50%}}
 .ghbtns{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 0}
 .hero .ghbtns{margin-top:26px}
 .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);
@@ -313,7 +310,16 @@ if (f) {
 """
 
 
-SITE = "https://prodcheck.js.org"
+# The site's own base URL. Every canonical tag, og:url and sitemap entry uses it, so it
+# has to be a hostname that actually resolves — a canonical pointing at a domain that does
+# not is worse than none, and it is the thing integrations/02-seo-fundamentals.md warns
+# about. prodcheck.js.org is requested (js-org/js.org#12407) but not live yet.
+#
+# When that PR merges: set SITE to https://prodcheck.js.org, set CUSTOM_DOMAIN to the same
+# host, run ./scripts/build.sh, and set the custom domain in the repository's Pages
+# settings. Nothing else needs to change.
+SITE = "https://farzamhabibi.github.io/pre-production-checklist"
+CUSTOM_DOMAIN = None      # -> "prodcheck.js.org" once js.org has merged the request
 
 MARK = ('<svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">'
         '<rect x="3" y="3" width="42" height="42" rx="11" stroke="currentColor" '
@@ -510,8 +516,8 @@ item | verdict | file:line | one-sentence reason."""
     <div><b>{len(tree.domains())}</b><span>DOMAINS</span></div>
     <div><b>{fmt(C['release_gate'])}</b><span>BLOCKERS</span></div>
     <div><b>{round(100 * C['stack_agnostic'] / C['total'])}%</b><span>ANY STACK</span></div>
+    <div><b>{len(doc['stacks'])}</b><span>STACKS</span></div>
     <div><b class="accent">Free</b><span>OPEN SOURCE</span></div>
-    <div class="dom">prodcheck.js.org</div>
   </div>
 </div></section>
 
@@ -821,7 +827,10 @@ def main():
     open(os.path.join(OUT, "style.css"), "w", encoding="utf-8").write(CSS)
     open(os.path.join(OUT, "favicon.svg"), "w", encoding="utf-8").write(FAVICON)
     open(os.path.join(OUT, ".nojekyll"), "w").write("")
-    open(os.path.join(OUT, "CNAME"), "w").write("prodcheck.js.org\n")
+    # A CNAME file makes Pages serve only at that host and redirect the github.io URL to
+    # it. Writing one before the DNS exists takes the site down.
+    if CUSTOM_DOMAIN:
+        open(os.path.join(OUT, "CNAME"), "w").write(CUSTOM_DOMAIN + "\n")
     open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8").write(ROBOTS)
 
     for src in ("og.png", "og.svg"):
