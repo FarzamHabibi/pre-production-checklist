@@ -12,10 +12,10 @@ every push to `main`. Nothing is committed; the workflow builds and uploads an a
 
 Live at https://farzamhabibi.github.io/pre-production-checklist/
 
-## Cloudflare Pages — for a shorter domain, without waiting
+## Cloudflare Pages — for a shorter domain
 
-`prodcheck.js.org` is [requested](https://github.com/js-org/js.org/pull/12407) but
-maintainer-gated. Cloudflare Pages gives a free `*.pages.dev` hostname immediately.
+Cloudflare Pages gives a free `*.pages.dev` hostname immediately, and unlike GitHub
+Pages it serves the response headers in `_headers`.
 
 ```bash
 npx wrangler login                    # once, opens a browser
@@ -60,18 +60,18 @@ too, so both builds agree:
         run: python3 scripts/build_site.py
 ```
 
-## When js.org merges
+## About js.org
 
-One change, in two places that both read the same variables:
+`prodcheck.js.org` was [requested and declined](https://github.com/js-org/js.org/pull/12407).
+The maintainer's reasoning was correct and worth recording: JS.ORG requires the *content*
+to be specific to JavaScript developers, and 92% of this checklist is deliberately
+stack-agnostic. Only 324 of 4,124 items are Node or JavaScript specific, and the homepage
+example is Django.
 
-```bash
-PRODCHECK_SITE=https://prodcheck.js.org PRODCHECK_CNAME=prodcheck.js.org \
-  python3 scripts/build_site.py
-```
+That is a property of the project, not a mistake to correct. Changing the example to
+Next.js would have gamed the review rather than answered it.
 
-Set the same two values in the workflow, then set the custom domain in the repository's
-Pages settings. `PRODCHECK_CNAME` writes the `CNAME` file that GitHub Pages needs — do not
-set it before the DNS resolves, or Pages redirects the working URL to one that does not.
+If a short domain matters, buy one — the switch is one environment variable.
 
 ## What the site serves
 

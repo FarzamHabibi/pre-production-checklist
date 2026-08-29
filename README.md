@@ -14,7 +14,7 @@ have a security team to hand it to.
 [![ci](https://github.com/FarzamHabibi/pre-production-checklist/actions/workflows/ci.yml/badge.svg)](https://github.com/FarzamHabibi/pre-production-checklist/actions/workflows/ci.yml)
 [![license](https://img.shields.io/badge/content-CC%20BY%204.0-blue)](LICENSE)
 
-### [→ prodcheck.js.org](https://prodcheck.js.org) · [browse in the repo](checklists/README.md)
+### [→ Browse the site](https://farzamhabibi.github.io/pre-production-checklist/) · [or in the repo](checklists/README.md)
 
 <sub>Built and maintained by the team at **[Arioo](https://arioo.com)** — where we ship
 the kind of product this checklist was written for.</sub>

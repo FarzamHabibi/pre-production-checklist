@@ -131,7 +131,11 @@ if out=$(python3 scripts/build_site.py 2>&1); then
   fi
   # a CNAME must match the base URL the pages actually claim, or Pages redirects the
   # working host to one that may not resolve — which is how the site went dark once
-  sitehost=$(grep -m1 -o 'rel="canonical" href="https://[^/"]*' site/index.html | sed 's|.*https://||')
+  # sitebase is host+path (a project Pages site lives under a path); sitehost is the
+  # bare host, which is the only thing a CNAME file can name.
+  sitebase=$(grep -m1 -o 'rel="canonical" href="[^"]*"' site/index.html \
+             | sed 's|.*href="https://||; s|"$||; s|/$||')
+  sitehost=${sitebase%%/*}
   if [ -f site/CNAME ]; then
     cname=$(tr -d '\n' < site/CNAME)
     [ "$cname" = "$sitehost" ] || miss="site/CNAME is $cname but pages canonicalise to $sitehost"
@@ -139,6 +143,16 @@ if out=$(python3 scripts/build_site.py 2>&1); then
   # and the canonical host must be one that resolves
   if ! curl -s -o /dev/null --max-time 12 "https://$sitehost/" 2>/dev/null; then
     echo "     note: could not reach https://$sitehost (network, not necessarily a fault)"
+  fi
+
+  # The README's own site link must be the host the build stamps into every canonical
+  # tag. A broad "no doc mentions another host" rule fires on instructions too, and a
+  # check that flags correct content teaches people to ignore it — so this checks the
+  # one link that is a claim about where the site lives.
+  readme_site=$(grep -m1 -oE '\[→ Browse the site\]\(https://[^)]*' README.md \
+                | sed 's|.*(https://||; s|/$||')
+  if [ -n "$readme_site" ] && [ "$readme_site" != "$sitebase" ]; then
+    miss="README links to https://$readme_site but pages canonicalise to https://$sitebase"
   fi
 
   # every integration listed in the manifest must have the doc it points at

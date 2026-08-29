@@ -4,7 +4,7 @@
 
 Prepared text for Product Hunt, Hacker News and the rest. Written to be edited, not
 posted verbatim — the numbers are current as of the last build, so re-check them against
-[the site](https://prodcheck.js.org) before posting.
+[the site](https://farzamhabibi.github.io/pre-production-checklist/) before posting.
 
 Counts to verify first: run `npx prodcheck info`.
 
