@@ -14,7 +14,7 @@ have a security team to hand it to.
 [![ci](https://github.com/FarzamHabibi/pre-production-checklist/actions/workflows/ci.yml/badge.svg)](https://github.com/FarzamHabibi/pre-production-checklist/actions/workflows/ci.yml)
 [![license](https://img.shields.io/badge/content-CC%20BY%204.0-blue)](LICENSE)
 
-### [→ Browse all checklists](checklists/README.md)
+### [→ https://farzamhabibi.github.io/pre-production-checklist/](https://farzamhabibi.github.io/pre-production-checklist/) · [browse in the repo](checklists/README.md)
 
 <sub>Built and maintained by the team at **[Arioo](https://arioo.com)** — where we ship
 the kind of product this checklist was written for.</sub>
@@ -310,6 +310,23 @@ Browser/mobile UI → application/API → authorization layer
 pasting into an AI tool. It's generated; edit the files under `checklists/` instead.
 
 ---
+
+## Use it with an AI assistant
+
+MCP is a feature of the **client**, not the model — Cursor running DeepSeek can use it;
+DeepSeek's website cannot. Config for Claude Code, Claude Desktop, Cursor, VS Code
+Copilot, Gemini CLI, OpenAI Codex CLI, Qwen Code, Cline, Roo, Continue, Windsurf, Zed and
+Cherry Studio is in **[docs/mcp-clients.md](docs/mcp-clients.md)**.
+
+```bash
+claude mcp add prodcheck -- npx -y --package=prodcheck prodcheck-mcp
+```
+
+For a chat window with no MCP — ChatGPT, Gemini, DeepSeek, Kimi, Qwen, GLM — generate a
+file and paste it after one of the **[ready-made prompts](docs/prompts.md)**. Each is
+built on three rules, because without them an assistant will tell you the code is fine:
+cite `file:line` for every claim, treat `unknown` as a real answer, and never mark
+anything verified on the reader's behalf.
 
 ## Command line
 

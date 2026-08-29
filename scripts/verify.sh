@@ -111,6 +111,22 @@ sys.exit(1 if problems else 0)
 PY
 ); then ok; else bad; echo "$out" | head -10 | sed 's/^/     /'; fi
 
+# ---------------------------------------------------------------- site
+step "site builds, with no hardcoded counts"
+if out=$(python3 scripts/build_site.py 2>&1); then
+  # every number on the site must come from the data, so the site cannot disagree
+  # with the checklists. A literal count typed into the generator would survive a
+  # data change; this catches that.
+  total=$(python3 -c "import json;print(json.load(open('data/checklist.json'))['counts']['total'])")
+  if ! grep -q "$(python3 -c "print(f'{$total:,}')")" site/index.html; then
+    bad; echo "     site/index.html does not state the current total ($total)"
+  elif stale=$(grep -oE '\b(3,[0-9]{3}|4,[0-9]{3})\b' scripts/build_site.py | head -1); then
+    bad; echo "     scripts/build_site.py contains a hardcoded count: $stale"
+  else ok; fi
+else
+  bad; echo "$out" | tail -4 | sed 's/^/     /'
+fi
+
 # ---------------------------------------------------------------- expansion plan status
 step "plan status matches what shipped"
 if out=$(python3 - <<'PY'
