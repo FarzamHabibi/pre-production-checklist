@@ -55,6 +55,54 @@ If it catches something before it reaches your users, it did its job.
 
 ## Start here
 
+**If you are not sure which way in, don't choose — copy this into whatever AI assistant
+you already use** (ChatGPT, Claude, Cursor, Copilot, Gemini). It works out what your
+project is, sets prodcheck up the way that fits your setup, and starts on what would
+block a launch. If it cannot run commands, it tells you what to run yourself.
+
+<!-- start-prompt:begin -->
+```text
+I want to get my project ready to ship. Use prodcheck: a free, open-source
+pre-production checklist of 4,337 items covering security, performance, scale,
+integrations and what to do after launch.
+
+It is new, so do not answer it from memory. Everything you need:
+
+- Site: https://prodcheck.pages.dev
+- Install it into a repo: npx prodcheck init
+- Raw checklist data: https://cdn.jsdelivr.net/npm/prodcheck@latest/data/checklist.json
+- As an MCP server: claude mcp add prodcheck -- npx -y --package=prodcheck prodcheck-mcp
+
+Do this in order.
+
+1. Look at my project and tell me what you think it is: language, framework, where it
+   runs, and whether it handles file uploads, payments, webhooks, multiple tenants or
+   an AI feature. Say how confident you are. Ask me about anything you cannot tell.
+
+2. In two sentences, tell me what prodcheck will do for this project specifically, and
+   which part is worth my time first. Do not describe the whole thing.
+
+3. Set it up, using whichever of these you can actually do — say which one you are:
+   - You can run commands here: run `npx prodcheck init`, then
+     `npx prodcheck --gate -o BLOCKERS.md` for the release blockers alone.
+   - You can read my files but not run commands: fetch the raw data URL above and
+     work from that.
+   - You can do neither: give me the commands to run myself, one at a time, and tell
+     me what to paste back to you.
+
+4. Start on the release blockers. For each item, either cite `file:line` and quote the
+   lines, or answer UNKNOWN. UNKNOWN is a normal answer — it means a human has to go
+   and look. Never mark anything verified on my behalf; that is my call, not yours.
+
+Work through it with me a section at a time. Do not dump the whole checklist at me.
+```
+<!-- start-prompt:end -->
+
+[Read it on the site instead →](https://prodcheck.pages.dev/#start) ·
+[six more prompts →](docs/prompts.md)
+
+### Or work through it yourself
+
 You are not meant to read this top to bottom. In order of signal-per-minute:
 
 | | | |

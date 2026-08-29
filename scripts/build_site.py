@@ -19,6 +19,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 import tree  # noqa: E402
+import prompt as P  # noqa: E402
 
 OUT = "site"
 REPO = "https://github.com/FarzamHabibi/pre-production-checklist"
@@ -43,13 +44,16 @@ CSS = """
 :root{
   --bg:#08080a; --panel:#0e0e12; --fg:#f2f2f4; --dim:#a3a3ad; --faint:#6e6e79;
   --line:#1e1e25; --line2:#2a2a33; --accent:#7dd3a0; --accent-dim:#3f7d5c;
-  --code:#101015; --radius:14px;
+  --code:#101015; --radius:14px; --on-accent:#08080a;
 }
 :root[data-theme=light],
 html:not([data-theme]) body.light{
-  --bg:#fcfcfb; --panel:#fff; --fg:#15151a; --dim:#5c5c66; --faint:#8a8a94;
-  --line:#e7e7e3; --line2:#d8d8d3; --accent:#0f7b52; --accent-dim:#8fcfae;
-  --code:#f5f5f3;
+  /* the page is a neutral cream and panels stay white, so a card, a button and a
+     code block each read as sitting on top of the page rather than merging into it.
+     At #fcfcfb against #fff that separation was 1.03:1 — invisible. */
+  --bg:#f1f0ef; --panel:#fff; --fg:#15151a; --dim:#55555e; --faint:#6f6f78;
+  --line:#dcdad5; --line2:#c6c4be; --accent:#0f7b52; --accent-dim:#8fcfae;
+  --code:#e6e4e1; --on-accent:#fff;
 }
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{
@@ -160,14 +164,31 @@ header.top nav a:hover{color:var(--fg)}
   background:var(--panel);color:var(--fg);border-radius:10px;padding:9px 16px;
   font-size:.885rem;font-weight:500;transition:border-color .15s,transform .15s}
 .btn:hover{border-color:var(--accent);color:var(--fg);transform:translateY(-1px)}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:#08080a;font-weight:600}
-.btn.primary:hover{color:#08080a;opacity:.92}
+.btn.primary{background:var(--accent);border-color:var(--accent);
+  color:var(--on-accent);font-weight:600}
+.btn.primary:hover{color:var(--on-accent);opacity:.92}
 .btn svg{width:15px;height:15px;fill:currentColor;flex:none}
 
 section.band{padding:72px 0;border-bottom:1px solid var(--line)}
 section.band.alt{background:color-mix(in srgb,var(--panel) 55%,transparent)}
 .eyebrow{font-size:.73rem;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
   margin:0 0 12px;font-weight:600}
+
+/* ---- the one starting point, for people who cannot pick between four ---- */
+section.band.start{background:
+  linear-gradient(180deg,color-mix(in srgb,var(--accent) 7%,transparent),transparent 260px)}
+section.band.start h2{max-width:19ch}
+.steps{list-style:none;counter-reset:s;margin:22px 0 16px;padding:0;display:grid;gap:9px}
+.steps li{counter-increment:s;position:relative;padding-left:33px;font-size:.93rem;
+  color:var(--dim)}
+.steps li b{color:var(--fg);font-weight:600}
+.steps li::before{content:counter(s);position:absolute;left:0;top:-1px;width:22px;
+  height:22px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:.72rem;
+  font-weight:700;display:grid;place-items:center}
+section.band.start .copy pre{max-height:290px;overflow:auto;
+  border-color:color-mix(in srgb,var(--accent) 26%,var(--line))}
+@media (prefers-reduced-motion:no-preference){
+  section.band.start .copy button[data-done]{transition:color .15s,border-color .15s}}
 
 .cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin:22px 0 0}
 .cards>*{min-width:0}
@@ -475,9 +496,11 @@ def build_index():
         f'<td class="n">{fmt(C["by_domain"].get(d, 0))}</td></tr>'
         for d in tree.domains())
 
-    mcp = "claude mcp add prodcheck -- npx -y --package=prodcheck prodcheck-mcp"
+    mcp = P.MCP_ADD
     npm_cmd = "npx prodcheck security --stack django -o SECURITY.md"
-    http_url = "https://cdn.jsdelivr.net/npm/prodcheck@latest/data/checklist.json"
+    http_url = P.RAW_DATA
+    start_prompt = P.start_prompt(C["total"], SITE)
+
     prompt = """Review this codebase against the prodcheck checklist.
 
 If you have the prodcheck MCP tools, call checklist_for_stack with the stacks this
@@ -570,8 +593,28 @@ item | verdict | file:line | one-sentence reason."""
   </div>
 </div></section>
 
-<section class="band" id="start"><div class="wrap narrow">
+<section class="band start" id="start"><div class="wrap narrow">
   <p class="eyebrow">Start here</p>
+  <h2>Don\u2019t know which to pick? Let your AI decide.</h2>
+  <p class="dim">Copy this, paste it into whatever assistant you already use \u2014 ChatGPT,
+  Claude, Cursor, Copilot, Gemini. It works out what your project is, sets prodcheck up
+  the way that fits your setup, and starts on the things that would block a launch.
+  If it cannot run commands, it tells you what to run.</p>
+
+  <ol class="steps">
+    <li><b>Copy the prompt.</b> The button is in the top-right corner of the box.</li>
+    <li><b>Paste it into your assistant.</b> Nothing else to install first.</li>
+  </ol>
+
+  {codeblock('c-start', start_prompt, 'copy prompt')}
+
+  <p class="tiny" style="margin:13px 0 0">Works in a chat window with no access to your
+  code too \u2014 it will walk you through it.
+  &nbsp;\u00b7&nbsp; <a href="{REPO}/blob/main/docs/prompts.md">More prompts \u2192</a></p>
+</div></section>
+
+<section class="band alt" id="ways"><div class="wrap narrow">
+  <p class="eyebrow">Or set it up yourself</p>
   <h2>Four ways in</h2>
   <p class="dim">No account, no API key, no sign-up. The first two are in the header
   above; these are all four with the detail.</p>
@@ -614,13 +657,9 @@ item | verdict | file:line | one-sentence reason."""
     </div>
   </div>
 
-  <details style="margin:26px 0 0">
-    <summary class="dim small" style="cursor:pointer">The review prompt, if you want it now</summary>
-    <div style="margin:12px 0 0">{codeblock('c-prompt', prompt, 'copy prompt')}</div>
-  </details>
 </div></section>
 
-<section class="band alt" id="tools"><div class="wrap narrow">
+<section class="band" id="tools"><div class="wrap narrow">
   <p class="eyebrow">Your tools</p>
   <h2>Works with what you already use</h2>
   <p class="dim">One thing worth knowing first: <b>MCP is a feature of the app, not of the

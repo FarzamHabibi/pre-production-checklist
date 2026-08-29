@@ -17,6 +17,52 @@ assistant will tell you the code is fine:
 
 ---
 
+## 0. Start here — if you have not used prodcheck before
+
+Paste this into any assistant. It works out what your project is, explains what prodcheck
+will do for it, sets it up whichever way your assistant is capable of, and starts on the
+release blockers. Use this one if you do not know which of the others you want.
+
+<!-- start-prompt:begin -->
+```text
+I want to get my project ready to ship. Use prodcheck: a free, open-source
+pre-production checklist of 4,337 items covering security, performance, scale,
+integrations and what to do after launch.
+
+It is new, so do not answer it from memory. Everything you need:
+
+- Site: https://prodcheck.pages.dev
+- Install it into a repo: npx prodcheck init
+- Raw checklist data: https://cdn.jsdelivr.net/npm/prodcheck@latest/data/checklist.json
+- As an MCP server: claude mcp add prodcheck -- npx -y --package=prodcheck prodcheck-mcp
+
+Do this in order.
+
+1. Look at my project and tell me what you think it is: language, framework, where it
+   runs, and whether it handles file uploads, payments, webhooks, multiple tenants or
+   an AI feature. Say how confident you are. Ask me about anything you cannot tell.
+
+2. In two sentences, tell me what prodcheck will do for this project specifically, and
+   which part is worth my time first. Do not describe the whole thing.
+
+3. Set it up, using whichever of these you can actually do — say which one you are:
+   - You can run commands here: run `npx prodcheck init`, then
+     `npx prodcheck --gate -o BLOCKERS.md` for the release blockers alone.
+   - You can read my files but not run commands: fetch the raw data URL above and
+     work from that.
+   - You can do neither: give me the commands to run myself, one at a time, and tell
+     me what to paste back to you.
+
+4. Start on the release blockers. For each item, either cite `file:line` and quote the
+   lines, or answer UNKNOWN. UNKNOWN is a normal answer — it means a human has to go
+   and look. Never mark anything verified on my behalf; that is my call, not yours.
+
+Work through it with me a section at a time. Do not dump the whole checklist at me.
+```
+<!-- start-prompt:end -->
+
+---
+
 ## 1. Review this codebase against the checklist
 
 The general one. Use it with MCP, or paste a checklist after it.

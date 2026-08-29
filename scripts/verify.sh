@@ -20,11 +20,19 @@ echo
 
 # ---------------------------------------------------------------- generated files
 step "generated files are current"
-before=$(git status --porcelain 2>/dev/null | wc -l)
+# Content, not a file count. Counting how many files git calls modified cannot see a
+# regeneration that rewrites an already-dirty file — and the tree is nearly always dirty
+# when this runs, which is the only time it matters. A hand-edit to a generated file was
+# silently repaired here and reported as ok.
+tree_hash() {
+  { git ls-files -z | xargs -0 shasum 2>/dev/null
+    git ls-files --others --exclude-standard | sort; } | shasum | cut -d' ' -f1
+}
+before=$(tree_hash)
 ./scripts/build.sh >/dev/null 2>&1 || { bad; echo "     build.sh itself failed"; }
-after=$(git status --porcelain 2>/dev/null | wc -l)
+after=$(tree_hash)
 if [ "$before" = "$after" ]; then ok; else
-  bad; echo "     build.sh changed files — commit the regenerated output"
+  bad; echo "     build.sh rewrote tracked content — a generated file was edited by hand"
   git status --porcelain | head -5 | sed 's/^/       /'
 fi
 
@@ -111,6 +119,20 @@ sidebar = open('.github/description.txt', encoding='utf-8').read().strip()
 if f"{doc['counts']['total']:,}" not in sidebar:
     problems.append(".github/description.txt is stale — run build.sh")
 
+# The start prompt is shown in three places. It is generated from scripts/prompt.py into
+# two of them, so a hand-edit to either copy is drift, not a change.
+sys.path.insert(0, 'scripts')
+import prompt as promptmod
+canonical = promptmod.start_prompt(doc['counts']['total'])
+for f in ('README.md', 'docs/prompts.md'):
+    body = open(f, encoding='utf-8').read()
+    m = re.search(r'<!-- start-prompt:begin -->\n```text\n(.*?)\n```\n<!-- start-prompt:end -->',
+                  body, re.S)
+    if not m:
+        problems.append(f"{f}: start-prompt markers missing or malformed")
+    elif m.group(1) != canonical:
+        problems.append(f"{f}: start prompt differs from scripts/prompt.py — run build.sh")
+
 for p in problems:
     print(p)
 sys.exit(1 if problems else 0)
@@ -127,6 +149,21 @@ if out=$(python3 scripts/build_site.py 2>&1); then
   pretty=$(python3 -c "print(f'{$total:,}')")
   miss=""
   grep -q "$pretty" site/index.html || miss="index.html missing the current total ($pretty)"
+
+  # the start prompt on the page is the same one the README and docs carry
+  if ! python3 - <<'PY2'
+import html, json, re, sys
+sys.path.insert(0, "scripts")
+import prompt as promptmod
+doc = json.load(open("data/checklist.json", encoding="utf-8"))
+page = open("site/index.html", encoding="utf-8").read()
+m = re.search(r'<pre id="c-start"><code>(.*?)</code></pre>', page, re.S)
+if not m:
+    print("site/index.html has no start prompt block"); sys.exit(1)
+if html.unescape(m.group(1)) != promptmod.start_prompt(doc["counts"]["total"]):
+    print("site start prompt differs from scripts/prompt.py"); sys.exit(1)
+PY2
+  then miss="site start prompt is out of sync with scripts/prompt.py"; fi
   grep -q "$pretty" site/llms.txt   || miss="llms.txt missing the current total"
   # CNAME is deliberately absent until the custom domain resolves — see build_site.py
   for f in sitemap.xml robots.txt llms.txt favicon.svg og.png style.css; do

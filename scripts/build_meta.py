@@ -17,8 +17,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 import tree  # noqa: E402
+import prompt as promptmod  # noqa: E402
 
 BEGIN = "<!-- counts:begin -->"
+P_BEGIN = "<!-- start-prompt:begin -->"
+P_END = "<!-- start-prompt:end -->"
 END = "<!-- counts:end -->"
 
 
@@ -34,6 +37,17 @@ def facts():
         "portable": round(100 * c["stack_agnostic"] / c["total"]),
         "gate": c["release_gate"],
     }
+
+
+def inject_prompt(path, block):
+    """Replace whatever sits between the start-prompt markers in `path`."""
+    text = open(path, encoding="utf-8").read()
+    if P_BEGIN not in text:
+        raise SystemExit(f"{path} is missing the {P_BEGIN} marker")
+    out = re.sub(re.escape(P_BEGIN) + r".*?" + re.escape(P_END),
+                 f"{P_BEGIN}\n{block}\n{P_END}", text, flags=re.S)
+    if out != text:
+        open(path, "w", encoding="utf-8").write(out)
 
 
 def main():
@@ -66,12 +80,18 @@ def main():
         json.dump(pkg, fh, indent=2, ensure_ascii=False)
         fh.write("\n")
 
+    # the start prompt: one source, two generated copies, so they cannot disagree
+    fenced = "```text\n" + promptmod.start_prompt(f["total"]) + "\n```"
+    for path in ("README.md", "docs/prompts.md"):
+        inject_prompt(path, fenced)
+
     os.makedirs(".github", exist_ok=True)
     open(".github/description.txt", "w", encoding="utf-8").write(sidebar + "\n")
 
     print(f"meta: {f['total']:,} items, {f['files']} checklists, "
           f"{f['stacks']} stacks, {f['portable']}% portable")
     print(f"  sidebar -> .github/description.txt")
+    print(f"  start prompt -> README.md, docs/prompts.md")
 
 
 if __name__ == "__main__":
