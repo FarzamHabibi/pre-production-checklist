@@ -1,13 +1,16 @@
 const express = require('express')
 const { Pool } = require('pg')
+const config = require('./config')
 
 const app = express()
 const pool = new Pool({ connectionString: process.env.DATABASE_URL })
 
-// PLANTED: no body size limit
-app.use(express.json())
+// PLANTED: body limit raised to 50mb — express defaults to 100kb for a reason
+app.use(express.json({ limit: '50mb' }))
+if (config.debug) app.set('json spaces', 2)
 
-// PLANTED: wildcard CORS with credentials
+// PLANTED: wildcard CORS asserted alongside credentials — browsers reject the
+// combination, so the real fault is a policy that does not do what it claims
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Credentials', 'true')

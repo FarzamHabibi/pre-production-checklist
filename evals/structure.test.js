@@ -8,6 +8,7 @@
  */
 const assert = require('assert')
 const fs = require('fs')
+const { score } = require('./followed.js')
 const path = require('path')
 const { execFileSync } = require('child_process')
 
@@ -50,21 +51,39 @@ test('every planted defect points at a line that exists and still matches', () =
   }
 })
 
-test('the clean fixture really is clean of what was planted', () => {
-  const flawed = path.join(ROOT, 'fixtures', 'flawed')
+test('the clean fixture contains nothing worth reporting', () => {
+  // It used to be a minimal Express app, and a review of it produced eight findings that
+  // were all legitimate — no auth, no ownership check on a download route, unhandled async
+  // rejections. So the false-positive test was measuring the fixture, not the reviewer.
+  // It is a pure module now: any finding against it is a fabrication, which is the only
+  // condition under which "any finding is a false positive" is a fair rule.
   const clean = path.join(ROOT, 'fixtures', 'clean')
-  const { defects } = JSON.parse(fs.readFileSync(path.join(flawed, 'DEFECTS.json'), 'utf8'))
-  for (const d of defects) {
-    const ctl = fs.readFileSync(path.join(clean, d.file), 'utf8')
-    if (d.kind === 'omission') {
-      // the flaw is the absence of a control, so the flawed line is often legitimate and
-      // appears in the control too — check the fix is present instead
-      assert.ok(d.clean_evidence && ctl.includes(d.clean_evidence),
-        `${d.id}: the clean fixture does not show the fix (${d.clean_evidence})`)
-      continue
+  const files = []
+  const walk = (d) => {
+    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+      const full = path.join(d, e.name)
+      if (e.isDirectory()) walk(full)
+      else if (/\.(js|ts|json)$/.test(e.name)) files.push(full)
     }
-    const src = fs.readFileSync(path.join(flawed, d.file), 'utf8').split('\n')[d.line - 1].trim()
-    assert.ok(!ctl.includes(src), `${d.id}: the clean fixture still contains the flawed line`)
+  }
+  walk(clean)
+  assert.ok(files.length, 'the clean fixture has no source files')
+
+  const body = files.map((f) => fs.readFileSync(f, 'utf8')).join('\n')
+
+  assert.ok(!/PLANTED/.test(body), 'the clean fixture contains a PLANTED marker')
+
+  // Anything that reaches the outside world gives a reviewer something real to say, and
+  // then a finding is not a fabrication.
+  for (const [what, re] of [
+    ['a network server', /express|http\.createServer|fastify|koa/],
+    ['a database client', /\bpg\b|mysql|mongo|sqlite|prisma/],
+    ['filesystem access', /require\(['"]fs['"]\)|readFile|writeFile|sendFile/],
+    ['a child process', /child_process|execSync|spawn/],
+    ['runtime dependencies', /"dependencies"\s*:\s*\{\s*"/]
+  ]) {
+    assert.ok(!re.test(body),
+      `the clean fixture has ${what} — a reviewer would have something legitimate to report`)
   }
 })
 
@@ -95,15 +114,21 @@ test('the grader does not mistake the checklist vocabulary for a verdict', () =>
   assert.strictEqual(r.verdict_violations, 0, 'flagged the word "Verify" as a verdict')
 })
 
-test('a finding on the clean fixture counts as a false positive', () => {
-  const r = grade('clean', '## Findings\n\n### 1. SQL injection\n- **Where:** `src/app.js:19`\n')
-  assert.strictEqual(r.false_positives, 1)
+test('a security claim against the inert module is fabrication', () => {
+  const r = grade('clean', '## Findings\n\n### 1. SQL injection in split()\n' +
+                           '- **Where:** `src/money.js:24`\n')
+  assert.strictEqual(r.findings_claiming_security, 1)
   assert.strictEqual(r.precision, 0)
 })
 
-test('an empty review of the clean fixture is a pass', () => {
-  const r = grade('clean', '## Findings\n\nNone.\n\n## Unknown\n\n| a | b |\n| --- | --- |\n| x | y |\n')
-  assert.strictEqual(r.false_positives, 0)
+test('a correctness finding against the inert module is legitimate', () => {
+  // The rule used to be "any finding is a false positive", which failed three reviewers
+  // who found real bugs in code called clean. Only an unfalsifiable security claim counts
+  // as fabrication now; a correctness observation is what a review is for.
+  const r = grade('clean', '## Findings\n\n### 1. format() assumes two decimal places\n' +
+                           '- **Where:** `src/money.js:40`\n\n## Unknown\n\n' +
+                           'Nothing about how callers construct amounts could be established here.\n')
+  assert.strictEqual(r.findings_claiming_security, 0)
   assert.strictEqual(r.precision, 1)
 })
 
@@ -125,6 +150,69 @@ test('the skill still states the constraints these evals grade', () => {
   for (const rule of ['never mark an item verified', 'cites file and line', 'is a real answer']) {
     assert.ok(skill.includes(rule), `the skill no longer states: "${rule}" — the evals grade a claim it stopped making`)
   }
+})
+
+
+test('the answer key matches the code it claims to describe', () => {
+  // The first version of this fixture planted two defects that were not defects:
+  // "no body size limit" (express.json already defaults to 100kb) and a debug flag in a
+  // module nothing imported. Two independent agents caught both, and the grader had been
+  // crediting reviews for repeating them. The key is derived from the markers now, and
+  // this keeps it that way.
+  const dir = path.join(__dirname, 'fixtures', 'flawed')
+  const key = JSON.parse(fs.readFileSync(path.join(dir, 'DEFECTS.json'), 'utf8')).defects
+
+  const markers = []
+  for (const f of ['src/app.js', 'src/config.js']) {
+    const lines = fs.readFileSync(path.join(dir, f), 'utf8').split('\n')
+    lines.forEach((l, i) => { if (l.includes('PLANTED:')) markers.push({ file: f, line: i + 1 }) })
+  }
+
+  assert.strictEqual(key.length, markers.length,
+    `DEFECTS.json has ${key.length} entries but the code has ${markers.length} PLANTED markers`)
+
+  for (const d of key) {
+    const hit = markers.find((m) => m.file === d.file && m.line === d.line)
+    assert.ok(hit, `${d.id} claims ${d.file}:${d.line} but there is no PLANTED marker there`)
+    const line = fs.readFileSync(path.join(dir, d.file), 'utf8').split('\n')[d.line - 1]
+    assert.ok(line.includes('PLANTED:'), `${d.id}: ${d.file}:${d.line} is not a marker line`)
+    assert.ok(Array.isArray(d.keywords) && d.keywords.length,
+      `${d.id} has no keywords, so it can never be detected`)
+  }
+})
+
+test('the follow detector separates procedure from a good review', () => {
+  // It has to distinguish "followed the skill" from "reviewed well", because a capable
+  // model does the second by default — the control reached for an unknown section and
+  // said nothing was verified with no skill loaded at all.
+  const followed = score([
+    '**Scope:** the three files in src/',
+    '## Findings',
+    '### 1. Something — FINDING',
+    '- **Where:** `src/app.js:21`',
+    '## Unknown — needs a human',
+    'Whether the deploy sets NODE_ENV could not be established from the repository.',
+    '## Not applicable',
+    'No mobile client here.',
+    'Nothing in this report is marked verified.'
+  ].join('\n'))
+  assert.ok(followed.followed, 'a review that follows the procedure was not recognised')
+
+  const goodButNotProcedure = score([
+    '## Findings',
+    '### Critical',
+    '#### SQL injection at src/app.js:21',
+    'Use parameterised queries.',
+    '### High',
+    '#### Missing rate limiting'
+  ].join('\n'))
+  assert.ok(!goodButNotProcedure.followed,
+    'a competent severity-graded review was scored as having followed the skill')
+})
+
+test('the follow detector does not reward a verdict', () => {
+  const withVerdict = score('## Verdict: DO NOT SHIP\n\n## Findings\n### 1. x')
+  assert.ok(!withVerdict.matched.includes('no-verdict'))
 })
 
 console.log(`\n${pass} passed, ${fails.length} failed\n`)

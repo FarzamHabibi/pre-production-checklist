@@ -35,6 +35,10 @@ reading your evidence. If you find yourself wanting a fourth state, the answer i
 A finding without `path/to/file.ext:42` is not a finding, it is a guess. Quote the two or
 three lines that show the problem. If you cannot point at the code, you have an `UNKNOWN`.
 
+Write it **exactly as `path/from/repo/root.ext:42`** — relative to the repository root, no
+absolute path, and never abbreviated with `...`. A citation a reader cannot open is not a
+citation, and shortening the path for readability is the most common way it happens.
+
 Before writing a citation, **re-read that exact line** and confirm it says what you are
 about to claim. Citations that turn out to be wrong destroy trust in the whole report
 faster than missing findings do.
@@ -164,12 +168,36 @@ Order findings by consequence, not by checklist order. If the report has no find
 that plainly and make the `UNKNOWN` list the body of it — that is an honest and useful
 result, and padding it with weak findings is not.
 
-### Step 6 — Hand it over
+### Step 6 — Re-open every citation, after writing
+
+This is a separate pass, and it has to happen **after** the report exists. Checking as you
+write is what produced the citations you are now checking; the point of a second pass is
+that it does not share the first one's assumptions.
+
+For every citation in the finished file:
+
+1. Open that file at that line.
+2. If the file or line does not exist — fix the citation, or the finding is not a finding.
+3. If the line does not support the claim, the claim is wrong. Correct it or downgrade it
+   to `UNKNOWN`.
+
+Then end the report with one line, in this exact form, so the reader knows it happened:
+
+```
+Citations re-checked: <n> of <n>. <m> corrected.
+```
+
+If `m` is zero, say zero. If you did not do this pass, do not write the line — an
+unearned claim of verification is the exact failure this whole procedure exists to
+prevent, and writing it falsely is worse than any missed finding.
+
+### Step 7 — Hand it over
 
 Tell the user, in the chat:
 
 * how many items you covered, out of how many in scope
 * the count in each state
+* how many citations you re-checked, and how many you corrected
 * the single thing you would fix first, and why
 * that **nothing has been marked verified**, because that is theirs to do
 
@@ -200,5 +228,31 @@ whether or not it actually established anything.
 You are the thing that folder is about. The three rules exist so your output stays useful
 anyway: evidence a human can check, citations that can be verified, and an honest account
 of what you could not determine.
+
+## What is actually known about this skill
+
+Stated here because a skill about not overclaiming should not overclaim about itself.
+
+**Tested:** Claude, through the Claude Code agent, on a 50-line fixture with nine planted
+defects and on an inert module with none. The skill triggered on all three natural
+phrasings tried — *"is this ready to ship?"*, *"we launch next week, can you review this?"*,
+*"check this for security problems"* — without prodcheck being named. Every planted defect
+was found in every run, and no run wrote a verdict.
+
+Citations did not start out clean: before Step 6 existed, two runs in three shipped a
+citation a reader could not open. With the step, two runs re-checked 21 and 25 citations,
+corrected 0 and 5, and left none broken.
+
+**Not tested:** any other model. Any real codebase — the fixture is fifty lines of
+textbook defects and real code is not like that. Whether the numbers hold across many
+runs. Treat the results as an optimistic ceiling.
+
+**Measured, not assumed:** a capable model reaches for an "unknown" section and says
+nothing was verified *without any skill loaded*. Those two habits are not what this adds.
+What the control run did not do was name the three states, declare the profile it
+inferred, or list what it ruled out and why.
+
+The harness is in [`evals/`](https://github.com/FarzamHabibi/pre-production-checklist/tree/main/evals),
+including the four defects it found in itself.
 
 Learn more: https://prodcheck.pages.dev

@@ -1,6 +1,8 @@
 {
-  "name": "prodcheck-eval-clean",
+  "name": "money",
+  "version": "1.0.0",
   "private": true,
-  "description": "Eval fixture — not a real application.",
-  "dependencies": { "express": "^4.19.2", "pg": "^8.11.5" }
+  "description": "Integer-minor-unit money arithmetic. No dependencies by design.",
+  "main": "src/money.js",
+  "engines": { "node": ">=20" }
 }
