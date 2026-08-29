@@ -135,6 +135,11 @@ itself — it would be a poor look to ship an SEO checklist from a site with no 
 
 ---
 
+## Access, before you post
+
+- [x] `wrangler logout` — the deploy grant was 29 scopes for a static upload, and is revoked
+- [ ] Re-run `npx wrangler login` only when you next deploy, and log out after
+
 ## Search engines — state as of now
 
 | | |

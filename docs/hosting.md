@@ -10,9 +10,33 @@ serves static files will do. Two are set up.
 Live at **https://prodcheck.pages.dev**
 
 ```bash
-npx wrangler login                    # once
-./scripts/deploy-cloudflare.sh        # every deploy
+npx wrangler login                    # per deploy session — see below
+./scripts/deploy-cloudflare.sh
+npx wrangler logout                   # when you are done
 ```
+
+### Why the login is not left standing
+
+`wrangler login` asks for **29 OAuth scopes**. Exactly one of them, `pages:write`, is
+needed to upload a static site. The rest include `email_sending:write`,
+`email_routing:write`, `secrets_store:write`, `ssl_certs:write` and
+`connectivity:admin`, plus `offline_access`, which makes the refresh token indefinite.
+
+That is a standing grant that could send mail as you, redirect your incoming mail, write
+to your secret store and issue certificates — in exchange for uploading HTML. Leaving it
+in place would contradict half of
+[`security/core/18-abuse-and-availability.md`](../checklists/security/core/18-abuse-and-availability.md)
+and the least-privilege items in
+[`security/core/15-ci-cd-and-supply-chain.md`](../checklists/security/core/15-ci-cd-and-supply-chain.md).
+
+So: log in when you deploy, log out when you are done. `wrangler logout` revokes the token
+with Cloudflare and removes the local copy — verified, not assumed.
+
+If deploys become frequent enough that this is annoying, the right fix is a **scoped API
+token** rather than leaving the OAuth grant open: create one in the Cloudflare dashboard
+with `Cloudflare Pages:Edit` and nothing else, and export it as `CLOUDFLARE_API_TOKEN`.
+One scope instead of twenty-nine, at the cost of a long-lived secret on disk — a trade
+worth making only once the frequency justifies it.
 
 Direct upload, so the repository is not connected to Cloudflare and no API token is
 stored anywhere. The script refuses to upload a build whose canonical URL does not match
