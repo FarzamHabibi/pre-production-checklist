@@ -87,46 +87,66 @@ header.top nav a{color:var(--dim)}
 header.top nav a:hover{color:var(--fg)}
 @media(max-width:560px){header.top nav{gap:14px;font-size:.8rem}}
 
-/* ---- hero ---- */
+/* ---- hero: same composition as the OG image ---- */
 .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);
-      padding:96px 0 72px;text-align:center}
-.hero::before{content:"";position:absolute;inset:-180px -10% auto;height:620px;
-  background:radial-gradient(ellipse 55% 50% at 50% 2%,
-    color-mix(in srgb,var(--accent) 30%,transparent) 0%,
-    color-mix(in srgb,var(--accent) 8%,transparent) 42%, transparent 70%);
+      padding:74px 0 0}
+.hero::before{content:"";position:absolute;inset:-220px -10% auto;height:680px;
+  background:radial-gradient(ellipse 52% 50% at 42% 4%,
+    color-mix(in srgb,var(--accent) 26%,transparent) 0%,
+    color-mix(in srgb,var(--accent) 7%,transparent) 44%, transparent 72%);
   pointer-events:none}
 .hero::after{content:"";position:absolute;inset:0;pointer-events:none;
   background-image:linear-gradient(var(--line) 1px,transparent 1px),
                    linear-gradient(90deg,var(--line) 1px,transparent 1px);
   background-size:52px 52px;
-  mask-image:radial-gradient(ellipse 62% 52% at 50% 8%,#000 10%,transparent 72%);
-  -webkit-mask-image:radial-gradient(ellipse 62% 52% at 50% 8%,#000 10%,transparent 72%);
-  opacity:.65}
+  mask-image:linear-gradient(#000 8%,rgba(0,0,0,.35) 55%,transparent 92%);
+  -webkit-mask-image:linear-gradient(#000 8%,rgba(0,0,0,.35) 55%,transparent 92%);
+  opacity:.7}
 .hero .wrap{position:relative;z-index:1}
-.mark{width:46px;height:46px;margin:0 auto 26px;display:block;
-      filter:drop-shadow(0 0 22px color-mix(in srgb,var(--accent) 55%,transparent))}
-.hero h1{font-size:clamp(2rem,5.4vw,3.15rem);margin:0 0 18px;letter-spacing:-.036em;
-         font-weight:640;max-width:17ch;margin-inline:auto}
-.hero .lede{font-size:1.06rem;color:var(--dim);max-width:56ch;margin:0 auto 8px}
-.hero .lede b{color:var(--fg);font-weight:600}
-.badge{display:inline-block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--accent);border:1px solid var(--accent-dim);border-radius:999px;
-  padding:4px 12px;margin:0 0 24px;font-weight:600}
-.stat{display:flex;flex-wrap:wrap;justify-content:center;gap:0;margin:30px auto 0;
-      max-width:640px;border:1px solid var(--line);border-radius:var(--radius);
-      background:color-mix(in srgb,var(--panel) 70%,transparent);overflow:hidden}
-.stat div{flex:1 1 0;padding:15px 8px;border-right:1px solid var(--line);min-width:0}
-.stat div:last-child{border-right:0}
-.stat b{display:block;font-size:1.22rem;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.stat span{font-size:.75rem;color:var(--faint);letter-spacing:.03em}
-@media(max-width:560px){
-  .stat{flex-wrap:wrap}
-  .stat div{flex:1 1 50%;border-bottom:1px solid var(--line)}
-  .stat div:nth-child(2n){border-right:0}
-  .stat div:nth-last-child(-n+2){border-bottom:0}
-}
 
-.ghbtns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:30px 0 0}
+.lockup{display:flex;align-items:center;gap:14px;margin:0 0 34px}
+.lockup .mark{width:44px;height:44px;flex:none;color:var(--accent);
+  filter:drop-shadow(0 0 18px color-mix(in srgb,var(--accent) 45%,transparent))}
+.lockup .word{font-size:1.42rem;font-weight:620;letter-spacing:-.03em}
+.lockup .word b{color:var(--accent);font-weight:620}
+.lockup .badge{margin:0 0 0 auto}
+
+.hero h1{font-size:clamp(1.95rem,5.1vw,3.05rem);margin:0 0 20px;letter-spacing:-.036em;
+         font-weight:640;max-width:19ch}
+.hero .lede{font-size:1.04rem;color:var(--dim);max-width:60ch;margin:0 0 8px}
+.hero .lede b{color:var(--fg);font-weight:600}
+.badge{display:inline-block;font-size:.7rem;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--accent);border:1px solid var(--accent-dim);border-radius:999px;
+  padding:4px 12px;font-weight:600;white-space:nowrap}
+
+/* the two commands, in the hero, above the fold */
+.quick{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin:30px 0 0}
+@media(max-width:760px){.quick{grid-template-columns:1fr}}
+.quick .q{background:color-mix(in srgb,var(--panel) 88%,transparent);
+  border:1px solid var(--line);border-radius:12px;padding:14px 15px;
+  min-width:0}   /* grid items default to min-width:auto; a long <pre> then widens the column */
+.quick .q h4{margin:0 0 3px;font-size:.82rem;font-weight:600;letter-spacing:-.005em}
+.quick .q .sub{font-size:.74rem;color:var(--faint);margin:0 0 10px}
+.quick .q pre{font-size:12.2px;padding:11px 13px;background:var(--bg);
+  overflow-x:visible;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.55}
+.quick .q .more{font-size:.74rem;margin:9px 0 0}
+.quick .q .more a{color:var(--dim);border:0}
+.quick .q .more a:hover{color:var(--accent)}
+
+.statrow{display:flex;flex-wrap:wrap;gap:0;margin:40px 0 0;
+  border-top:1px solid var(--line);padding:22px 0 30px}
+.statrow div{flex:1 1 0;min-width:96px}
+.statrow b{display:block;font-size:1.34rem;font-variant-numeric:tabular-nums;
+  letter-spacing:-.025em;line-height:1.2}
+.statrow b.accent{color:var(--accent)}
+.statrow span{font-size:.7rem;color:var(--faint);letter-spacing:.11em}
+.statrow .dom{flex:0 0 auto;align-self:flex-end;font-size:.82rem;color:var(--faint)}
+@media(max-width:620px){
+  .statrow div{flex:1 1 50%;padding-bottom:16px}
+  .statrow .dom{flex-basis:100%;padding-top:4px}
+}
+.ghbtns{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 0}
+.hero .ghbtns{margin-top:26px}
 .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);
   background:var(--panel);color:var(--fg);border-radius:10px;padding:9px 16px;
   font-size:.885rem;font-weight:500;transition:border-color .15s,transform .15s}
@@ -141,6 +161,7 @@ section.band.alt{background:color-mix(in srgb,var(--panel) 55%,transparent)}
   margin:0 0 12px;font-weight:600}
 
 .cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin:22px 0 0}
+.cards>*{min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
       padding:20px;transition:border-color .15s}
 .card:hover{border-color:var(--line2)}
@@ -160,6 +181,8 @@ section.band.alt{background:color-mix(in srgb,var(--panel) 55%,transparent)}
 @media(hover:none){.copy button{opacity:1}}
 
 .tools{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));margin:14px 0 0}
+.tools>*{min-width:0}
+.tool span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .tool{display:flex;align-items:center;gap:9px;border:1px solid var(--line);
   border-radius:10px;padding:10px 12px;background:var(--panel);font-size:.85rem}
 .tool:hover{border-color:var(--accent)}
@@ -374,19 +397,33 @@ item | verdict | file:line | one-sentence reason."""
 
     body = f"""
 <section class="hero"><div class="wrap">
-  {MARK}
-  <p class="badge">Free · open source</p>
+  <div class="lockup">
+    {MARK}
+    <span class="word">prod<b>check</b></span>
+    <span class="badge">Free · open source</span>
+  </div>
+
   <h1>The checklist you wish someone had given you before launch.</h1>
   <p class="lede"><b>{fmt(C['total'])} things to check</b> before you ship — security,
   speed, scale, being findable, and what to do when it breaks anyway.</p>
   <p class="lede small">Built for solo founders and small teams with no security team to
   hand it to.</p>
 
-  <div class="stat">
-    <div><b>{fmt(C['total'])}</b><span>ITEMS</span></div>
-    <div><b>{len(tree.domains())}</b><span>DOMAINS</span></div>
-    <div><b>{fmt(C['release_gate'])}</b><span>BLOCKERS</span></div>
-    <div><b>{round(100 * C['stack_agnostic'] / C['total'])}%</b><span>ANY STACK</span></div>
+  <div class="quick">
+    <div class="q">
+      <h4>Give it to your AI assistant</h4>
+      <p class="sub">MCP · Claude, Cursor, Copilot, Gemini CLI, Cline, Cherry Studio…</p>
+      {codeblock('h-mcp', mcp)}
+      <p class="more"><a href="{REPO}/blob/main/docs/mcp-clients.md">every client →</a>
+        &nbsp;·&nbsp; <a href="#tools">n8n, OpenRouter, DeepSeek… →</a></p>
+    </div>
+    <div class="q">
+      <h4>Or write a file into your repo</h4>
+      <p class="sub">npm · scoped to your stack, commit it and tick it off</p>
+      {codeblock('h-npm', npm_cmd)}
+      <p class="more"><a href="{REPO}#command-line">all commands →</a>
+        &nbsp;·&nbsp; <a href="{REPO}/blob/main/docs/prompts.md">prompts to paste →</a></p>
+    </div>
   </div>
 
   <div class="ghbtns">
@@ -395,13 +432,22 @@ item | verdict | file:line | one-sentence reason."""
     <a class="btn" href="{REPO}/fork">{GH_ICON} Fork</a>
     <a class="btn" href="{NPM}">npm</a>
   </div>
+
+  <div class="statrow">
+    <div><b>{fmt(C['total'])}</b><span>ITEMS</span></div>
+    <div><b>{len(tree.domains())}</b><span>DOMAINS</span></div>
+    <div><b>{fmt(C['release_gate'])}</b><span>BLOCKERS</span></div>
+    <div><b>{round(100 * C['stack_agnostic'] / C['total'])}%</b><span>ANY STACK</span></div>
+    <div><b class="accent">Free</b><span>OPEN SOURCE</span></div>
+    <div class="dom">prodcheck.js.org</div>
+  </div>
 </div></section>
 
 <section class="band" id="start"><div class="wrap narrow">
   <p class="eyebrow">Start here</p>
-  <h2>Four ways in. Pick one.</h2>
-  <p class="dim">No account, no API key, no sign-up. If you are not sure which, use the
-  second — it just writes a file into your project.</p>
+  <h2>Four ways in</h2>
+  <p class="dim">No account, no API key, no sign-up. The first two are in the header
+  above; these are all four with the detail.</p>
 
   <div class="cards">
     <div class="card">
