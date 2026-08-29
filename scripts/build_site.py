@@ -672,6 +672,7 @@ item | verdict | file:line | one-sentence reason."""
   <code>good first issue</code>.</p>
   <div class="ghbtns" style="justify-content:flex-start">
     <a class="btn" href="{REPO}/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>
+    <a class="btn" href="{REPO}/blob/main/SECURITY.md">SECURITY.md</a>
     <a class="btn" href="{REPO}/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">Good first issues</a>
     <a class="btn" href="{REPO}/issues">Report something wrong</a>
   </div>

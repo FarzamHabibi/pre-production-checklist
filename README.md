@@ -501,6 +501,12 @@ prodcheck gate      exit non-zero if a blocking item is unresolved   (for CI)
 Stack files, corrections, missing items, and war stories are all welcome.
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Reporting a security problem
+
+See [SECURITY.md](SECURITY.md). That includes **an item in this checklist that is wrong in
+a way that would make a reader less safe** — a checklist that gives false confidence is
+worse than no checklist, so those are treated as the highest-priority reports.
+
 The single most useful contribution is a stack file for a stack that isn't covered.
 There are open issues for [FastAPI](https://github.com/FarzamHabibi/pre-production-checklist/issues/1),
 [AWS](https://github.com/FarzamHabibi/pre-production-checklist/issues/2),
