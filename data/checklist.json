@@ -29,15 +29,22 @@
       "label": "Performance",
       "description": "Being fast for a real user, with Lighthouse agreeing.",
       "areas": []
+    },
+    {
+      "id": "integrations",
+      "label": "Integrations",
+      "description": "Being connected: search, analytics, monitoring.",
+      "areas": []
     }
   ],
   "counts": {
-    "total": 3520,
+    "total": 3718,
     "by_domain": {
       "security": 3186,
-      "performance": 334
+      "performance": 334,
+      "integrations": 198
     },
-    "stack_agnostic": 3125,
+    "stack_agnostic": 3317,
     "release_gate": 260
   },
   "stacks": [
@@ -50084,6 +50091,3078 @@
       }
     },
     {
+      "id": "integrations.01-search-engines.a9433ed6",
+      "text": "Verify `noindex` is **removed from production**. A staging `<meta name=\"robots\" content=\"noindex\">` or `X-Robots-Tag` that shipped is the most common launch mistake there is, and it can cost weeks before anyone notices.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Before you launch — the ones that actually bite",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.f0ad7c27",
+      "text": "Verify `robots.txt` in production is not the staging one that disallows everything.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Before you launch — the ones that actually bite",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.ec38351b",
+      "text": "Verify staging and preview environments are blocked from indexing **and** password protected — `robots.txt` is a request, not access control, and a disallowed URL can still be indexed if something links to it.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Before you launch — the ones that actually bite",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.807a1898",
+      "text": "Verify the canonical host is decided and enforced: one of www or apex, one of http or https, one trailing-slash convention.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Before you launch — the ones that actually bite",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.7ec79bb2",
+      "text": "Verify every URL that changed at launch has a 301 to its replacement, and that the map was built from the old site's real URL list rather than from memory.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Before you launch — the ones that actually bite",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.fe9c63c6",
+      "text": "Verify the new site does not 301 everything to the homepage; that reads as a soft 404 and loses the ranking outright.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Before you launch — the ones that actually bite",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.30a90f9a",
+      "text": "Verify a Google Search Console **domain property** is set up, not only a URL-prefix property — a domain property covers every subdomain and protocol at once.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Search Console and Webmaster Tools",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.29af2830",
+      "text": "Verify Bing Webmaster Tools is set up; it can import the Search Console configuration in a couple of clicks, and it feeds more than Bing.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Search Console and Webmaster Tools",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.70f2d0d0",
+      "text": "Verify Yandex or Naver or Baidu are set up if you actually serve those markets, and not if you do not.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Search Console and Webmaster Tools",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.7c09283e",
+      "text": "Verify ownership is held by an account that survives a person leaving — a shared or role account, not someone's personal login.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Search Console and Webmaster Tools",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.6d1d40c5",
+      "text": "Verify at least two people have access.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Search Console and Webmaster Tools",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.5a5b3a28",
+      "text": "Verify email alerts are enabled and go somewhere a human reads.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Search Console and Webmaster Tools",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.f14d72cf",
+      "text": "Verify the verification method will not break: a DNS TXT record survives a redeploy, an uploaded HTML file may not.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Search Console and Webmaster Tools",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.6b4954d6",
+      "text": "Verify Search Console data is exported or archived; it only keeps 16 months.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Search Console and Webmaster Tools",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.fabe2aad",
+      "text": "Verify a sitemap exists, is generated from the live routes rather than hand-maintained, and updates when content does.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Sitemaps",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.69e1578e",
+      "text": "Verify the sitemap is submitted in Search Console and Bing, and referenced from `robots.txt`.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Sitemaps",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.88ab9a4f",
+      "text": "Verify the sitemap contains only canonical, indexable, 200-status URLs — no redirects, no `noindex`, no parameters.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Sitemaps",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.8ce8af6e",
+      "text": "Verify `lastmod` reflects a real change, not the build timestamp on every entry; a sitemap that claims everything changed today is ignored.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Sitemaps",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.09a091e3",
+      "text": "Verify a sitemap index is used if you exceed 50,000 URLs or 50MB uncompressed.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Sitemaps",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.a972c238",
+      "text": "Verify image and video sitemaps exist if those are a meaningful part of what you offer.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Sitemaps",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.4c04c211",
+      "text": "Verify the sitemap URL count roughly matches the number of pages you expect to be indexed; a large gap either way is a signal.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Sitemaps",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.a31c7e6f",
+      "text": "Verify `robots.txt` does not block CSS, JavaScript or images — a crawler that cannot render the page cannot judge it.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Crawlability",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.e3ab29cd",
+      "text": "Verify `robots.txt` and meta robots do not contradict each other; a page blocked in `robots.txt` can never be seen as `noindex`, so it stays indexed without a snippet.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Crawlability",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.fc22db0e",
+      "text": "Verify `X-Robots-Tag` headers are checked as well as meta tags — a header set at the CDN is easy to forget.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Crawlability",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.2cf393d0",
+      "text": "Verify the URL Inspection tool shows the rendered HTML you expect on your key templates, including content that JavaScript adds.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Crawlability",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.a8f0025a",
+      "text": "Verify content that only appears after interaction — tabs, accordions, infinite scroll — is present in the HTML or reachable by a crawlable link.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Crawlability",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.7509fd79",
+      "text": "Verify pagination is crawlable by real links, not only by a button that calls an API.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Crawlability",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 49
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.ea86e0fb",
+      "text": "Verify faceted navigation cannot generate an unbounded crawl space of parameter combinations.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Crawlability",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 50
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.f927beb3",
+      "text": "Verify crawl stats show the crawler reaching the pages you care about, and not spending its budget on parameters and redirects.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Crawlability",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 51
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.eae26fda",
+      "text": "Verify IndexNow is wired up if you publish frequently; it pushes changes to Bing, Yandex and others immediately.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Fast indexing",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 55
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.678314f6",
+      "text": "Verify the Google Indexing API is not being misused — it is only for job postings and livestream markup, and other uses are ignored.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Fast indexing",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.f94eaf69",
+      "text": "Verify new content is discoverable by an internal link from an already-indexed page, which is still the most reliable path.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Fast indexing",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 57
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.28fb877b",
+      "text": "Read the index coverage report rather than assuming; the difference between submitted and indexed is the whole story.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Watching it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 61
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.87de65e4",
+      "text": "Verify pages excluded as duplicate, crawled-not-indexed or discovered-not-indexed have been looked at at least once.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Watching it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 62
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.497d7363",
+      "text": "Verify no manual action or security issue is open.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Watching it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 63
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.7da2b425",
+      "text": "Verify the Core Web Vitals report is green, or that its failures match what `performance/` already told you.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Watching it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 64
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.014279c1",
+      "text": "Verify 404s reported by the crawler are either fixed, redirected, or deliberately left to die.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Watching it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 65
+      }
+    },
+    {
+      "id": "integrations.01-search-engines.054d1202",
+      "text": "Verify someone checks this on a cadence rather than only when traffic drops.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Search Engines",
+      "section": "Watching it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/01-search-engines.md",
+        "line": 66
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.c0fe63bb",
+      "text": "Verify every page has a title, and that no two important pages share one.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Titles and descriptions",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 12
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.5433e352",
+      "text": "Verify titles lead with what the page is about and end with the brand, not the reverse.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Titles and descriptions",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.9e56d780",
+      "text": "Verify titles are not truncated into meaninglessness in results — roughly 60 characters is the practical limit.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Titles and descriptions",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.b7d837e2",
+      "text": "Verify no title is a template default like \"Home\", \"Untitled\" or the framework's placeholder.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Titles and descriptions",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.f9ac2d2c",
+      "text": "Verify every page has a meta description written for a human deciding whether to click.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Titles and descriptions",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.e1443f3a",
+      "text": "Verify descriptions are not duplicated across pages or auto-generated from the first sentence of the body.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Titles and descriptions",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.a2aadd04",
+      "text": "Verify titles and descriptions are in the server-rendered HTML, not set by client-side JavaScript.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Titles and descriptions",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.58fa95e6",
+      "text": "Verify templated titles for large page sets still read as sentences rather than as slot-filling.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Titles and descriptions",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.fabd7fd1",
+      "text": "Verify each page has exactly one `h1` that matches what the page is about.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.a56bdae0",
+      "text": "Verify heading levels descend without skipping — this is the same item as the accessibility one, and both audiences benefit.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.74396751",
+      "text": "Verify the primary content is in `main`, and that navigation, header and footer are marked as such.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.80c0f83e",
+      "text": "Verify URLs are readable, lowercase, hyphenated, and stable enough that you will not need to change them.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.158e49bf",
+      "text": "Verify URLs do not carry session ids, tracking parameters or sort order as part of their canonical form.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.8f4660fd",
+      "text": "Verify breadcrumbs exist on deep pages and match the URL hierarchy.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Structure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.28e69395",
+      "text": "Verify every page has a self-referencing canonical tag with an absolute URL.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Canonical and duplication",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.36755893",
+      "text": "Verify the canonical points to the version you actually want indexed, and that it returns 200.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Canonical and duplication",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.1c1d78b0",
+      "text": "Verify no page canonicalises to a `noindex` page, which asks the crawler to do two contradictory things.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Canonical and duplication",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.ee71127e",
+      "text": "Verify paginated pages self-canonicalise; canonicalising page 2 to page 1 hides everything after the first page.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Canonical and duplication",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.b746cbdc",
+      "text": "Verify parameter variants — sort, filter, tracking — canonicalise to the clean URL.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Canonical and duplication",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.6b4d92d2",
+      "text": "Verify the same content is not reachable at both trailing-slash and non-trailing-slash URLs.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Canonical and duplication",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.7e8759fe",
+      "text": "Verify uppercase and lowercase paths do not both resolve.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Canonical and duplication",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.c5e8ae1b",
+      "text": "Verify print, AMP or alternate views canonicalise correctly.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Canonical and duplication",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.a25a8ee7",
+      "text": "Verify `hreflang` annotations are reciprocal — every version points to every other, including itself.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "International",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 43
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.1f59d7fb",
+      "text": "Verify an `x-default` exists for visitors who match no listed locale.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "International",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.0ede77e5",
+      "text": "Verify language and region codes are valid and describe the content, not the customer you wish you had.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "International",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.30615e38",
+      "text": "Verify `hreflang` and canonical do not contradict each other.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "International",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.7f258c0b",
+      "text": "Verify localised pages are actually localised; the same English page on five country URLs is duplication, not internationalisation.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "International",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.8848eca6",
+      "text": "Verify every important page is reachable from the homepage within three clicks.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Links and status codes",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 51
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.74f7ad04",
+      "text": "Verify there are no orphan pages — in the sitemap but linked from nowhere.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Links and status codes",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 52
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.53e53ec4",
+      "text": "Verify internal anchor text describes the destination rather than saying \"click here\".",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Links and status codes",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 53
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.1abba12b",
+      "text": "Verify a missing page returns a real 404 status, not a 200 with an error message — a soft 404 keeps the URL indexed forever.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Links and status codes",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 54
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.d1f5bbb1",
+      "text": "Verify the 404 page helps: search, main navigation, and a link home.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Links and status codes",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 55
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.abdcd0da",
+      "text": "Verify permanent moves use 301, not 302; a 302 tells the crawler to keep the old URL.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Links and status codes",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.33d0ffc4",
+      "text": "Verify no redirect chains or loops, and that no chain is longer than one hop.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Links and status codes",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 57
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.6f99e038",
+      "text": "Verify outbound links to untrusted or user-generated destinations carry the appropriate `rel`.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Links and status codes",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 58
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.69b6e063",
+      "text": "Verify broken internal links are found by a crawl before a user finds them.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Links and status codes",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 59
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.e6ef505f",
+      "text": "Verify the mobile page contains the same content as desktop; indexing is mobile-first, so anything hidden on mobile effectively does not exist.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Content and parity",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 63
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.ef20010a",
+      "text": "Verify content is not gated behind a cookie banner or a modal that the crawler sees instead of the page.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Content and parity",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 64
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.fa6750bd",
+      "text": "Verify thin or near-duplicate pages generated from a template are either consolidated or given a reason to exist.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Content and parity",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 65
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.3eddf54a",
+      "text": "Verify images have descriptive `alt` text, which serves search and accessibility at once.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Content and parity",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 66
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.267debd5",
+      "text": "Verify the site is served over HTTPS everywhere, with no mixed content.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Content and parity",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 67
+      }
+    },
+    {
+      "id": "integrations.02-seo-fundamentals.05e95c2e",
+      "text": "Verify page speed has been dealt with in [`performance/`](../performance/02-core-web-vitals.md) rather than treated as an SEO afterthought.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "SEO Fundamentals",
+      "section": "Content and parity",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/02-seo-fundamentals.md",
+        "line": 68
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.71ed067e",
+      "text": "Verify the schema types chosen actually describe the page — `Organization`, `Product`, `Article`, `SoftwareApplication`, `LocalBusiness` — rather than whatever the plugin defaulted to.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Choosing and writing it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 12
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.33257a38",
+      "text": "Verify JSON-LD is used rather than microdata or RDFa; it is what Google recommends and it is far easier to keep correct.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Choosing and writing it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.c05dda45",
+      "text": "Verify structured data is server-rendered or otherwise present for a crawler that does not execute your JavaScript.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Choosing and writing it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.e460c86c",
+      "text": "Verify the markup describes content that is actually visible on the page; marking up something a user cannot see is a policy violation, not a shortcut.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Choosing and writing it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.da3dc40d",
+      "text": "Verify required properties for each type are present, not just the recommended ones.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Choosing and writing it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.3487ab15",
+      "text": "Verify the homepage carries `Organization` with a logo, a URL, and `sameAs` links to your real social profiles.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "The markup worth having",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.cf215147",
+      "text": "Verify `WebSite` markup exists if you want a sitelinks search box.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "The markup worth having",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 21
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.c6a0d63c",
+      "text": "Verify `BreadcrumbList` matches the visible breadcrumb and the URL hierarchy.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "The markup worth having",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.34958618",
+      "text": "Verify articles and posts carry `Article` or `BlogPosting` with `author`, `datePublished` and `dateModified`.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "The markup worth having",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.1a2f9315",
+      "text": "Verify `dateModified` changes only when the content actually changed.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "The markup worth having",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.47efb17f",
+      "text": "Verify product or pricing pages carry `Product` and `Offer` with a real price and currency, and that they stay in sync with the page.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "The markup worth having",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.2ffd5d86",
+      "text": "Verify ratings and reviews are marked up only if they are genuine and visible; fabricated `AggregateRating` is a manual-action risk.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "The markup worth having",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.d12a150d",
+      "text": "Verify `FAQPage` and `HowTo` are used only where they apply, and with the awareness that their rich results have been heavily restricted.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "The markup worth having",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.c00adbcf",
+      "text": "Verify `LocalBusiness` name, address and phone match exactly what appears elsewhere on the web.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "The markup worth having",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.38fc8143",
+      "text": "Verify `@id` values are stable URLs so entities can be linked rather than duplicated across pages.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "The markup worth having",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.5e752ddc",
+      "text": "Verify `og:title`, `og:description`, `og:image`, `og:url` and `og:type` are present on every shareable page.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Social previews",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.2d312144",
+      "text": "Verify `og:url` is the canonical absolute URL.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Social previews",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.e64b1c25",
+      "text": "Verify `og:image` is an absolute URL, at least 1200×630, and under the platform size limits.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Social previews",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.6e8346a1",
+      "text": "Verify the preview image is not generated per request in a way that times out the scraper.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Social previews",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.6d9a1a27",
+      "text": "Verify `twitter:card` is set, with `summary_large_image` where the image is the point.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Social previews",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.1b07fb47",
+      "text": "Verify the preview actually renders: paste the URL into Slack, iMessage and X, and look.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Social previews",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.854754c5",
+      "text": "Verify Open Graph tags are in the initial HTML — scrapers do not run JavaScript.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Social previews",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.268599d4",
+      "text": "Verify a default preview image exists for pages that do not define their own.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Social previews",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.fa81666b",
+      "text": "Validate with the Rich Results Test and the Schema Markup Validator, and fix warnings as well as errors.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Validation and upkeep",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.92a7f8d8",
+      "text": "Verify the Search Console enhancement reports are clean, and that new errors are noticed.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Validation and upkeep",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.b49d1567",
+      "text": "Verify structured data is generated from the same source as the page content, so the two cannot drift.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Validation and upkeep",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "integrations.03-structured-data.05aa6496",
+      "text": "Verify a change to the page template cannot silently drop the markup — add it to whatever check runs at build time.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Structured Data & Social Previews",
+      "section": "Validation and upkeep",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/03-structured-data.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.acbdd790",
+      "text": "Inventory which AI crawlers reach you — `GPTBot`, `ClaudeBot`, `PerplexityBot`, `Google-Extended`, `CCBot`, `Bytespider`, `Applebot-Extended` — from your own access logs, not from a blog post.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Decide crawler access on purpose",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.34cc53f3",
+      "text": "Decide, and write down, whether each is allowed, and why. \"We never looked\" is the default and it is rarely the intent.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Decide crawler access on purpose",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.f08b6b79",
+      "text": "Verify `Google-Extended` is understood correctly: it controls training and grounding, and blocking it does **not** remove you from AI Overviews, which follow ordinary Googlebot rules.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Decide crawler access on purpose",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.d4a31860",
+      "text": "Verify blocking a crawler in `robots.txt` is understood as a request, not enforcement; block at the edge if the decision has to hold.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Decide crawler access on purpose",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.c424722e",
+      "text": "Verify AI crawler traffic is not a meaningful share of your origin load, and rate-limit it if it is — see [`security/core/18-abuse-and-availability.md`](../security/core/18-abuse-and-availability.md).",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Decide crawler access on purpose",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.dd8f1c8d",
+      "text": "Verify you do not serve different content to AI crawlers than to users; cloaking is a policy violation with every engine that detects it.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Decide crawler access on purpose",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.e34c3e7e",
+      "text": "Verify the decision is revisited on a schedule, because the crawler list and the trade-offs are both moving.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Decide crawler access on purpose",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.5d674815",
+      "text": "Verify the first paragraph of an important page answers the question the page is about, rather than warming up to it.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Be quotable",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.d86218d9",
+      "text": "Verify there is a single page that states plainly what the product is, who it is for, and what it costs — models cite the page that says it, not the page that implies it.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Be quotable",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.1ab0333b",
+      "text": "Verify pricing is on a page as text, not only inside a calculator widget or an image.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Be quotable",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.f664a7b8",
+      "text": "Verify comparison and alternative pages exist if people ask \"X versus Y\" about your category.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Be quotable",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.7f91c201",
+      "text": "Verify documentation is public and crawlable if you want assistants to answer questions about your product correctly.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Be quotable",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.38f0c8a9",
+      "text": "Verify answers are not buried behind a tab, an accordion, or a JavaScript fetch that a crawler will not perform.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Be quotable",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.d7796b24",
+      "text": "Verify content carries a visible date, and that stale pages are updated or removed rather than left to be cited.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Be quotable",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.c219a5ab",
+      "text": "Consider publishing an `llms.txt` at the root pointing to the pages you would most want quoted — an emerging convention, cheap to add, harmless if ignored.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Be quotable",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.f2e0e3eb",
+      "text": "Verify your product and company name are used consistently everywhere; a model that sees three spellings treats them as three things.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Entity clarity",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.a61aa393",
+      "text": "Verify `Organization` structured data with `sameAs` links your site to the profiles that describe you elsewhere.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Entity clarity",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.e9fb32d5",
+      "text": "Verify the descriptions on your own site, your social profiles, your repository and any directory listing agree with each other.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Entity clarity",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.a5671cce",
+      "text": "Verify author and expertise are attributable on content where credibility matters.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Entity clarity",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.3ea48ee2",
+      "text": "Verify third-party pages that describe you — a directory, a marketplace listing, a package registry — say what you would want quoted.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Entity clarity",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.f9152bad",
+      "text": "Ask the major assistants about your product and record the answers verbatim; this is the only measurement that exists today.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Check what they actually say",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 43
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.ced1985a",
+      "text": "Verify whether the answers cite you or a third party, and whether the third party is right.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Check what they actually say",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.5a4b386e",
+      "text": "Verify factual errors in those answers are traceable to a page you control, and fix the page.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Check what they actually say",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.c557096d",
+      "text": "Repeat on a cadence — the answers change without your site changing.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Check what they actually say",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "integrations.04-answer-engines.97228073",
+      "text": "Verify brand mentions in AI answers are watched with the same seriousness as search rankings, in whatever crude way is available.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Answer Engines & AI Crawlers",
+      "section": "Check what they actually say",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/04-answer-engines.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.ee1a71b7",
+      "text": "Verify the analytics script fires on production, confirmed by watching the network request, not by trusting the dashboard.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Installed and actually working",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 12
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.c3e8ca61",
+      "text": "Verify it is installed exactly once; a duplicate tag through a tag manager doubles every number quietly.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Installed and actually working",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.2767eee4",
+      "text": "Verify it fires on client-side route changes in a single-page app, or every page after the first is invisible.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Installed and actually working",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.296c1652",
+      "text": "Verify the same property is not receiving data from staging and production.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Installed and actually working",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.ddf1d8e2",
+      "text": "Verify internal and team traffic is excluded, by IP, by a flag, or by a filtered view.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Installed and actually working",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.4b3aba37",
+      "text": "Verify bot and crawler traffic is filtered.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Installed and actually working",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.44e7f7dc",
+      "text": "Verify a checkout, signup or other conversion has been completed end to end in production and appears correctly.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Installed and actually working",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.84eaca0e",
+      "text": "Verify the events you collect map to the steps of the funnel you actually care about, rather than to whatever the SDK sends by default.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Measure the right things",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.08417fbe",
+      "text": "Verify each event has a defined name, a defined payload, and one owner — an event taxonomy nobody wrote is an event taxonomy nobody can query.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Measure the right things",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.73ac00ab",
+      "text": "Verify you can answer the two or three questions the business will ask, before launch, using the events you have.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Measure the right things",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.81e16d29",
+      "text": "Verify a metric you would act on has a threshold and an owner; the rest is decoration.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Measure the right things",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.e979daa6",
+      "text": "Verify UTM parameters survive your redirects, or attribution silently collapses into direct traffic.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Measure the right things",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.99998614",
+      "text": "Verify cross-domain tracking works if the journey crosses domains, including to a hosted checkout.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Measure the right things",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.9e01a97f",
+      "text": "Verify you know roughly what proportion of traffic blocks analytics, so you are not comparing a filtered number to an unfiltered one.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Measure the right things",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.98fc0b34",
+      "text": "Verify no personal data lands in event payloads, page titles or URLs — an email address in a query string ends up in analytics, logs and referrer headers.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Privacy and consent",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.941e79e4",
+      "text": "Verify the consent banner blocks non-essential tags **before** consent, rather than firing them and asking afterwards.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Privacy and consent",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.5b532404",
+      "text": "Verify declining is as easy as accepting, and that the choice is remembered.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Privacy and consent",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.670d0a61",
+      "text": "Verify consent state is passed to the tools that support it, so measurement degrades rather than lying.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Privacy and consent",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.8f916cf6",
+      "text": "Verify the cookie and storage list in your policy matches what the site actually sets — check with a fresh browser profile.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Privacy and consent",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.e156a59f",
+      "text": "Verify data retention is set deliberately rather than left at the vendor's maximum.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Privacy and consent",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.79abb026",
+      "text": "Verify IP anonymisation or equivalent is on where your jurisdiction expects it.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Privacy and consent",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.69030ffb",
+      "text": "Verify a data processing agreement exists with each analytics vendor, and that the data region is one you can defend.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Privacy and consent",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.aed2b578",
+      "text": "Verify your privacy policy describes what you actually collect, in words the reader can act on.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Privacy and consent",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.54013dca",
+      "text": "Verify a user can ask for their data to be deleted and that the request reaches the analytics vendor too.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Privacy and consent",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 41
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.9cb0c4ed",
+      "text": "Verify a dashboard exists that someone looks at weekly, rather than a tool nobody opens.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Keeping it honest",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.47050b7a",
+      "text": "Verify an alert fires on a sudden traffic or conversion drop — a deploy that breaks the tracking snippet looks exactly like a traffic collapse.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Keeping it honest",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.bc8e451c",
+      "text": "Verify analytics changes go through the same review as code; a tag manager is a production deploy path with no pull request.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Keeping it honest",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "integrations.05-analytics-and-consent.efee854b",
+      "text": "Verify server-side tagging has at least been considered if client-side loss or third-party load is material.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Analytics & Consent",
+      "section": "Keeping it honest",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/05-analytics-and-consent.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.13306b86",
+      "text": "Verify an uptime check runs from more than one region, so a regional network problem is distinguishable from an outage.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it up",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 12
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.8db3ad01",
+      "text": "Verify the check exercises a real user journey — load a page, call an API that touches the database — rather than only a static health endpoint.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it up",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 13
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.72849185",
+      "text": "Verify a health endpoint returns unhealthy when a dependency it needs is down, rather than always returning 200.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it up",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.c1c44e69",
+      "text": "Verify the health endpoint does not leak version numbers, dependency names or configuration.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it up",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.cea07e19",
+      "text": "Verify TLS certificate expiry is monitored with enough warning to act, including on any certificate you renew manually.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it up",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.a3ab607a",
+      "text": "Verify domain registration expiry is monitored; it is the least sophisticated outage and one of the most common.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it up",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.f4e95233",
+      "text": "Verify DNS records are monitored for unexpected change.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it up",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.9bf2c677",
+      "text": "Verify third-party status pages for your critical dependencies are subscribed to by someone.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it up",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.032532bd",
+      "text": "Verify error tracking is installed on the backend, the frontend, and any mobile client.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it broken",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.3b8680d8",
+      "text": "Verify releases are tagged in the error tracker so a new error can be tied to the deploy that introduced it.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it broken",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.e5a56b12",
+      "text": "Verify source maps are uploaded so frontend stack traces are readable, and are not publicly served.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it broken",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.29e2d2f4",
+      "text": "Verify errors are grouped sensibly rather than arriving as thousands of unique fingerprints.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it broken",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.910cfe8b",
+      "text": "Verify personal data is scrubbed from error payloads before they leave your infrastructure.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it broken",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.02ee0dcb",
+      "text": "Verify a new error type creates a notification, and that a known noisy one does not.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it broken",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.f3265220",
+      "text": "Verify logs are aggregated somewhere searchable, with a retention period you have chosen.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it broken",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.6f3cd857",
+      "text": "Verify logs are structured, and that a request can be followed across services by a correlation id.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it broken",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.f6b00df8",
+      "text": "Verify background jobs, queues and scheduled tasks report failure — silent failure in an async path is the most expensive kind.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it broken",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.8b218122",
+      "text": "Verify a scheduled job that stops running triggers an alert, through a dead-man's-switch or equivalent; nothing failing looks identical to nothing running.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it broken",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.9d2971de",
+      "text": "Verify real-user monitoring reports Core Web Vitals from production sessions.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it slow, is it expensive",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.97237415",
+      "text": "Verify request latency is tracked at p95 and p99, not as an average.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it slow, is it expensive",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.796c85ca",
+      "text": "Verify database, queue and external-call latency are visible separately from total request time.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it slow, is it expensive",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.e0a93bb7",
+      "text": "Verify spend has an alert on rate of change, not only a monthly cap.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it slow, is it expensive",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.3c9ee83b",
+      "text": "Verify quota and rate-limit consumption against paid third parties is visible before you hit the ceiling.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it slow, is it expensive",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.78121d35",
+      "text": "Verify every alert reaches a human through a channel that person actually watches, and that this has been tested by firing one.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Does anyone find out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.a38d7fb2",
+      "text": "Verify it is written down who responds out of hours — for a solo founder, that means deciding which alerts are allowed to wake you.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Does anyone find out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.d90370ca",
+      "text": "Verify every alert is actionable; an alert nobody acts on trains everyone to ignore the channel.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Does anyone find out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.2a9dcfd4",
+      "text": "Verify alert thresholds have been tuned at least once since launch rather than left at defaults.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Does anyone find out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.76e57782",
+      "text": "Verify there is one dashboard that answers \"is it working right now\" without needing to be interpreted.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Does anyone find out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.4fa2368f",
+      "text": "Verify a public status page exists, or that you have decided deliberately not to have one.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Does anyone find out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 49
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.1f686d0a",
+      "text": "Verify a runbook exists for the three most likely failures, written so that a tired person can follow it.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Does anyone find out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 50
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.79623097",
+      "text": "Verify an incident communication template exists, so writing to customers is not done from scratch at the worst moment.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Does anyone find out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 51
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.ebe9e8a9",
+      "text": "Verify you can find out what changed — deploys, feature flags, configuration, third-party incidents — on one timeline.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Does anyone find out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 52
+      }
+    },
+    {
       "id": "stacks.android-kotlin.83d704b9",
       "text": "Audit every `android:exported=\"true\"` in the manifest — since API 31 it must be declared explicitly, which is a good moment to ask whether each one should be reachable by any app on the device.",
       "domain": "security",
@@ -54913,6 +57992,102 @@
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
         "line": 76
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.15f01867",
+      "text": "Verify the Metadata API (`metadata` or `generateMetadata`) sets title, description and canonical, rather than a client-side `<Head>` that crawlers may not see.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "SEO Fundamentals",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 81
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.4ead26ea",
+      "text": "Verify `metadataBase` is set, or relative Open Graph and canonical URLs resolve against the wrong host.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "SEO Fundamentals",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 82
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.a95c0fc1",
+      "text": "Verify a route that opts out of static rendering has not lost its metadata along with it.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "SEO Fundamentals",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 83
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.3a44d445",
+      "text": "Verify `app/robots.ts` and `app/sitemap.ts` generate from real routes rather than being static files that drift.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "SEO Fundamentals",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 84
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.67ce8282",
+      "text": "Verify JSON-LD is rendered in a Server Component; a client-side injection is invisible to most scrapers.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "Structured Data & Social Previews",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 89
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.3a717e8c",
+      "text": "Verify dynamic Open Graph images (`opengraph-image`) render within the scraper's timeout and are cached.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "Structured Data & Social Previews",
+      "subsection": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 90
       }
     },
     {

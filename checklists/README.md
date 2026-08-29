@@ -5,13 +5,14 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**3,520 items** · 3,125 of them (89%) name no product at all.
+**3,718 items** · 3,317 of them (89%) name no product at all.
 
 | Domain | Items | |
 | --- | ---: | --- |
 | [**Security**](#security) | 3,186 | Not getting breached, abused, or taken down. |
 | [**Performance**](#performance) | 334 | Being fast for a real user, with Lighthouse agreeing. |
-| [Stack supplements](#stack-supplements) | 395 | 19 products, only if you use them |
+| [**Integrations**](#integrations) | 198 | Being connected: search, analytics, monitoring. |
+| [Stack supplements](#stack-supplements) | 401 | 19 products, only if you use them |
 
 ---
 
@@ -106,6 +107,24 @@ Being fast for a real user, with Lighthouse agreeing.
 
 ---
 
+<a id="integrations"></a>
+
+## Integrations
+
+Being connected: search, analytics, monitoring.
+
+| Checklist | Items |
+| --- | ---: |
+| [Search Engines](integrations/01-search-engines.md) | 38 |
+| [SEO Fundamentals](integrations/02-seo-fundamentals.md) | 42 |
+| [Structured Data & Social Previews](integrations/03-structured-data.md) | 27 |
+| [Answer Engines & AI Crawlers](integrations/04-answer-engines.md) | 25 |
+| [Analytics & Consent](integrations/05-analytics-and-consent.md) | 28 |
+| [Monitoring & Alerting](integrations/06-monitoring-and-alerting.md) | 32 |
+| **Total** | **192** |
+
+---
+
 <a id="stack-supplements"></a>
 
 ## Stack supplements
@@ -129,13 +148,13 @@ One file per product, spanning every domain: each section says which checklist i
 | [Laravel](stacks/laravel.md) | 23 |
 | [macOS](stacks/macos.md) | 5 |
 | [NestJS](stacks/nestjs.md) | 6 |
-| [Next.js / React](stacks/nextjs-react.md) | 37 |
+| [Next.js / React](stacks/nextjs-react.md) | 43 |
 | [PostgreSQL](stacks/postgres.md) | 4 |
 | [Ruby on Rails](stacks/rails.md) | 30 |
 | [React Native](stacks/react-native.md) | 16 |
 | [Spring Boot](stacks/spring.md) | 20 |
 | [Supabase](stacks/supabase.md) | 23 |
-| **Total** | **395** |
+| **Total** | **401** |
 
 ---
 

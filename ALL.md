@@ -4698,6 +4698,347 @@ What has to hold before this ships. Everything here is a number, because a gate 
 
 ---
 
+# Integrations
+
+Being connected: search, analytics, monitoring.
+
+## Search Engines
+
+Being findable, and being able to see whether you are.
+
+Most of this is configuration you do once and then never think about — which is exactly why it is worth a checklist. The single most expensive item here is the last one in the launch section, and it has taken down more launches than any exploit in this repository.
+
+
+---
+
+
+## Before you launch — the ones that actually bite
+
+* [ ] Verify `noindex` is **removed from production**. A staging `<meta name="robots" content="noindex">` or `X-Robots-Tag` that shipped is the most common launch mistake there is, and it can cost weeks before anyone notices.
+* [ ] Verify `robots.txt` in production is not the staging one that disallows everything.
+* [ ] Verify staging and preview environments are blocked from indexing **and** password protected — `robots.txt` is a request, not access control, and a disallowed URL can still be indexed if something links to it.
+* [ ] Verify the canonical host is decided and enforced: one of www or apex, one of http or https, one trailing-slash convention.
+* [ ] Verify every URL that changed at launch has a 301 to its replacement, and that the map was built from the old site's real URL list rather than from memory.
+* [ ] Verify the new site does not 301 everything to the homepage; that reads as a soft 404 and loses the ranking outright.
+
+## Search Console and Webmaster Tools
+
+* [ ] Verify a Google Search Console **domain property** is set up, not only a URL-prefix property — a domain property covers every subdomain and protocol at once.
+* [ ] Verify Bing Webmaster Tools is set up; it can import the Search Console configuration in a couple of clicks, and it feeds more than Bing.
+* [ ] Verify Yandex or Naver or Baidu are set up if you actually serve those markets, and not if you do not.
+* [ ] Verify ownership is held by an account that survives a person leaving — a shared or role account, not someone's personal login.
+* [ ] Verify at least two people have access.
+* [ ] Verify email alerts are enabled and go somewhere a human reads.
+* [ ] Verify the verification method will not break: a DNS TXT record survives a redeploy, an uploaded HTML file may not.
+* [ ] Verify Search Console data is exported or archived; it only keeps 16 months.
+
+## Sitemaps
+
+* [ ] Verify a sitemap exists, is generated from the live routes rather than hand-maintained, and updates when content does.
+* [ ] Verify the sitemap is submitted in Search Console and Bing, and referenced from `robots.txt`.
+* [ ] Verify the sitemap contains only canonical, indexable, 200-status URLs — no redirects, no `noindex`, no parameters.
+* [ ] Verify `lastmod` reflects a real change, not the build timestamp on every entry; a sitemap that claims everything changed today is ignored.
+* [ ] Verify a sitemap index is used if you exceed 50,000 URLs or 50MB uncompressed.
+* [ ] Verify image and video sitemaps exist if those are a meaningful part of what you offer.
+* [ ] Verify the sitemap URL count roughly matches the number of pages you expect to be indexed; a large gap either way is a signal.
+
+## Crawlability
+
+* [ ] Verify `robots.txt` does not block CSS, JavaScript or images — a crawler that cannot render the page cannot judge it.
+* [ ] Verify `robots.txt` and meta robots do not contradict each other; a page blocked in `robots.txt` can never be seen as `noindex`, so it stays indexed without a snippet.
+* [ ] Verify `X-Robots-Tag` headers are checked as well as meta tags — a header set at the CDN is easy to forget.
+* [ ] Verify the URL Inspection tool shows the rendered HTML you expect on your key templates, including content that JavaScript adds.
+* [ ] Verify content that only appears after interaction — tabs, accordions, infinite scroll — is present in the HTML or reachable by a crawlable link.
+* [ ] Verify pagination is crawlable by real links, not only by a button that calls an API.
+* [ ] Verify faceted navigation cannot generate an unbounded crawl space of parameter combinations.
+* [ ] Verify crawl stats show the crawler reaching the pages you care about, and not spending its budget on parameters and redirects.
+
+## Fast indexing
+
+* [ ] Verify IndexNow is wired up if you publish frequently; it pushes changes to Bing, Yandex and others immediately.
+* [ ] Verify the Google Indexing API is not being misused — it is only for job postings and livestream markup, and other uses are ignored.
+* [ ] Verify new content is discoverable by an internal link from an already-indexed page, which is still the most reliable path.
+
+## Watching it
+
+* [ ] Read the index coverage report rather than assuming; the difference between submitted and indexed is the whole story.
+* [ ] Verify pages excluded as duplicate, crawled-not-indexed or discovered-not-indexed have been looked at at least once.
+* [ ] Verify no manual action or security issue is open.
+* [ ] Verify the Core Web Vitals report is green, or that its failures match what `performance/` already told you.
+* [ ] Verify 404s reported by the crawler are either fixed, redirected, or deliberately left to die.
+* [ ] Verify someone checks this on a cadence rather than only when traffic drops.
+
+
+## SEO Fundamentals
+
+The markup and structure that decide how a page is understood. None of it is clever; all of it is routinely wrong on a first launch.
+
+
+---
+
+
+## Titles and descriptions
+
+* [ ] Verify every page has a title, and that no two important pages share one.
+* [ ] Verify titles lead with what the page is about and end with the brand, not the reverse.
+* [ ] Verify titles are not truncated into meaninglessness in results — roughly 60 characters is the practical limit.
+* [ ] Verify no title is a template default like "Home", "Untitled" or the framework's placeholder.
+* [ ] Verify every page has a meta description written for a human deciding whether to click.
+* [ ] Verify descriptions are not duplicated across pages or auto-generated from the first sentence of the body.
+* [ ] Verify titles and descriptions are in the server-rendered HTML, not set by client-side JavaScript.
+* [ ] Verify templated titles for large page sets still read as sentences rather than as slot-filling.
+
+## Structure
+
+* [ ] Verify each page has exactly one `h1` that matches what the page is about.
+* [ ] Verify heading levels descend without skipping — this is the same item as the accessibility one, and both audiences benefit.
+* [ ] Verify the primary content is in `main`, and that navigation, header and footer are marked as such.
+* [ ] Verify URLs are readable, lowercase, hyphenated, and stable enough that you will not need to change them.
+* [ ] Verify URLs do not carry session ids, tracking parameters or sort order as part of their canonical form.
+* [ ] Verify breadcrumbs exist on deep pages and match the URL hierarchy.
+
+## Canonical and duplication
+
+* [ ] Verify every page has a self-referencing canonical tag with an absolute URL.
+* [ ] Verify the canonical points to the version you actually want indexed, and that it returns 200.
+* [ ] Verify no page canonicalises to a `noindex` page, which asks the crawler to do two contradictory things.
+* [ ] Verify paginated pages self-canonicalise; canonicalising page 2 to page 1 hides everything after the first page.
+* [ ] Verify parameter variants — sort, filter, tracking — canonicalise to the clean URL.
+* [ ] Verify the same content is not reachable at both trailing-slash and non-trailing-slash URLs.
+* [ ] Verify uppercase and lowercase paths do not both resolve.
+* [ ] Verify print, AMP or alternate views canonicalise correctly.
+
+## International
+
+* [ ] Verify `hreflang` annotations are reciprocal — every version points to every other, including itself.
+* [ ] Verify an `x-default` exists for visitors who match no listed locale.
+* [ ] Verify language and region codes are valid and describe the content, not the customer you wish you had.
+* [ ] Verify `hreflang` and canonical do not contradict each other.
+* [ ] Verify localised pages are actually localised; the same English page on five country URLs is duplication, not internationalisation.
+
+## Links and status codes
+
+* [ ] Verify every important page is reachable from the homepage within three clicks.
+* [ ] Verify there are no orphan pages — in the sitemap but linked from nowhere.
+* [ ] Verify internal anchor text describes the destination rather than saying "click here".
+* [ ] Verify a missing page returns a real 404 status, not a 200 with an error message — a soft 404 keeps the URL indexed forever.
+* [ ] Verify the 404 page helps: search, main navigation, and a link home.
+* [ ] Verify permanent moves use 301, not 302; a 302 tells the crawler to keep the old URL.
+* [ ] Verify no redirect chains or loops, and that no chain is longer than one hop.
+* [ ] Verify outbound links to untrusted or user-generated destinations carry the appropriate `rel`.
+* [ ] Verify broken internal links are found by a crawl before a user finds them.
+
+## Content and parity
+
+* [ ] Verify the mobile page contains the same content as desktop; indexing is mobile-first, so anything hidden on mobile effectively does not exist.
+* [ ] Verify content is not gated behind a cookie banner or a modal that the crawler sees instead of the page.
+* [ ] Verify thin or near-duplicate pages generated from a template are either consolidated or given a reason to exist.
+* [ ] Verify images have descriptive `alt` text, which serves search and accessibility at once.
+* [ ] Verify the site is served over HTTPS everywhere, with no mixed content.
+* [ ] Verify page speed has been dealt with in [`performance/`](checklists/performance/02-core-web-vitals.md) rather than treated as an SEO afterthought.
+
+
+## Structured Data & Social Previews
+
+Telling machines what the page *is*, rather than making them infer it. This is also what decides how your link looks when someone pastes it into Slack.
+
+
+---
+
+
+## Choosing and writing it
+
+* [ ] Verify the schema types chosen actually describe the page — `Organization`, `Product`, `Article`, `SoftwareApplication`, `LocalBusiness` — rather than whatever the plugin defaulted to.
+* [ ] Verify JSON-LD is used rather than microdata or RDFa; it is what Google recommends and it is far easier to keep correct.
+* [ ] Verify structured data is server-rendered or otherwise present for a crawler that does not execute your JavaScript.
+* [ ] Verify the markup describes content that is actually visible on the page; marking up something a user cannot see is a policy violation, not a shortcut.
+* [ ] Verify required properties for each type are present, not just the recommended ones.
+
+## The markup worth having
+
+* [ ] Verify the homepage carries `Organization` with a logo, a URL, and `sameAs` links to your real social profiles.
+* [ ] Verify `WebSite` markup exists if you want a sitelinks search box.
+* [ ] Verify `BreadcrumbList` matches the visible breadcrumb and the URL hierarchy.
+* [ ] Verify articles and posts carry `Article` or `BlogPosting` with `author`, `datePublished` and `dateModified`.
+* [ ] Verify `dateModified` changes only when the content actually changed.
+* [ ] Verify product or pricing pages carry `Product` and `Offer` with a real price and currency, and that they stay in sync with the page.
+* [ ] Verify ratings and reviews are marked up only if they are genuine and visible; fabricated `AggregateRating` is a manual-action risk.
+* [ ] Verify `FAQPage` and `HowTo` are used only where they apply, and with the awareness that their rich results have been heavily restricted.
+* [ ] Verify `LocalBusiness` name, address and phone match exactly what appears elsewhere on the web.
+* [ ] Verify `@id` values are stable URLs so entities can be linked rather than duplicated across pages.
+
+## Social previews
+
+* [ ] Verify `og:title`, `og:description`, `og:image`, `og:url` and `og:type` are present on every shareable page.
+* [ ] Verify `og:url` is the canonical absolute URL.
+* [ ] Verify `og:image` is an absolute URL, at least 1200×630, and under the platform size limits.
+* [ ] Verify the preview image is not generated per request in a way that times out the scraper.
+* [ ] Verify `twitter:card` is set, with `summary_large_image` where the image is the point.
+* [ ] Verify the preview actually renders: paste the URL into Slack, iMessage and X, and look.
+* [ ] Verify Open Graph tags are in the initial HTML — scrapers do not run JavaScript.
+* [ ] Verify a default preview image exists for pages that do not define their own.
+
+## Validation and upkeep
+
+* [ ] Validate with the Rich Results Test and the Schema Markup Validator, and fix warnings as well as errors.
+* [ ] Verify the Search Console enhancement reports are clean, and that new errors are noticed.
+* [ ] Verify structured data is generated from the same source as the page content, so the two cannot drift.
+* [ ] Verify a change to the page template cannot silently drop the markup — add it to whatever check runs at build time.
+
+
+## Answer Engines & AI Crawlers
+
+Being usable by the systems that answer questions instead of returning links.
+
+This is newer and less settled than the rest of this domain, so it is written as decisions to make deliberately rather than a settled best practice. The one thing that is already clear: whether AI crawlers may read your site is a choice, and not making it is also a choice.
+
+
+---
+
+
+## Decide crawler access on purpose
+
+* [ ] Inventory which AI crawlers reach you — `GPTBot`, `ClaudeBot`, `PerplexityBot`, `Google-Extended`, `CCBot`, `Bytespider`, `Applebot-Extended` — from your own access logs, not from a blog post.
+* [ ] Decide, and write down, whether each is allowed, and why. "We never looked" is the default and it is rarely the intent.
+* [ ] Verify `Google-Extended` is understood correctly: it controls training and grounding, and blocking it does **not** remove you from AI Overviews, which follow ordinary Googlebot rules.
+* [ ] Verify blocking a crawler in `robots.txt` is understood as a request, not enforcement; block at the edge if the decision has to hold.
+* [ ] Verify AI crawler traffic is not a meaningful share of your origin load, and rate-limit it if it is — see [`security/core/18-abuse-and-availability.md`](checklists/security/core/18-abuse-and-availability.md).
+* [ ] Verify you do not serve different content to AI crawlers than to users; cloaking is a policy violation with every engine that detects it.
+* [ ] Verify the decision is revisited on a schedule, because the crawler list and the trade-offs are both moving.
+
+## Be quotable
+
+* [ ] Verify the first paragraph of an important page answers the question the page is about, rather than warming up to it.
+* [ ] Verify there is a single page that states plainly what the product is, who it is for, and what it costs — models cite the page that says it, not the page that implies it.
+* [ ] Verify pricing is on a page as text, not only inside a calculator widget or an image.
+* [ ] Verify comparison and alternative pages exist if people ask "X versus Y" about your category.
+* [ ] Verify documentation is public and crawlable if you want assistants to answer questions about your product correctly.
+* [ ] Verify answers are not buried behind a tab, an accordion, or a JavaScript fetch that a crawler will not perform.
+* [ ] Verify content carries a visible date, and that stale pages are updated or removed rather than left to be cited.
+* [ ] Consider publishing an `llms.txt` at the root pointing to the pages you would most want quoted — an emerging convention, cheap to add, harmless if ignored.
+
+## Entity clarity
+
+* [ ] Verify your product and company name are used consistently everywhere; a model that sees three spellings treats them as three things.
+* [ ] Verify `Organization` structured data with `sameAs` links your site to the profiles that describe you elsewhere.
+* [ ] Verify the descriptions on your own site, your social profiles, your repository and any directory listing agree with each other.
+* [ ] Verify author and expertise are attributable on content where credibility matters.
+* [ ] Verify third-party pages that describe you — a directory, a marketplace listing, a package registry — say what you would want quoted.
+
+## Check what they actually say
+
+* [ ] Ask the major assistants about your product and record the answers verbatim; this is the only measurement that exists today.
+* [ ] Verify whether the answers cite you or a third party, and whether the third party is right.
+* [ ] Verify factual errors in those answers are traceable to a page you control, and fix the page.
+* [ ] Repeat on a cadence — the answers change without your site changing.
+* [ ] Verify brand mentions in AI answers are watched with the same seriousness as search rankings, in whatever crude way is available.
+
+
+## Analytics & Consent
+
+Knowing what happened, without collecting things you should not have and cannot defend.
+
+
+---
+
+
+## Installed and actually working
+
+* [ ] Verify the analytics script fires on production, confirmed by watching the network request, not by trusting the dashboard.
+* [ ] Verify it is installed exactly once; a duplicate tag through a tag manager doubles every number quietly.
+* [ ] Verify it fires on client-side route changes in a single-page app, or every page after the first is invisible.
+* [ ] Verify the same property is not receiving data from staging and production.
+* [ ] Verify internal and team traffic is excluded, by IP, by a flag, or by a filtered view.
+* [ ] Verify bot and crawler traffic is filtered.
+* [ ] Verify a checkout, signup or other conversion has been completed end to end in production and appears correctly.
+
+## Measure the right things
+
+* [ ] Verify the events you collect map to the steps of the funnel you actually care about, rather than to whatever the SDK sends by default.
+* [ ] Verify each event has a defined name, a defined payload, and one owner — an event taxonomy nobody wrote is an event taxonomy nobody can query.
+* [ ] Verify you can answer the two or three questions the business will ask, before launch, using the events you have.
+* [ ] Verify a metric you would act on has a threshold and an owner; the rest is decoration.
+* [ ] Verify UTM parameters survive your redirects, or attribution silently collapses into direct traffic.
+* [ ] Verify cross-domain tracking works if the journey crosses domains, including to a hosted checkout.
+* [ ] Verify you know roughly what proportion of traffic blocks analytics, so you are not comparing a filtered number to an unfiltered one.
+
+## Privacy and consent
+
+* [ ] Verify no personal data lands in event payloads, page titles or URLs — an email address in a query string ends up in analytics, logs and referrer headers.
+* [ ] Verify the consent banner blocks non-essential tags **before** consent, rather than firing them and asking afterwards.
+* [ ] Verify declining is as easy as accepting, and that the choice is remembered.
+* [ ] Verify consent state is passed to the tools that support it, so measurement degrades rather than lying.
+* [ ] Verify the cookie and storage list in your policy matches what the site actually sets — check with a fresh browser profile.
+* [ ] Verify data retention is set deliberately rather than left at the vendor's maximum.
+* [ ] Verify IP anonymisation or equivalent is on where your jurisdiction expects it.
+* [ ] Verify a data processing agreement exists with each analytics vendor, and that the data region is one you can defend.
+* [ ] Verify your privacy policy describes what you actually collect, in words the reader can act on.
+* [ ] Verify a user can ask for their data to be deleted and that the request reaches the analytics vendor too.
+
+## Keeping it honest
+
+* [ ] Verify a dashboard exists that someone looks at weekly, rather than a tool nobody opens.
+* [ ] Verify an alert fires on a sudden traffic or conversion drop — a deploy that breaks the tracking snippet looks exactly like a traffic collapse.
+* [ ] Verify analytics changes go through the same review as code; a tag manager is a production deploy path with no pull request.
+* [ ] Verify server-side tagging has at least been considered if client-side loss or third-party load is material.
+
+
+## Monitoring & Alerting
+
+Finding out from your own tooling rather than from a customer. Everything here is about shortening the gap between broken and known.
+
+
+---
+
+
+## Is it up
+
+* [ ] Verify an uptime check runs from more than one region, so a regional network problem is distinguishable from an outage.
+* [ ] Verify the check exercises a real user journey — load a page, call an API that touches the database — rather than only a static health endpoint.
+* [ ] Verify a health endpoint returns unhealthy when a dependency it needs is down, rather than always returning 200.
+* [ ] Verify the health endpoint does not leak version numbers, dependency names or configuration.
+* [ ] Verify TLS certificate expiry is monitored with enough warning to act, including on any certificate you renew manually.
+* [ ] Verify domain registration expiry is monitored; it is the least sophisticated outage and one of the most common.
+* [ ] Verify DNS records are monitored for unexpected change.
+* [ ] Verify third-party status pages for your critical dependencies are subscribed to by someone.
+
+## Is it broken
+
+* [ ] Verify error tracking is installed on the backend, the frontend, and any mobile client.
+* [ ] Verify releases are tagged in the error tracker so a new error can be tied to the deploy that introduced it.
+* [ ] Verify source maps are uploaded so frontend stack traces are readable, and are not publicly served.
+* [ ] Verify errors are grouped sensibly rather than arriving as thousands of unique fingerprints.
+* [ ] Verify personal data is scrubbed from error payloads before they leave your infrastructure.
+* [ ] Verify a new error type creates a notification, and that a known noisy one does not.
+* [ ] Verify logs are aggregated somewhere searchable, with a retention period you have chosen.
+* [ ] Verify logs are structured, and that a request can be followed across services by a correlation id.
+* [ ] Verify background jobs, queues and scheduled tasks report failure — silent failure in an async path is the most expensive kind.
+* [ ] Verify a scheduled job that stops running triggers an alert, through a dead-man's-switch or equivalent; nothing failing looks identical to nothing running.
+
+## Is it slow, is it expensive
+
+* [ ] Verify real-user monitoring reports Core Web Vitals from production sessions.
+* [ ] Verify request latency is tracked at p95 and p99, not as an average.
+* [ ] Verify database, queue and external-call latency are visible separately from total request time.
+* [ ] Verify spend has an alert on rate of change, not only a monthly cap.
+* [ ] Verify quota and rate-limit consumption against paid third parties is visible before you hit the ceiling.
+
+## Does anyone find out
+
+* [ ] Verify every alert reaches a human through a channel that person actually watches, and that this has been tested by firing one.
+* [ ] Verify it is written down who responds out of hours — for a solo founder, that means deciding which alerts are allowed to wake you.
+* [ ] Verify every alert is actionable; an alert nobody acts on trains everyone to ignore the channel.
+* [ ] Verify alert thresholds have been tuned at least once since launch rather than left at defaults.
+* [ ] Verify there is one dashboard that answers "is it working right now" without needing to be interpreted.
+* [ ] Verify a public status page exists, or that you have decided deliberately not to have one.
+* [ ] Verify a runbook exists for the three most likely failures, written so that a tired person can follow it.
+* [ ] Verify an incident communication template exists, so writing to customers is not done from scratch at the worst moment.
+* [ ] Verify you can find out what changed — deploys, feature flags, configuration, third-party incidents — on one timeline.
+
+
+
+---
+
 # Stack supplements
 
 ## Android / Kotlin
@@ -5533,6 +5874,21 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 * [ ] Verify `fetch` calls declare their cache behaviour explicitly rather than relying on a framework default that changes between versions.
 * [ ] Verify a single dynamic segment has not opted the whole route tree out of static rendering.
 * [ ] Verify streaming and Suspense boundaries are placed so the shell renders before slow data arrives.
+
+## SEO Fundamentals
+<sub>from [`integrations/02-seo-fundamentals.md`](checklists/integrations/02-seo-fundamentals.md)</sub>
+
+* [ ] Verify the Metadata API (`metadata` or `generateMetadata`) sets title, description and canonical, rather than a client-side `<Head>` that crawlers may not see.
+* [ ] Verify `metadataBase` is set, or relative Open Graph and canonical URLs resolve against the wrong host.
+* [ ] Verify a route that opts out of static rendering has not lost its metadata along with it.
+* [ ] Verify `app/robots.ts` and `app/sitemap.ts` generate from real routes rather than being static files that drift.
+
+## Structured Data & Social Previews
+<sub>from [`integrations/03-structured-data.md`](checklists/integrations/03-structured-data.md)</sub>
+
+* [ ] Verify JSON-LD is rendered in a Server Component; a client-side injection is invisible to most scrapers.
+* [ ] Verify dynamic Open Graph images (`opengraph-image`) render within the scraper's timeout and are cached.
+
 
 
 ## PostgreSQL

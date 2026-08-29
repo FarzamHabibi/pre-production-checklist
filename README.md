@@ -7,7 +7,7 @@ infrastructure, the deploy pipeline, and increasingly the AI agents too — and 
 have a security team to hand it to.
 
 <!-- counts:begin -->
-**3,520 items across 66 checklists** in 2 domains. 89% of them apply to any stack.
+**3,718 items across 72 checklists** in 3 domains. 89% of them apply to any stack.
 <!-- counts:end -->
 
 [![npm](https://img.shields.io/npm/v/prodcheck?color=cb3837&logo=npm)](https://www.npmjs.com/package/prodcheck)
@@ -65,6 +65,7 @@ You are not meant to read this top to bottom. In order of signal-per-minute:
 | **4** | [Prompt injection](checklists/security/ai/02-prompt-injection.md) | Only if you ship an LLM feature — but then, urgently |
 | **5** | [Your service as a weapon](checklists/security/core/18-abuse-and-availability.md#your-service-as-a-weapon) | The one nobody looks for until the suspension email arrives |
 | **6** | [Core Web Vitals](checklists/performance/02-core-web-vitals.md) | If users say it's slow, start here rather than with a score |
+| **7** | [Before you launch](checklists/integrations/01-search-engines.md#before-you-launch--the-ones-that-actually-bite) | Six items. One of them is `noindex` still being on |
 
 Then work section by section. Switching between edge config and database policies
 costs more than it saves.
@@ -80,13 +81,13 @@ checklists/
 │   ├── ai/                773   LLM features, agents, tools, RAG, MCP
 │   └── ai-generated-code/ 548   the bugs AI coding assistants actually write
 ├── performance/                   313   Lighthouse, and what users actually feel
+├── integrations/                  192   search, analytics, monitoring
 ├── scale/                       planned — surviving 10× the load
-├── integrations/                planned — search, analytics, monitoring
-└── stacks/                        374   19 products, spanning every domain
+└── stacks/                        401   19 products, spanning every domain
 ```
 
 Domains are the top level because that is the question you arrive with: *is this about
-security, or speed, or scale?* Two more are planned — see the [roadmap](#roadmap).
+security, or speed, or scale?* One more is planned — see the [roadmap](#roadmap).
 
 ### `security/core/` — applies to you regardless of language
 
@@ -158,6 +159,24 @@ Accessibility sits here because it is scored alongside performance, and because 
 overlap is real — a page that is fast for a screen reader is usually a page with less
 unnecessary markup and JavaScript. The Lighthouse accessibility category is treated as a
 floor, not a ceiling; it catches roughly a third of real issues.
+
+### `integrations/` — being findable, measured and watched
+
+Everything a project has to be *connected to* before launch. Configuration you do once
+and then never think about, which is exactly why it deserves a checklist.
+
+| | Items | | | Items |
+| --- | ---: | --- | --- | ---: |
+| [Search engines](checklists/integrations/01-search-engines.md) | 38 | | [Answer engines & AI crawlers](checklists/integrations/04-answer-engines.md) | 25 |
+| [SEO fundamentals](checklists/integrations/02-seo-fundamentals.md) | 42 | | [Analytics & consent](checklists/integrations/05-analytics-and-consent.md) | 28 |
+| [Structured data & social previews](checklists/integrations/03-structured-data.md) | 27 | | [Monitoring & alerting](checklists/integrations/06-monitoring-and-alerting.md) | 32 |
+
+> Verify `noindex` is removed from production. A staging robots meta tag that shipped is
+> the most common launch mistake there is, and it can cost weeks before anyone notices.
+
+The answer-engine file is written as decisions to make rather than settled practice —
+whether `GPTBot`, `ClaudeBot`, `PerplexityBot` and the rest may read your site is a
+choice, and not making it is also a choice.
 
 ### `stacks/` — only if you use them
 
@@ -243,6 +262,7 @@ Generate a checklist scoped to your project, instead of reading 3,093 items:
 ```bash
 npx prodcheck security --stack django -o SECURITY.md
 npx prodcheck performance -o PERFORMANCE.md
+npx prodcheck integrations -o LAUNCH.md
 ```
 
 ```bash
@@ -313,17 +333,14 @@ The Markdown under `checklists/` is the source of truth; the JSON is generated f
 - [x] `npx prodcheck` — generate a filtered checklist for your stack
 - [x] MCP server — so your coding agent can query the checklist directly
 
-**Next: two more domains**
+**Next: one more domain**
 
 The structure now has room for them, and
 [the plan](https://github.com/FarzamHabibi/pre-production-checklist/blob/main/README.md#roadmap)
 is written before the content, not after.
 
 - [x] **`performance/`** — shipped: 313 items across 9 checklists.
-- [ ] **`integrations/`** — Search Console and Bing Webmaster verified, sitemaps and
-      IndexNow, SEO fundamentals, structured data, answer-engine readiness (`llms.txt`,
-      AI crawler access decided deliberately), analytics with consent, monitoring and
-      alerting that reaches a human.
+- [x] **`integrations/`** — shipped: 192 items across 6 checklists.
 - [ ] **`scale/`** — capacity model, statelessness, the database at 10×, caching,
       queues and backpressure, multi-instance and multi-region, cost per request,
       load testing.

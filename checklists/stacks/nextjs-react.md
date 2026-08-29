@@ -74,3 +74,18 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 * [ ] Verify `fetch` calls declare their cache behaviour explicitly rather than relying on a framework default that changes between versions.
 * [ ] Verify a single dynamic segment has not opted the whole route tree out of static rendering.
 * [ ] Verify streaming and Suspense boundaries are placed so the shell renders before slow data arrives.
+
+## SEO Fundamentals
+<sub>from [`integrations/02-seo-fundamentals.md`](../integrations/02-seo-fundamentals.md)</sub>
+
+* [ ] Verify the Metadata API (`metadata` or `generateMetadata`) sets title, description and canonical, rather than a client-side `<Head>` that crawlers may not see.
+* [ ] Verify `metadataBase` is set, or relative Open Graph and canonical URLs resolve against the wrong host.
+* [ ] Verify a route that opts out of static rendering has not lost its metadata along with it.
+* [ ] Verify `app/robots.ts` and `app/sitemap.ts` generate from real routes rather than being static files that drift.
+
+## Structured Data & Social Previews
+<sub>from [`integrations/03-structured-data.md`](../integrations/03-structured-data.md)</sub>
+
+* [ ] Verify JSON-LD is rendered in a Server Component; a client-side injection is invisible to most scrapers.
+* [ ] Verify dynamic Open Graph images (`opengraph-image`) render within the scraper's timeout and are cached.
+
