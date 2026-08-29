@@ -11,18 +11,18 @@ above it should survive into your file.
 ## The one rule
 
 > **If you can rewrite the item without naming the product and it still makes sense, it
-> belongs in `core/`, not here.**
+> belongs in `security/core/`, not here.**
 
 | | |
 | --- | --- |
 | ✅ Belongs here | `Verify DRF DEFAULT_PERMISSION_CLASSES is restrictive; a missing default means AllowAny.` |
-| ❌ Belongs in `core/` | `Verify authorization is enforced server-side.` |
+| ❌ Belongs in `security/core/` | `Verify authorization is enforced server-side.` |
 | ✅ Belongs here | `Verify html/template is used rather than text/template, which does not escape.` |
-| ❌ Belongs in `core/` | `Verify output is escaped in the correct context.` |
+| ❌ Belongs in `security/core/` | `Verify output is escaped in the correct context.` |
 
 A stack file is a **supplement**. Someone reading it has already been given all 2,756
 stack-agnostic items; you are adding what those cannot express. Aim for **15–35 items**.
-Past roughly 60, most of it belongs in `core/`.
+Past roughly 60, most of it belongs in `security/core/`.
 
 ## File anatomy
 
@@ -37,13 +37,13 @@ skip this file entirely — the core checklists stand on their own.
 ---
 
 ## Backend Application & API      ← H2: which core checklist this group extends.
-<sub>from [`core/04-backend-api.md`](../core/04-backend-api.md)</sub>
+<sub>from [`security/core/04-backend-api.md`](../security/core/04-backend-api.md)</sub>
 
 * [ ] Verify `DEBUG = False` in production, and that no code path re-enables it.
 * [ ] Verify `ALLOWED_HOSTS` is an explicit list, never `['*']`.
 
 ## Database & Row-Level Security  ← another group, another core checklist
-<sub>from [`core/06-database.md`](../core/06-database.md)</sub>
+<sub>from [`security/core/06-database.md`](../security/core/06-database.md)</sub>
 
 * [ ] Search for `.raw(`, `.extra(`, and any f-string formatting inside a query.
 ```
@@ -55,7 +55,7 @@ skip this file entirely — the core checklists stand on their own.
 | **Filename** `<slug>.md` | yes | Becomes `stack_id` in [`data/checklist.json`](../../data/checklist.json). This is what people type: `npx prodcheck --stack django`. Lowercase, hyphens, no spaces. |
 | **H1** `# Display Label` | yes | Becomes `stack`. Human-readable, proper capitalization: `Ruby on Rails`, not `rails`. Both the slug and the label resolve on the command line. |
 | **Intro paragraph** | yes | Copy it verbatim from the template, swapping the product name. It tells a reader who does not use this product that they can skip the file without losing anything. |
-| **H2** `## Checklist Name` | yes | Becomes `section`. **Must match the H1 of a real checklist file** — usually one in `core/`, but `ai/` and `vibe-coding/` are equally valid targets. This is what tells a reader where the item sits in the larger picture. |
+| **H2** `## Checklist Name` | yes | Becomes `section`. **Must match the H1 of a real checklist file** — usually one in `security/core/`, but `security/ai/` and `security/ai-generated-code/` are equally valid targets. This is what tells a reader where the item sits in the larger picture. |
 | `<sub>from ...</sub>` line | yes | The back-link to that core checklist. Relative path from `stacks/`, so it starts `../core/`. |
 | `* [ ] ` items | yes | One verifiable action each. Never `[x]`, never `[N/A]` — the file ships unchecked. |
 
@@ -65,27 +65,27 @@ Use one of these exactly. Most supplements only need two or three of them.
 
 | H2 to write | Back-link path |
 | --- | --- |
-| `Architecture & Threat Model` | `core/01-threat-model.md` |
-| `Authentication & Authorization` | `core/02-authorization.md` |
-| `Sessions, Tokens & Cookies` | `core/03-sessions-tokens.md` |
-| `Backend Application & API` | `core/04-backend-api.md` |
-| `Web Frontend` | `core/05-web-frontend.md` |
-| `Database & Row-Level Security` | `core/06-database.md` |
-| `Object Storage & File Handling` | `core/07-storage-and-files.md` |
-| `Secrets Management & Cryptography` | `core/08-secrets-and-crypto.md` |
-| `Common Web Attack Classes` | `core/09-common-web-attacks.md` |
-| `Business Logic & Race Conditions` | `core/10-business-logic.md` |
-| `Mobile Applications` | `core/11-mobile-apps.md` |
-| `Desktop Applications` | `core/12-desktop-apps.md` |
-| `Runtime, Containers & Hosting` | `core/13-runtime-and-containers.md` |
-| `DNS, CDN, Edge & WAF` | `core/14-edge-dns-waf.md` |
-| `CI/CD & Supply Chain` | `core/15-ci-cd-and-supply-chain.md` |
-| `Monitoring, Detection & Incident Response` | `core/16-monitoring-and-response.md` |
-| `Pre-Release Gates` | `core/17-release-gates.md` |
+| `Architecture & Threat Model` | `security/core/01-threat-model.md` |
+| `Authentication & Authorization` | `security/core/02-authorization.md` |
+| `Sessions, Tokens & Cookies` | `security/core/03-sessions-tokens.md` |
+| `Backend Application & API` | `security/core/04-backend-api.md` |
+| `Web Frontend` | `security/core/05-web-frontend.md` |
+| `Database & Row-Level Security` | `security/core/06-database.md` |
+| `Object Storage & File Handling` | `security/core/07-storage-and-files.md` |
+| `Secrets Management & Cryptography` | `security/core/08-secrets-and-crypto.md` |
+| `Common Web Attack Classes` | `security/core/09-common-web-attacks.md` |
+| `Business Logic & Race Conditions` | `security/core/10-business-logic.md` |
+| `Mobile Applications` | `security/core/11-mobile-apps.md` |
+| `Desktop Applications` | `security/core/12-desktop-apps.md` |
+| `Runtime, Containers & Hosting` | `security/core/13-runtime-and-containers.md` |
+| `DNS, CDN, Edge & WAF` | `security/core/14-edge-dns-waf.md` |
+| `CI/CD & Supply Chain` | `security/core/15-ci-cd-and-supply-chain.md` |
+| `Monitoring, Detection & Incident Response` | `security/core/16-monitoring-and-response.md` |
+| `Pre-Release Gates` | `security/core/17-release-gates.md` |
 
-If your product touches the AI surface, these are valid too — `ai/02-prompt-injection.md`,
-`ai/03-tools-and-agency.md`, `ai/07-multi-agent-and-mcp.md` and the rest of `ai/` and
-`vibe-coding/`. Use the target file's H1 as the heading, exactly as above.
+If your product touches the AI surface, these are valid too — `security/ai/02-prompt-injection.md`,
+`security/ai/03-tools-and-agency.md`, `security/ai/07-multi-agent-and-mcp.md` and the rest of `security/ai/` and
+`security/ai-generated-code/`. Use the target file's H1 as the heading, exactly as above.
 
 ### Writing the items
 
@@ -120,12 +120,12 @@ skip this file entirely — the core checklists stand on their own.
 ---
 
 ## <Exact H1 of a core checklist — see the table above>
-<sub>from [`core/04-backend-api.md`](../core/04-backend-api.md)</sub>
+<sub>from [`security/core/04-backend-api.md`](../security/core/04-backend-api.md)</sub>
 
 * [ ] <A check that only makes sense for this product.>
 * [ ] <Another one.>
 
 ## <Another core checklist>
-<sub>from [`core/06-database.md`](../core/06-database.md)</sub>
+<sub>from [`security/core/06-database.md`](../security/core/06-database.md)</sub>
 
 * [ ] <...>

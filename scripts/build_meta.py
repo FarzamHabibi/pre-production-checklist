@@ -11,10 +11,12 @@ This computes them once from data/checklist.json and writes:
   .github/description.txt   the canonical sidebar text, which CI compares against
                             the live GitHub description
 """
-import json, os, re
+import json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
+sys.path.insert(0, os.path.join(ROOT, "scripts"))
+import tree  # noqa: E402
 
 BEGIN = "<!-- counts:begin -->"
 END = "<!-- counts:end -->"
@@ -23,11 +25,9 @@ END = "<!-- counts:end -->"
 def facts():
     doc = json.load(open("data/checklist.json", encoding="utf-8"))
     c = doc["counts"]
-    files = 0
-    for grp in ["core", "ai", "vibe-coding", "stacks"]:
-        files += sum(1 for f in os.listdir(os.path.join("checklists", grp))
-                     if f.endswith(".md") and f not in ("README.md", "_TEMPLATE.md"))
+    files = sum(1 for _ in tree.walk()) + len(tree.stack_files())
     return {
+        "domains": len(tree.domains()),
         "total": c["total"],
         "files": files,
         "stacks": len(doc["stacks"]),
@@ -39,15 +39,16 @@ def facts():
 def main():
     f = facts()
 
-    headline = (f"**{f['total']:,} security items across {f['files']} checklists.** "
+    headline = (f"**{f['total']:,} items across {f['files']} checklists** in "
+                f"{f['domains']} domain{'s' if f['domains'] > 1 else ''}. "
                 f"{f['portable']}% of them apply to any stack.")
 
-    sidebar = (f"Pre-production security checklists for solo founders. "
+    sidebar = (f"Pre-production checklists for solo founders. "
                f"{f['total']:,} items, {f['portable']}% portable to any stack, "
                f"{f['stacks']} stack supplements — plus AI/agent security and the bugs "
                f"AI coding assistants actually write.")
 
-    npm_desc = (f"Pre-production security checklists for solo founders — {f['total']:,} "
+    npm_desc = (f"Pre-production checklists for solo founders — {f['total']:,} "
                 f"items, {f['portable']}% portable to any stack, {f['stacks']} stack "
                 f"supplements. CLI + MCP server.")
 

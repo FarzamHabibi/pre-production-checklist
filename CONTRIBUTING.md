@@ -34,7 +34,7 @@ the strongest possible argument for keeping an item, and it helps everyone prior
 This is the only rule that really matters:
 
 > **If you can rewrite the item without naming a specific product and it still makes
-> sense, it belongs in `core/`.**
+> sense, it belongs in the domain checklists, not in `stacks/`.**
 
 `stacks/` is for the genuine remainder — currently 374 items out of 3,186 (11.7%).
 Please keep it that small. A checklist that reads as "written for someone else's stack"

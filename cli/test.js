@@ -47,7 +47,7 @@ test('loads and self-reports a consistent total', () => {
 
 test('every item has the fields the schema requires', () => {
   for (const i of D.load().items) {
-    for (const f of ['id', 'text', 'group', 'checklist', 'stack', 'release_gate', 'source']) {
+    for (const f of ['id', 'text', 'domain', 'checklist', 'stack', 'release_gate', 'source']) {
       assert.ok(i[f] !== undefined, `item ${i.id} missing ${f}`)
     }
     assert.ok(i.text.length > 0)
@@ -99,10 +99,16 @@ test('a stack resolves by file slug as well as display label', () => {
   }
 })
 
-test('group and gate filters narrow the set', () => {
+test('domain, area and gate filters narrow the set', () => {
   const doc = D.load()
-  const core = D.query({ groups: ['core'] })
-  assert.strictEqual(core.length, doc.counts.by_group.core)
+  for (const d of D.knownDomains()) {
+    assert.strictEqual(D.query({ domains: [d] }).length, doc.counts.by_domain[d])
+  }
+  const areaTotal = D.knownAreas('security')
+    .reduce((n, a) => n + D.query({ domains: ['security'], areas: [a] }).length, 0)
+  const noArea = D.query({ domains: ['security'] }).filter((i) => !i.area).length
+  assert.strictEqual(areaTotal + noArea, doc.counts.by_domain.security,
+    'areas plus area-less items must account for the whole domain')
   const gate = D.query({ gate: true })
   assert.strictEqual(gate.length, doc.counts.release_gate)
   assert.ok(gate.every((i) => i.release_gate === true))
@@ -115,7 +121,7 @@ test('search is case-insensitive and actually matches', () => {
 })
 
 test('markdown output carries every item and the marking legend', () => {
-  const items = D.query({ groups: ['ai'], limit: 25 })
+  const items = D.query({ areas: ['ai'], limit: 25 })
   const md = D.toMarkdown(items, {})
   assert.strictEqual((md.match(/^\* \[ \] /gm) || []).length, items.length)
   assert.ok(md.includes('[N/A]'))
@@ -146,12 +152,16 @@ test('every stack file follows the documented format', () => {
   // A stack supplement may extend any checklist, not only core/ — Cloudflare has items
   // that belong under the AI checklists, for instance.
   const coreTitles = new Set()
-  for (const grp of ['core', 'ai', 'vibe-coding']) {
-    const d = path.join(__dirname, '..', 'checklists', grp)
-    for (const f of fs.readdirSync(d)) {
-      if (!f.endsWith('.md') || f === 'README.md') continue
-      coreTitles.add(fs.readFileSync(path.join(d, f), 'utf8').split('\n')[0].replace(/^#\s*/, '').trim())
+  const walkTitles = (dir) => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, e.name)
+      if (e.isDirectory()) { walkTitles(full); continue }
+      if (!e.name.endsWith('.md') || e.name === 'README.md' || e.name === '_TEMPLATE.md') continue
+      coreTitles.add(fs.readFileSync(full, 'utf8').split('\n')[0].replace(/^#\s*/, '').trim())
     }
+  }
+  for (const d of D.knownDomains()) {
+    walkTitles(path.join(__dirname, '..', 'checklists', d))
   }
 
   for (const f of fs.readdirSync(dir)) {
@@ -172,7 +182,7 @@ test('every stack file follows the documented format', () => {
     // every H2 is followed by its back-link
     for (let i = 0; i < lines.length; i++) {
       if (!lines[i].startsWith('## ')) continue
-      assert.ok(/^<sub>from \[`(core|ai|vibe-coding)\/[a-z0-9-]+\.md`\]\(\.\.\/(core|ai|vibe-coding)\/[a-z0-9-]+\.md\)<\/sub>$/.test(lines[i + 1] || ''),
+      assert.ok(/^<sub>from \[`[a-z0-9/-]+\.md`\]\(\.\.\/[a-z0-9/-]+\.md\)<\/sub>$/.test(lines[i + 1] || ''),
         `${where}: H2 "${lines[i].slice(3)}" is missing its <sub>from ...</sub> back-link`)
     }
     const items = lines.filter((l) => l.startsWith('* ['))
@@ -192,7 +202,7 @@ test('README item counts agree with the data', () => {
   for (const i of doc.items) {
     perFile.set(i.source.file, (perFile.get(i.source.file) || 0) + 1)
   }
-  const row = /\[[^\]]+\]\((checklists\/(?:core|ai|vibe-coding)\/[a-z0-9-]+\.md)\)\s*\|\s*\*{0,2}(\d+)/g
+  const row = /\[[^\]]+\]\((checklists\/(?!stacks\/)[a-z0-9/-]+\.md)\)\s*\|\s*\*{0,2}(\d+)/g
   let m
   let checked = 0
   while ((m = row.exec(readme)) !== null) {
@@ -203,13 +213,13 @@ test('README item counts agree with the data', () => {
   }
   assert.ok(checked > 20, `only ${checked} README rows were checked — did the tables change shape?`)
 
-  // Per-group totals in the structure block.
-  for (const [group, n] of Object.entries(doc.counts.by_group)) {
-    const re = new RegExp(`${group}/\\s+([\\d,]+) items`)
+  // Per-domain totals in the structure block.
+  for (const [domain, n] of Object.entries(doc.counts.by_domain)) {
+    const re = new RegExp(`${domain}/\\s+([\\d,]+) items`)
     const hit = readme.match(re)
     if (!hit) continue
     assert.strictEqual(Number(hit[1].replace(/,/g, '')), n,
-      `README's structure block says ${group} has ${hit[1]}; it has ${n}`)
+      `README's structure block says ${domain} has ${hit[1]}; it has ${n}`)
   }
 
   // The generated headline.
@@ -230,17 +240,21 @@ test('--help and --version work', () => {
 test('info and stacks subcommands report real numbers', () => {
   const doc = D.load()
   assert.ok(cli('info').includes(String(doc.counts.total)))
+  const list = cli('list')
+  for (const d of D.knownDomains()) assert.ok(list.includes(d), `list omits domain ${d}`)
   const stacks = cli('stacks')
   for (const s of D.knownStacks()) assert.ok(stacks.includes(s), `missing ${s}`)
 })
 
 test('--format count agrees with the library', () => {
-  const n = parseInt(cli('--group', 'core', '--format', 'count').trim(), 10)
-  assert.strictEqual(n, D.query({ groups: ['core'] }).length)
+  const n = parseInt(cli('security', '--format', 'count').trim(), 10)
+  assert.strictEqual(n, D.query({ domains: ['security'] }).length)
+  // the positional domain and the legacy --domain flag must agree
+  assert.strictEqual(cli('--domain', 'security', '--format', 'count').trim(), String(n))
 })
 
 test('--format json emits parseable items', () => {
-  const out = JSON.parse(cli('--group', 'ai', '--limit', '5', '--format', 'json'))
+  const out = JSON.parse(cli('--area', 'ai', '--limit', '5', '--format', 'json'))
   assert.strictEqual(out.length, 5)
   assert.ok(out[0].id && out[0].text)
 })
@@ -252,7 +266,7 @@ test('comma-separated and repeated --stack both work', () => {
 })
 
 test('bad input exits non-zero instead of guessing', () => {
-  for (const args of [['--group', 'nope'], ['--format', 'yaml'], ['--nonsense'], ['badcmd']]) {
+  for (const args of [['nope'], ['--area', 'nope'], ['--format', 'yaml'], ['--nonsense']]) {
     assert.throws(() => execFileSync(process.execPath, [CLI, ...args], { stdio: 'pipe' }),
       `expected failure for: ${args.join(' ')}`)
   }
@@ -260,7 +274,7 @@ test('bad input exits non-zero instead of guessing', () => {
 
 test('--out refuses to clobber an existing file', () => {
   assert.throws(
-    () => execFileSync(process.execPath, [CLI, '--group', 'ai', '--out', 'package.json'],
+    () => execFileSync(process.execPath, [CLI, '--area', 'ai', '--out', 'package.json'],
       { stdio: 'pipe', cwd: path.join(__dirname, '..') }),
     /already exists|Command failed/
   )

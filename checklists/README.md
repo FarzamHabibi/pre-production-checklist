@@ -5,83 +5,94 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**2,812 of the 3,186 items (88%) are stack-agnostic** — everything outside `stacks/`. Only 374 items name a specific product.
+**3,186 items** · 2,812 of them (88%) name no product at all.
+
+| Domain | Items | |
+| --- | ---: | --- |
+| [**Security**](#security) | 3,186 | Not getting breached, abused, or taken down. |
+| [Stack supplements](#stack-supplements) | 374 | 19 products, only if you use them |
 
 ---
 
-## Core — applies to any stack
+<a id="security"></a>
 
-Language- and framework-independent. If you build with Python, Go, Ruby, PHP, Java or anything else, this is your checklist.
+## Security
+
+Not getting breached, abused, or taken down.
+
+### Core
+
+Application, data, infrastructure, delivery and the release gates.
 
 | Checklist | Items |
 | --- | ---: |
-| [Architecture & Threat Model](core/01-threat-model.md) | 25 |
-| [Authentication & Authorization](core/02-authorization.md) | 111 |
-| [Sessions, Tokens & Cookies](core/03-sessions-tokens.md) | 21 |
-| [Backend Application & API](core/04-backend-api.md) | 223 |
-| [Web Frontend](core/05-web-frontend.md) | 127 |
-| [Database & Row-Level Security](core/06-database.md) | 68 |
-| [Object Storage & File Handling](core/07-storage-and-files.md) | 55 |
-| [Secrets Management & Cryptography](core/08-secrets-and-crypto.md) | 47 |
-| [Common Web Attack Classes](core/09-common-web-attacks.md) | 62 |
-| [Business Logic & Race Conditions](core/10-business-logic.md) | 44 |
-| [Mobile Applications](core/11-mobile-apps.md) | 106 |
-| [Desktop Applications](core/12-desktop-apps.md) | 41 |
-| [Runtime, Containers & Hosting](core/13-runtime-and-containers.md) | 93 |
-| [DNS, CDN, Edge & WAF](core/14-edge-dns-waf.md) | 78 |
-| [CI/CD & Supply Chain](core/15-ci-cd-and-supply-chain.md) | 158 |
-| [Monitoring, Detection & Incident Response](core/16-monitoring-and-response.md) | 30 |
-| [Pre-Release Gates](core/17-release-gates.md) | 149 |
-| [Abuse & Availability](core/18-abuse-and-availability.md) | 53 |
+| [Architecture & Threat Model](security/core/01-threat-model.md) | 25 |
+| [Authentication & Authorization](security/core/02-authorization.md) | 111 |
+| [Sessions, Tokens & Cookies](security/core/03-sessions-tokens.md) | 21 |
+| [Backend Application & API](security/core/04-backend-api.md) | 223 |
+| [Web Frontend](security/core/05-web-frontend.md) | 127 |
+| [Database & Row-Level Security](security/core/06-database.md) | 68 |
+| [Object Storage & File Handling](security/core/07-storage-and-files.md) | 55 |
+| [Secrets Management & Cryptography](security/core/08-secrets-and-crypto.md) | 47 |
+| [Common Web Attack Classes](security/core/09-common-web-attacks.md) | 62 |
+| [Business Logic & Race Conditions](security/core/10-business-logic.md) | 44 |
+| [Mobile Applications](security/core/11-mobile-apps.md) | 106 |
+| [Desktop Applications](security/core/12-desktop-apps.md) | 41 |
+| [Runtime, Containers & Hosting](security/core/13-runtime-and-containers.md) | 93 |
+| [DNS, CDN, Edge & WAF](security/core/14-edge-dns-waf.md) | 78 |
+| [CI/CD & Supply Chain](security/core/15-ci-cd-and-supply-chain.md) | 158 |
+| [Monitoring, Detection & Incident Response](security/core/16-monitoring-and-response.md) | 30 |
+| [Pre-Release Gates](security/core/17-release-gates.md) | 149 |
+| [Abuse & Availability](security/core/18-abuse-and-availability.md) | 53 |
 | **Total** | **1,491** |
 
----
+### AI & agents
 
-## AI & agent security
-
-For any product that ships an LLM feature, an agent, tool calling, RAG, or MCP. Stack-agnostic — it does not matter which model provider you use.
+LLM features, agents, tool calling, RAG and MCP.
 
 | Checklist | Items |
 | --- | ---: |
-| [AI Security Architecture & Identity](ai/01-architecture-and-identity.md) | 70 |
-| [Prompt Injection & Goal Hijacking](ai/02-prompt-injection.md) | 91 |
-| [Tool Calling & Excessive Agency](ai/03-tools-and-agency.md) | 66 |
-| [AI Data Access & Privacy](ai/04-data-access-and-privacy.md) | 82 |
-| [AI Output Handling](ai/05-output-handling.md) | 58 |
-| [RAG & Agent Memory](ai/06-rag-and-memory.md) | 51 |
-| [Multi-Agent Systems & MCP](ai/07-multi-agent-and-mcp.md) | 75 |
-| [AI Integrations (email, browser, repos, cloud)](ai/08-integrations.md) | 74 |
-| [AI Cost, Reliability & Audit](ai/09-cost-reliability-audit.md) | 63 |
-| [AI Testing & Red-Team Pack](ai/10-testing-and-red-team.md) | 96 |
-| [AI Release Gate](ai/11-release-gate.md) | 47 |
+| [AI Security Architecture & Identity](security/ai/01-architecture-and-identity.md) | 70 |
+| [Prompt Injection & Goal Hijacking](security/ai/02-prompt-injection.md) | 91 |
+| [Tool Calling & Excessive Agency](security/ai/03-tools-and-agency.md) | 66 |
+| [AI Data Access & Privacy](security/ai/04-data-access-and-privacy.md) | 82 |
+| [AI Output Handling](security/ai/05-output-handling.md) | 58 |
+| [RAG & Agent Memory](security/ai/06-rag-and-memory.md) | 51 |
+| [Multi-Agent Systems & MCP](security/ai/07-multi-agent-and-mcp.md) | 75 |
+| [AI Integrations (email, browser, repos, cloud)](security/ai/08-integrations.md) | 74 |
+| [AI Cost, Reliability & Audit](security/ai/09-cost-reliability-audit.md) | 63 |
+| [AI Testing & Red-Team Pack](security/ai/10-testing-and-red-team.md) | 96 |
+| [AI Release Gate](security/ai/11-release-gate.md) | 47 |
 | **Total** | **773** |
 
----
+### AI-generated code
 
-## Vibe coding — bugs AI assistants write
-
-Organized by class of bug, not by which assistant produced it. Written from real review findings on AI-generated code.
+The bugs AI coding assistants actually write. Also known as vibe coding.
 
 | Checklist | Items |
 | --- | ---: |
-| [AI-Assisted Development Process](vibe-coding/01-process.md) | 22 |
-| [AI-Generated Authorization & Data Bugs](vibe-coding/02-authorization-and-data.md) | 35 |
-| [AI-Generated Application Bugs](vibe-coding/03-backend-frontend-api.md) | 102 |
-| [AI-Generated Crypto, Dependency & Config Bugs](vibe-coding/04-crypto-secrets-deps.md) | 69 |
-| [AI-Generated Error Handling & Logging Bugs](vibe-coding/05-errors-and-logging.md) | 28 |
-| [AI-Generated Infrastructure & Pipeline Bugs](vibe-coding/06-infra-ci-cd.md) | 72 |
-| [Review Blind Spots](vibe-coding/07-review-blind-spots.md) | 74 |
-| [Agent Prompts & PR Review](vibe-coding/08-prompts-and-pr-review.md) | 103 |
-| [Vibe-Coding Release Gate](vibe-coding/09-release-gate.md) | 43 |
+| [AI-Assisted Development Process](security/ai-generated-code/01-process.md) | 22 |
+| [AI-Generated Authorization & Data Bugs](security/ai-generated-code/02-authorization-and-data.md) | 35 |
+| [AI-Generated Application Bugs](security/ai-generated-code/03-backend-frontend-api.md) | 102 |
+| [AI-Generated Crypto, Dependency & Config Bugs](security/ai-generated-code/04-crypto-secrets-deps.md) | 69 |
+| [AI-Generated Error Handling & Logging Bugs](security/ai-generated-code/05-errors-and-logging.md) | 28 |
+| [AI-Generated Infrastructure & Pipeline Bugs](security/ai-generated-code/06-infra-ci-cd.md) | 72 |
+| [Review Blind Spots](security/ai-generated-code/07-review-blind-spots.md) | 74 |
+| [Agent Prompts & PR Review](security/ai-generated-code/08-prompts-and-pr-review.md) | 103 |
+| [Vibe-Coding Release Gate](security/ai-generated-code/09-release-gate.md) | 43 |
 | **Total** | **548** |
 
 ---
 
-## Stack supplements — only if you use them
+<a id="stack-supplements"></a>
 
-The small remainder that genuinely depends on a specific product. **Skip any file for a product you do not use** — the core checklists stand on their own.
+## Stack supplements
 
-| Checklist | Items |
+The small remainder that genuinely depends on a specific product. **Skip any file for a product you do not use** — the domain checklists stand on their own.
+
+One file per product, spanning every domain: each section says which checklist it extends, and items inherit that checklist's domain.
+
+| Product | Items |
 | --- | ---: |
 | [Android / Kotlin](stacks/android-kotlin.md) | 37 |
 | [Cloudflare](stacks/cloudflare.md) | 29 |
@@ -108,4 +119,4 @@ The small remainder that genuinely depends on a specific product. **Skip any fil
 
 ## Don't see your stack?
 
-The core checklists were built to work without any stack file at all. To add one for Django, Rails, Laravel, Go, AWS, Vercel, Fly.io, Android or anything else, copy [`stacks/_TEMPLATE.md`](stacks/_TEMPLATE.md) and open a pull request. See [CONTRIBUTING.md](../CONTRIBUTING.md).
+The domain checklists were built to work without any stack file at all. To add one, copy [`stacks/_TEMPLATE.md`](stacks/_TEMPLATE.md) and open a pull request. See [CONTRIBUTING.md](../CONTRIBUTING.md).

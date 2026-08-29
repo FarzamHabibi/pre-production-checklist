@@ -8,7 +8,7 @@ Items from the core checklists that are specific to **Django**. If you do not us
 
 
 ## Backend Application & API
-<sub>from [`core/04-backend-api.md`](../core/04-backend-api.md)</sub>
+<sub>from [`security/core/04-backend-api.md`](../security/core/04-backend-api.md)</sub>
 
 * [ ] Verify `DEBUG = False` in production, and that no code path re-enables it.
 * [ ] Verify `ALLOWED_HOSTS` is an explicit list, never `['*']`.
@@ -20,7 +20,7 @@ Items from the core checklists that are specific to **Django**. If you do not us
 * [ ] Verify `X_FRAME_OPTIONS` is `DENY` unless framing is required.
 
 ## Authentication & Authorization
-<sub>from [`core/02-authorization.md`](../core/02-authorization.md)</sub>
+<sub>from [`security/core/02-authorization.md`](../security/core/02-authorization.md)</sub>
 
 * [ ] Verify DRF `DEFAULT_PERMISSION_CLASSES` is restrictive; a missing default means `AllowAny`.
 * [ ] Audit every view that sets `permission_classes = [AllowAny]`.
@@ -30,34 +30,34 @@ Items from the core checklists that are specific to **Django**. If you do not us
 * [ ] Verify `@login_required` / `LoginRequiredMixin` is present on every non-public view, including class-based ones.
 
 ## Database & Row-Level Security
-<sub>from [`core/06-database.md`](../core/06-database.md)</sub>
+<sub>from [`security/core/06-database.md`](../security/core/06-database.md)</sub>
 
 * [ ] Search for `.raw(`, `.extra(`, `connection.cursor()` and any f-string or `%` formatting inside a query.
 * [ ] Verify `filter(**request.GET.dict())` or equivalent mass-filtering is not exposed — it lets a caller query relations you did not intend.
 * [ ] Verify `order_by(request.GET['sort'])` is allowlisted.
 
 ## Web Frontend
-<sub>from [`core/05-web-frontend.md`](../core/05-web-frontend.md)</sub>
+<sub>from [`security/core/05-web-frontend.md`](../security/core/05-web-frontend.md)</sub>
 
 * [ ] Search templates for `|safe`, `{% autoescape off %}`, and `mark_safe` in Python.
 * [ ] Verify `json_script` is used for passing data to JavaScript rather than raw interpolation.
 
 ## Sessions, Tokens & Cookies
-<sub>from [`core/03-sessions-tokens.md`](../core/03-sessions-tokens.md)</sub>
+<sub>from [`security/core/03-sessions-tokens.md`](../security/core/03-sessions-tokens.md)</sub>
 
 * [ ] Verify `SESSION_SERIALIZER` is the JSON serializer; the pickle serializer turns session tampering into code execution.
 * [ ] Verify `SECRET_KEY` comes from the environment and differs per environment.
 * [ ] Verify `SESSION_COOKIE_SAMESITE` and `CSRF_COOKIE_SAMESITE` are set.
 
 ## Object Storage & File Handling
-<sub>from [`core/07-storage-and-files.md`](../core/07-storage-and-files.md)</sub>
+<sub>from [`security/core/07-storage-and-files.md`](../security/core/07-storage-and-files.md)</sub>
 
 * [ ] Verify uploaded files are validated by content, not by extension or the client-supplied content type.
 * [ ] Verify `MEDIA_ROOT` is not served by the application in production, and that user uploads cannot be executed.
 * [ ] Verify `FileField`/`ImageField` upload paths cannot be influenced by user input.
 
 ## Pre-Release Gates
-<sub>from [`core/17-release-gates.md`](../core/17-release-gates.md)</sub>
+<sub>from [`security/core/17-release-gates.md`](../security/core/17-release-gates.md)</sub>
 
 * [ ] Verify `django-debug-toolbar` and `django-extensions` are not installed in production.
 * [ ] Verify `pip-audit` or `safety` runs in CI and no known-vulnerable package ships.

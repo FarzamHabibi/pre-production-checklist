@@ -3,42 +3,99 @@
   "$id": "https://raw.githubusercontent.com/FarzamHabibi/pre-production-checklist/main/data/schema.json",
   "title": "Pre-Production Checklist dataset",
   "type": "object",
-  "required": ["version", "counts", "stacks", "items"],
+  "required": [
+    "version",
+    "counts",
+    "stacks",
+    "items"
+  ],
   "properties": {
-    "version": { "type": "integer", "description": "Schema version. Bumped on breaking changes." },
-    "source": { "type": "string", "format": "uri" },
-    "license": { "const": "CC-BY-4.0" },
-    "generated_by": { "type": "string" },
+    "version": {
+      "type": "integer",
+      "description": "Schema version. 2 = domain folders."
+    },
+    "source": {
+      "type": "string",
+      "format": "uri"
+    },
+    "license": {
+      "const": "CC-BY-4.0"
+    },
+    "generated_by": {
+      "type": "string"
+    },
     "counts": {
       "type": "object",
-      "required": ["total", "by_group", "stack_agnostic", "release_gate"],
+      "required": [
+        "total",
+        "by_domain",
+        "stack_agnostic",
+        "release_gate"
+      ],
       "properties": {
-        "total": { "type": "integer" },
-        "by_group": { "type": "object", "additionalProperties": { "type": "integer" } },
-        "stack_agnostic": { "type": "integer" },
-        "release_gate": { "type": "integer" }
+        "total": {
+          "type": "integer"
+        },
+        "stack_agnostic": {
+          "type": "integer"
+        },
+        "release_gate": {
+          "type": "integer"
+        },
+        "by_domain": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        }
       }
     },
     "stacks": {
-      "type": "array", "items": { "type": "string" },
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
       "description": "Every stack label present in the dataset."
     },
     "items": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "text", "group", "checklist", "section", "stack", "release_gate", "source"],
+        "required": [
+          "id",
+          "text",
+          "domain",
+          "checklist",
+          "stack",
+          "release_gate",
+          "source"
+        ],
         "properties": {
           "id": {
             "type": "string",
             "pattern": "^[a-z-]+\\.[a-z0-9-]+\\.[0-9a-f]{8}(-[0-9]+)?$",
-            "description": "Stable identifier: <group>.<file-stem>.<sha1-8 of normalized text>. Stable across reordering; changes if the item's wording changes."
+            "description": "Stable identifier: <domain>.<area>.<file-stem>.<sha1-8> for nested domains, <domain>.<file-stem>.<sha1-8> for flat ones, stacks.<slug>.<sha1-8> for supplements. Changed once at 1.0.0; stable from there."
           },
-          "text": { "type": "string", "description": "The check itself, one verifiable action." },
-          "group": { "enum": ["core", "ai", "vibe-coding", "stacks"] },
-          "checklist": { "type": "string", "description": "Title of the file the item lives in." },
-          "section": { "type": ["string", "null"] },
-          "subsection": { "type": ["string", "null"] },
+          "text": {
+            "type": "string",
+            "description": "The check itself, one verifiable action."
+          },
+          "checklist": {
+            "type": "string",
+            "description": "Title of the file the item lives in."
+          },
+          "section": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "subsection": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "stack": {
             "type": "string",
             "description": "\"any\" for stack-agnostic items, otherwise the product the item names."
@@ -49,13 +106,53 @@
           },
           "source": {
             "type": "object",
-            "required": ["file", "line"],
+            "required": [
+              "file",
+              "line"
+            ],
             "properties": {
-              "file": { "type": "string" },
-              "line": { "type": "integer", "description": "Line in file at generation time. Informational only — do not treat as stable." }
+              "file": {
+                "type": "string"
+              },
+              "line": {
+                "type": "integer",
+                "description": "Line in file at generation time. Informational only — do not treat as stable."
+              }
             }
+          },
+          "domain": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "security",
+              "scale",
+              "performance",
+              "integrations",
+              null
+            ],
+            "description": "Top-level domain. For a stack supplement it is inherited from the checklist each section extends."
+          },
+          "area": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Area within a domain, e.g. core, ai, ai-generated-code. Null for flat domains and stack files."
+          },
+          "stack_id": {
+            "type": "string",
+            "description": "The stack file's slug — what users type. \"any\" for non-stack items."
           }
         }
+      }
+    },
+    "domains": {
+      "type": "array",
+      "description": "Declared domains with their areas.",
+      "items": {
+        "type": "object"
       }
     }
   }

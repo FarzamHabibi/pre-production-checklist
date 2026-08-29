@@ -33,6 +33,22 @@ function knownStacks () {
   return load().stacks.slice()
 }
 
+/** Domain ids in declared order, e.g. ['security', 'performance']. */
+function knownDomains () {
+  return load().domains.map((d) => d.id)
+}
+
+/** Area ids inside a domain, e.g. ['core', 'ai', 'ai-generated-code']. */
+function knownAreas (domain) {
+  const d = load().domains.find((x) => x.id === domain)
+  return d ? d.areas.map((a) => a.id) : []
+}
+
+function domainLabel (id) {
+  const d = load().domains.find((x) => x.id === id)
+  return d ? d.label : id
+}
+
 /**
  * Every string that should resolve to a given stack: its display label and its file slug.
  * Users type the slug they saw in the repo ("rails"), not the label ("Ruby on Rails").
@@ -69,7 +85,8 @@ function resolveStacks (requested) {
 /**
  * @param {object} opts
  * @param {string[]} [opts.stacks]   include supplements for these stacks
- * @param {string[]} [opts.groups]   core | ai | vibe-coding | stacks
+ * @param {string[]} [opts.domains]  security | scale | performance | integrations
+ * @param {string[]} [opts.areas]    areas within a domain, e.g. core, ai
  * @param {string}   [opts.search]   case-insensitive substring on item text
  * @param {boolean}  [opts.gate]     only release-gate items
  * @param {number}   [opts.limit]
@@ -84,9 +101,13 @@ function query (opts = {}) {
   } else if (opts.onlyAgnostic) {
     items = items.filter((i) => i.stack === 'any')
   }
-  if (opts.groups && opts.groups.length) {
-    const want = new Set(opts.groups)
-    items = items.filter((i) => want.has(i.group))
+  if (opts.domains && opts.domains.length) {
+    const want = new Set(opts.domains)
+    items = items.filter((i) => want.has(i.domain))
+  }
+  if (opts.areas && opts.areas.length) {
+    const want = new Set(opts.areas)
+    items = items.filter((i) => want.has(i.area))
   }
   if (opts.search) {
     const q = String(opts.search).toLowerCase()
@@ -107,7 +128,7 @@ function groupItems (items) {
     const k = `${i.checklist}\u0000${i.section}`
     if (k !== key) {
       key = k
-      out.push({ checklist: i.checklist, section: i.section, group: i.group, items: [] })
+      out.push({ checklist: i.checklist, section: i.section, domain: i.domain, items: [] })
     }
     out[out.length - 1].items.push(i)
   }
@@ -155,4 +176,4 @@ function toMarkdown (items, meta = {}) {
   return lines.join('\n')
 }
 
-module.exports = { load, query, knownStacks, stackAliases, resolveStacks, groupItems, toMarkdown, normStack, DATA_PATH }
+module.exports = { load, query, knownStacks, knownDomains, knownAreas, domainLabel, stackAliases, resolveStacks, groupItems, toMarkdown, normStack, DATA_PATH }

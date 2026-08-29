@@ -12,7 +12,7 @@ the cross-platform layer, this covers the platform underneath it, and both apply
 ---
 
 ## Mobile Applications
-<sub>from [`core/11-mobile-apps.md`](../core/11-mobile-apps.md)</sub>
+<sub>from [`security/core/11-mobile-apps.md`](../security/core/11-mobile-apps.md)</sub>
 
 * [ ] Audit every `android:exported="true"` in the manifest — since API 31 it must be declared explicitly, which is a good moment to ask whether each one should be reachable by any app on the device.
 * [ ] Verify exported activities, services and receivers either require a signature-level permission or treat their `Intent` extras as untrusted input.
@@ -32,7 +32,7 @@ the cross-platform layer, this covers the platform underneath it, and both apply
 * [ ] Verify `taskAffinity` and `launchMode` cannot be used for task hijacking, where a malicious app inserts itself into your back stack.
 
 ## Authentication & Authorization
-<sub>from [`core/02-authorization.md`](../core/02-authorization.md)</sub>
+<sub>from [`security/core/02-authorization.md`](../security/core/02-authorization.md)</sub>
 
 * [ ] Verify App Links are verified — `android:autoVerify="true"` plus a reachable `assetlinks.json` — otherwise another app can claim the same link and receive your OAuth redirect.
 * [ ] Verify custom URL schemes are not used for OAuth redirects without PKCE; any app can register the same scheme.
@@ -41,7 +41,7 @@ the cross-platform layer, this covers the platform underneath it, and both apply
 * [ ] Verify no authorization decision depends on a value the client computes, including role flags cached in the app.
 
 ## Web Frontend
-<sub>from [`core/05-web-frontend.md`](../core/05-web-frontend.md)</sub>
+<sub>from [`security/core/05-web-frontend.md`](../security/core/05-web-frontend.md)</sub>
 
 * [ ] Verify `addJavascriptInterface` is not used with content you do not fully control; any exposed method is reachable from the page.
 * [ ] Verify `WebSettings.setAllowFileAccess`, `setAllowFileAccessFromFileURLs` and `setAllowUniversalAccessFromFileURLs` are false unless genuinely required.
@@ -50,7 +50,7 @@ the cross-platform layer, this covers the platform underneath it, and both apply
 * [ ] Verify JavaScript is disabled in WebViews that only render static content.
 
 ## Secrets Management & Cryptography
-<sub>from [`core/08-secrets-and-crypto.md`](../core/08-secrets-and-crypto.md)</sub>
+<sub>from [`security/core/08-secrets-and-crypto.md`](../security/core/08-secrets-and-crypto.md)</sub>
 
 * [ ] Verify no API key or secret is in `BuildConfig`, `strings.xml`, `gradle.properties` or the NDK — every one of these is recoverable from the APK with `apktool` in under a minute.
 * [ ] Verify the release signing keystore and its passwords are not in the repository or in `build.gradle`.
@@ -59,7 +59,7 @@ the cross-platform layer, this covers the platform underneath it, and both apply
 * [ ] Verify certificate pinning, if used, is configured in the network security config or OkHttp's `CertificatePinner`, and that a backup pin exists so rotation does not brick the app.
 
 ## Pre-Release Gates
-<sub>from [`core/17-release-gates.md`](../core/17-release-gates.md)</sub>
+<sub>from [`security/core/17-release-gates.md`](../security/core/17-release-gates.md)</sub>
 
 * [ ] Verify `android:debuggable` is false and `isDebuggable` is not set in the release build type.
 * [ ] Verify R8/ProGuard is enabled for release, and treat it as raising cost rather than as a security control.

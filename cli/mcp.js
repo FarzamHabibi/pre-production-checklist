@@ -17,13 +17,16 @@ const SUPPORTED_PROTOCOLS = ['2025-06-18', '2025-03-26', '2024-11-05']
 const DEFAULT_PROTOCOL = SUPPORTED_PROTOCOLS[0]
 
 const STACK_ENUM_HINT = () => D.knownStacks().join(', ')
+const DOMAIN_ENUM = () => D.knownDomains()
+const AREA_ENUM = () => [...new Set(D.knownDomains().flatMap((d) => D.knownAreas(d)))]
 
 const TOOLS = [
   {
     name: 'checklist_for_stack',
     description:
-      'Return the pre-production security checklist that applies to a given stack: every ' +
-      'stack-agnostic item plus the supplements for the named products. A stack with no ' +
+      'Return the pre-production checklist that applies to a given project: every ' +
+      'stack-agnostic item plus the supplements for the named products, optionally ' +
+      'narrowed to one domain (security, scale, performance, integrations). A stack with no ' +
       'supplement file is not an error — you get the stack-agnostic core, which stands on ' +
       'its own. Use this when asked to review or prepare a project for production.',
     inputSchema: {
@@ -33,10 +36,13 @@ const TOOLS = [
           type: 'array', items: { type: 'string' },
           description: `Products in use. Supplements exist for: ${STACK_ENUM_HINT()}. Any other name is accepted and simply adds nothing.`
         },
-        groups: {
-          type: 'array',
-          items: { type: 'string', enum: ['core', 'ai', 'vibe-coding', 'stacks'] },
-          description: 'core = any stack; ai = LLM/agent features; vibe-coding = bugs AI assistants write. Omit for all.'
+        domains: {
+          type: 'array', items: { type: 'string', enum: DOMAIN_ENUM() },
+          description: 'Which domain(s) to return. Omit for all.'
+        },
+        areas: {
+          type: 'array', items: { type: 'string', enum: AREA_ENUM() },
+          description: 'Narrow to an area within a domain, e.g. core, ai, ai-generated-code.'
         },
         release_gate_only: { type: 'boolean', description: 'Only items that should block a release.' },
         limit: { type: 'integer', description: 'Cap the number of items returned. Omit for all.' }
@@ -54,7 +60,7 @@ const TOOLS = [
       properties: {
         query: { type: 'string', description: 'Case-insensitive substring match on item text.' },
         stacks: { type: 'array', items: { type: 'string' } },
-        groups: { type: 'array', items: { type: 'string', enum: ['core', 'ai', 'vibe-coding', 'stacks'] } },
+        domains: { type: 'array', items: { type: 'string', enum: DOMAIN_ENUM() } },
         limit: { type: 'integer', description: 'Default 50.' }
       }
     }
@@ -107,7 +113,7 @@ function runTool (name, args) {
       const stacks = a.stacks || []
       const { matched, unknown } = D.resolveStacks(stacks)
       const items = D.query({
-        stacks, groups: a.groups, gate: a.release_gate_only, limit: a.limit
+        stacks, domains: a.domains, areas: a.areas, gate: a.release_gate_only, limit: a.limit
       })
       const notes = [`${items.length} items.`]
       if (matched.length) notes.push(`Supplements included: ${matched.join(', ')}.`)
@@ -122,7 +128,7 @@ function runTool (name, args) {
     case 'search_checklist': {
       if (!a.query) throw new Error('search_checklist requires a "query" argument')
       const items = D.query({
-        search: a.query, stacks: a.stacks, groups: a.groups, limit: a.limit || 50
+        search: a.query, stacks: a.stacks, domains: a.domains, limit: a.limit || 50
       })
       return renderItems(items, `${items.length} items matching "${a.query}".`)
     }
@@ -132,19 +138,19 @@ function runTool (name, args) {
     }
     case 'list_checklists': {
       const doc = D.load()
-      const seen = new Map()
-      for (const i of doc.items) {
-        const k = `${i.group}/${i.checklist}`
-        seen.set(k, (seen.get(k) || 0) + 1)
+      const lines = [`${doc.counts.total} items across ${doc.domains.length} domain(s).`, '']
+      for (const d of doc.domains) {
+        lines.push('', `## ${d.label} — ${doc.counts.by_domain[d.id] || 0} items`, '', d.description, '')
+        for (const a of (d.areas.length ? d.areas : [null])) {
+          const sel = doc.items.filter((i) => i.domain === d.id && (!a || i.area === a.id))
+          if (a) lines.push('', `### ${a.label}`, '')
+          const seen = new Map()
+          for (const i of sel) seen.set(i.checklist, (seen.get(i.checklist) || 0) + 1)
+          for (const [title, n] of seen) lines.push(`- ${title} — ${n} items`)
+        }
       }
-      const lines = [`${doc.counts.total} items across ${seen.size} checklists.`, '']
-      let group = null
-      for (const [k, n] of seen) {
-        const [g, title] = k.split('/')
-        if (g !== group) { group = g; lines.push('', `## ${g}`, '') }
-        lines.push(`- ${title} — ${n} items`)
-      }
-      lines.push('', '## stacks with supplement files', '', D.knownStacks().join(', '))
+      lines.push('', '## Stack supplements', '',
+        'One file per product, spanning domains. Available: ' + D.knownStacks().join(', '))
       lines.push('', `${doc.counts.stack_agnostic} of ${doc.counts.total} items name no product at all.`)
       return lines.join('\n')
     }

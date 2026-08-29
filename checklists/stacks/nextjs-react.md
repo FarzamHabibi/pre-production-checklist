@@ -7,7 +7,7 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 ---
 
 ## Web Frontend
-<sub>from [`core/05-web-frontend.md`](../core/05-web-frontend.md)</sub>
+<sub>from [`security/core/05-web-frontend.md`](../security/core/05-web-frontend.md)</sub>
 
 * [ ] Inventory App Router and Pages Router usage.
 * [ ] Inventory Server Components.
@@ -25,12 +25,12 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 * [ ] Verify Next.js upgrades are tested against framework security changes.
 
 ## Pre-Release Gates
-<sub>from [`core/17-release-gates.md`](../core/17-release-gates.md)</sub>
+<sub>from [`security/core/17-release-gates.md`](../security/core/17-release-gates.md)</sub>
 
 * [ ] Next.js source/build audit complete.
 
 ## AI-Generated Application Bugs
-<sub>from [`vibe-coding/03-backend-frontend-api.md`](../vibe-coding/03-backend-frontend-api.md)</sub>
+<sub>from [`security/ai-generated-code/03-backend-frontend-api.md`](../security/ai-generated-code/03-backend-frontend-api.md)</sub>
 
 * [ ] Review all AI-generated Server Actions.
 * [ ] Verify Server Actions perform authentication.
@@ -40,11 +40,11 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 * [ ] Verify generated use of `dangerouslySetInnerHTML`.
 
 ## Review Blind Spots
-<sub>from [`vibe-coding/07-review-blind-spots.md`](../vibe-coding/07-review-blind-spots.md)</sub>
+<sub>from [`security/ai-generated-code/07-review-blind-spots.md`](../security/ai-generated-code/07-review-blind-spots.md)</sub>
 
 * [ ] Verify old Next.js patterns are not copied into Next.js 16+.
 
 ## Agent Prompts & PR Review
-<sub>from [`vibe-coding/08-prompts-and-pr-review.md`](../vibe-coding/08-prompts-and-pr-review.md)</sub>
+<sub>from [`security/ai-generated-code/08-prompts-and-pr-review.md`](../security/ai-generated-code/08-prompts-and-pr-review.md)</sub>
 
 * [ ] Server Action.

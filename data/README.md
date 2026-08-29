@@ -21,14 +21,15 @@ from the Markdown's own structure, so there is no reason to make a human maintai
 
 ```json
 {
-  "version": 1,
+  "version": 2,
   "counts": { "total": 3093, "stack_agnostic": 2756, "release_gate": 236 },
   "stacks": ["Cloudflare", "Docker", "GitHub", "..."],
   "items": [
     {
-      "id": "core.04-backend-api.d1a32978",
+      "id": "security.core.04-backend-api.d1a32978",
       "text": "Rate-limit login.",
-      "group": "core",
+      "domain": "security",
+      "area": "core",
       "checklist": "Backend Application & API",
       "section": "Backend Application Security",
       "subsection": "Abuse / availability",
@@ -42,7 +43,9 @@ from the Markdown's own structure, so there is no reason to make a human maintai
 
 ### `id` stability
 
-`<group>.<file-stem>.<sha1-8 of normalized text>`
+`<domain>.<area>.<file-stem>.<sha1-8>` for nested domains, `<domain>.<file-stem>.<sha1-8>` for flat ones
+
+Ids changed once, at 1.0.0, when the repository moved to domain folders. They are stable from there.
 
 Stable when items are reordered, when a file gains or loses items, and when whitespace or
 casing changes. **Changes when the item's wording changes** — that is intentional: a
@@ -65,7 +68,7 @@ which one you are.
 The reference consumer is [`scripts/query.py`](../scripts/query.py):
 
 ```bash
-./scripts/query.py --stack django --group core        # core + Django supplement
+./scripts/query.py --stack django --domain security   # security + Django supplement
 ./scripts/query.py --stack supabase --release-gate    # what must pass before shipping
 ./scripts/query.py --search cors --format text
 ./scripts/query.py --stack rails --format json        # feed it to something else

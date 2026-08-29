@@ -7,7 +7,7 @@ infrastructure, the deploy pipeline, and increasingly the AI agents too — and 
 have a security team to hand it to.
 
 <!-- counts:begin -->
-**3,186 security items across 57 checklists.** 88% of them apply to any stack.
+**3,186 items across 57 checklists** in 1 domain. 88% of them apply to any stack.
 <!-- counts:end -->
 
 [![npm](https://img.shields.io/npm/v/prodcheck?color=cb3837&logo=npm)](https://www.npmjs.com/package/prodcheck)
@@ -59,11 +59,11 @@ You are not meant to read this top to bottom. In order of signal-per-minute:
 
 | | | |
 | --- | --- | --- |
-| **1** | [Findings that should block release](checklists/core/17-release-gates.md) | If any are true, stop and fix them first |
-| **2** | [The "must not exist" search](checklists/core/17-release-gates.md#high-risk-must-not-exist-search) | A grep list. Fastest real signal in the repo |
-| **3** | [Authentication & authorization](checklists/core/02-authorization.md) | Where almost every exploitable bug actually lives |
-| **4** | [Prompt injection](checklists/ai/02-prompt-injection.md) | Only if you ship an LLM feature — but then, urgently |
-| **5** | [Your service as a weapon](checklists/core/18-abuse-and-availability.md#your-service-as-a-weapon) | The one nobody looks for until the suspension email arrives |
+| **1** | [Findings that should block release](checklists/security/core/17-release-gates.md) | If any are true, stop and fix them first |
+| **2** | [The "must not exist" search](checklists/security/core/17-release-gates.md#high-risk-must-not-exist-search) | A grep list. Fastest real signal in the repo |
+| **3** | [Authentication & authorization](checklists/security/core/02-authorization.md) | Where almost every exploitable bug actually lives |
+| **4** | [Prompt injection](checklists/security/ai/02-prompt-injection.md) | Only if you ship an LLM feature — but then, urgently |
+| **5** | [Your service as a weapon](checklists/security/core/18-abuse-and-availability.md#your-service-as-a-weapon) | The one nobody looks for until the suspension email arrives |
 
 Then work section by section. Switching between edge config and database policies
 costs more than it saves.
@@ -74,13 +74,21 @@ costs more than it saves.
 
 ```
 checklists/
-├── core/          1,491 items — any language, any framework
-├── ai/              773 items — LLM features, agents, tools, RAG, MCP
-├── vibe-coding/     548 items — bugs AI coding assistants actually write
-└── stacks/          374 items — 19 supplements, only if you use the product
+├── security/                    3,186 items
+│   ├── core/            1,491   application, data, infrastructure, delivery
+│   ├── ai/                773   LLM features, agents, tools, RAG, MCP
+│   └── ai-generated-code/ 548   the bugs AI coding assistants actually write
+├── scale/                       planned — surviving 10× the load
+├── performance/                 planned — Lighthouse and what users actually feel
+├── integrations/                planned — search, analytics, monitoring
+└── stacks/                        374   19 products, spanning every domain
 ```
 
-### `core/` — applies to you regardless of language
+Domains are the top level because that is the question you arrive with: *is this about
+security, or speed, or scale?* Three more are planned — see the [roadmap](#roadmap).
+Everything shipped today is security.
+
+### `security/core/` — applies to you regardless of language
 
 Written originally against a TypeScript stack, but the *controls* are not
 TypeScript-specific and the files no longer pretend otherwise. "Verify CORS does not use
@@ -92,18 +100,18 @@ checklist, all 1,491 items of it.**
 
 | | Items | | | Items |
 | --- | ---: | --- | --- | ---: |
-| [Architecture & threat model](checklists/core/01-threat-model.md) | 25 | | [Mobile apps](checklists/core/11-mobile-apps.md) | 106 |
-| [Authentication & authorization](checklists/core/02-authorization.md) | 111 | | [Desktop apps](checklists/core/12-desktop-apps.md) | 41 |
-| [Sessions, tokens & cookies](checklists/core/03-sessions-tokens.md) | 21 | | [Runtime & containers](checklists/core/13-runtime-and-containers.md) | 93 |
-| [Backend application & API](checklists/core/04-backend-api.md) | 223 | | [DNS, CDN, edge & WAF](checklists/core/14-edge-dns-waf.md) | 78 |
-| [Web frontend](checklists/core/05-web-frontend.md) | 127 | | [CI/CD & supply chain](checklists/core/15-ci-cd-and-supply-chain.md) | 158 |
-| [Database & row-level security](checklists/core/06-database.md) | 68 | | [Monitoring & incident response](checklists/core/16-monitoring-and-response.md) | 30 |
-| [Object storage & files](checklists/core/07-storage-and-files.md) | 55 | | [Pre-release gates](checklists/core/17-release-gates.md) | 149 |
-| [Secrets & cryptography](checklists/core/08-secrets-and-crypto.md) | 47 | | | |
-| [Common web attacks](checklists/core/09-common-web-attacks.md) | 62 | | | |
-| [Business logic & race conditions](checklists/core/10-business-logic.md) | 44 | | [**Abuse & availability**](checklists/core/18-abuse-and-availability.md) | **53** |
+| [Architecture & threat model](checklists/security/core/01-threat-model.md) | 25 | | [Mobile apps](checklists/security/core/11-mobile-apps.md) | 106 |
+| [Authentication & authorization](checklists/security/core/02-authorization.md) | 111 | | [Desktop apps](checklists/security/core/12-desktop-apps.md) | 41 |
+| [Sessions, tokens & cookies](checklists/security/core/03-sessions-tokens.md) | 21 | | [Runtime & containers](checklists/security/core/13-runtime-and-containers.md) | 93 |
+| [Backend application & API](checklists/security/core/04-backend-api.md) | 223 | | [DNS, CDN, edge & WAF](checklists/security/core/14-edge-dns-waf.md) | 78 |
+| [Web frontend](checklists/security/core/05-web-frontend.md) | 127 | | [CI/CD & supply chain](checklists/security/core/15-ci-cd-and-supply-chain.md) | 158 |
+| [Database & row-level security](checklists/security/core/06-database.md) | 68 | | [Monitoring & incident response](checklists/security/core/16-monitoring-and-response.md) | 30 |
+| [Object storage & files](checklists/security/core/07-storage-and-files.md) | 55 | | [Pre-release gates](checklists/security/core/17-release-gates.md) | 149 |
+| [Secrets & cryptography](checklists/security/core/08-secrets-and-crypto.md) | 47 | | | |
+| [Common web attacks](checklists/security/core/09-common-web-attacks.md) | 62 | | | |
+| [Business logic & race conditions](checklists/security/core/10-business-logic.md) | 44 | | [**Abuse & availability**](checklists/security/core/18-abuse-and-availability.md) | **53** |
 
-### `ai/` — the part you won't find in a standard checklist
+### `security/ai/` — the part you won't find in a standard checklist
 
 If your product calls a model, gives it tools, retrieves documents into its context, or
 runs an agent, this folder is the reason this repo exists. It is stack-agnostic and
@@ -111,20 +119,21 @@ provider-agnostic.
 
 | | Items | | | Items |
 | --- | ---: | --- | --- | ---: |
-| [Architecture & identity](checklists/ai/01-architecture-and-identity.md) | 70 | | [Multi-agent & MCP](checklists/ai/07-multi-agent-and-mcp.md) | 75 |
-| [Prompt injection & goal hijacking](checklists/ai/02-prompt-injection.md) | 91 | | [Integrations](checklists/ai/08-integrations.md) | 74 |
-| [Tool calling & excessive agency](checklists/ai/03-tools-and-agency.md) | 66 | | [Cost, reliability & audit](checklists/ai/09-cost-reliability-audit.md) | 63 |
-| [Data access & privacy](checklists/ai/04-data-access-and-privacy.md) | 82 | | [Testing & red-team pack](checklists/ai/10-testing-and-red-team.md) | 96 |
-| [Output handling](checklists/ai/05-output-handling.md) | 58 | | [Release gate](checklists/ai/11-release-gate.md) | 47 |
-| [RAG & agent memory](checklists/ai/06-rag-and-memory.md) | 51 | | | |
+| [Architecture & identity](checklists/security/ai/01-architecture-and-identity.md) | 70 | | [Multi-agent & MCP](checklists/security/ai/07-multi-agent-and-mcp.md) | 75 |
+| [Prompt injection & goal hijacking](checklists/security/ai/02-prompt-injection.md) | 91 | | [Integrations](checklists/security/ai/08-integrations.md) | 74 |
+| [Tool calling & excessive agency](checklists/security/ai/03-tools-and-agency.md) | 66 | | [Cost, reliability & audit](checklists/security/ai/09-cost-reliability-audit.md) | 63 |
+| [Data access & privacy](checklists/security/ai/04-data-access-and-privacy.md) | 82 | | [Testing & red-team pack](checklists/security/ai/10-testing-and-red-team.md) | 96 |
+| [Output handling](checklists/security/ai/05-output-handling.md) | 58 | | [Release gate](checklists/security/ai/11-release-gate.md) | 47 |
+| [RAG & agent memory](checklists/security/ai/06-rag-and-memory.md) | 51 | | | |
 
 > Prompt injection is not a filtering problem. It is an authorization problem wearing a
 > text costume — untrusted text reaching a privileged execution path.
 
-### `vibe-coding/` — bugs AI assistants actually write
+### `security/ai-generated-code/` — bugs AI assistants write
 
-548 items organized by **class of bug**, not by which assistant produced it. Written from
-real review findings on AI-generated code. [Browse →](checklists/README.md#vibe-coding--bugs-ai-assistants-write)
+Also known as *vibe coding*. 548 items organized by **class of bug**, not by which
+assistant produced it. Written from real review findings on AI-generated code.
+[Browse →](checklists/README.md#security)
 
 ### `stacks/` — only if you use them
 
@@ -208,16 +217,20 @@ pasting into an AI tool. It's generated; edit the files under `checklists/` inst
 Generate a checklist scoped to your project, instead of reading 3,093 items:
 
 ```bash
-npx prodcheck --stack django --group core -o SECURITY.md
+npx prodcheck security --stack django -o SECURITY.md
 ```
 
 ```bash
+npx prodcheck list                                # domains, areas and counts
 npx prodcheck stacks                              # what supplements exist
-npx prodcheck --stack supabase,cloudflare --gate  # release blockers only
-npx prodcheck --group ai -o AI-SECURITY.md        # the LLM/agent surface
+npx prodcheck security --area ai -o AI-SECURITY.md
+npx prodcheck --gate --stack supabase,cloudflare  # release blockers, every domain
 npx prodcheck --search cors --format text
-npx prodcheck --stack rails --format json         # feed it to something else
+npx prodcheck security --stack rails --format json
 ```
+
+The domain is a positional argument — `prodcheck security`, and in time
+`prodcheck performance` — because that is how you would say it. Omit it for everything.
 
 `--stack X` returns every stack-agnostic item plus the supplements for X. **An
 unrecognized stack isn't an error** — you get the stack-agnostic core, which stands on
@@ -274,7 +287,24 @@ The Markdown under `checklists/` is the source of truth; the JSON is generated f
 - [x] `npx prodcheck` — generate a filtered checklist for your stack
 - [x] MCP server — so your coding agent can query the checklist directly
 
-**Next: from a document you read to a review that runs**
+**Next: three more domains**
+
+The structure now has room for them, and
+[the plan](https://github.com/FarzamHabibi/pre-production-checklist/blob/main/README.md#roadmap)
+is written before the content, not after.
+
+- [ ] **`performance/`** — Lighthouse across all four categories, Core Web Vitals with the
+      causes that actually move them, and the field metrics Lighthouse only approximates.
+      Constraint: an item has to be about something a real user feels, not just a score.
+- [ ] **`integrations/`** — Search Console and Bing Webmaster verified, sitemaps and
+      IndexNow, SEO fundamentals, structured data, answer-engine readiness (`llms.txt`,
+      AI crawler access decided deliberately), analytics with consent, monitoring and
+      alerting that reaches a human.
+- [ ] **`scale/`** — capacity model, statelessness, the database at 10×, caching,
+      queues and backpressure, multi-instance and multi-region, cost per request,
+      load testing.
+
+**Then: from a document you read to a review that runs**
 
 Today this generates a checklist. The goal is a tool that actually checks a codebase
 against it, writes a report to your repo root, and re-opens items when the relevant code
@@ -296,7 +326,7 @@ prodcheck gate      exit non-zero if a blocking item is unresolved   (for CI)
       it needs closer to 400.
 
 - [ ] **`check` — the deterministic tier.** Roughly 160 items are answerable by search
-      alone: the [must-not-exist list](checklists/core/17-release-gates.md), unpinned CI
+      alone: the [must-not-exist list](checklists/security/core/17-release-gates.md), unpinned CI
       actions, secrets in a Dockerfile, `dangerouslySetInnerHTML`, wildcard CORS. These
       need no model, cost nothing, cannot hallucinate, and run in CI on every push.
 
