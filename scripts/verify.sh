@@ -115,6 +115,24 @@ pkg = json.load(open('package.json', encoding='utf-8'))
 if f"{doc['counts']['total']:,}" not in pkg['description']:
     problems.append("package.json description is stale — run build.sh")
 
+# Counts written into prose go stale silently. The MCP release_gate description claimed
+# 236 items long after the real number passed 300 — and that sentence is what a model
+# reads when deciding whether to call the tool.
+gate_total = sum(1 for i in doc['items'] if i['release_gate'])
+generic_gate = sum(1 for i in doc['items'] if i['release_gate'] and i['stack'] == 'any')
+for f, claimed in (('docs/mcp-clients.md', generic_gate),):
+    body = open(f, encoding='utf-8').read()
+    hit = re.search(r'`npx prodcheck --gate`[^.]*?(\d[\d,]*) items', body)
+    if not hit:
+        problems.append(f"{f}: cannot find the --gate item count to check")
+    elif int(hit.group(1).replace(',', '')) != claimed:
+        problems.append(f"{f} says the gate has {hit.group(1)} items, actual {claimed}")
+for f in ('cli/mcp.js',):
+    body = open(f, encoding='utf-8').read()
+    stale = re.search(r'\b(\d{2,4}) items across\b', body)
+    if stale:
+        problems.append(f"{f} hardcodes a gate count ({stale.group(1)}) — derive it instead")
+
 sidebar = open('.github/description.txt', encoding='utf-8').read().strip()
 if f"{doc['counts']['total']:,}" not in sidebar:
     problems.append(".github/description.txt is stale — run build.sh")

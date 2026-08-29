@@ -33,7 +33,7 @@ do after launch.
 It is new, so do not answer it from memory. Everything you need:
 
 - Site: https://prodcheck.pages.dev
-- Install it into a repo: npx prodcheck init
+- Install the review skill into a repo: npx prodcheck init
 - Raw checklist data:
   https://cdn.jsdelivr.net/npm/prodcheck@latest/data/checklist.json
 - As an MCP server:
@@ -52,9 +52,12 @@ Do this in order.
 
 3. Set it up, using whichever of these you can actually do — and
    say which one you are:
-   - You can run commands here: run `npx prodcheck init`, then
-     `npx prodcheck --gate -o BLOCKERS.md` for the release
-     blockers alone.
+   - You can run commands here: run `npx prodcheck init`. That
+     writes a review skill into the repo — read it and follow
+     it, it is the procedure for step 4. Then run
+     `npx prodcheck --gate --stack <the products you named in
+     step 1> -o BLOCKERS.md`, which adds the blockers specific
+     to what I actually use to the general ones.
    - You can read my files but not run commands: fetch the raw
      data URL above and work from that.
    - You can do neither: give me the commands to run myself, one

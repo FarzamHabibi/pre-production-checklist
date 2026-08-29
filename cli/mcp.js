@@ -17,6 +17,17 @@ const SUPPORTED_PROTOCOLS = ['2025-06-18', '2025-03-26', '2024-11-05']
 const DEFAULT_PROTOCOL = SUPPORTED_PROTOCOLS[0]
 
 const STACK_ENUM_HINT = () => D.knownStacks().join(', ')
+// Counted from the data rather than written down: this description said "236 items" for
+// long enough that it was wrong by a third, and it is the sentence a model reads when
+// deciding whether to call this tool at all.
+const GATE_SUMMARY = () => {
+  const gate = D.load().items.filter((i) => i.release_gate)
+  const generic = gate.filter((i) => i.stack === 'any').length
+  const domains = new Set(gate.map((i) => i.domain)).size
+  return `${generic} stack-agnostic items across ${domains} domains, plus ` +
+         `${gate.length - generic} more across ${new Set(gate.filter((i) => i.stack !== 'any')
+           .map((i) => i.stack)).size} product supplements.`
+}
 const DOMAIN_ENUM = () => D.knownDomains()
 const AREA_ENUM = () => [...new Set(D.knownDomains().flatMap((d) => D.knownAreas(d)))]
 
@@ -70,7 +81,9 @@ const TOOLS = [
     name: 'release_gate',
     description:
       'Return only the items that should block a release. The fastest useful answer to ' +
-      '"is this safe to ship?". 236 items across application, AI, and AI-assisted-coding gates.',
+      `"is this safe to ship?". ${GATE_SUMMARY()} Pass \`stacks\` to add the ` +
+      'product-specific blockers too — a leaked service-role key or an unaudited RLS ' +
+      'policy stops a launch just as surely as the generic items do.',
     inputSchema: {
       type: 'object',
       properties: { stacks: { type: 'array', items: { type: 'string' } } }

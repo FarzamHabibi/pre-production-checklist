@@ -71,6 +71,7 @@ def parse(path, prefix, domain, area, stack, stack_id, seen):
     # generated checklists.
     lead = None
     section_domain = domain
+    section_gate = path in RELEASE_GATE_FILES
     for lineno, raw in enumerate(open(path, encoding="utf-8"), 1):
         line = raw.rstrip("\n")
         if line.startswith("### "):
@@ -82,8 +83,13 @@ def parse(path, prefix, domain, area, stack, stack_id, seen):
         elif stack:
             m = BACKLINK.match(line)
             if m:
-                # a stack section inherits the domain of the checklist it extends
-                section_domain = tree.domain_of_path("checklists/" + m.group(1)) or domain
+                # a stack section inherits both the domain and the release-gate status of
+                # the checklist it extends. Without the second half, `--gate` returned
+                # nothing product-specific at all: a Stripe or Supabase item that should
+                # stop a launch sat outside the gate purely because of which file it is in.
+                extends = "checklists/" + m.group(1)
+                section_domain = tree.domain_of_path(extends) or domain
+                section_gate = extends in RELEASE_GATE_FILES
         stripped = line.strip()
         if not ITEM.match(line):
             if not stripped:
@@ -112,7 +118,7 @@ def parse(path, prefix, domain, area, stack, stack_id, seen):
             "lead": lead,
             "stack": stack or "any",
             "stack_id": stack_id or "any",
-            "release_gate": path in RELEASE_GATE_FILES,
+            "release_gate": section_gate if stack else path in RELEASE_GATE_FILES,
             "source": {"file": path, "line": lineno},
         })
     return out

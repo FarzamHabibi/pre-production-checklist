@@ -296,6 +296,35 @@ test('every rendered format keeps the lead-in', () => {
   }
 })
 
+test('a stack section inherits the gate status of the checklist it extends', () => {
+  // The gate returned nothing product-specific at all: a leaked Supabase service-role
+  // key sat outside it purely because stack supplements live in their own files. The
+  // back-link already says which checklist a section extends — the domain was inherited
+  // through it and the gate flag was not.
+  const doc = D.load()
+  const gated = doc.items.filter((i) => i.stack !== 'any' && i.release_gate)
+  assert.ok(gated.length > 0, 'no stack supplement contributes a release blocker')
+
+  // and it must not be blanket: most stack items are not blockers
+  const stackItems = doc.items.filter((i) => i.stack !== 'any')
+  assert.ok(gated.length < stackItems.length / 2,
+    `${gated.length} of ${stackItems.length} stack items are gated — the flag is too broad`)
+})
+
+test('naming no stack leaves the gate exactly as it was', () => {
+  // The inheritance must not leak into the default. Someone who runs `prodcheck --gate`
+  // with no --stack is asking for the portable gate and must not receive Supabase items.
+  const bare = D.query({ gate: true })
+  assert.strictEqual(bare.filter((i) => i.stack !== 'any').length, 0,
+    'the bare gate picked up product supplements')
+
+  const scoped = D.query({ gate: true, stacks: ['supabase'] })
+  assert.ok(scoped.length > bare.length, '--stack supabase added no blockers')
+  const foreign = scoped.filter((i) => i.stack !== 'any' && !/supabase/i.test(i.stack))
+  assert.deepStrictEqual(foreign.map((i) => i.stack), [],
+    'another product leaked into the Supabase gate')
+})
+
 // ------------------------------------------------------------------ CLI
 console.log('\ncli')
 

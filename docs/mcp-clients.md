@@ -180,7 +180,9 @@ npx prodcheck performance -n 100              # first 100 items
 ```
 
 `npx prodcheck --gate` is usually the right first paste: 310 items across four domains,
-all of them things that should stop a release.
+all of them things that should stop a release. Add `--stack` for the products you use —
+a leaked `service_role` key or an unaudited RLS policy blocks a launch too, and those
+items only appear when you name the product.
 
 ---
 

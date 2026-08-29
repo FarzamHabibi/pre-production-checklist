@@ -59,7 +59,7 @@
       "post-launch": 192
     },
     "stack_agnostic": 3795,
-    "release_gate": 310
+    "release_gate": 373
   },
   "stacks": [
     "AWS",
@@ -65171,7 +65171,7 @@
       "lead": null,
       "stack": "Android / Kotlin",
       "stack_id": "android-kotlin",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/android-kotlin.md",
         "line": 64
@@ -65188,7 +65188,7 @@
       "lead": null,
       "stack": "Android / Kotlin",
       "stack_id": "android-kotlin",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/android-kotlin.md",
         "line": 65
@@ -65205,7 +65205,7 @@
       "lead": null,
       "stack": "Android / Kotlin",
       "stack_id": "android-kotlin",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/android-kotlin.md",
         "line": 66
@@ -65222,7 +65222,7 @@
       "lead": null,
       "stack": "Android / Kotlin",
       "stack_id": "android-kotlin",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/android-kotlin.md",
         "line": 67
@@ -65239,7 +65239,7 @@
       "lead": null,
       "stack": "Android / Kotlin",
       "stack_id": "android-kotlin",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/android-kotlin.md",
         "line": 68
@@ -65256,7 +65256,7 @@
       "lead": null,
       "stack": "Android / Kotlin",
       "stack_id": "android-kotlin",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/android-kotlin.md",
         "line": 69
@@ -65936,7 +65936,7 @@
       "lead": null,
       "stack": "Cloudflare",
       "stack_id": "cloudflare",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/cloudflare.md",
         "line": 41
@@ -65953,7 +65953,7 @@
       "lead": null,
       "stack": "Cloudflare",
       "stack_id": "cloudflare",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/cloudflare.md",
         "line": 43
@@ -65970,7 +65970,7 @@
       "lead": null,
       "stack": "Cloudflare",
       "stack_id": "cloudflare",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/cloudflare.md",
         "line": 44
@@ -65987,7 +65987,7 @@
       "lead": null,
       "stack": "Cloudflare",
       "stack_id": "cloudflare",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/cloudflare.md",
         "line": 46
@@ -66004,7 +66004,7 @@
       "lead": null,
       "stack": "Cloudflare",
       "stack_id": "cloudflare",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/cloudflare.md",
         "line": 48
@@ -66021,7 +66021,7 @@
       "lead": null,
       "stack": "Cloudflare",
       "stack_id": "cloudflare",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/cloudflare.md",
         "line": 49
@@ -66208,7 +66208,7 @@
       "lead": null,
       "stack": "Cloudflare",
       "stack_id": "cloudflare",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/cloudflare.md",
         "line": 104
@@ -66650,7 +66650,7 @@
       "lead": null,
       "stack": "Django",
       "stack_id": "django",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/django.md",
         "line": 62
@@ -66667,7 +66667,7 @@
       "lead": null,
       "stack": "Django",
       "stack_id": "django",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/django.md",
         "line": 63
@@ -66888,7 +66888,7 @@
       "lead": null,
       "stack": "Docker",
       "stack_id": "docker",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/docker.md",
         "line": 31
@@ -66905,7 +66905,7 @@
       "lead": null,
       "stack": "Docker",
       "stack_id": "docker",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/docker.md",
         "line": 33
@@ -67415,7 +67415,7 @@
       "lead": null,
       "stack": "Express",
       "stack_id": "express",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/express.md",
         "line": 52
@@ -67432,7 +67432,7 @@
       "lead": null,
       "stack": "Express",
       "stack_id": "express",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/express.md",
         "line": 53
@@ -68282,7 +68282,7 @@
       "lead": null,
       "stack": "Flutter",
       "stack_id": "flutter",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/flutter.md",
         "line": 37
@@ -68299,7 +68299,7 @@
       "lead": null,
       "stack": "Flutter",
       "stack_id": "flutter",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/flutter.md",
         "line": 38
@@ -68316,7 +68316,7 @@
       "lead": null,
       "stack": "Flutter",
       "stack_id": "flutter",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/flutter.md",
         "line": 39
@@ -68401,7 +68401,7 @@
       "lead": null,
       "stack": "GitHub",
       "stack_id": "github-actions",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/github-actions.md",
         "line": 21
@@ -68418,7 +68418,7 @@
       "lead": null,
       "stack": "GitHub",
       "stack_id": "github-actions",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/github-actions.md",
         "line": 22
@@ -68656,7 +68656,7 @@
       "lead": null,
       "stack": "GitHub",
       "stack_id": "github-actions",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/github-actions.md",
         "line": 73
@@ -68945,7 +68945,7 @@
       "lead": null,
       "stack": "Go / Gin",
       "stack_id": "go-gin",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/go-gin.md",
         "line": 49
@@ -68962,7 +68962,7 @@
       "lead": null,
       "stack": "Go / Gin",
       "stack_id": "go-gin",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/go-gin.md",
         "line": 50
@@ -68979,7 +68979,7 @@
       "lead": null,
       "stack": "Go / Gin",
       "stack_id": "go-gin",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/go-gin.md",
         "line": 51
@@ -69217,7 +69217,7 @@
       "lead": null,
       "stack": "Google Cloud",
       "stack_id": "google-cloud",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/google-cloud.md",
         "line": 48
@@ -69234,7 +69234,7 @@
       "lead": null,
       "stack": "Google Cloud",
       "stack_id": "google-cloud",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/google-cloud.md",
         "line": 50
@@ -69251,7 +69251,7 @@
       "lead": null,
       "stack": "Google Cloud",
       "stack_id": "google-cloud",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/google-cloud.md",
         "line": 52
@@ -69268,7 +69268,7 @@
       "lead": null,
       "stack": "Google Cloud",
       "stack_id": "google-cloud",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/google-cloud.md",
         "line": 54
@@ -69285,7 +69285,7 @@
       "lead": null,
       "stack": "Google Cloud",
       "stack_id": "google-cloud",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/google-cloud.md",
         "line": 55
@@ -69914,7 +69914,7 @@
       "lead": null,
       "stack": "iOS / Swift",
       "stack_id": "ios-swift",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/ios-swift.md",
         "line": 36
@@ -69931,7 +69931,7 @@
       "lead": null,
       "stack": "iOS / Swift",
       "stack_id": "ios-swift",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/ios-swift.md",
         "line": 38
@@ -70356,7 +70356,7 @@
       "lead": null,
       "stack": "Kubernetes",
       "stack_id": "kubernetes",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/kubernetes.md",
         "line": 55
@@ -70373,7 +70373,7 @@
       "lead": null,
       "stack": "Kubernetes",
       "stack_id": "kubernetes",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/kubernetes.md",
         "line": 56
@@ -70390,7 +70390,7 @@
       "lead": null,
       "stack": "Kubernetes",
       "stack_id": "kubernetes",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/kubernetes.md",
         "line": 57
@@ -70764,7 +70764,7 @@
       "lead": null,
       "stack": "Laravel",
       "stack_id": "laravel",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/laravel.md",
         "line": 58
@@ -70781,7 +70781,7 @@
       "lead": null,
       "stack": "Laravel",
       "stack_id": "laravel",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/laravel.md",
         "line": 59
@@ -70866,7 +70866,7 @@
       "lead": null,
       "stack": "macOS",
       "stack_id": "macos",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/macos.md",
         "line": 24
@@ -70934,7 +70934,7 @@
       "lead": null,
       "stack": "NestJS",
       "stack_id": "nestjs",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/nestjs.md",
         "line": 19
@@ -71223,7 +71223,7 @@
       "lead": null,
       "stack": "Next.js / React",
       "stack_id": "nextjs-react",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
         "line": 30
@@ -72226,7 +72226,7 @@
       "lead": null,
       "stack": "Ruby on Rails",
       "stack_id": "rails",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/rails.md",
         "line": 63
@@ -72243,7 +72243,7 @@
       "lead": null,
       "stack": "Ruby on Rails",
       "stack_id": "rails",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/rails.md",
         "line": 64
@@ -72260,7 +72260,7 @@
       "lead": null,
       "stack": "Ruby on Rails",
       "stack_id": "rails",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/rails.md",
         "line": 65
@@ -72277,7 +72277,7 @@
       "lead": null,
       "stack": "Ruby on Rails",
       "stack_id": "rails",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/rails.md",
         "line": 66
@@ -72515,7 +72515,7 @@
       "lead": null,
       "stack": "React Native",
       "stack_id": "react-native",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/react-native.md",
         "line": 38
@@ -72532,7 +72532,7 @@
       "lead": null,
       "stack": "React Native",
       "stack_id": "react-native",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/react-native.md",
         "line": 39
@@ -72549,7 +72549,7 @@
       "lead": null,
       "stack": "React Native",
       "stack_id": "react-native",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/react-native.md",
         "line": 40
@@ -72872,7 +72872,7 @@
       "lead": null,
       "stack": "Spring Boot",
       "stack_id": "spring",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/spring.md",
         "line": 51
@@ -72889,7 +72889,7 @@
       "lead": null,
       "stack": "Spring Boot",
       "stack_id": "spring",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/spring.md",
         "line": 52
@@ -73212,7 +73212,7 @@
       "lead": null,
       "stack": "Stripe",
       "stack_id": "stripe",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/stripe.md",
         "line": 43
@@ -73229,7 +73229,7 @@
       "lead": null,
       "stack": "Stripe",
       "stack_id": "stripe",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/stripe.md",
         "line": 44
@@ -73331,7 +73331,7 @@
       "lead": null,
       "stack": "Supabase",
       "stack_id": "supabase",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/supabase.md",
         "line": 33
@@ -73348,7 +73348,7 @@
       "lead": null,
       "stack": "Supabase",
       "stack_id": "supabase",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/supabase.md",
         "line": 35
@@ -73365,7 +73365,7 @@
       "lead": null,
       "stack": "Supabase",
       "stack_id": "supabase",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/supabase.md",
         "line": 37
@@ -73382,7 +73382,7 @@
       "lead": null,
       "stack": "Supabase",
       "stack_id": "supabase",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/supabase.md",
         "line": 39
@@ -73399,7 +73399,7 @@
       "lead": null,
       "stack": "Supabase",
       "stack_id": "supabase",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/supabase.md",
         "line": 40
@@ -73416,7 +73416,7 @@
       "lead": null,
       "stack": "Supabase",
       "stack_id": "supabase",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/supabase.md",
         "line": 41
@@ -73518,7 +73518,7 @@
       "lead": "The security architecture should explicitly treat all of these as untrusted unless independently verified:",
       "stack": "Supabase",
       "stack_id": "supabase",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/supabase.md",
         "line": 73
@@ -73603,7 +73603,7 @@
       "lead": null,
       "stack": "Supabase",
       "stack_id": "supabase",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/supabase.md",
         "line": 102
@@ -73620,7 +73620,7 @@
       "lead": null,
       "stack": "Supabase",
       "stack_id": "supabase",
-      "release_gate": false,
+      "release_gate": true,
       "source": {
         "file": "checklists/stacks/supabase.md",
         "line": 103
