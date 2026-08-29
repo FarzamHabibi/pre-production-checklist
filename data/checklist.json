@@ -50,15 +50,15 @@
     }
   ],
   "counts": {
-    "total": 4124,
+    "total": 4196,
     "by_domain": {
       "security": 3186,
-      "scale": 214,
+      "scale": 286,
       "performance": 334,
       "integrations": 198,
       "post-launch": 192
     },
-    "stack_agnostic": 3723,
+    "stack_agnostic": 3795,
     "release_gate": 310
   },
   "stacks": [
@@ -45433,6 +45433,134 @@
       }
     },
     {
+      "id": "scale.01-capacity-model.6aab232c",
+      "text": "Verify the distribution of tenants by size is known, not just the average — a single tenant with a hundred times the median data changes every query plan that touches them.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Capacity Model",
+      "section": "Tenant shape and external ceilings",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/01-capacity-model.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "scale.01-capacity-model.cbcf4482",
+      "text": "Verify the system's behaviour for the largest tenant has been tested, since averages hide exactly the case that breaks first.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Capacity Model",
+      "section": "Tenant shape and external ceilings",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/01-capacity-model.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "scale.01-capacity-model.f68686ab",
+      "text": "Verify one tenant's load cannot degrade another's — the noisy neighbour question, answered rather than assumed.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Capacity Model",
+      "section": "Tenant shape and external ceilings",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/01-capacity-model.md",
+        "line": 49
+      }
+    },
+    {
+      "id": "scale.01-capacity-model.4b4755d8",
+      "text": "Verify per-tenant limits exist on the operations that scale with their data: exports, reports, bulk actions, search.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Capacity Model",
+      "section": "Tenant shape and external ceilings",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/01-capacity-model.md",
+        "line": 50
+      }
+    },
+    {
+      "id": "scale.01-capacity-model.272776f9",
+      "text": "Inventory every third-party service with a rate limit or quota, and record what that ceiling is.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Capacity Model",
+      "section": "Tenant shape and external ceilings",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/01-capacity-model.md",
+        "line": 51
+      }
+    },
+    {
+      "id": "scale.01-capacity-model.87688cde",
+      "text": "Verify each of those ceilings is monitored against current usage, so it is reached in a dashboard rather than in production.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Capacity Model",
+      "section": "Tenant shape and external ceilings",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/01-capacity-model.md",
+        "line": 52
+      }
+    },
+    {
+      "id": "scale.01-capacity-model.145a23b5",
+      "text": "Verify the behaviour at each ceiling is decided: queue, degrade, or fail with an honest error.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Capacity Model",
+      "section": "Tenant shape and external ceilings",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/01-capacity-model.md",
+        "line": 53
+      }
+    },
+    {
+      "id": "scale.01-capacity-model.671d9df8",
+      "text": "Verify a ceiling that requires a sales conversation to raise is known well before you need it raised.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Capacity Model",
+      "section": "Tenant shape and external ceilings",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/01-capacity-model.md",
+        "line": 54
+      }
+    },
+    {
       "id": "scale.02-statelessness.1fdf160a",
       "text": "Inventory every module-level variable that accumulates across requests — caches, counters, maps, singletons.",
       "domain": "scale",
@@ -46617,6 +46745,198 @@
       }
     },
     {
+      "id": "scale.03-database.cc3bdd1f",
+      "text": "Inventory any second data store used for search or analytics — Elasticsearch, OpenSearch, ClickHouse, a vector index — and treat it as having its own capacity model rather than as a feature of the primary database.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Database at Scale",
+      "section": "Search and analytics engines",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/03-database.md",
+        "line": 75
+      }
+    },
+    {
+      "id": "scale.03-database.e6ef138a",
+      "text": "Verify the index can be rebuilt from the source of truth, and know how long a full rebuild takes at current volume.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Database at Scale",
+      "section": "Search and analytics engines",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/03-database.md",
+        "line": 76
+      }
+    },
+    {
+      "id": "scale.03-database.8b56943f",
+      "text": "Verify the application degrades to a slower path when the search cluster is unavailable, rather than failing the page.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Database at Scale",
+      "section": "Search and analytics engines",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/03-database.md",
+        "line": 77
+      }
+    },
+    {
+      "id": "scale.03-database.49aafc77",
+      "text": "Verify indexing happens asynchronously, and that the lag between a write and its appearance in search is known and acceptable to the feature.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Database at Scale",
+      "section": "Search and analytics engines",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/03-database.md",
+        "line": 78
+      }
+    },
+    {
+      "id": "scale.03-database.d9a5cebe",
+      "text": "Verify a user who has just created something can find it, or that the interface does not imply they can.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Database at Scale",
+      "section": "Search and analytics engines",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/03-database.md",
+        "line": 79
+      }
+    },
+    {
+      "id": "scale.03-database.699fa099",
+      "text": "Verify index mapping changes are treated as migrations, with a reindex plan, rather than as configuration.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Database at Scale",
+      "section": "Search and analytics engines",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/03-database.md",
+        "line": 80
+      }
+    },
+    {
+      "id": "scale.03-database.b0d3e27e",
+      "text": "Verify shard count and size were chosen deliberately; both too many small shards and too few large ones degrade differently and neither is obvious.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Database at Scale",
+      "section": "Search and analytics engines",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/03-database.md",
+        "line": 81
+      }
+    },
+    {
+      "id": "scale.03-database.d08166a2",
+      "text": "Verify queries have a timeout and a result cap, so one expensive aggregation cannot occupy the cluster.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Database at Scale",
+      "section": "Search and analytics engines",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/03-database.md",
+        "line": 82
+      }
+    },
+    {
+      "id": "scale.03-database.6104d652",
+      "text": "Verify deep pagination into search results is bounded — the same cost curve as database offsets, usually worse.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Database at Scale",
+      "section": "Search and analytics engines",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/03-database.md",
+        "line": 83
+      }
+    },
+    {
+      "id": "scale.03-database.70f709ed",
+      "text": "Verify the analytical store is not being queried synchronously inside a user request.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Database at Scale",
+      "section": "Search and analytics engines",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/03-database.md",
+        "line": 84
+      }
+    },
+    {
+      "id": "scale.03-database.2d547948",
+      "text": "Verify retention and downsampling exist for time-series and event data, or the analytical store grows without limit.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Database at Scale",
+      "section": "Search and analytics engines",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/03-database.md",
+        "line": 85
+      }
+    },
+    {
+      "id": "scale.03-database.648e546c",
+      "text": "Verify the cost per query is understood for a managed engine billed by scanned data; a missing filter can be expensive rather than slow.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Database at Scale",
+      "section": "Search and analytics engines",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/03-database.md",
+        "line": 86
+      }
+    },
+    {
       "id": "scale.04-caching.056f68cd",
       "text": "Verify every cache key includes the tenant, user or role when the cached value differs by any of them.",
       "domain": "scale",
@@ -47481,6 +47801,166 @@
       }
     },
     {
+      "id": "scale.05-async-and-queues.53718f3c",
+      "text": "Verify the number of concurrent WebSocket or SSE connections a single instance can hold is known, and what happens at that number.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Async Work & Queues",
+      "section": "Realtime and fan-out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/05-async-and-queues.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "scale.05-async-and-queues.e6d117fe",
+      "text": "Verify connections are distributed across instances rather than pinned, so one instance is not the ceiling for the whole product.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Async Work & Queues",
+      "section": "Realtime and fan-out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/05-async-and-queues.md",
+        "line": 57
+      }
+    },
+    {
+      "id": "scale.05-async-and-queues.3e4d9557",
+      "text": "Verify a message published to a channel with many subscribers has a bounded fan-out cost, and that you know what happens at ten times the current subscriber count.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Async Work & Queues",
+      "section": "Realtime and fan-out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/05-async-and-queues.md",
+        "line": 58
+      }
+    },
+    {
+      "id": "scale.05-async-and-queues.17018e40",
+      "text": "Verify a client that disconnects and reconnects does not replay the entire history, and that it can catch up without a full resync.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Async Work & Queues",
+      "section": "Realtime and fan-out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/05-async-and-queues.md",
+        "line": 59
+      }
+    },
+    {
+      "id": "scale.05-async-and-queues.b351dec2",
+      "text": "Verify presence and typing indicators — the highest-frequency, lowest-value messages — are throttled or coalesced.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Async Work & Queues",
+      "section": "Realtime and fan-out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/05-async-and-queues.md",
+        "line": 60
+      }
+    },
+    {
+      "id": "scale.05-async-and-queues.8bda1dca",
+      "text": "Verify a slow consumer is dropped or buffered with a limit, rather than allowed to hold memory on the server indefinitely.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Async Work & Queues",
+      "section": "Realtime and fan-out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/05-async-and-queues.md",
+        "line": 61
+      }
+    },
+    {
+      "id": "scale.05-async-and-queues.4a1a14e3",
+      "text": "Verify reconnect storms are handled: a deploy disconnects every client at once, and they will all reconnect at once unless the backoff is jittered.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Async Work & Queues",
+      "section": "Realtime and fan-out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/05-async-and-queues.md",
+        "line": 62
+      }
+    },
+    {
+      "id": "scale.05-async-and-queues.27c5780a",
+      "text": "Verify the realtime layer degrades to polling rather than breaking, if the product can tolerate it.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Async Work & Queues",
+      "section": "Realtime and fan-out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/05-async-and-queues.md",
+        "line": 63
+      }
+    },
+    {
+      "id": "scale.05-async-and-queues.a411c89b",
+      "text": "Verify realtime delivery is not the only path for anything that must not be lost; it is a delivery optimisation, not a queue.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Async Work & Queues",
+      "section": "Realtime and fan-out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/05-async-and-queues.md",
+        "line": 64
+      }
+    },
+    {
+      "id": "scale.05-async-and-queues.1cbabc25",
+      "text": "Verify authorisation is re-checked on subscribe and on each message, not only at connection time — a long-lived connection outlives a permission change.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Async Work & Queues",
+      "section": "Realtime and fan-out",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/05-async-and-queues.md",
+        "line": 65
+      }
+    },
+    {
       "id": "scale.06-multi-instance-and-region.708fc83f",
       "text": "Verify anything that must happen exactly once uses leader election or a distributed lock, not the assumption that only one instance exists.",
       "domain": "scale",
@@ -47846,6 +48326,198 @@
       "source": {
         "file": "checklists/scale/06-multi-instance-and-region.md",
         "line": 43
+      }
+    },
+    {
+      "id": "scale.06-multi-instance-and-region.1d25cd2e",
+      "text": "Verify every event or message has an explicit schema and a version, so a consumer can tell what it is reading.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Multiple Instances & Regions",
+      "section": "Contracts and versioning",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/06-multi-instance-and-region.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "scale.06-multi-instance-and-region.cf612b3c",
+      "text": "Verify schema changes are additive by default: adding an optional field is safe, removing or renaming one is a breaking change with a migration.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Multiple Instances & Regions",
+      "section": "Contracts and versioning",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/06-multi-instance-and-region.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "scale.06-multi-instance-and-region.73db4eec",
+      "text": "Verify a consumer ignores fields it does not recognise rather than failing on them.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Multiple Instances & Regions",
+      "section": "Contracts and versioning",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/06-multi-instance-and-region.md",
+        "line": 49
+      }
+    },
+    {
+      "id": "scale.06-multi-instance-and-region.3a6dd51b",
+      "text": "Verify producers and consumers can be deployed in either order, because during a rollout both orders happen.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Multiple Instances & Regions",
+      "section": "Contracts and versioning",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/06-multi-instance-and-region.md",
+        "line": 50
+      }
+    },
+    {
+      "id": "scale.06-multi-instance-and-region.91afe953",
+      "text": "Verify old message versions still in a queue or a dead-letter store can be processed by the new consumer, or that they are drained before the change ships.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Multiple Instances & Regions",
+      "section": "Contracts and versioning",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/06-multi-instance-and-region.md",
+        "line": 51
+      }
+    },
+    {
+      "id": "scale.06-multi-instance-and-region.afcceb77",
+      "text": "Verify a schema registry or a checked-in schema file exists, so the contract is somewhere other than in two codebases' assumptions.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Multiple Instances & Regions",
+      "section": "Contracts and versioning",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/06-multi-instance-and-region.md",
+        "line": 52
+      }
+    },
+    {
+      "id": "scale.06-multi-instance-and-region.42a6685e",
+      "text": "Verify breaking API changes are versioned rather than shipped in place, and that the old version has a stated end date.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Multiple Instances & Regions",
+      "section": "Contracts and versioning",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/06-multi-instance-and-region.md",
+        "line": 53
+      }
+    },
+    {
+      "id": "scale.06-multi-instance-and-region.b1f8998e",
+      "text": "Verify clients you do not control — a mobile app, a third-party integration, a webhook consumer — are accounted for in that end date; they upgrade on their own schedule.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Multiple Instances & Regions",
+      "section": "Contracts and versioning",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/06-multi-instance-and-region.md",
+        "line": 54
+      }
+    },
+    {
+      "id": "scale.06-multi-instance-and-region.36e25c16",
+      "text": "Verify the oldest client version still in real use is known, and checked rather than assumed.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Multiple Instances & Regions",
+      "section": "Contracts and versioning",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/06-multi-instance-and-region.md",
+        "line": 55
+      }
+    },
+    {
+      "id": "scale.06-multi-instance-and-region.0652b97b",
+      "text": "Verify a deprecated field or endpoint is instrumented, so the decision to remove it is based on whether anyone still calls it.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Multiple Instances & Regions",
+      "section": "Contracts and versioning",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/06-multi-instance-and-region.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "scale.06-multi-instance-and-region.58b48d5b",
+      "text": "Verify webhook payloads you send are treated as a public API with the same versioning discipline.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Multiple Instances & Regions",
+      "section": "Contracts and versioning",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/06-multi-instance-and-region.md",
+        "line": 57
+      }
+    },
+    {
+      "id": "scale.06-multi-instance-and-region.040b3785",
+      "text": "Verify contract tests exist between services that must agree, so the break is found in CI rather than in production.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Multiple Instances & Regions",
+      "section": "Contracts and versioning",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/06-multi-instance-and-region.md",
+        "line": 58
       }
     },
     {
@@ -48518,6 +49190,486 @@
       "source": {
         "file": "checklists/scale/08-load-testing-and-gates.md",
         "line": 40
+      }
+    },
+    {
+      "id": "scale.09-service-levels.231e376b",
+      "text": "Write down the two or three user journeys whose health actually represents the product working — not every endpoint, and not the health check.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Pick what to measure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "scale.09-service-levels.c7ff3060",
+      "text": "For each, choose an indicator a user would recognise: did the request succeed, how long did it take, was the data current.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Pick what to measure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "scale.09-service-levels.69c339a9",
+      "text": "Verify each indicator is measured where the user is, not where it is convenient — at the edge or in the client, not at the application after the load balancer has already absorbed the slow part.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Pick what to measure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "scale.09-service-levels.412cba31",
+      "text": "Verify latency is measured as a distribution, not an average; an average stays healthy long after a quarter of requests have become unusable.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Pick what to measure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "scale.09-service-levels.305e1564",
+      "text": "Verify the success indicator counts what the user experiences as failure, including a 200 response that renders an error.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Pick what to measure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "scale.09-service-levels.def3257f",
+      "text": "Verify indicators are attributable — you can tell which journey, which tenant and which region a breach came from without writing a new query.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Pick what to measure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 21
+      }
+    },
+    {
+      "id": "scale.09-service-levels.ad0edc04",
+      "text": "Verify you are not measuring so many things that nothing is watched. Three indicators someone looks at beat thirty nobody does.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Pick what to measure",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "scale.09-service-levels.3c6ed041",
+      "text": "Write down a target for each indicator, as a number and a window: for example 99.5% of checkout requests under 800ms, measured over 28 days.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Set a target you would actually defend",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "scale.09-service-levels.0d58a675",
+      "text": "Verify the target came from what users need rather than from what the system currently does — a target set to today's performance can never be missed and never informs anything.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Set a target you would actually defend",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "scale.09-service-levels.f9067d89",
+      "text": "Verify the target is not 100%. A target you cannot miss is a target that cannot tell you to slow down.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Set a target you would actually defend",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "scale.09-service-levels.aa6823aa",
+      "text": "Verify the cost of the next nine has been considered before promising it; each one is roughly an order of magnitude more work.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Set a target you would actually defend",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "scale.09-service-levels.fa2a165e",
+      "text": "Verify a different target exists for journeys with genuinely different stakes — a payment and an avatar upload should not share one.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Set a target you would actually defend",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "scale.09-service-levels.1a199919",
+      "text": "Verify the target is written where a person deciding what to build next will see it.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Set a target you would actually defend",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "scale.09-service-levels.08199f9a",
+      "text": "Verify the error budget is stated explicitly: a 99.5% target over 28 days is about 3.4 hours of failure you have agreed to tolerate.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Error budgets",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "scale.09-service-levels.b44f336c",
+      "text": "Verify the budget is tracked as it is consumed, not calculated after the month ends.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Error budgets",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "scale.09-service-levels.d293e7d3",
+      "text": "Verify there is a written rule for what happens when it runs out — usually: stop shipping features, spend the next work on reliability.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Error budgets",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "scale.09-service-levels.2a0b5860",
+      "text": "Verify the rule has been agreed by whoever prioritises work, since it is a commitment about their roadmap and not a technical setting.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Error budgets",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "scale.09-service-levels.71e6e900",
+      "text": "Verify an unusually *untouched* budget prompts a question too; it usually means the target is too loose or you are over-provisioning.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Error budgets",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "scale.09-service-levels.b5920627",
+      "text": "Verify planned maintenance is either inside the budget or explicitly excluded, and that the choice is written down.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Error budgets",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "scale.09-service-levels.56d45a76",
+      "text": "Verify burn rate is alerted on, not only total consumption — spending a month's budget in an hour is an incident regardless of the total.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Error budgets",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 41
+      }
+    },
+    {
+      "id": "scale.09-service-levels.e6f34d87",
+      "text": "Verify alerts fire on the indicators above rather than on causes; high CPU is worth a dashboard, a failing journey is worth waking someone.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Alert on symptoms",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "scale.09-service-levels.92856fbd",
+      "text": "Verify a fast burn and a slow burn are handled differently: one pages, the other opens a ticket.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Alert on symptoms",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "scale.09-service-levels.67ee025a",
+      "text": "Verify every paging alert corresponds to something a user is experiencing right now.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Alert on symptoms",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "scale.09-service-levels.f8ddfae5",
+      "text": "Verify an alert that has fired three times without anyone acting is either fixed or deleted.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "Alert on symptoms",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "scale.09-service-levels.a78e6f88",
+      "text": "Verify metric cardinality is bounded — a label carrying a user id, a request id or a URL with parameters multiplies series until the bill or the query time becomes the problem.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "What the measurement costs",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 52
+      }
+    },
+    {
+      "id": "scale.09-service-levels.48ad06b3",
+      "text": "Verify trace sampling is deliberate, with a rate chosen rather than inherited, and that errors are sampled at a higher rate than successes.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "What the measurement costs",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 53
+      }
+    },
+    {
+      "id": "scale.09-service-levels.dca9d096",
+      "text": "Verify log volume is measured and budgeted; observability spend routinely overtakes the infrastructure it observes.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "What the measurement costs",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 54
+      }
+    },
+    {
+      "id": "scale.09-service-levels.6a881ea6",
+      "text": "Verify retention differs by signal — raw traces for days, aggregated indicators for a year, because the questions asked of each are different.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "What the measurement costs",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 55
+      }
+    },
+    {
+      "id": "scale.09-service-levels.500121f3",
+      "text": "Verify the observability stack itself has a capacity limit, and that hitting it degrades collection rather than the application.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "What the measurement costs",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "scale.09-service-levels.d876dd0d",
+      "text": "Verify a dashboard exists that answers \"are we meeting the target\" without interpretation, and that it is the one people actually open.",
+      "domain": "scale",
+      "area": null,
+      "checklist": "Service Levels",
+      "section": "What the measurement costs",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/scale/09-service-levels.md",
+        "line": 57
       }
     },
     {

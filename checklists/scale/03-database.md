@@ -69,3 +69,18 @@ The database is where most products actually stop scaling, and usually for one o
 * [ ] Verify failover has been tested, and that the application reconnects rather than staying broken.
 * [ ] Verify backup restore has been performed end to end and timed, because restore duration at ten times the data is the number that matters.
 * [ ] Verify point-in-time recovery covers the window you would actually need.
+
+## Search and analytics engines
+
+* [ ] Inventory any second data store used for search or analytics — Elasticsearch, OpenSearch, ClickHouse, a vector index — and treat it as having its own capacity model rather than as a feature of the primary database.
+* [ ] Verify the index can be rebuilt from the source of truth, and know how long a full rebuild takes at current volume.
+* [ ] Verify the application degrades to a slower path when the search cluster is unavailable, rather than failing the page.
+* [ ] Verify indexing happens asynchronously, and that the lag between a write and its appearance in search is known and acceptable to the feature.
+* [ ] Verify a user who has just created something can find it, or that the interface does not imply they can.
+* [ ] Verify index mapping changes are treated as migrations, with a reindex plan, rather than as configuration.
+* [ ] Verify shard count and size were chosen deliberately; both too many small shards and too few large ones degrade differently and neither is obvious.
+* [ ] Verify queries have a timeout and a result cap, so one expensive aggregation cannot occupy the cluster.
+* [ ] Verify deep pagination into search results is bounded — the same cost curve as database offsets, usually worse.
+* [ ] Verify the analytical store is not being queried synchronously inside a user request.
+* [ ] Verify retention and downsampling exist for time-series and event data, or the analytical store grows without limit.
+* [ ] Verify the cost per query is understood for a managed engine billed by scanned data; a missing filter can be expensive rather than slow.

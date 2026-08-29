@@ -7,7 +7,7 @@ infrastructure, the deploy pipeline, and increasingly the AI agents too — and 
 have a security team to hand it to.
 
 <!-- counts:begin -->
-**4,124 items across 88 checklists** in 5 domains. 90% of them apply to any stack.
+**4,196 items across 89 checklists** in 5 domains. 90% of them apply to any stack.
 <!-- counts:end -->
 
 [![npm](https://img.shields.io/npm/v/prodcheck?color=cb3837&logo=npm)](https://www.npmjs.com/package/prodcheck)
@@ -82,7 +82,7 @@ checklists/
 │   ├── ai/                  773   LLM features, agents, tools, RAG, MCP
 │   └── ai-generated-code/   548   the bugs AI coding assistants actually write
 ├── performance/             313   Lighthouse, and what users actually feel
-├── scale/                   214   surviving 10× the load
+├── scale/                   286   surviving 10× the load
 ├── integrations/            192   search, analytics, monitoring
 ├── post-launch/             192   when it goes wrong anyway
 └── stacks/                  401   19 products, spanning every domain
@@ -193,17 +193,21 @@ Written to be read *before* the traffic arrives, not during the incident.
 
 | | Items | | | Items |
 | --- | ---: | --- | --- | ---: |
-| [Capacity model](checklists/scale/01-capacity-model.md) | 21 | | [Async work & queues](checklists/scale/05-async-and-queues.md) | 29 |
-| [Statelessness](checklists/scale/02-statelessness.md) | 26 | | [Multiple instances & regions](checklists/scale/06-multi-instance-and-region.md) | 23 |
-| [Database at scale](checklists/scale/03-database.md) | 48 | | [Cost at scale](checklists/scale/07-cost-at-scale.md) | 19 |
-| [Caching](checklists/scale/04-caching.md) | 25 | | [Load testing & scale gates](checklists/scale/08-load-testing-and-gates.md) | 23 |
+| [Capacity model](checklists/scale/01-capacity-model.md) | 29 | | [Multiple instances & regions](checklists/scale/06-multi-instance-and-region.md) | 35 |
+| [Statelessness](checklists/scale/02-statelessness.md) | 26 | | [Cost at scale](checklists/scale/07-cost-at-scale.md) | 19 |
+| [Database at scale](checklists/scale/03-database.md) | 60 | | [Load testing & scale gates](checklists/scale/08-load-testing-and-gates.md) | 23 |
+| [Caching](checklists/scale/04-caching.md) | 25 | | [**Service levels**](checklists/scale/09-service-levels.md) | **30** |
+| [Async work & queues](checklists/scale/05-async-and-queues.md) | 39 | | | |
 
 > "Will it scale?" is unanswerable. "Will it survive 500 requests per second with a 40:1
 > read/write ratio and one tenant holding 30% of the rows?" has an answer, and the work to
 > find it is mostly arithmetic.
 
 Start with [the capacity model](checklists/scale/01-capacity-model.md); the rest of the
-domain is much less useful until you know which resource runs out first. Cost is in here
+domain is much less useful until you know which resource runs out first. Then
+[service levels](checklists/scale/09-service-levels.md), because without a stated target
+"is it fast enough" is an argument rather than a measurement, and every scaling decision
+after that is made on vibes. Cost is in here
 rather than in a domain of its own because scaling problems and billing problems are the
 same problem seen from two sides.
 
@@ -426,17 +430,35 @@ is written before the content, not after.
 
 - [x] **`performance/`** — shipped: 313 items across 9 checklists.
 - [x] **`integrations/`** — shipped: 192 items across 6 checklists.
-- [x] **`scale/`** — shipped: 214 items across 8 checklists.
+- [x] **`scale/`** — shipped: 286 items across 9 checklists.
 - [x] **`post-launch/`** — shipped: 192 items across 8 checklists. Added after the other
       four, because a gap showed up once they were all in front of a reader: every domain
       described how to build something that does not break, and none asked whether the
       response was prepared for when it breaks anyway.
 
-**Then: from a document you read to a review that runs**
+**Next**
 
-Today this generates a checklist. The goal is a tool that actually checks a codebase
-against it, writes a report to your repo root, and re-opens items when the relevant code
-changes.
+- [x] **Web version** — live at [prodcheck.pages.dev](https://prodcheck.pages.dev): every
+      checklist browsable, filterable and copyable as Markdown, plus a JSON endpoint any
+      tool can fetch.
+- [x] **Deepen `scale/`** — 214 → 286. Added service levels and error budgets, search and
+      analytics engines, realtime fan-out, contract and event versioning, and tenant-shape
+      capacity. The gaps were measured rather than guessed at.
+- [ ] **More stack supplements** — [open issues](https://github.com/FarzamHabibi/pre-production-checklist/issues)
+      for FastAPI, AWS, Kubernetes, Vercel, Firebase, Stripe and GraphQL.
+- [ ] **More domains** — `launch/`, `social/`, `legal/`. The structure absorbs them without
+      moving anything else.
+
+**Later**
+
+### Not started — a review that runs, rather than a document you read
+
+**Parked deliberately, and last.** Everything above is content and tooling that works
+today; this is a different product built on top of it, and shipping it half-done would be
+worse than not shipping it. Recorded here so the design decisions are not lost.
+
+The idea: a tool that checks a codebase against the checklist, writes a report to the repo
+root, and re-opens items when the relevant code changes.
 
 ```
 prodcheck scan      detect stack and features from the repo   -> .prodcheck/profile.json
@@ -489,10 +511,6 @@ prodcheck gate      exit non-zero if a blocking item is unresolved   (for CI)
 > that AI review confirms AI-written code is fine, only makes sense if the design takes
 > that warning seriously. That is what the three constraints above are for.
 
-**Later**
-
-- [ ] Web version
-- [ ] More categories: launch, social, legal, performance
 
 ---
 

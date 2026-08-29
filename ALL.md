@@ -4197,6 +4197,17 @@ Before any of the rest of this domain is worth reading: know your numbers.
 * [ ] Verify they are revisited after each significant traffic change rather than dated at launch and forgotten.
 * [ ] Verify no scaling work has been started before the constraint was identified; buying capacity for the wrong resource is the most common way to spend a month.
 
+## Tenant shape and external ceilings
+
+* [ ] Verify the distribution of tenants by size is known, not just the average — a single tenant with a hundred times the median data changes every query plan that touches them.
+* [ ] Verify the system's behaviour for the largest tenant has been tested, since averages hide exactly the case that breaks first.
+* [ ] Verify one tenant's load cannot degrade another's — the noisy neighbour question, answered rather than assumed.
+* [ ] Verify per-tenant limits exist on the operations that scale with their data: exports, reports, bulk actions, search.
+* [ ] Inventory every third-party service with a rate limit or quota, and record what that ceiling is.
+* [ ] Verify each of those ceilings is monitored against current usage, so it is reached in a dashboard rather than in production.
+* [ ] Verify the behaviour at each ceiling is decided: queue, degrade, or fail with an honest error.
+* [ ] Verify a ceiling that requires a sales conversation to raise is known well before you need it raised.
+
 
 ## Statelessness
 
@@ -4318,6 +4329,21 @@ The database is where most products actually stop scaling, and usually for one o
 * [ ] Verify backup restore has been performed end to end and timed, because restore duration at ten times the data is the number that matters.
 * [ ] Verify point-in-time recovery covers the window you would actually need.
 
+## Search and analytics engines
+
+* [ ] Inventory any second data store used for search or analytics — Elasticsearch, OpenSearch, ClickHouse, a vector index — and treat it as having its own capacity model rather than as a feature of the primary database.
+* [ ] Verify the index can be rebuilt from the source of truth, and know how long a full rebuild takes at current volume.
+* [ ] Verify the application degrades to a slower path when the search cluster is unavailable, rather than failing the page.
+* [ ] Verify indexing happens asynchronously, and that the lag between a write and its appearance in search is known and acceptable to the feature.
+* [ ] Verify a user who has just created something can find it, or that the interface does not imply they can.
+* [ ] Verify index mapping changes are treated as migrations, with a reindex plan, rather than as configuration.
+* [ ] Verify shard count and size were chosen deliberately; both too many small shards and too few large ones degrade differently and neither is obvious.
+* [ ] Verify queries have a timeout and a result cap, so one expensive aggregation cannot occupy the cluster.
+* [ ] Verify deep pagination into search results is bounded — the same cost curve as database offsets, usually worse.
+* [ ] Verify the analytical store is not being queried synchronously inside a user request.
+* [ ] Verify retention and downsampling exist for time-series and event data, or the analytical store grows without limit.
+* [ ] Verify the cost per query is understood for a managed engine billed by scanned data; a missing filter can be expensive rather than slow.
+
 
 ## Caching
 
@@ -4417,6 +4443,19 @@ Moving work out of the request is the standard fix for latency and the standard 
 * [ ] Verify a scheduled job has a dead-man's switch, so a silent scheduler failure is detected.
 * [ ] Verify a correlation id links a job back to the request that created it.
 
+## Realtime and fan-out
+
+* [ ] Verify the number of concurrent WebSocket or SSE connections a single instance can hold is known, and what happens at that number.
+* [ ] Verify connections are distributed across instances rather than pinned, so one instance is not the ceiling for the whole product.
+* [ ] Verify a message published to a channel with many subscribers has a bounded fan-out cost, and that you know what happens at ten times the current subscriber count.
+* [ ] Verify a client that disconnects and reconnects does not replay the entire history, and that it can catch up without a full resync.
+* [ ] Verify presence and typing indicators — the highest-frequency, lowest-value messages — are throttled or coalesced.
+* [ ] Verify a slow consumer is dropped or buffered with a limit, rather than allowed to hold memory on the server indefinitely.
+* [ ] Verify reconnect storms are handled: a deploy disconnects every client at once, and they will all reconnect at once unless the backoff is jittered.
+* [ ] Verify the realtime layer degrades to polling rather than breaking, if the product can tolerate it.
+* [ ] Verify realtime delivery is not the only path for anything that must not be lost; it is a delivery optimisation, not a queue.
+* [ ] Verify authorisation is re-checked on subscribe and on each message, not only at connection time — a long-lived connection outlives a permission change.
+
 
 ## Multiple Instances & Regions
 
@@ -4460,6 +4499,21 @@ What changes when there is more than one of you, and again when they are far apa
 * [ ] Verify split brain is impossible or detected — two primaries accepting writes is worse than an outage.
 * [ ] Verify recovery time and recovery point objectives are numbers someone has measured, not aspirations.
 * [ ] Verify the system recovers on its own after the dependency comes back, without a manual restart.
+
+## Contracts and versioning
+
+* [ ] Verify every event or message has an explicit schema and a version, so a consumer can tell what it is reading.
+* [ ] Verify schema changes are additive by default: adding an optional field is safe, removing or renaming one is a breaking change with a migration.
+* [ ] Verify a consumer ignores fields it does not recognise rather than failing on them.
+* [ ] Verify producers and consumers can be deployed in either order, because during a rollout both orders happen.
+* [ ] Verify old message versions still in a queue or a dead-letter store can be processed by the new consumer, or that they are drained before the change ships.
+* [ ] Verify a schema registry or a checked-in schema file exists, so the contract is somewhere other than in two codebases' assumptions.
+* [ ] Verify breaking API changes are versioned rather than shipped in place, and that the old version has a stated end date.
+* [ ] Verify clients you do not control — a mobile app, a third-party integration, a webhook consumer — are accounted for in that end date; they upgrade on their own schedule.
+* [ ] Verify the oldest client version still in real use is known, and checked rather than assumed.
+* [ ] Verify a deprecated field or endpoint is instrumented, so the decision to remove it is based on whether anyone still calls it.
+* [ ] Verify webhook payloads you send are treated as a public API with the same versioning discipline.
+* [ ] Verify contract tests exist between services that must agree, so the break is found in CI rather than in production.
 
 
 ## Cost at Scale
@@ -4538,6 +4592,64 @@ The point of a load test is not to pass. It is to find what breaks first, fix it
 * [ ] Verify error rate under peak load stays within the target, and that errors are the kind you intended.
 * [ ] Verify there is a documented plan for the load you have not tested: what gets turned off, what gets scaled, who decides.
 * [ ] Verify the numbers from this test are recorded with the release, so the next test has something to compare against.
+
+
+## Service Levels
+
+The rest of this domain is about capacity. None of it says how you decide the system is
+*good enough*, which is the question every scaling decision actually turns on.
+
+Without a stated service level, "is it fast enough" is an argument. With one, it is a
+measurement, and the answer to "should we spend a week on this" stops depending on who is
+in the room.
+
+
+---
+
+## Pick what to measure
+
+* [ ] Write down the two or three user journeys whose health actually represents the product working — not every endpoint, and not the health check.
+* [ ] For each, choose an indicator a user would recognise: did the request succeed, how long did it take, was the data current.
+* [ ] Verify each indicator is measured where the user is, not where it is convenient — at the edge or in the client, not at the application after the load balancer has already absorbed the slow part.
+* [ ] Verify latency is measured as a distribution, not an average; an average stays healthy long after a quarter of requests have become unusable.
+* [ ] Verify the success indicator counts what the user experiences as failure, including a 200 response that renders an error.
+* [ ] Verify indicators are attributable — you can tell which journey, which tenant and which region a breach came from without writing a new query.
+* [ ] Verify you are not measuring so many things that nothing is watched. Three indicators someone looks at beat thirty nobody does.
+
+## Set a target you would actually defend
+
+* [ ] Write down a target for each indicator, as a number and a window: for example 99.5% of checkout requests under 800ms, measured over 28 days.
+* [ ] Verify the target came from what users need rather than from what the system currently does — a target set to today's performance can never be missed and never informs anything.
+* [ ] Verify the target is not 100%. A target you cannot miss is a target that cannot tell you to slow down.
+* [ ] Verify the cost of the next nine has been considered before promising it; each one is roughly an order of magnitude more work.
+* [ ] Verify a different target exists for journeys with genuinely different stakes — a payment and an avatar upload should not share one.
+* [ ] Verify the target is written where a person deciding what to build next will see it.
+
+## Error budgets
+
+* [ ] Verify the error budget is stated explicitly: a 99.5% target over 28 days is about 3.4 hours of failure you have agreed to tolerate.
+* [ ] Verify the budget is tracked as it is consumed, not calculated after the month ends.
+* [ ] Verify there is a written rule for what happens when it runs out — usually: stop shipping features, spend the next work on reliability.
+* [ ] Verify the rule has been agreed by whoever prioritises work, since it is a commitment about their roadmap and not a technical setting.
+* [ ] Verify an unusually *untouched* budget prompts a question too; it usually means the target is too loose or you are over-provisioning.
+* [ ] Verify planned maintenance is either inside the budget or explicitly excluded, and that the choice is written down.
+* [ ] Verify burn rate is alerted on, not only total consumption — spending a month's budget in an hour is an incident regardless of the total.
+
+## Alert on symptoms
+
+* [ ] Verify alerts fire on the indicators above rather than on causes; high CPU is worth a dashboard, a failing journey is worth waking someone.
+* [ ] Verify a fast burn and a slow burn are handled differently: one pages, the other opens a ticket.
+* [ ] Verify every paging alert corresponds to something a user is experiencing right now.
+* [ ] Verify an alert that has fired three times without anyone acting is either fixed or deleted.
+
+## What the measurement costs
+
+* [ ] Verify metric cardinality is bounded — a label carrying a user id, a request id or a URL with parameters multiplies series until the bill or the query time becomes the problem.
+* [ ] Verify trace sampling is deliberate, with a rate chosen rather than inherited, and that errors are sampled at a higher rate than successes.
+* [ ] Verify log volume is measured and budgeted; observability spend routinely overtakes the infrastructure it observes.
+* [ ] Verify retention differs by signal — raw traces for days, aggregated indicators for a year, because the questions asked of each are different.
+* [ ] Verify the observability stack itself has a capacity limit, and that hitting it degrades collection rather than the application.
+* [ ] Verify a dashboard exists that answers "are we meeting the target" without interpretation, and that it is the one people actually open.
 
 
 

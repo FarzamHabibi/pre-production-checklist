@@ -5,12 +5,12 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**4,124 items** · 3,723 of them (90%) name no product at all.
+**4,196 items** · 3,795 of them (90%) name no product at all.
 
 | Domain | Items | |
 | --- | ---: | --- |
 | [**Security**](#security) | 3,186 | Not getting breached, abused, or taken down. |
-| [**Scale**](#scale) | 214 | Surviving ten times the load, and knowing what breaks first. |
+| [**Scale**](#scale) | 286 | Surviving ten times the load, and knowing what breaks first. |
 | [**Performance**](#performance) | 334 | Being fast for a real user, with Lighthouse agreeing. |
 | [**Integrations**](#integrations) | 198 | Being connected: search, analytics, monitoring. |
 | [**Post-launch**](#post-launch) | 192 | When it goes wrong anyway: is the response already decided? |
@@ -96,15 +96,16 @@ Surviving ten times the load, and knowing what breaks first.
 
 | Checklist | Items |
 | --- | ---: |
-| [Capacity Model](scale/01-capacity-model.md) | 21 |
+| [Capacity Model](scale/01-capacity-model.md) | 29 |
 | [Statelessness](scale/02-statelessness.md) | 26 |
-| [Database at Scale](scale/03-database.md) | 48 |
+| [Database at Scale](scale/03-database.md) | 60 |
 | [Caching](scale/04-caching.md) | 25 |
-| [Async Work & Queues](scale/05-async-and-queues.md) | 29 |
-| [Multiple Instances & Regions](scale/06-multi-instance-and-region.md) | 23 |
+| [Async Work & Queues](scale/05-async-and-queues.md) | 39 |
+| [Multiple Instances & Regions](scale/06-multi-instance-and-region.md) | 35 |
 | [Cost at Scale](scale/07-cost-at-scale.md) | 19 |
 | [Load Testing & Scale Gates](scale/08-load-testing-and-gates.md) | 23 |
-| **Total** | **214** |
+| [Service Levels](scale/09-service-levels.md) | 30 |
+| **Total** | **286** |
 
 ---
 

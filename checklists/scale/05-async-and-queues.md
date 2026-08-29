@@ -50,3 +50,16 @@ Moving work out of the request is the standard fix for latency and the standard 
 * [ ] Verify a job type that stops being enqueued triggers an alert; nothing running looks exactly like nothing failing.
 * [ ] Verify a scheduled job has a dead-man's switch, so a silent scheduler failure is detected.
 * [ ] Verify a correlation id links a job back to the request that created it.
+
+## Realtime and fan-out
+
+* [ ] Verify the number of concurrent WebSocket or SSE connections a single instance can hold is known, and what happens at that number.
+* [ ] Verify connections are distributed across instances rather than pinned, so one instance is not the ceiling for the whole product.
+* [ ] Verify a message published to a channel with many subscribers has a bounded fan-out cost, and that you know what happens at ten times the current subscriber count.
+* [ ] Verify a client that disconnects and reconnects does not replay the entire history, and that it can catch up without a full resync.
+* [ ] Verify presence and typing indicators — the highest-frequency, lowest-value messages — are throttled or coalesced.
+* [ ] Verify a slow consumer is dropped or buffered with a limit, rather than allowed to hold memory on the server indefinitely.
+* [ ] Verify reconnect storms are handled: a deploy disconnects every client at once, and they will all reconnect at once unless the backoff is jittered.
+* [ ] Verify the realtime layer degrades to polling rather than breaking, if the product can tolerate it.
+* [ ] Verify realtime delivery is not the only path for anything that must not be lost; it is a delivery optimisation, not a queue.
+* [ ] Verify authorisation is re-checked on subscribe and on each message, not only at connection time — a long-lived connection outlives a permission change.

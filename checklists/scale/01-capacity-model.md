@@ -41,3 +41,14 @@ Before any of the rest of this domain is worth reading: know your numbers.
 * [ ] Verify these numbers are written down somewhere the team can find, not held in one person's head.
 * [ ] Verify they are revisited after each significant traffic change rather than dated at launch and forgotten.
 * [ ] Verify no scaling work has been started before the constraint was identified; buying capacity for the wrong resource is the most common way to spend a month.
+
+## Tenant shape and external ceilings
+
+* [ ] Verify the distribution of tenants by size is known, not just the average — a single tenant with a hundred times the median data changes every query plan that touches them.
+* [ ] Verify the system's behaviour for the largest tenant has been tested, since averages hide exactly the case that breaks first.
+* [ ] Verify one tenant's load cannot degrade another's — the noisy neighbour question, answered rather than assumed.
+* [ ] Verify per-tenant limits exist on the operations that scale with their data: exports, reports, bulk actions, search.
+* [ ] Inventory every third-party service with a rate limit or quota, and record what that ceiling is.
+* [ ] Verify each of those ceilings is monitored against current usage, so it is reached in a dashboard rather than in production.
+* [ ] Verify the behaviour at each ceiling is decided: queue, degrade, or fail with an honest error.
+* [ ] Verify a ceiling that requires a sales conversation to raise is known well before you need it raised.

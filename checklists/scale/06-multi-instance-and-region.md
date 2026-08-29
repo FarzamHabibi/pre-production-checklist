@@ -41,3 +41,18 @@ What changes when there is more than one of you, and again when they are far apa
 * [ ] Verify split brain is impossible or detected — two primaries accepting writes is worse than an outage.
 * [ ] Verify recovery time and recovery point objectives are numbers someone has measured, not aspirations.
 * [ ] Verify the system recovers on its own after the dependency comes back, without a manual restart.
+
+## Contracts and versioning
+
+* [ ] Verify every event or message has an explicit schema and a version, so a consumer can tell what it is reading.
+* [ ] Verify schema changes are additive by default: adding an optional field is safe, removing or renaming one is a breaking change with a migration.
+* [ ] Verify a consumer ignores fields it does not recognise rather than failing on them.
+* [ ] Verify producers and consumers can be deployed in either order, because during a rollout both orders happen.
+* [ ] Verify old message versions still in a queue or a dead-letter store can be processed by the new consumer, or that they are drained before the change ships.
+* [ ] Verify a schema registry or a checked-in schema file exists, so the contract is somewhere other than in two codebases' assumptions.
+* [ ] Verify breaking API changes are versioned rather than shipped in place, and that the old version has a stated end date.
+* [ ] Verify clients you do not control — a mobile app, a third-party integration, a webhook consumer — are accounted for in that end date; they upgrade on their own schedule.
+* [ ] Verify the oldest client version still in real use is known, and checked rather than assumed.
+* [ ] Verify a deprecated field or endpoint is instrumented, so the decision to remove it is based on whether anyone still calls it.
+* [ ] Verify webhook payloads you send are treated as a public API with the same versioning discipline.
+* [ ] Verify contract tests exist between services that must agree, so the break is found in CI rather than in production.
