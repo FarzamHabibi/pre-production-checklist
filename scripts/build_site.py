@@ -80,8 +80,17 @@ p{margin:0 0 15px}
 header.top{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);
   background:color-mix(in srgb,var(--bg) 86%,transparent);border-bottom:1px solid var(--line)}
 header.top .wrap{display:flex;align-items:center;gap:20px;height:56px}
-header.top .brand{font-weight:600;letter-spacing:-.02em;font-size:.95rem}
-header.top .brand b{color:var(--accent)}
+header.top .brand{display:flex;align-items:center;gap:9px;font-weight:620;
+  letter-spacing:-.028em;font-size:1rem}
+header.top .brand .mark{width:23px;height:23px;flex:none;color:var(--accent)}
+header.top .brand b{color:var(--accent);font-weight:620}
+/* Both logotypes visible at once is a duplicate. The header one is revealed only
+   once the hero lockup has scrolled away. JS adds .js-reveal, so with scripting
+   disabled the brand is simply always visible. */
+header.top .brand.js-reveal{opacity:0;transform:translateY(-6px);pointer-events:none;
+  transition:opacity .22s ease,transform .22s ease}
+header.top.scrolled .brand.js-reveal{opacity:1;transform:none;pointer-events:auto}
+@media(prefers-reduced-motion:reduce){header.top .brand.js-reveal{transition:none}}
 header.top nav{margin-left:auto;display:flex;gap:20px;font-size:.875rem}
 header.top nav a{color:var(--dim)}
 header.top nav a:hover{color:var(--fg)}
@@ -128,7 +137,8 @@ header.top nav a:hover{color:var(--fg)}
 .quick .q h4{margin:0 0 3px;font-size:.82rem;font-weight:600;letter-spacing:-.005em}
 .quick .q .sub{font-size:.74rem;color:var(--faint);margin:0 0 10px}
 .quick .q pre{font-size:12.2px;padding:11px 13px;background:var(--bg);
-  overflow-x:visible;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.55}
+  overflow-x:visible;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.55;
+  padding-right:74px}   /* clear the copy button so it never sits on the command */
 .quick .q .more{font-size:.74rem;margin:9px 0 0}
 .quick .q .more a{color:var(--dim);border:0}
 .quick .q .more a:hover{color:var(--accent)}
@@ -171,14 +181,21 @@ section.band.alt{background:color-mix(in srgb,var(--panel) 55%,transparent)}
 .card .who{font-size:.75rem;color:var(--faint);margin:0 0 10px}
 
 .copy{position:relative}
-.copy pre{padding-top:15px}
+.copy pre{padding-top:15px;padding-right:78px;
+  /* wrap rather than scroll: a command you have to scroll to read is a command you
+     cannot check before running, and horizontally scrolled text slides under the button */
+  white-space:pre-wrap;overflow-wrap:anywhere;overflow-x:visible}
 .copy button{position:absolute;top:7px;right:7px;font:inherit;font-size:11px;
-  background:var(--bg);color:var(--faint);border:1px solid var(--line2);
-  border-radius:6px;padding:3px 9px;cursor:pointer;opacity:0;transition:opacity .15s}
-.copy:hover button,.copy button:focus{opacity:1}
-.copy button:hover{color:var(--fg);border-color:var(--accent)}
-.copy button[data-done]{color:var(--accent);border-color:var(--accent);opacity:1}
-@media(hover:none){.copy button{opacity:1}}
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--panel);color:var(--dim);border:1px solid var(--line2);
+  border-radius:7px;padding:4px 9px;cursor:pointer;
+  transition:color .15s,border-color .15s,background .15s}
+.copy button:hover{color:var(--fg);border-color:var(--accent);background:var(--bg)}
+.copy button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.copy button svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round;flex:none}
+.copy button[data-done]{color:var(--accent);border-color:var(--accent)}
+.quick .q .copy button{top:6px;right:6px}
 
 .tools{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));margin:14px 0 0}
 .tools>*{min-width:0}
@@ -224,12 +241,57 @@ document.querySelectorAll('[data-copy]').forEach(function(b){
   b.addEventListener('click', function(){
     var t = document.getElementById(b.getAttribute('data-copy'));
     var s = t ? (t.innerText || t.textContent) : '';
-    navigator.clipboard.writeText(s).then(function(){
-      var o = b.textContent; b.textContent = 'copied'; b.setAttribute('data-done','1');
-      setTimeout(function(){ b.textContent = o; b.removeAttribute('data-done'); }, 1400);
-    });
+    var lab = b.querySelector('span') || b;
+    var done = function(){
+      var o = lab.textContent; lab.textContent = 'copied';
+      b.setAttribute('data-done','1');
+      setTimeout(function(){ lab.textContent = o; b.removeAttribute('data-done'); }, 1500);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(s).then(done, function(){ fallback(s, done); });
+    } else { fallback(s, done); }
   });
 });
+function fallback(s, done){
+  // clipboard API needs a secure context; file:// and plain http do not get one
+  var ta = document.createElement('textarea');
+  ta.value = s; ta.setAttribute('readonly',''); ta.style.position = 'fixed';
+  ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); done(); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+// Reveal the header logo only after the hero lockup has scrolled past, so the two
+// logotypes are never on screen together. Applied in JS rather than CSS so that with
+// scripting disabled the brand simply stays visible.
+(function(){
+  var head = document.querySelector('header.top');
+  var brand = head && head.querySelector('.brand');
+  var anchor = document.querySelector('.hero .lockup');
+  if (!head || !brand) return;
+  if (!anchor) { head.classList.add('scrolled'); return; }   // inner pages: always show
+  brand.classList.add('js-reveal');
+
+  // A scroll listener rather than IntersectionObserver: the threshold is one number,
+  // it is trivially testable, and it behaves identically in every embedding context.
+  // The threshold is measured once, not on every scroll event. getBoundingClientRect
+  // in a scroll handler forces layout on every frame, which performance/06 warns about;
+  // offsetTop cannot be used instead because the lockup's offsetParent is the positioned
+  // .hero .wrap, making it ~0. Rect plus current scroll gives the document offset.
+  var trigger = 0;
+  function measure(){
+    trigger = anchor.getBoundingClientRect().bottom + scrollTop() - 56;   // header height
+  }
+  function scrollTop(){
+    return window.pageYOffset || document.documentElement.scrollTop || 0;
+  }
+  function update(){ head.classList.toggle('scrolled', scrollTop() > trigger); }
+
+  addEventListener('scroll', update, { passive: true });
+  addEventListener('resize', function(){ measure(); update(); }, { passive: true });
+  measure();
+  update();
+})();
 var f = document.getElementById('filter');
 if (f) {
   f.addEventListener('input', function(){
@@ -291,7 +353,7 @@ def page(title, desc, body, depth=0, canonical="", schema=""):
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top"><div class="wrap">
-  <a class="brand plain" href="{up}index.html">prod<b>check</b></a>
+  <a class="brand plain" href="{up}index.html">{MARK}<span>prod<b>check</b></span></a>
   <nav>
     <a href="{up}checklists.html">Checklists</a>
     <a href="{up}index.html#start">Start</a>
@@ -319,12 +381,22 @@ def page(title, desc, body, depth=0, canonical="", schema=""):
 
 def codeblock(cid, text, label="copy"):
     return (f'<div class="copy"><pre id="{cid}"><code>{e(text)}</code></pre>'
-            f'<button data-copy="{cid}">{label}</button></div>')
+            f'<button data-copy="{cid}" aria-label="Copy to clipboard">'
+            f'{COPY_ICON}<span>{label}</span></button></div>')
 
 
 # ------------------------------------------------------------------ index
 INTEG = json.load(open("data/integrations.json", encoding="utf-8"))
 HOW = {h["id"]: h for h in INTEG["how"]}
+
+NPM_ICON = ('<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.763 0C.786 0 0 .786 0 '
+            '1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763'
+            'C24 .786 23.214 0 22.237 0zM5.13 5.323l13.837.019-.009 13.836h-3.464l.01-10.382h'
+            '-3.456L12.04 19.17H5.113z"/></svg>')
+
+COPY_ICON = ('<svg viewBox="0 0 24 24" aria-hidden="true">'
+             '<rect x="9" y="9" width="12" height="12" rx="2.5"/>'
+             '<path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>')
 
 GH_ICON = ('<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 '
            '3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53'
@@ -430,7 +502,7 @@ item | verdict | file:line | one-sentence reason."""
     <a class="btn primary" href="checklists.html">Browse the checklists</a>
     <a class="btn" href="{REPO}">{GH_ICON} Star</a>
     <a class="btn" href="{REPO}/fork">{GH_ICON} Fork</a>
-    <a class="btn" href="{NPM}">npm</a>
+    <a class="btn" href="{NPM}">{NPM_ICON} npm</a>
   </div>
 
   <div class="statrow">
