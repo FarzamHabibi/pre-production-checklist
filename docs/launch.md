@@ -132,3 +132,49 @@ itself — it would be a poor look to ship an SEO checklist from a site with no 
 - [ ] npm has the current version — `npm view prodcheck version`
 - [ ] Repository description, topics and social preview set
 - [ ] A few `good first issue` tickets open for people who arrive wanting to help
+
+---
+
+## Tagged links, per platform
+
+Post these rather than the bare URL, so you can tell which platform actually sent people
+and which just sent applause. The tag has to be on the link **you post**; it cannot be
+added afterwards.
+
+| Where | Link to post |
+| --- | --- |
+| Product Hunt | `https://prodcheck.pages.dev/?utm_source=producthunt&utm_medium=launch&utm_campaign=v1` |
+| Hacker News | `https://prodcheck.pages.dev/?utm_source=hn&utm_medium=post&utm_campaign=v1` |
+| Reddit | `https://prodcheck.pages.dev/?utm_source=reddit&utm_medium=post&utm_campaign=v1` |
+| X | `https://prodcheck.pages.dev/?utm_source=x&utm_medium=social&utm_campaign=v1` |
+| LinkedIn | `https://prodcheck.pages.dev/?utm_source=linkedin&utm_medium=social&utm_campaign=v1` |
+| Dev.to | `https://prodcheck.pages.dev/?utm_source=devto&utm_medium=post&utm_campaign=v1` |
+| Newsletter | `https://prodcheck.pages.dev/?utm_source=newsletter&utm_medium=email&utm_campaign=v1` |
+
+Keep `utm_campaign=v1` on all of them, so a second launch can be compared against this one.
+
+**Hacker News strips query strings from submitted URLs sometimes** — post the bare URL
+there and rely on the referrer instead.
+
+## What you can measure without adding a tracker
+
+Three of these need nothing installed:
+
+```bash
+# who links to the repo, and what people click there
+gh api repos/FarzamHabibi/pre-production-checklist/traffic/popular/referrers
+gh api repos/FarzamHabibi/pre-production-checklist/traffic/views
+
+# installs, which is the number that actually means adoption
+curl -s https://api.npmjs.org/downloads/range/last-week/prodcheck
+```
+
+GitHub keeps only 14 days of traffic data, so export it if the launch week matters.
+
+For the site itself, Cloudflare Web Analytics is the honest option: server-side, no
+cookies, no cross-site identifiers, so it needs no consent banner and collects nothing
+that would contradict `integrations/05-analytics-and-consent.md`. Enable it in the
+Cloudflare dashboard under **Web Analytics**, for the `prodcheck.pages.dev` project.
+
+Whatever you use, decide **before** launch which number would make you change what you do.
+A dashboard nobody acts on is a cost, not a measurement.

@@ -22,6 +22,17 @@ Cloudflare is primary for one concrete reason: it serves the response headers in
 `_headers` — CSP, `nosniff`, frame denial, a referrer policy — and GitHub Pages cannot set
 response headers at all.
 
+### Analytics
+
+Cloudflare Web Analytics is enabled on the Pages project. It is cookieless, sets no
+cross-site identifier, and does not fingerprint, so it needs no consent banner and does
+not contradict `integrations/05-analytics-and-consent.md`.
+
+It is still a third-party script, which `performance/04-javascript.md` says to inventory
+rather than accumulate. This is the inventory: one script, `static.cloudflareinsights.com`,
+deferred, allowed in the CSP by exact host rather than by wildcard. If it stops earning
+its place, disable it in the dashboard and remove those two CSP entries.
+
 ## GitHub Pages — mirror
 
 Built and deployed by [`.github/workflows/site.yml`](../.github/workflows/site.yml) on

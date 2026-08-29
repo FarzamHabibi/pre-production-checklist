@@ -234,6 +234,21 @@ footer a{color:var(--dim)}
 """
 
 JS = """
+// Live weekly installs. The cell stays hidden until the number arrives, so a blocked
+// request, an offline reader or an npm outage shows nothing rather than a broken dash.
+(function(){
+  var cell = document.getElementById('dl');
+  if (!cell || !window.fetch) return;
+  fetch('https://api.npmjs.org/downloads/point/last-week/prodcheck', {mode:'cors'})
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){
+      if (!d || typeof d.downloads !== 'number') return;
+      cell.querySelector('[data-dl]').textContent = d.downloads.toLocaleString('en-US');
+      cell.hidden = false;
+    })
+    .catch(function(){});
+})();
+
 document.querySelectorAll('[data-copy]').forEach(function(b){
   b.addEventListener('click', function(){
     var t = document.getElementById(b.getAttribute('data-copy'));
@@ -522,6 +537,7 @@ item | verdict | file:line | one-sentence reason."""
     <div><b>{round(100 * C['stack_agnostic'] / C['total'])}%</b><span>ANY STACK</span></div>
     <div><b>{len(doc['stacks'])}</b><span>STACKS</span></div>
     <div><b class="accent">Free</b><span>OPEN SOURCE</span></div>
+    <div id="dl" hidden><b data-dl>—</b><span>WEEKLY INSTALLS</span></div>
   </div>
 </div></section>
 
@@ -765,12 +781,12 @@ FAVICON = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">'
            '<path d="M13 24.5 L21 32 L35 16" fill="none" stroke="#7dd3a0" stroke-width="5" '
            'stroke-linecap="round" stroke-linejoin="round"/></svg>')
 
-HEADERS = """/*
+HEADERS_TEMPLATE = """/*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
   Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
-  Content-Security-Policy: default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'none'; img-src 'self' data:; style-src 'self'; script-src '{SCRIPT_HASH}' https://static.cloudflareinsights.com; connect-src https://api.npmjs.org https://cloudflareinsights.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
 
 /style.css
   Cache-Control: public, max-age=3600
@@ -853,7 +869,12 @@ def main():
     if CUSTOM_DOMAIN:
         open(os.path.join(OUT, "CNAME"), "w").write(CUSTOM_DOMAIN + "\n")
     open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8").write(ROBOTS)
-    open(os.path.join(OUT, "_headers"), "w", encoding="utf-8").write(HEADERS)
+    # Hash the one inline script instead of allowing 'unsafe-inline'. A security
+    # checklist that ships an unsafe-inline CSP is not one anybody should trust.
+    import base64, hashlib
+    digest = base64.b64encode(hashlib.sha256(JS.encode("utf-8")).digest()).decode()
+    open(os.path.join(OUT, "_headers"), "w", encoding="utf-8").write(
+        HEADERS_TEMPLATE.replace("{SCRIPT_HASH}", f"sha256-{digest}"))
 
     for src in ("og.png", "og.svg"):
         p = os.path.join("site-assets", src)

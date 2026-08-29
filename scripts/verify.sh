@@ -155,6 +155,24 @@ if out=$(python3 scripts/build_site.py 2>&1); then
     miss="README links to https://$readme_site but pages canonicalise to https://$sitebase"
   fi
 
+  # The CSP pins the inline script by hash. If the script changes and the hash does not,
+  # the browser blocks every script on the site — copy buttons, search, filters — and the
+  # pages still render, so nothing looks broken until someone clicks.
+  csp_hash=$(python3 - <<'PY2'
+import re, base64, hashlib, sys
+html = open("site/index.html", encoding="utf-8").read()
+m = re.search(r"<script>(.*?)</script>", html, re.S)
+if not m:
+    print("no inline script found in site/index.html"); sys.exit(0)
+want = "sha256-" + base64.b64encode(hashlib.sha256(m.group(1).encode()).digest()).decode()
+got = re.search(r"script-src '([^']*)'", open("site/_headers", encoding="utf-8").read())
+got = got.group(1) if got else "(none)"
+if want != got:
+    print(f"CSP script-src is {got} but the shipped script hashes to {want}")
+PY2
+)
+  [ -n "$csp_hash" ] && miss="$csp_hash"
+
   # Every place that claims "the site lives here" must name the canonical host. The
   # README was checked; package.json's homepage and the GitHub Website field were not,
   # and both sat on a domain the js.org request had been declined for — one of them on
