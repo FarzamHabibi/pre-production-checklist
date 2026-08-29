@@ -5432,6 +5432,393 @@ Finding out from your own tooling rather than from a customer. Everything here i
 
 ---
 
+# Post-launch
+
+When it goes wrong anyway: is the response already decided?
+
+## Can You Act At All
+
+**Everything here is used after launch and has to be prepared before it.** The question each item asks is not "did you respond well" — it is **"is the answer already decided?"**
+
+Before any specific scenario: the things that decide whether you can do anything when one arrives. Most of these fail not because they are hard but because nobody checked them while everything was working.
+
+Detection is covered elsewhere — [`security/core/16-monitoring-and-response.md`](checklists/security/core/16-monitoring-and-response.md) and [`integrations/06-monitoring-and-alerting.md`](checklists/integrations/06-monitoring-and-alerting.md) make sure you find out. This file is about what happens next.
+
+
+---
+
+
+## Who and how
+
+* [ ] Verify it is written down who responds to a production incident, including out of hours, and that the person knows.
+* [ ] For a solo founder: verify you have decided which alerts are allowed to wake you and which can wait until morning, rather than treating all of them as either.
+* [ ] Verify there is a second person who can act if the first is unreachable, or a written acceptance that there is not.
+* [ ] Verify the alerting channel has been tested by firing a real alert, not assumed to work.
+* [ ] Verify alerts reach a device that is on at night if the service matters at night.
+* [ ] Verify the person who responds knows where the runbooks are without searching.
+
+## Access when you need it
+
+* [ ] Verify you can reach the production console, the database and the deploy pipeline from a phone or a borrowed laptop.
+* [ ] Verify two-factor recovery codes for every critical account are stored somewhere you can reach when your laptop is the thing that is broken.
+* [ ] Verify the password manager is not the single point of failure for its own recovery.
+* [ ] Verify credentials are not held only by one person, and that a break-glass path exists and has been tested.
+* [ ] Verify the break-glass path is auditable — using it should be loud, not silent.
+* [ ] Verify you can still authenticate if the identity provider is the thing that is down.
+* [ ] Verify domain registrar and DNS provider access is not tied to an email address hosted on the domain itself.
+
+## Can you actually change anything
+
+* [ ] Verify you can deploy right now — not in principle, but by having deployed recently.
+* [ ] Verify a deploy does not require a person who is on holiday, a machine that is off, or a token that expired.
+* [ ] Verify CI is green on `main`, so an emergency fix is not blocked behind an unrelated failure.
+* [ ] Verify you can deploy a one-line change end to end in under fifteen minutes, and know what that number actually is.
+* [ ] Verify you can roll back without a rebuild — see [`06-rollback-and-kill-switches.md`](checklists/post-launch/06-rollback-and-kill-switches.md).
+* [ ] Verify you can scale up or shed load without a code change.
+
+## Know what you have
+
+* [ ] Verify there is a current list of what runs in production: services, databases, queues, cron jobs, third parties, domains.
+* [ ] Verify each one has an owner, even if every owner is you.
+* [ ] Verify you know which provider hosts what, and which account it is billed to.
+* [ ] Verify a diagram or written description of the request path exists that a new person could follow.
+* [ ] Verify you know which single failure would take everything down, and whether that is acceptable.
+
+## The gate
+
+* [ ] Verify a runbook exists for the three most likely failures before launch, not after the first one.
+* [ ] Verify at least one recovery procedure has been rehearsed end to end.
+* [ ] Verify launching without a prepared response is a recorded decision with a date to revisit, rather than an oversight.
+
+
+## The First Fifteen Minutes
+
+**Everything here is used after launch and has to be prepared before it.** The question each item asks is not "did you respond well" — it is **"is the answer already decided?"**
+
+The generic path, before you know what kind of incident this is. Its purpose is to stop you diagnosing while the system burns.
+
+
+---
+
+
+## Notice and declare
+
+* [ ] Verify there is a defined threshold at which something becomes an incident, so the decision is not made by whoever is most anxious.
+* [ ] Verify anyone can declare an incident, and that declaring one has no social cost.
+* [ ] Verify declaring creates a single place where the response happens — a channel, a document, a call.
+* [ ] Verify one person is the coordinator, even if it is a team of one wearing the hat deliberately.
+* [ ] Verify a timestamped log of what was observed and what was tried is kept from the start; reconstructing it afterwards is guesswork.
+
+## Stabilise before diagnosing
+
+* [ ] Verify the first move is to stop the harm — roll back, disable the feature, shed load, block the source — not to find the root cause.
+* [ ] Verify you have decided in advance what "stop the harm" means for each of your main failure modes.
+* [ ] Verify rolling back is understood to be a valid first response, not an admission of defeat.
+* [ ] Verify a degraded service is preferred to an unavailable one where that is possible, and that the degraded mode has been tried.
+* [ ] Verify actions taken during an incident are announced in the shared channel as they happen, so two people cannot fix the same thing in opposite directions.
+* [ ] Verify nobody changes two things at once when the second could mask the first.
+
+## Size it
+
+* [ ] Verify you can answer, within minutes: who is affected, how many, and since when.
+* [ ] Verify you can tell whether it is total or partial — one region, one tenant, one endpoint, one browser.
+* [ ] Verify you can see what changed recently: deploys, feature flags, config, migrations, third-party incidents, on one timeline.
+* [ ] Verify the most recent deploy is the first suspect, because it usually is.
+* [ ] Verify you can distinguish "our fault" from "a provider's fault" quickly, because the response is entirely different.
+
+## Escalate
+
+* [ ] Verify you know when to involve a provider's support, and that you have an account tier where that is possible.
+* [ ] Verify support contacts and account identifiers are recorded somewhere reachable during the incident.
+* [ ] Verify there is a point at which you stop trying and restore from backup instead, decided before you are tired.
+* [ ] Verify customers are told before they tell you — see [`07-communication.md`](checklists/post-launch/07-communication.md).
+
+
+## You Have Been Breached
+
+**Everything here is used after launch and has to be prepared before it.** The question each item asks is not "did you respond well" — it is **"is the answer already decided?"**
+
+The scenario the rest of the security domain exists to prevent. Assume it happened anyway.
+
+The instinct is to fix and move on. The order that actually works is contain, preserve, then investigate — because the fix usually destroys the evidence you will need to know how far it went.
+
+
+---
+
+
+## Contain first
+
+* [ ] Verify there is a written first move for a suspected compromise, decided in advance.
+* [ ] Verify you can revoke every session for every user with one action, and know how long it takes to propagate.
+* [ ] Verify you can revoke a single user's or a single API key's access without revoking everyone's.
+* [ ] Verify you can disable a compromised account without deleting it, so evidence survives.
+* [ ] Verify you can take the service offline or into a maintenance mode deliberately, if containment requires it.
+* [ ] Verify you can block an IP, a range or a country at the edge without a deploy.
+* [ ] Verify isolating a compromised host does not destroy its memory and disk state.
+
+## Preserve evidence
+
+* [ ] Verify logs are stored somewhere the attacker could not have altered, with enough retention to cover the time before you noticed.
+* [ ] Verify log retention is long enough to matter — a breach is typically discovered long after it started.
+* [ ] Verify you know how to snapshot a compromised instance before rebuilding it.
+* [ ] Verify audit logs record who did what, including administrative actions, and that they cannot be deleted by the account that made them.
+* [ ] Verify the incident timeline is recorded as you go, with timestamps and sources.
+
+## Rotate
+
+* [ ] Verify there is a written, ordered list of every credential to rotate, so it is not assembled under pressure.
+* [ ] Verify rotating each one is possible without downtime, or that the downtime is known.
+* [ ] Verify rotation covers the ones people forget: signing keys, webhook secrets, database passwords, CI tokens, third-party API keys, OAuth client secrets, SSH keys, backup encryption keys.
+* [ ] Verify a rotated credential is actually invalidated, not merely replaced.
+* [ ] Verify sessions and tokens issued with an old signing key stop working after rotation.
+* [ ] Verify you know which credentials cannot be rotated quickly, and have a plan for those specifically.
+
+## Size the blast radius
+
+* [ ] Verify you can determine which data the compromised credential or account could reach — this is what every access-control item in `security/` was for.
+* [ ] Verify you can tell whether data was actually accessed or exported, not only whether it could have been.
+* [ ] Verify egress volume is visible historically, so a bulk export is detectable after the fact.
+* [ ] Verify you can list which users are affected, because the notification obligation depends on it.
+* [ ] Verify you check for persistence: new accounts, new keys, changed webhooks, scheduled jobs, forwarding rules, OAuth grants, modified CI workflows.
+* [ ] Verify you check whether your service was used to attack someone else — see [`security/core/18-abuse-and-availability.md`](checklists/security/core/18-abuse-and-availability.md).
+
+## Obligations
+
+* [ ] Verify you know your breach notification deadline before you need it — under GDPR it is 72 hours from awareness, and other regimes differ.
+* [ ] Verify you know who must be told: users, a supervisory authority, customers under contract, a cyber insurer, a payment processor.
+* [ ] Verify contractual notification terms with business customers have been read, since they are often stricter than the law.
+* [ ] Verify legal advice is obtainable quickly, and that you know who to call.
+* [ ] Verify a breach notification template exists in advance — see [`07-communication.md`](checklists/post-launch/07-communication.md).
+* [ ] Verify you do not speculate publicly about cause or scope before you know; a correction is worse than a delay.
+
+## Recover
+
+* [ ] Verify you rebuild from a known-good state rather than cleaning a compromised one.
+* [ ] Verify the entry point is closed before the service is restored, or you will do this twice.
+* [ ] Verify you can restore to a point before the compromise — see [`04-data-loss.md`](checklists/post-launch/04-data-loss.md).
+* [ ] Verify restored data is checked for attacker-planted changes, not only for completeness.
+* [ ] Verify monitoring is heightened for a period afterwards, because a return visit is common.
+
+
+## Data Loss & Corruption
+
+**Everything here is used after launch and has to be prepared before it.** The question each item asks is not "did you respond well" — it is **"is the answer already decided?"**
+
+A bad migration, a `DELETE` without a `WHERE`, a corrupted table, a well-meaning script. The plan for this is a backup you have restored, not a backup you have taken.
+
+
+---
+
+
+## Backups that work
+
+* [ ] Verify backups run automatically, and that a failed backup raises an alert rather than a silent gap.
+* [ ] Verify you have **restored from backup end to end** at least once, into a usable environment.
+* [ ] Verify how long a full restore takes, measured rather than estimated — that number is your worst case.
+* [ ] Verify the restore time is acceptable at your current data size, and re-measure as it grows.
+* [ ] Verify point-in-time recovery is available and that its window covers how long a problem could go unnoticed.
+* [ ] Verify backups are stored somewhere separate from the primary, and that an attacker with production access cannot delete them.
+* [ ] Verify backup retention and immutability are set deliberately, including against ransomware.
+* [ ] Verify backups are encrypted and that the decryption key is not stored only alongside them.
+* [ ] Verify what is *not* backed up is known and accepted — object storage, search indexes, caches, queue contents, secrets.
+
+## Recovering part of it
+
+* [ ] Verify you can restore a single table, or a single tenant's rows, without rolling the whole database back.
+* [ ] Verify there is a procedure for extracting old rows from a restored copy and merging them into live data.
+* [ ] Verify soft deletes exist where accidental deletion is plausible, and that they are actually recoverable.
+* [ ] Verify cascading deletes are understood before you rely on a restore — one deleted parent row can take a great deal with it.
+* [ ] Verify object storage has versioning enabled where the files matter.
+* [ ] Verify the recovery procedure has been written down by someone who has performed it.
+
+## When a migration goes wrong
+
+* [ ] Verify every migration has a rollback path, or an explicit note that it does not and why.
+* [ ] Verify a destructive migration is preceded by a fresh backup, taken as part of the deploy rather than as a habit.
+* [ ] Verify a data backfill is reversible or idempotent.
+* [ ] Verify a long migration can be stopped safely part-way without leaving the schema inconsistent.
+* [ ] Verify migrations have been rehearsed against a production-sized copy — see [`scale/03-database.md`](checklists/scale/03-database.md).
+
+## Corruption and consistency
+
+* [ ] Verify you would notice silent corruption: checksums, row counts, referential integrity checks, or a reconciliation job.
+* [ ] Verify a reconciliation exists for anything that must agree with an external system — payments, inventory, subscriptions.
+* [ ] Verify you can tell when the corruption started, since restoring past it is the whole task.
+* [ ] Verify replicas are checked for divergence rather than assumed identical.
+* [ ] Verify restored data is validated before traffic is sent to it — record counts, a spot check, a smoke test.
+* [ ] Verify there is a decision recorded about what to do with writes that happened after the restore point.
+
+
+## Outages & Dependency Failure
+
+**Everything here is used after launch and has to be prepared before it.** The question each item asks is not "did you respond well" — it is **"is the answer already decided?"**
+
+You are down, or something you cannot fix is. The useful preparation is knowing which of the two it is within minutes, and having decided what you do in each case.
+
+
+---
+
+
+## Your own outage
+
+* [ ] Verify there is a written first response for "the site is down", and that it starts with checking what changed rather than reading code.
+* [ ] Verify you can tell the difference between the application being down, the database being unreachable, and DNS failing — from outside your own network.
+* [ ] Verify you have an external check you trust, so you are not debugging a problem that only exists on your machine.
+* [ ] Verify you can restart or redeploy the service without waiting for a build.
+* [ ] Verify you can serve a static maintenance page without the application being up, and that you have tried.
+* [ ] Verify a health check flapping cannot restart-loop the service into a worse state.
+* [ ] Verify the runbook says who to tell and when, not only what to type.
+
+## The connection is gone
+
+* [ ] Verify certificate expiry is monitored with enough lead time, including on any certificate renewed manually.
+* [ ] Verify domain registration auto-renews, and that the card on file is not expired.
+* [ ] Verify registrar and DNS accounts have recovery paths that do not depend on email at the affected domain.
+* [ ] Verify you know how to fail DNS over, and how long the TTL means it will take.
+* [ ] Verify a CDN or edge outage has a decided response — wait, bypass, or switch — rather than being discovered as a question.
+* [ ] Verify you can bypass the CDN and serve from origin if the origin can take it, and know whether it can.
+* [ ] Verify database connection exhaustion has a specific response, since it is the most common cause of a total outage that is not a deploy.
+
+## Someone else's outage
+
+* [ ] Verify every critical third party is listed with what breaks if it disappears.
+* [ ] Verify each one has a subscribed status page, so you find out from them rather than from a customer.
+* [ ] Verify the failure mode of each dependency is decided: fail closed, fail open, queue, or degrade.
+* [ ] Verify authentication provider downtime does not lock out every existing session as well as new logins.
+* [ ] Verify payment provider downtime has a decided behaviour — queue the intent, or refuse cleanly with an honest message.
+* [ ] Verify email or SMS provider downtime does not silently drop messages that should be retried.
+* [ ] Verify a timeout and circuit breaker exists on every outbound call, so their outage is not automatically yours.
+* [ ] Verify a slow dependency degrades rather than exhausting your workers — see [`scale/05-async-and-queues.md`](checklists/scale/05-async-and-queues.md).
+* [ ] Verify you know which dependency has no fallback at all, and that this is a recorded decision.
+
+## Capacity and load
+
+* [ ] Verify there is a decided response to a traffic spike: scale, shed, queue, or turn off the expensive feature.
+* [ ] Verify you can turn off an expensive feature without a deploy.
+* [ ] Verify a spike caused by abuse is handled differently from a spike caused by success, and that you can tell them apart — see [`security/core/18-abuse-and-availability.md`](checklists/security/core/18-abuse-and-availability.md).
+* [ ] Verify the autoscaling ceiling is high enough to survive a real spike and low enough not to bankrupt you.
+
+
+## Rollback & Kill Switches
+
+**Everything here is used after launch and has to be prepared before it.** The question each item asks is not "did you respond well" — it is **"is the answer already decided?"**
+
+The fastest fix is almost always undo. That only holds if undo was built before it was needed.
+
+
+---
+
+
+## Rolling back code
+
+* [ ] Verify you can roll back to the previous release without rebuilding it.
+* [ ] Verify you have rolled back at least once, deliberately, rather than only planned to.
+* [ ] Verify how long a rollback takes, measured.
+* [ ] Verify previous build artifacts are retained long enough to roll back to more than one release ago.
+* [ ] Verify a rollback does not require the person who deployed.
+* [ ] Verify rolling back the application does not leave the database in a state the old code cannot read — see [`scale/03-database.md`](checklists/scale/03-database.md).
+* [ ] Verify a release that cannot be rolled back is identified as such before it ships, not after.
+
+## Switches that must already exist
+
+* [ ] Verify every risky new feature ships behind a flag that can be turned off without a deploy.
+* [ ] Verify the flag system itself does not depend on the thing that might be broken.
+* [ ] Verify a flag defaults to the safe value if the flag service is unreachable.
+* [ ] Verify there is a kill switch for each expensive or externally-facing capability: outbound fetching, email, SMS, model calls, signups, uploads.
+* [ ] Verify each kill switch has been exercised in production at least once.
+* [ ] Verify you can put the whole service into read-only mode, if the data model allows it.
+* [ ] Verify you can disable a single tenant or account without affecting others.
+* [ ] Verify turning something off is reversible and that turning it back on is also tested.
+
+## Undoing data and config
+
+* [ ] Verify configuration changes are versioned and revertible, including anything changed in a provider's console.
+* [ ] Verify infrastructure changes go through code where possible, so the previous state is recoverable.
+* [ ] Verify a DNS or edge configuration change can be reverted quickly, and that you know the propagation delay.
+* [ ] Verify a bad bulk operation can be undone — either it was reversible, or a backup was taken first.
+* [ ] Verify someone reviews destructive one-off scripts before they run against production, even if that someone is you an hour later.
+
+
+## Telling People
+
+**Everything here is used after launch and has to be prepared before it.** The question each item asks is not "did you respond well" — it is **"is the answer already decided?"**
+
+Written in advance, because the worst time to decide what tone to take is while you are also fixing the thing.
+
+
+---
+
+
+## Prepared in advance
+
+* [ ] Verify a status page exists, or that not having one is a deliberate decision.
+* [ ] Verify the status page is not hosted on the infrastructure it reports on.
+* [ ] Verify you can update it from a phone.
+* [ ] Verify templates exist for the common cases: degraded, down, resolved, security incident, data incident.
+* [ ] Verify a breach notification template exists and has been read by whoever would send it.
+* [ ] Verify you have a way to email all affected users that does not depend on the application being up.
+* [ ] Verify the list of who else must be told is written down — business customers with contractual terms, an insurer, a processor, an authority.
+
+## During
+
+* [ ] Verify the first update goes out before customers ask, even when it says only that you are investigating.
+* [ ] Verify updates continue on a stated cadence, and that the cadence is kept even when there is nothing new.
+* [ ] Verify you say what is affected and what is not, so unaffected users stop worrying.
+* [ ] Verify you do not speculate about cause or scope before you know.
+* [ ] Verify support has the same information as the status page, so customers do not get two stories.
+* [ ] Verify one person owns external communication, so two versions do not go out.
+
+## After
+
+* [ ] Verify a resolution notice goes out, and that it is not the last anyone hears.
+* [ ] Verify a public write-up follows for anything significant, with what happened, what you changed, and no blame directed at a named person.
+* [ ] Verify affected users are told individually where they were individually affected.
+* [ ] Verify what you promised in the write-up is tracked to completion — see [`08-learning-and-drills.md`](checklists/post-launch/08-learning-and-drills.md).
+* [ ] Verify a security incident write-up is reviewed before publication by someone thinking about liability as well as honesty.
+
+
+## Learning & Drills
+
+**Everything here is used after launch and has to be prepared before it.** The question each item asks is not "did you respond well" — it is **"is the answer already decided?"**
+
+The part everyone skips, which is why the second occurrence of an incident is so often identical to the first.
+
+
+---
+
+
+## Postmortems
+
+* [ ] Verify a written postmortem follows every significant incident, within days rather than weeks.
+* [ ] Verify it is blameless in practice, not only in policy — a postmortem that names a culprit stops producing information.
+* [ ] Verify it records a timeline, what was actually observed, and what was tried and did not work.
+* [ ] Verify it asks why detection took as long as it did, separately from why the failure happened.
+* [ ] Verify it asks what would have made the response faster, not only what would have prevented the cause.
+* [ ] Verify near misses get a postmortem too; they are the same lesson at a lower price.
+
+## Actions that actually happen
+
+* [ ] Verify every action item has an owner and a date, or it is not an action item.
+* [ ] Verify action items are tracked in the same place as normal work, not in the postmortem document where they will die.
+* [ ] Verify the number of open incident actions is visible to whoever prioritises work.
+* [ ] Verify a repeated incident triggers a check of whether the previous actions were completed.
+* [ ] Verify at least one action from each postmortem improves detection or response, not only prevention.
+
+## Practice
+
+* [ ] Verify a restore from backup is rehearsed on a schedule, not only after a scare.
+* [ ] Verify failover has been triggered deliberately at least once.
+* [ ] Verify a rollback is performed periodically so the path stays working.
+* [ ] Verify every kill switch is exercised on a cadence, since an untested switch is a hypothesis.
+* [ ] Verify at least one incident scenario is walked through as an exercise before launch — reading the runbook aloud and finding the step that is wrong is most of the value.
+* [ ] Verify the runbooks are updated by whoever last used them, while it is fresh.
+* [ ] Verify a runbook that has never been used is treated as unverified.
+* [ ] Verify recovery objectives are re-measured as the system grows, since restore time and data volume move together.
+
+
+
+---
+
 # Stack supplements
 
 ## Android / Kotlin

@@ -30,6 +30,7 @@ RELEASE_GATE_FILES = {
     "checklists/security/ai-generated-code/09-release-gate.md",
     "checklists/performance/09-release-gate.md",
     "checklists/scale/08-load-testing-and-gates.md",
+    "checklists/post-launch/01-readiness.md",
 }
 
 STACK_LABEL = {

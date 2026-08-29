@@ -7,7 +7,7 @@ infrastructure, the deploy pipeline, and increasingly the AI agents too — and 
 have a security team to hand it to.
 
 <!-- counts:begin -->
-**3,932 items across 80 checklists** in 4 domains. 90% of them apply to any stack.
+**4,124 items across 88 checklists** in 5 domains. 90% of them apply to any stack.
 <!-- counts:end -->
 
 [![npm](https://img.shields.io/npm/v/prodcheck?color=cb3837&logo=npm)](https://www.npmjs.com/package/prodcheck)
@@ -66,6 +66,7 @@ You are not meant to read this top to bottom. In order of signal-per-minute:
 | **5** | [Your service as a weapon](checklists/security/core/18-abuse-and-availability.md#your-service-as-a-weapon) | The one nobody looks for until the suspension email arrives |
 | **6** | [Core Web Vitals](checklists/performance/02-core-web-vitals.md) | If users say it's slow, start here rather than with a score |
 | **7** | [Before you launch](checklists/integrations/01-search-engines.md#before-you-launch--the-ones-that-actually-bite) | Six items. One of them is `noindex` still being on |
+| **8** | [Can you act at all](checklists/post-launch/01-readiness.md) | Whether you could respond today, if you had to |
 
 Then work section by section. Switching between edge config and database policies
 costs more than it saves.
@@ -83,6 +84,7 @@ checklists/
 ├── performance/             313   Lighthouse, and what users actually feel
 ├── scale/                   214   surviving 10× the load
 ├── integrations/            192   search, analytics, monitoring
+├── post-launch/             192   when it goes wrong anyway
 └── stacks/                  401   19 products, spanning every domain
 ```
 
@@ -90,7 +92,7 @@ Counts above are what each folder holds. A *domain* total is larger, because the
 supplements contribute to whichever domain each of their sections extends:
 
 ```
-security 3,186   performance 334   scale 214   integrations 198
+security 3,186   performance 334   scale 214   integrations 198   post-launch 192
 ```
 
 Domains are the top level because that is the question you arrive with: *is this about
@@ -205,6 +207,33 @@ domain is much less useful until you know which resource runs out first. Cost is
 rather than in a domain of its own because scaling problems and billing problems are the
 same problem seen from two sides.
 
+### `post-launch/` — when it goes wrong anyway
+
+Every other domain is about building something that does not break. This one assumes it
+broke.
+
+**Everything here is used after launch and has to be prepared before it.** The question
+each item asks is not *did you respond well* — it is **is the answer already decided?**
+
+| | Items | | | Items |
+| --- | ---: | --- | --- | ---: |
+| [Can you act at all](checklists/post-launch/01-readiness.md) | 27 | | [Outages & dependency failure](checklists/post-launch/05-outage-and-dependencies.md) | 27 |
+| [The first fifteen minutes](checklists/post-launch/02-first-15-minutes.md) | 20 | | [Rollback & kill switches](checklists/post-launch/06-rollback-and-kill-switches.md) | 20 |
+| [You have been breached](checklists/post-launch/03-security-incident.md) | 35 | | [Telling people](checklists/post-launch/07-communication.md) | 18 |
+| [Data loss & corruption](checklists/post-launch/04-data-loss.md) | 26 | | [Learning & drills](checklists/post-launch/08-learning-and-drills.md) | 19 |
+
+The rest of the repository makes sure you *find out* — monitoring is covered in
+[`security/core/16`](checklists/security/core/16-monitoring-and-response.md) and
+[`integrations/06`](checklists/integrations/06-monitoring-and-alerting.md). Neither asks
+what happens next. Whether an immediate action exists for being breached, for a corrupted
+database, for the connection going away, is a different question, and it is the one that
+gets answered badly at 3am if it was not answered in daylight.
+
+> The plan for data loss is a backup you have **restored**, not a backup you have taken.
+
+[Can you act at all](checklists/post-launch/01-readiness.md) counts as a release gate.
+Launching without a prepared response is a decision, and it should be a recorded one.
+
 ### `stacks/` — only if you use them
 
 374 items across 19 supplements. Skip any file for a product you don't use; the core
@@ -291,6 +320,7 @@ npx prodcheck security --stack django -o SECURITY.md
 npx prodcheck performance -o PERFORMANCE.md
 npx prodcheck integrations -o LAUNCH.md
 npx prodcheck scale -o SCALE.md
+npx prodcheck post-launch -o INCIDENT-RESPONSE.md
 ```
 
 ```bash
@@ -363,7 +393,7 @@ The Markdown under `checklists/` is the source of truth; the JSON is generated f
 
 **Domains**
 
-All four planned domains have shipped. The structure has room for more —
+All five domains have shipped. The structure has room for more —
 launch, social and legal are the obvious next ones — and
 [the plan](https://github.com/FarzamHabibi/pre-production-checklist/blob/main/README.md#roadmap)
 is written before the content, not after.
@@ -371,6 +401,10 @@ is written before the content, not after.
 - [x] **`performance/`** — shipped: 313 items across 9 checklists.
 - [x] **`integrations/`** — shipped: 192 items across 6 checklists.
 - [x] **`scale/`** — shipped: 214 items across 8 checklists.
+- [x] **`post-launch/`** — shipped: 192 items across 8 checklists. Added after the other
+      four, because a gap showed up once they were all in front of a reader: every domain
+      described how to build something that does not break, and none asked whether the
+      response was prepared for when it breaks anyway.
 
 **Then: from a document you read to a review that runs**
 

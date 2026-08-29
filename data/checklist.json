@@ -41,18 +41,25 @@
       "label": "Integrations",
       "description": "Being connected: search, analytics, monitoring.",
       "areas": []
+    },
+    {
+      "id": "post-launch",
+      "label": "Post-launch",
+      "description": "When it goes wrong anyway: is the response already decided?",
+      "areas": []
     }
   ],
   "counts": {
-    "total": 3932,
+    "total": 4124,
     "by_domain": {
       "security": 3186,
       "scale": 214,
       "performance": 334,
-      "integrations": 198
+      "integrations": 198,
+      "post-launch": 192
     },
-    "stack_agnostic": 3531,
-    "release_gate": 283
+    "stack_agnostic": 3723,
+    "release_gate": 310
   },
   "stacks": [
     "Android / Kotlin",
@@ -56591,6 +56598,3078 @@
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
         "line": 52
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.96cb143c",
+      "text": "Verify it is written down who responds to a production incident, including out of hours, and that the person knows.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Who and how",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.75402dbd",
+      "text": "For a solo founder: verify you have decided which alerts are allowed to wake you and which can wait until morning, rather than treating all of them as either.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Who and how",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.6b2ffb7f",
+      "text": "Verify there is a second person who can act if the first is unreachable, or a written acceptance that there is not.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Who and how",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.ca90f2dc",
+      "text": "Verify the alerting channel has been tested by firing a real alert, not assumed to work.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Who and how",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.8f07c3e0",
+      "text": "Verify alerts reach a device that is on at night if the service matters at night.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Who and how",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.02189970",
+      "text": "Verify the person who responds knows where the runbooks are without searching.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Who and how",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 21
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.0fee829f",
+      "text": "Verify you can reach the production console, the database and the deploy pipeline from a phone or a borrowed laptop.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Access when you need it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.aeeea424",
+      "text": "Verify two-factor recovery codes for every critical account are stored somewhere you can reach when your laptop is the thing that is broken.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Access when you need it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.48ae1906",
+      "text": "Verify the password manager is not the single point of failure for its own recovery.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Access when you need it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.7b46fa42",
+      "text": "Verify credentials are not held only by one person, and that a break-glass path exists and has been tested.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Access when you need it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.c83d044c",
+      "text": "Verify the break-glass path is auditable — using it should be loud, not silent.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Access when you need it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.fda2fa70",
+      "text": "Verify you can still authenticate if the identity provider is the thing that is down.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Access when you need it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.f1fbff41",
+      "text": "Verify domain registrar and DNS provider access is not tied to an email address hosted on the domain itself.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Access when you need it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.2d5e6151",
+      "text": "Verify you can deploy right now — not in principle, but by having deployed recently.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Can you actually change anything",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.1c759f4c",
+      "text": "Verify a deploy does not require a person who is on holiday, a machine that is off, or a token that expired.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Can you actually change anything",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.80fdc7b1",
+      "text": "Verify CI is green on `main`, so an emergency fix is not blocked behind an unrelated failure.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Can you actually change anything",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.cff0b12e",
+      "text": "Verify you can deploy a one-line change end to end in under fifteen minutes, and know what that number actually is.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Can you actually change anything",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.5bb5bfdd",
+      "text": "Verify you can roll back without a rebuild — see [`06-rollback-and-kill-switches.md`](06-rollback-and-kill-switches.md).",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Can you actually change anything",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.972718cb",
+      "text": "Verify you can scale up or shed load without a code change.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Can you actually change anything",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.fdeb68bd",
+      "text": "Verify there is a current list of what runs in production: services, databases, queues, cron jobs, third parties, domains.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Know what you have",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.11cfcaf1",
+      "text": "Verify each one has an owner, even if every owner is you.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Know what you have",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.3eedf656",
+      "text": "Verify you know which provider hosts what, and which account it is billed to.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Know what you have",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.aac33eeb",
+      "text": "Verify a diagram or written description of the request path exists that a new person could follow.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Know what you have",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.3e03326a",
+      "text": "Verify you know which single failure would take everything down, and whether that is acceptable.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Know what you have",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.a80cb89b",
+      "text": "Verify a runbook exists for the three most likely failures before launch, not after the first one.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "The gate",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 52
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.ec8d58c2",
+      "text": "Verify at least one recovery procedure has been rehearsed end to end.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "The gate",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 53
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.d1ffa3e8",
+      "text": "Verify launching without a prepared response is a recorded decision with a date to revisit, rather than an oversight.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "The gate",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 54
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.f3fc3bf4",
+      "text": "Verify there is a defined threshold at which something becomes an incident, so the decision is not made by whoever is most anxious.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Notice and declare",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.aba25d2e",
+      "text": "Verify anyone can declare an incident, and that declaring one has no social cost.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Notice and declare",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.548c9802",
+      "text": "Verify declaring creates a single place where the response happens — a channel, a document, a call.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Notice and declare",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.6749da8a",
+      "text": "Verify one person is the coordinator, even if it is a team of one wearing the hat deliberately.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Notice and declare",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.23d95cc1",
+      "text": "Verify a timestamped log of what was observed and what was tried is kept from the start; reconstructing it afterwards is guesswork.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Notice and declare",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.3f2bc63d",
+      "text": "Verify the first move is to stop the harm — roll back, disable the feature, shed load, block the source — not to find the root cause.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Stabilise before diagnosing",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.8e41de38",
+      "text": "Verify you have decided in advance what \"stop the harm\" means for each of your main failure modes.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Stabilise before diagnosing",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.908cbd6a",
+      "text": "Verify rolling back is understood to be a valid first response, not an admission of defeat.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Stabilise before diagnosing",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.f6e838e7",
+      "text": "Verify a degraded service is preferred to an unavailable one where that is possible, and that the degraded mode has been tried.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Stabilise before diagnosing",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.fefa71cc",
+      "text": "Verify actions taken during an incident are announced in the shared channel as they happen, so two people cannot fix the same thing in opposite directions.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Stabilise before diagnosing",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.0f3f2cb8",
+      "text": "Verify nobody changes two things at once when the second could mask the first.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Stabilise before diagnosing",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.51aa62c2",
+      "text": "Verify you can answer, within minutes: who is affected, how many, and since when.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Size it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.24557d06",
+      "text": "Verify you can tell whether it is total or partial — one region, one tenant, one endpoint, one browser.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Size it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.d6ab3b7f",
+      "text": "Verify you can see what changed recently: deploys, feature flags, config, migrations, third-party incidents, on one timeline.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Size it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.f76fd1f5",
+      "text": "Verify the most recent deploy is the first suspect, because it usually is.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Size it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.853fa67a",
+      "text": "Verify you can distinguish \"our fault\" from \"a provider's fault\" quickly, because the response is entirely different.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Size it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.d2d15917",
+      "text": "Verify you know when to involve a provider's support, and that you have an account tier where that is possible.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Escalate",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.61d73f37",
+      "text": "Verify support contacts and account identifiers are recorded somewhere reachable during the incident.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Escalate",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.de4b24d9",
+      "text": "Verify there is a point at which you stop trying and restore from backup instead, decided before you are tired.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Escalate",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 41
+      }
+    },
+    {
+      "id": "post-launch.02-first-15-minutes.8e1657c1",
+      "text": "Verify customers are told before they tell you — see [`07-communication.md`](07-communication.md).",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "The First Fifteen Minutes",
+      "section": "Escalate",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/02-first-15-minutes.md",
+        "line": 42
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.0ed92ae9",
+      "text": "Verify there is a written first move for a suspected compromise, decided in advance.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Contain first",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.fcf7e883",
+      "text": "Verify you can revoke every session for every user with one action, and know how long it takes to propagate.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Contain first",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.ead5654b",
+      "text": "Verify you can revoke a single user's or a single API key's access without revoking everyone's.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Contain first",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.613a9278",
+      "text": "Verify you can disable a compromised account without deleting it, so evidence survives.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Contain first",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.316cf74d",
+      "text": "Verify you can take the service offline or into a maintenance mode deliberately, if containment requires it.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Contain first",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.6395ba04",
+      "text": "Verify you can block an IP, a range or a country at the edge without a deploy.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Contain first",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 21
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.98974a31",
+      "text": "Verify isolating a compromised host does not destroy its memory and disk state.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Contain first",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.92767cbf",
+      "text": "Verify logs are stored somewhere the attacker could not have altered, with enough retention to cover the time before you noticed.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Preserve evidence",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.4101f6f1",
+      "text": "Verify log retention is long enough to matter — a breach is typically discovered long after it started.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Preserve evidence",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.b764c8f3",
+      "text": "Verify you know how to snapshot a compromised instance before rebuilding it.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Preserve evidence",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.01c828b3",
+      "text": "Verify audit logs record who did what, including administrative actions, and that they cannot be deleted by the account that made them.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Preserve evidence",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.063f3de4",
+      "text": "Verify the incident timeline is recorded as you go, with timestamps and sources.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Preserve evidence",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.51862def",
+      "text": "Verify there is a written, ordered list of every credential to rotate, so it is not assembled under pressure.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Rotate",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.ee475621",
+      "text": "Verify rotating each one is possible without downtime, or that the downtime is known.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Rotate",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.bf62302e",
+      "text": "Verify rotation covers the ones people forget: signing keys, webhook secrets, database passwords, CI tokens, third-party API keys, OAuth client secrets, SSH keys, backup encryption keys.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Rotate",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.f7f85d01",
+      "text": "Verify a rotated credential is actually invalidated, not merely replaced.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Rotate",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.130e0bc6",
+      "text": "Verify sessions and tokens issued with an old signing key stop working after rotation.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Rotate",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.b57e3230",
+      "text": "Verify you know which credentials cannot be rotated quickly, and have a plan for those specifically.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Rotate",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.9076c8fd",
+      "text": "Verify you can determine which data the compromised credential or account could reach — this is what every access-control item in `security/` was for.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Size the blast radius",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 43
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.74b86fbb",
+      "text": "Verify you can tell whether data was actually accessed or exported, not only whether it could have been.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Size the blast radius",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.922779f9",
+      "text": "Verify egress volume is visible historically, so a bulk export is detectable after the fact.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Size the blast radius",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.16734c19",
+      "text": "Verify you can list which users are affected, because the notification obligation depends on it.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Size the blast radius",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.b5f98d2f",
+      "text": "Verify you check for persistence: new accounts, new keys, changed webhooks, scheduled jobs, forwarding rules, OAuth grants, modified CI workflows.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Size the blast radius",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.bfd61bc3",
+      "text": "Verify you check whether your service was used to attack someone else — see [`security/core/18-abuse-and-availability.md`](../security/core/18-abuse-and-availability.md).",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Size the blast radius",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.41c7e5df",
+      "text": "Verify you know your breach notification deadline before you need it — under GDPR it is 72 hours from awareness, and other regimes differ.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Obligations",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 52
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.83ad9b17",
+      "text": "Verify you know who must be told: users, a supervisory authority, customers under contract, a cyber insurer, a payment processor.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Obligations",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 53
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.e02a3720",
+      "text": "Verify contractual notification terms with business customers have been read, since they are often stricter than the law.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Obligations",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 54
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.2b9188ce",
+      "text": "Verify legal advice is obtainable quickly, and that you know who to call.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Obligations",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 55
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.586d07a5",
+      "text": "Verify a breach notification template exists in advance — see [`07-communication.md`](07-communication.md).",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Obligations",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.25033356",
+      "text": "Verify you do not speculate publicly about cause or scope before you know; a correction is worse than a delay.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Obligations",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 57
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.2b59172d",
+      "text": "Verify you rebuild from a known-good state rather than cleaning a compromised one.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Recover",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 61
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.049b1d2d",
+      "text": "Verify the entry point is closed before the service is restored, or you will do this twice.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Recover",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 62
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.4cccaa99",
+      "text": "Verify you can restore to a point before the compromise — see [`04-data-loss.md`](04-data-loss.md).",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Recover",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 63
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.a587b073",
+      "text": "Verify restored data is checked for attacker-planted changes, not only for completeness.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Recover",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 64
+      }
+    },
+    {
+      "id": "post-launch.03-security-incident.b8d46e56",
+      "text": "Verify monitoring is heightened for a period afterwards, because a return visit is common.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "You Have Been Breached",
+      "section": "Recover",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/03-security-incident.md",
+        "line": 65
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.6e772c79",
+      "text": "Verify backups run automatically, and that a failed backup raises an alert rather than a silent gap.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Backups that work",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.cd11aeae",
+      "text": "Verify you have **restored from backup end to end** at least once, into a usable environment.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Backups that work",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.aaa0260d",
+      "text": "Verify how long a full restore takes, measured rather than estimated — that number is your worst case.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Backups that work",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.c654387b",
+      "text": "Verify the restore time is acceptable at your current data size, and re-measure as it grows.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Backups that work",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.77c24530",
+      "text": "Verify point-in-time recovery is available and that its window covers how long a problem could go unnoticed.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Backups that work",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.92c6368c",
+      "text": "Verify backups are stored somewhere separate from the primary, and that an attacker with production access cannot delete them.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Backups that work",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.59b0972c",
+      "text": "Verify backup retention and immutability are set deliberately, including against ransomware.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Backups that work",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.52b72155",
+      "text": "Verify backups are encrypted and that the decryption key is not stored only alongside them.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Backups that work",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 21
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.5be0e90d",
+      "text": "Verify what is *not* backed up is known and accepted — object storage, search indexes, caches, queue contents, secrets.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Backups that work",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.5a9d9399",
+      "text": "Verify you can restore a single table, or a single tenant's rows, without rolling the whole database back.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Recovering part of it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.0b181efc",
+      "text": "Verify there is a procedure for extracting old rows from a restored copy and merging them into live data.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Recovering part of it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.4b847e60",
+      "text": "Verify soft deletes exist where accidental deletion is plausible, and that they are actually recoverable.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Recovering part of it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.5a4e379d",
+      "text": "Verify cascading deletes are understood before you rely on a restore — one deleted parent row can take a great deal with it.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Recovering part of it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.1cf8f3d5",
+      "text": "Verify object storage has versioning enabled where the files matter.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Recovering part of it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.c1549b78",
+      "text": "Verify the recovery procedure has been written down by someone who has performed it.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Recovering part of it",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.654326ba",
+      "text": "Verify every migration has a rollback path, or an explicit note that it does not and why.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "When a migration goes wrong",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.a7b60d31",
+      "text": "Verify a destructive migration is preceded by a fresh backup, taken as part of the deploy rather than as a habit.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "When a migration goes wrong",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.b65fb0c2",
+      "text": "Verify a data backfill is reversible or idempotent.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "When a migration goes wrong",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.4a926810",
+      "text": "Verify a long migration can be stopped safely part-way without leaving the schema inconsistent.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "When a migration goes wrong",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.00835239",
+      "text": "Verify migrations have been rehearsed against a production-sized copy — see [`scale/03-database.md`](../scale/03-database.md).",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "When a migration goes wrong",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.46063a5d",
+      "text": "Verify you would notice silent corruption: checksums, row counts, referential integrity checks, or a reconciliation job.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Corruption and consistency",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 43
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.71c90a54",
+      "text": "Verify a reconciliation exists for anything that must agree with an external system — payments, inventory, subscriptions.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Corruption and consistency",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 44
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.d7f72c35",
+      "text": "Verify you can tell when the corruption started, since restoring past it is the whole task.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Corruption and consistency",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.1dc070d4",
+      "text": "Verify replicas are checked for divergence rather than assumed identical.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Corruption and consistency",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.480bc113",
+      "text": "Verify restored data is validated before traffic is sent to it — record counts, a spot check, a smoke test.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Corruption and consistency",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "post-launch.04-data-loss.c45d8991",
+      "text": "Verify there is a decision recorded about what to do with writes that happened after the restore point.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Data Loss & Corruption",
+      "section": "Corruption and consistency",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/04-data-loss.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.f585a75d",
+      "text": "Verify there is a written first response for \"the site is down\", and that it starts with checking what changed rather than reading code.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Your own outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.0c2dbec7",
+      "text": "Verify you can tell the difference between the application being down, the database being unreachable, and DNS failing — from outside your own network.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Your own outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.445287c6",
+      "text": "Verify you have an external check you trust, so you are not debugging a problem that only exists on your machine.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Your own outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.4ba2ec20",
+      "text": "Verify you can restart or redeploy the service without waiting for a build.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Your own outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.bc993890",
+      "text": "Verify you can serve a static maintenance page without the application being up, and that you have tried.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Your own outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.ddca3677",
+      "text": "Verify a health check flapping cannot restart-loop the service into a worse state.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Your own outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.6a8f3640",
+      "text": "Verify the runbook says who to tell and when, not only what to type.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Your own outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.36f1ce40",
+      "text": "Verify certificate expiry is monitored with enough lead time, including on any certificate renewed manually.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "The connection is gone",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.095c6cab",
+      "text": "Verify domain registration auto-renews, and that the card on file is not expired.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "The connection is gone",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.3e4e258a",
+      "text": "Verify registrar and DNS accounts have recovery paths that do not depend on email at the affected domain.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "The connection is gone",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.d3aecefe",
+      "text": "Verify you know how to fail DNS over, and how long the TTL means it will take.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "The connection is gone",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.a905fd1f",
+      "text": "Verify a CDN or edge outage has a decided response — wait, bypass, or switch — rather than being discovered as a question.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "The connection is gone",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.ff99a9a2",
+      "text": "Verify you can bypass the CDN and serve from origin if the origin can take it, and know whether it can.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "The connection is gone",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.9ab0f853",
+      "text": "Verify database connection exhaustion has a specific response, since it is the most common cause of a total outage that is not a deploy.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "The connection is gone",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.dbe5b426",
+      "text": "Verify every critical third party is listed with what breaks if it disappears.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Someone else's outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.825be552",
+      "text": "Verify each one has a subscribed status page, so you find out from them rather than from a customer.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Someone else's outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.9a02ad8a",
+      "text": "Verify the failure mode of each dependency is decided: fail closed, fail open, queue, or degrade.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Someone else's outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.e22e2dba",
+      "text": "Verify authentication provider downtime does not lock out every existing session as well as new logins.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Someone else's outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.d08a1d14",
+      "text": "Verify payment provider downtime has a decided behaviour — queue the intent, or refuse cleanly with an honest message.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Someone else's outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.26e93fde",
+      "text": "Verify email or SMS provider downtime does not silently drop messages that should be retried.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Someone else's outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.4caa2fa2",
+      "text": "Verify a timeout and circuit breaker exists on every outbound call, so their outage is not automatically yours.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Someone else's outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.a66698d3",
+      "text": "Verify a slow dependency degrades rather than exhausting your workers — see [`scale/05-async-and-queues.md`](../scale/05-async-and-queues.md).",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Someone else's outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 41
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.890b16f9",
+      "text": "Verify you know which dependency has no fallback at all, and that this is a recorded decision.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Someone else's outage",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 42
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.51e8cd41",
+      "text": "Verify there is a decided response to a traffic spike: scale, shed, queue, or turn off the expensive feature.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Capacity and load",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.9a2fad4e",
+      "text": "Verify you can turn off an expensive feature without a deploy.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Capacity and load",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.3aa9685f",
+      "text": "Verify a spike caused by abuse is handled differently from a spike caused by success, and that you can tell them apart — see [`security/core/18-abuse-and-availability.md`](../security/core/18-abuse-and-availability.md).",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Capacity and load",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.55305d78",
+      "text": "Verify the autoscaling ceiling is high enough to survive a real spike and low enough not to bankrupt you.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Capacity and load",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 49
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.d9ada614",
+      "text": "Verify you can roll back to the previous release without rebuilding it.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Rolling back code",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.8eb1d67b",
+      "text": "Verify you have rolled back at least once, deliberately, rather than only planned to.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Rolling back code",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.39c48d90",
+      "text": "Verify how long a rollback takes, measured.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Rolling back code",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.1e1bff2c",
+      "text": "Verify previous build artifacts are retained long enough to roll back to more than one release ago.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Rolling back code",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.6e8a01f0",
+      "text": "Verify a rollback does not require the person who deployed.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Rolling back code",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.a210f34d",
+      "text": "Verify rolling back the application does not leave the database in a state the old code cannot read — see [`scale/03-database.md`](../scale/03-database.md).",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Rolling back code",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.89e63c3c",
+      "text": "Verify a release that cannot be rolled back is identified as such before it ships, not after.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Rolling back code",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.2c35edea",
+      "text": "Verify every risky new feature ships behind a flag that can be turned off without a deploy.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Switches that must already exist",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.b932fbc5",
+      "text": "Verify the flag system itself does not depend on the thing that might be broken.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Switches that must already exist",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.44feedc9",
+      "text": "Verify a flag defaults to the safe value if the flag service is unreachable.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Switches that must already exist",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.a5d10530",
+      "text": "Verify there is a kill switch for each expensive or externally-facing capability: outbound fetching, email, SMS, model calls, signups, uploads.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Switches that must already exist",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.c33cf653",
+      "text": "Verify each kill switch has been exercised in production at least once.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Switches that must already exist",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.ad3008ce",
+      "text": "Verify you can put the whole service into read-only mode, if the data model allows it.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Switches that must already exist",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.3d01ed57",
+      "text": "Verify you can disable a single tenant or account without affecting others.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Switches that must already exist",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.9d5cfb3a",
+      "text": "Verify turning something off is reversible and that turning it back on is also tested.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Switches that must already exist",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.d33b0f7e",
+      "text": "Verify configuration changes are versioned and revertible, including anything changed in a provider's console.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Undoing data and config",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.38bb6a2e",
+      "text": "Verify infrastructure changes go through code where possible, so the previous state is recoverable.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Undoing data and config",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.8e2d6f99",
+      "text": "Verify a DNS or edge configuration change can be reverted quickly, and that you know the propagation delay.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Undoing data and config",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.df149645",
+      "text": "Verify a bad bulk operation can be undone — either it was reversible, or a backup was taken first.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Undoing data and config",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.fda5648e",
+      "text": "Verify someone reviews destructive one-off scripts before they run against production, even if that someone is you an hour later.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Undoing data and config",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "post-launch.07-communication.ee4ad840",
+      "text": "Verify a status page exists, or that not having one is a deliberate decision.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "Prepared in advance",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "post-launch.07-communication.3923186c",
+      "text": "Verify the status page is not hosted on the infrastructure it reports on.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "Prepared in advance",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "post-launch.07-communication.8d31f50f",
+      "text": "Verify you can update it from a phone.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "Prepared in advance",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "post-launch.07-communication.6a18e3f6",
+      "text": "Verify templates exist for the common cases: degraded, down, resolved, security incident, data incident.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "Prepared in advance",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "post-launch.07-communication.b7a44636",
+      "text": "Verify a breach notification template exists and has been read by whoever would send it.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "Prepared in advance",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "post-launch.07-communication.1bd7c41c",
+      "text": "Verify you have a way to email all affected users that does not depend on the application being up.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "Prepared in advance",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "post-launch.07-communication.0d274e60",
+      "text": "Verify the list of who else must be told is written down — business customers with contractual terms, an insurer, a processor, an authority.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "Prepared in advance",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "post-launch.07-communication.22cfde94",
+      "text": "Verify the first update goes out before customers ask, even when it says only that you are investigating.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "During",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "post-launch.07-communication.221bf2f4",
+      "text": "Verify updates continue on a stated cadence, and that the cadence is kept even when there is nothing new.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "During",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "post-launch.07-communication.276fcdd4",
+      "text": "Verify you say what is affected and what is not, so unaffected users stop worrying.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "During",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "post-launch.07-communication.4c7db696",
+      "text": "Verify you do not speculate about cause or scope before you know.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "During",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "post-launch.07-communication.2e696164",
+      "text": "Verify support has the same information as the status page, so customers do not get two stories.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "During",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "post-launch.07-communication.5f0c971a",
+      "text": "Verify one person owns external communication, so two versions do not go out.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "During",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "post-launch.07-communication.87a23d96",
+      "text": "Verify a resolution notice goes out, and that it is not the last anyone hears.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "After",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "post-launch.07-communication.9e9c1ba3",
+      "text": "Verify a public write-up follows for anything significant, with what happened, what you changed, and no blame directed at a named person.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "After",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "post-launch.07-communication.bf1e4bd8",
+      "text": "Verify affected users are told individually where they were individually affected.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "After",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "post-launch.07-communication.646e521d",
+      "text": "Verify what you promised in the write-up is tracked to completion — see [`08-learning-and-drills.md`](08-learning-and-drills.md).",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "After",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "post-launch.07-communication.5eb430da",
+      "text": "Verify a security incident write-up is reviewed before publication by someone thinking about liability as well as honesty.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Telling People",
+      "section": "After",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/07-communication.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.97c860a4",
+      "text": "Verify a written postmortem follows every significant incident, within days rather than weeks.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Postmortems",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.5b4fd3de",
+      "text": "Verify it is blameless in practice, not only in policy — a postmortem that names a culprit stops producing information.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Postmortems",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.43d4a7c6",
+      "text": "Verify it records a timeline, what was actually observed, and what was tried and did not work.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Postmortems",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.5421122a",
+      "text": "Verify it asks why detection took as long as it did, separately from why the failure happened.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Postmortems",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.79ef5755",
+      "text": "Verify it asks what would have made the response faster, not only what would have prevented the cause.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Postmortems",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.7a5e4db8",
+      "text": "Verify near misses get a postmortem too; they are the same lesson at a lower price.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Postmortems",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.293a63e8",
+      "text": "Verify every action item has an owner and a date, or it is not an action item.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Actions that actually happen",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.f8bcda85",
+      "text": "Verify action items are tracked in the same place as normal work, not in the postmortem document where they will die.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Actions that actually happen",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.b10265a0",
+      "text": "Verify the number of open incident actions is visible to whoever prioritises work.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Actions that actually happen",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.f6cce024",
+      "text": "Verify a repeated incident triggers a check of whether the previous actions were completed.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Actions that actually happen",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.4b88da6c",
+      "text": "Verify at least one action from each postmortem improves detection or response, not only prevention.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Actions that actually happen",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.c3d9ea5a",
+      "text": "Verify a restore from backup is rehearsed on a schedule, not only after a scare.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Practice",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.2cfab649",
+      "text": "Verify failover has been triggered deliberately at least once.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Practice",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.8e94acd4",
+      "text": "Verify a rollback is performed periodically so the path stays working.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Practice",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.8f2e17a1",
+      "text": "Verify every kill switch is exercised on a cadence, since an untested switch is a hypothesis.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Practice",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.57573723",
+      "text": "Verify at least one incident scenario is walked through as an exercise before launch — reading the runbook aloud and finding the step that is wrong is most of the value.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Practice",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.491d8aec",
+      "text": "Verify the runbooks are updated by whoever last used them, while it is fresh.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Practice",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.9af20837",
+      "text": "Verify a runbook that has never been used is treated as unverified.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Practice",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "post-launch.08-learning-and-drills.96fd434d",
+      "text": "Verify recovery objectives are re-measured as the system grows, since restore time and data volume move together.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Practice",
+      "subsection": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 38
       }
     },
     {
