@@ -407,6 +407,10 @@ What the skill enforces matters more than what it enables:
 > why AI review misses them — fluent, confident output produced whether or not anything was
 > established. The skill is written against that, not in spite of it.
 
+It does one thing: check whether what you built is ready to ship. For skills that teach an
+agent how to *build* well — testing, debugging, planning, git workflow — see
+[agent-skills](https://github.com/addyosmani/agent-skills). They compose; use both.
+
 ## MCP server
 
 Let your coding agent query the checklist directly while it works, instead of you pasting
