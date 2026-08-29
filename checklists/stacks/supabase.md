@@ -48,11 +48,15 @@ Items from the core checklists that are specific to **Supabase**. If you do not 
 ## Prompt Injection & Goal Hijacking
 <sub>from [`security/ai/02-prompt-injection.md`](../security/ai/02-prompt-injection.md)</sub>
 
+Test hostile instructions inside:
+
 * [ ] Supabase rows
 * [ ] Supabase Storage objects
 
 ## Tool Calling & Excessive Agency
 <sub>from [`security/ai/03-tools-and-agency.md`](../security/ai/03-tools-and-agency.md)</sub>
+
+Pay special attention to agents with:
 
 * [ ] Supabase administration
 
@@ -64,6 +68,8 @@ Items from the core checklists that are specific to **Supabase**. If you do not 
 ## AI Release Gate
 <sub>from [`security/ai/11-release-gate.md`](../security/ai/11-release-gate.md)</sub>
 
+The security architecture should explicitly treat all of these as untrusted unless independently verified:
+
 * [ ] Supabase rows
 
 ## AI-Generated Authorization & Data Bugs
@@ -74,6 +80,8 @@ Items from the core checklists that are specific to **Supabase**. If you do not 
 ## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`security/ai-generated-code/04-crypto-secrets-deps.md`](../security/ai-generated-code/04-crypto-secrets-deps.md)</sub>
 
+Review every AI-generated:
+
 * [ ] Supabase configuration
 
 ## Review Blind Spots
@@ -83,6 +91,8 @@ Items from the core checklists that are specific to **Supabase**. If you do not 
 
 ## Agent Prompts & PR Review
 <sub>from [`security/ai-generated-code/08-prompts-and-pr-review.md`](../security/ai-generated-code/08-prompts-and-pr-review.md)</sub>
+
+**Can an attacker reach the same operation another way?**
 
 * [ ] direct Supabase.
 

@@ -221,6 +221,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;
 .items li::before{content:"";position:absolute;left:1px;top:14px;width:11px;height:11px;
   border:1px solid var(--line2);border-radius:3px}
 .items li:last-child{border-bottom:0}
+.lead-in{margin:16px 0 6px;color:var(--dim);font-size:.92rem}
 .sec{margin:32px 0 4px;font-size:.73rem;text-transform:uppercase;letter-spacing:.12em;
      color:var(--accent);font-weight:600}
 
@@ -787,8 +788,17 @@ def build_checklist_page(path, slug, title, items, canonical=""):
     for name, group in secs:
         if name:
             body.append(f'<p class="sec" data-sec>{e(name)}</p>')
+        # An item like "null" means nothing without the sentence it hangs off — the list
+        # is closed and reopened around each lead-in so the page reads as the source does.
+        lead = None
         body.append('<ul class="items">')
         for i in group:
+            if (i.get("lead") or None) != lead:
+                lead = i.get("lead") or None
+                if lead:
+                    body.append("</ul>")
+                    body.append(f'<p class="lead-in">{inline(lead)}</p>')
+                    body.append('<ul class="items">')
             body.append(f"<li>{inline(i['text'])}</li>")
         body.append("</ul>")
 
@@ -796,7 +806,13 @@ def build_checklist_page(path, slug, title, items, canonical=""):
     for name, group in secs:
         if name:
             raw += [f"## {name}", ""]
-        raw += [f"* [ ] {i['text']}" for i in group]
+        lead = None
+        for i in group:
+            if (i.get("lead") or None) != lead:
+                lead = i.get("lead") or None
+                if lead:
+                    raw += ["", lead, ""]
+            raw.append(f"* [ ] {i['text']}")
         raw.append("")
     raw += ["", f"{len(items)} items · {REPO} · CC BY 4.0"]
     body.append(f'<pre id="raw" hidden>{e(chr(10).join(raw))}</pre>')

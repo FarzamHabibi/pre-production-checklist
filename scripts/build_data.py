@@ -21,6 +21,7 @@ os.chdir(ROOT)
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 import tree  # noqa: E402
 
+BOLD_LEAD = re.compile(r"\*\*[^*].*\*\*")
 ITEM = re.compile(r"^\* \[ \] (.+)$")
 BACKLINK = re.compile(r"^<sub>from \[`([a-z0-9/-]+\.md)`\]")
 
@@ -64,20 +65,38 @@ def parse(path, prefix, domain, area, stack, stack_id, seen):
     """Read one checklist file into item records."""
     out = []
     checklist = section = subsection = None
+    # A list of items often hangs off a sentence that ends in a colon — "Test AI-generated
+    # validation against:" followed by null, empty strings, zero. Dropping that sentence
+    # turns a meaningful list into fragments, which is exactly how `[ ] null` reached the
+    # generated checklists.
+    lead = None
     section_domain = domain
     for lineno, raw in enumerate(open(path, encoding="utf-8"), 1):
         line = raw.rstrip("\n")
         if line.startswith("### "):
-            subsection = line[4:].strip()
+            subsection, lead = line[4:].strip(), None
         elif line.startswith("## "):
-            section, subsection = line[3:].strip(), None
+            section, subsection, lead = line[3:].strip(), None, None
         elif line.startswith("# "):
-            checklist = line[2:].strip()
+            checklist, lead = line[2:].strip(), None
         elif stack:
             m = BACKLINK.match(line)
             if m:
                 # a stack section inherits the domain of the checklist it extends
                 section_domain = tree.domain_of_path("checklists/" + m.group(1)) or domain
+        stripped = line.strip()
+        if not ITEM.match(line):
+            if not stripped:
+                pass                                  # a blank line separates lead from list
+            elif BOLD_LEAD.fullmatch(stripped):
+                # a wholly-bold line is a lead too: "**Can an attacker reach the same
+                # operation another way?**" governs the REST/RPC/webhook list under it
+                lead = stripped.strip("*")
+            elif stripped.endswith(":") and not stripped.startswith(("#", "|", ">", "<", "*", "-")):
+                lead = stripped
+            elif not stripped.startswith(("#", "<")):
+                lead = None                           # ordinary prose ends the association
+
         m = ITEM.match(line)
         if not m:
             continue
@@ -90,6 +109,7 @@ def parse(path, prefix, domain, area, stack, stack_id, seen):
             "checklist": checklist,
             "section": section,
             "subsection": subsection,
+            "lead": lead,
             "stack": stack or "any",
             "stack_id": stack_id or "any",
             "release_gate": path in RELEASE_GATE_FILES,

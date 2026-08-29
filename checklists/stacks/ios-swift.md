@@ -40,6 +40,8 @@ Items from the core checklists that are specific to **iOS / iPadOS / Swift**. If
 ## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`security/ai-generated-code/04-crypto-secrets-deps.md`](../security/ai-generated-code/04-crypto-secrets-deps.md)</sub>
 
+Review every AI-generated:
+
 * [ ] Info.plist
 
 ## Review Blind Spots

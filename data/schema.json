@@ -96,6 +96,13 @@
               "null"
             ]
           },
+          "lead": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The sentence the item hangs off, when the item is one entry in an introduced list \u2014 \"Test AI-generated validation against:\" above null, empty strings, zero. A renderer that drops it turns the item into a fragment."
+          },
           "stack": {
             "type": "string",
             "description": "\"any\" for stack-agnostic items, otherwise the product the item names."

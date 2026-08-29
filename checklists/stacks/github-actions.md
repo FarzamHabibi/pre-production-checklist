@@ -36,7 +36,12 @@ Items from the core checklists that are specific to **GitHub (repository & Actio
 ## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`security/ai-generated-code/04-crypto-secrets-deps.md`](../security/ai-generated-code/04-crypto-secrets-deps.md)</sub>
 
+Review every AI-generated:
+
 * [ ] GitHub Actions
+
+Verify AI did not:
+
 * [ ] disable branch protection
 * [ ] give GitHub Actions write-all permissions
 
@@ -57,6 +62,8 @@ Items from the core checklists that are specific to **GitHub (repository & Actio
 <sub>from [`security/ai-generated-code/08-prompts-and-pr-review.md`](../security/ai-generated-code/08-prompts-and-pr-review.md)</sub>
 
 * [ ] Agent is prohibited from bypassing branch protection.
+
+Treat AI suggestions such as these as security-sensitive:
 
 * [ ] "use `pull_request_target`"
 

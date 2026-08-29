@@ -6135,10 +6135,14 @@ Items from the core checklists that are specific to **Cloudflare**. If you do no
 ## AI Testing & Red-Team Pack
 <sub>from [`security/ai/10-testing-and-red-team.md`](checklists/security/ai/10-testing-and-red-team.md)</sub>
 
+Test whether an attacker can cause an agent to reveal:
+
 * [ ] Cloudflare tokens
 
 ## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`security/ai-generated-code/04-crypto-secrets-deps.md`](checklists/security/ai-generated-code/04-crypto-secrets-deps.md)</sub>
+
+Review every AI-generated:
 
 * [ ] Cloudflare rules
 
@@ -6154,7 +6158,9 @@ Items from the core checklists that are specific to **Cloudflare**. If you do no
 
 * [ ] Identify DNS/Cloudflare changes.
 
-* [ ] Cloudflare?
+**Can an attacker reach the same operation another way?**
+
+* [ ] Cloudflare API.
 
 ## Vibe-Coding Release Gate
 <sub>from [`security/ai-generated-code/09-release-gate.md`](checklists/security/ai-generated-code/09-release-gate.md)</sub>
@@ -6286,6 +6292,8 @@ Items from the core checklists that are specific to **Docker / containers**. If 
 
 ## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`security/ai-generated-code/04-crypto-secrets-deps.md`](checklists/security/ai-generated-code/04-crypto-secrets-deps.md)</sub>
+
+Review every AI-generated:
 
 * [ ] Dockerfile
 * [ ] docker-compose
@@ -6523,7 +6531,12 @@ Items from the core checklists that are specific to **GitHub (repository & Actio
 ## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`security/ai-generated-code/04-crypto-secrets-deps.md`](checklists/security/ai-generated-code/04-crypto-secrets-deps.md)</sub>
 
+Review every AI-generated:
+
 * [ ] GitHub Actions
+
+Verify AI did not:
+
 * [ ] disable branch protection
 * [ ] give GitHub Actions write-all permissions
 
@@ -6544,6 +6557,8 @@ Items from the core checklists that are specific to **GitHub (repository & Actio
 <sub>from [`security/ai-generated-code/08-prompts-and-pr-review.md`](checklists/security/ai-generated-code/08-prompts-and-pr-review.md)</sub>
 
 * [ ] Agent is prohibited from bypassing branch protection.
+
+Treat AI suggestions such as these as security-sensitive:
 
 * [ ] "use `pull_request_target`"
 
@@ -6762,6 +6777,8 @@ Items from the core checklists that are specific to **iOS / iPadOS / Swift**. If
 
 ## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`security/ai-generated-code/04-crypto-secrets-deps.md`](checklists/security/ai-generated-code/04-crypto-secrets-deps.md)</sub>
+
+Review every AI-generated:
 
 * [ ] Info.plist
 
@@ -6987,6 +7004,8 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 
 ## Agent Prompts & PR Review
 <sub>from [`security/ai-generated-code/08-prompts-and-pr-review.md`](checklists/security/ai-generated-code/08-prompts-and-pr-review.md)</sub>
+
+**Can an attacker reach the same operation another way?**
 
 * [ ] Server Action.
 
@@ -7311,11 +7330,15 @@ Items from the core checklists that are specific to **Supabase**. If you do not 
 ## Prompt Injection & Goal Hijacking
 <sub>from [`security/ai/02-prompt-injection.md`](checklists/security/ai/02-prompt-injection.md)</sub>
 
+Test hostile instructions inside:
+
 * [ ] Supabase rows
 * [ ] Supabase Storage objects
 
 ## Tool Calling & Excessive Agency
 <sub>from [`security/ai/03-tools-and-agency.md`](checklists/security/ai/03-tools-and-agency.md)</sub>
+
+Pay special attention to agents with:
 
 * [ ] Supabase administration
 
@@ -7327,6 +7350,8 @@ Items from the core checklists that are specific to **Supabase**. If you do not 
 ## AI Release Gate
 <sub>from [`security/ai/11-release-gate.md`](checklists/security/ai/11-release-gate.md)</sub>
 
+The security architecture should explicitly treat all of these as untrusted unless independently verified:
+
 * [ ] Supabase rows
 
 ## AI-Generated Authorization & Data Bugs
@@ -7337,6 +7362,8 @@ Items from the core checklists that are specific to **Supabase**. If you do not 
 ## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`security/ai-generated-code/04-crypto-secrets-deps.md`](checklists/security/ai-generated-code/04-crypto-secrets-deps.md)</sub>
 
+Review every AI-generated:
+
 * [ ] Supabase configuration
 
 ## Review Blind Spots
@@ -7346,6 +7373,8 @@ Items from the core checklists that are specific to **Supabase**. If you do not 
 
 ## Agent Prompts & PR Review
 <sub>from [`security/ai-generated-code/08-prompts-and-pr-review.md`](checklists/security/ai-generated-code/08-prompts-and-pr-review.md)</sub>
+
+**Can an attacker reach the same operation another way?**
 
 * [ ] direct Supabase.
 

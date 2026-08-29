@@ -71,10 +71,14 @@ Items from the core checklists that are specific to **Cloudflare**. If you do no
 ## AI Testing & Red-Team Pack
 <sub>from [`security/ai/10-testing-and-red-team.md`](../security/ai/10-testing-and-red-team.md)</sub>
 
+Test whether an attacker can cause an agent to reveal:
+
 * [ ] Cloudflare tokens
 
 ## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`security/ai-generated-code/04-crypto-secrets-deps.md`](../security/ai-generated-code/04-crypto-secrets-deps.md)</sub>
+
+Review every AI-generated:
 
 * [ ] Cloudflare rules
 
@@ -90,7 +94,9 @@ Items from the core checklists that are specific to **Cloudflare**. If you do no
 
 * [ ] Identify DNS/Cloudflare changes.
 
-* [ ] Cloudflare?
+**Can an attacker reach the same operation another way?**
+
+* [ ] Cloudflare API.
 
 ## Vibe-Coding Release Gate
 <sub>from [`security/ai-generated-code/09-release-gate.md`](../security/ai-generated-code/09-release-gate.md)</sub>

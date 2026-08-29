@@ -91,6 +91,7 @@ function renderItems (items, header) {
   const lines = [header, '']
   let checklist = null
   let section = null
+  let lead = null
   for (const i of items) {
     if (i.checklist !== checklist) {
       checklist = i.checklist
@@ -101,6 +102,11 @@ function renderItems (items, header) {
       section = i.section
       if (section && section !== checklist) lines.push('', `### ${section}`)
       lines.push('')
+    }
+    // an item like "null" is only meaningful under "Test validation against:"
+    if ((i.lead || null) !== lead) {
+      lead = i.lead || null
+      if (lead) lines.push('', lead, '')
     }
     lines.push(`* [ ] ${i.text}`)
   }

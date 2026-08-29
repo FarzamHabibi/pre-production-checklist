@@ -165,7 +165,17 @@ function toMarkdown (items, meta = {}) {
     if (block.section && block.section !== block.checklist) {
       lines.push(`### ${block.section}`, '')
     }
-    for (const i of block.items) lines.push(`* [ ] ${i.text}`)
+    // Some items only make sense under the sentence they hang off — "Test AI-generated
+    // validation against:" then null, empty strings, zero. Emitting the items alone is
+    // what put a bare `[ ] null` in generated checklists.
+    let lead = null
+    for (const i of block.items) {
+      if ((i.lead || null) !== lead) {
+        lead = i.lead || null
+        if (lead) lines.push('', lead, '')
+      }
+      lines.push(`* [ ] ${i.text}`)
+    }
     lines.push('')
   }
   lines.push(

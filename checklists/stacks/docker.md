@@ -45,6 +45,8 @@ Items from the core checklists that are specific to **Docker / containers**. If 
 ## AI-Generated Crypto, Dependency & Config Bugs
 <sub>from [`security/ai-generated-code/04-crypto-secrets-deps.md`](../security/ai-generated-code/04-crypto-secrets-deps.md)</sub>
 
+Review every AI-generated:
+
 * [ ] Dockerfile
 * [ ] docker-compose
 

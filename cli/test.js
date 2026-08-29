@@ -245,6 +245,57 @@ test('README item counts agree with the data', () => {
     `headline does not state ${doc.counts.total}: ${headline[1]}`)
 })
 
+test('no item loses a lead-in the source file provides', () => {
+  // The defect: `[ ] null` shipped because the generator read the list under "Test
+  // AI-generated validation against:" and dropped the sentence. Asserting on item text
+  // ("does this read as a sentence?") is not something a regex settles; asserting the
+  // pipeline preserves what the markdown states is.
+  const fs = require('fs')
+  const root = path.join(__dirname, '..')
+  const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => {
+    const full = path.join(d, e.name)
+    return e.isDirectory() ? walk(full) : (e.name.endsWith('.md') ? [full] : [])
+  })
+
+  const led = new Set()
+  for (const f of walk(path.join(root, 'checklists'))) {
+    const lines = fs.readFileSync(f, 'utf8').split('\n')
+    let lead = null
+    for (let n = 0; n < lines.length; n++) {
+      const t = lines[n].trim()
+      if (/^[*-] \[[ x!]\]/i.test(t)) {
+        if (lead) led.add(`${path.relative(root, f)}:${n + 1}`)
+        continue
+      }
+      if (!t) continue
+      if (/^#{1,6}\s/.test(t)) lead = null      // a heading opens a new list
+      else if (/^\*\*[^*].*\*\*$/.test(t)) lead = t.replace(/\*/g, '')
+      else if (t.endsWith(':') && !/^[#|><*-]/.test(t)) lead = t
+      else if (!/^[#<]/.test(t)) lead = null
+    }
+  }
+  assert.ok(led.size > 500, `expected the tree to have many led lists, found ${led.size}`)
+
+  const missing = D.load().items
+    .filter((i) => led.has(`${i.source.file}:${i.source.line}`) && !i.lead)
+    .map((i) => `${i.source.file}:${i.source.line} "${i.text}"`)
+  assert.deepStrictEqual(missing, [], 'items whose lead-in the generator dropped')
+})
+
+test('every rendered format keeps the lead-in', () => {
+  const withLead = D.load().items.filter((i) => i.lead)
+  assert.ok(withLead.length > 0, 'no item carries a lead-in — the parser stopped capturing it')
+  const sample = withLead[0]
+
+  const md = D.toMarkdown([sample], {})
+  assert.ok(md.includes(sample.lead), 'markdown output dropped the lead-in')
+
+  const text = cli('--search', sample.text.slice(0, 20), '--format', 'text', '--all-stacks')
+  if (text.includes(sample.text)) {
+    assert.ok(text.includes(sample.lead), 'text output dropped the lead-in')
+  }
+})
+
 // ------------------------------------------------------------------ CLI
 console.log('\ncli')
 
@@ -368,6 +419,35 @@ test('init appends to AGENTS.md rather than replacing it', () => {
     out = fs.readFileSync(f, 'utf8')
     assert.strictEqual((out.match(/prodcheck:begin/g) || []).length, 1, 'block duplicated on re-run')
     assert.ok(out.includes('Something the project already relies on'))
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('each target gets the format that client actually reads', () => {
+  const fs = require('fs')
+  const os = require('os')
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'pc-fmt-'))
+  try {
+    fs.mkdirSync(path.join(dir, '.cursor'))
+    fs.writeFileSync(path.join(dir, 'AGENTS.md'), '')
+    execFileSync(process.execPath, [CLI, 'init', '--target', 'all'], { cwd: dir, stdio: 'pipe' })
+
+    // Cursor decides when a rule applies from its own frontmatter; without it the
+    // behaviour is undefined, which is what shipped in the first version.
+    const mdc = fs.readFileSync(path.join(dir, '.cursor', 'rules', 'prodcheck-review.mdc'), 'utf8')
+    assert.ok(mdc.startsWith('---'), 'cursor rule has no frontmatter')
+    assert.ok(/^description:/m.test(mdc), 'cursor rule has no description')
+    assert.ok(/^alwaysApply:/m.test(mdc), 'cursor rule does not say when it applies')
+
+    // AGENTS.md is read on every task in the repo, so it gets a pointer, not the
+    // whole procedure — the first version inlined ~2000 tokens into every request.
+    const agents = fs.readFileSync(path.join(dir, 'AGENTS.md'), 'utf8')
+    assert.ok(agents.length < 2000,
+      `AGENTS.md block is ${agents.length} chars — it loads on every task, keep it a pointer`)
+    assert.ok(agents.includes('SKILL.md'), 'AGENTS.md does not point at the full procedure')
+    assert.ok(/never mark an item verified/i.test(agents),
+      'the pointer drops the rule that matters most')
   } finally {
     fs.rmSync(dir, { recursive: true, force: true })
   }

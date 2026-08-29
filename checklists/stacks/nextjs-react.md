@@ -47,6 +47,8 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 ## Agent Prompts & PR Review
 <sub>from [`security/ai-generated-code/08-prompts-and-pr-review.md`](../security/ai-generated-code/08-prompts-and-pr-review.md)</sub>
 
+**Can an attacker reach the same operation another way?**
+
 * [ ] Server Action.
 
 ## JavaScript

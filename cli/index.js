@@ -133,7 +133,9 @@ function init (o) {
       // AGENTS.md is shared with whatever else the project put there — append, never clobber
       const marker = '<!-- prodcheck:begin -->'
       const end = '<!-- prodcheck:end -->'
-      const block = `${marker}\n${stripFrontmatter(body)}\n${end}\n`
+      // point at the local copy if init also wrote one, so the two cannot drift
+      const local = written.find((w) => w.endsWith('SKILL.md'))
+      const block = `${marker}\n${agentsPointer(local)}\n${end}\n`
       let cur = fs.existsSync(dest) ? fs.readFileSync(dest, 'utf8') : ''
       if (cur.includes(marker)) {
         cur = cur.replace(new RegExp(marker + '[\\s\\S]*?' + end + '\\n?'), block)
@@ -150,7 +152,7 @@ function init (o) {
       continue
     }
     fs.mkdirSync(path.dirname(dest), { recursive: true })
-    fs.writeFileSync(dest, t === 'cursor' ? stripFrontmatter(body) : body)
+    fs.writeFileSync(dest, t === 'cursor' ? cursorRule(body) : body)
     written.push(rel)
   }
 
@@ -173,6 +175,46 @@ function init (o) {
 
 function stripFrontmatter (s) {
   return s.startsWith('---') ? s.replace(/^---[\s\S]*?\n---\n/, '') : s
+}
+
+// Cursor decides when a rule applies from its own frontmatter. Shipping the body with
+// Claude's frontmatter stripped and nothing in its place leaves that undefined.
+function cursorRule (body) {
+  return '---\n' +
+    'description: Review this codebase against the prodcheck pre-production checklists. ' +
+    'Use when asked whether a project is ready to ship, to audit an area before launch, ' +
+    'or to work through a specific checklist.\n' +
+    'alwaysApply: false\n' +
+    '---\n\n' + stripFrontmatter(body)
+}
+
+// AGENTS.md is read for every task in a repository, including "fix this typo". Inlining
+// two thousand tokens of review procedure there is a cost on every unrelated request, so
+// this is a pointer to the procedure rather than the procedure.
+function agentsPointer (installed) {
+  const where = installed
+    ? `\`${installed}\``
+    : 'https://github.com/FarzamHabibi/pre-production-checklist/blob/main/skills/review/SKILL.md'
+  return [
+    '## Pre-production review (prodcheck)',
+    '',
+    'When asked to review this project for production readiness — security, performance,',
+    'scale, integrations or post-launch readiness — read the full procedure at ' + where,
+    'first and follow it.',
+    '',
+    'Three rules from it that apply to any review you write here, procedure or not:',
+    '',
+    '1. **Never mark an item verified.** Every item ends as a `FINDING` with a `file:line`',
+    '   citation, an `UNKNOWN`, or an `N/A` with a reason. There is no "pass" to write —',
+    '   that is the human\'s, after reading the evidence.',
+    '2. **A finding without a citation is a guess.** Quote the lines, and re-read them',
+    '   before claiming what they say.',
+    '3. **`UNKNOWN` is a real answer.** Most checklist items depend on production',
+    '   configuration a repository cannot show. Say so rather than inferring a pass.',
+    '',
+    'Items come from `npx prodcheck --gate`, the `prodcheck` MCP server, or',
+    'https://prodcheck.pages.dev/checklist.json'
+  ].join('\n')
 }
 
 function fail (msg) {
@@ -258,7 +300,17 @@ function main () {
   switch (o.format) {
     case 'count': output = String(items.length) + '\n'; break
     case 'json': output = JSON.stringify(items, null, 2) + '\n'; break
-    case 'text': output = items.map((i) => i.text).join('\n') + '\n'; break
+    case 'text': {
+      // A bare item can be meaningless without the sentence it hangs off, so text mode
+      // prints the lead-in once above the run it belongs to.
+      let lead = null
+      output = items.map((i) => {
+        const l = i.lead || null
+        if (l !== lead) { lead = l; if (l) return `\n${l}\n${i.text}` }
+        return i.text
+      }).join('\n') + '\n'
+      break
+    }
     case 'markdown': {
       const bits = []
       if (o.domains.length) bits.push(o.domains.map((d) => D.domainLabel(d)).join(', '))
