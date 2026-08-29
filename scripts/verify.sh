@@ -155,6 +155,23 @@ if out=$(python3 scripts/build_site.py 2>&1); then
     miss="README links to https://$readme_site but pages canonicalise to https://$sitebase"
   fi
 
+  # Every place that claims "the site lives here" must name the canonical host. The
+  # README was checked; package.json's homepage and the GitHub Website field were not,
+  # and both sat on a domain the js.org request had been declined for — one of them on
+  # the published npm page.
+  pkg_home=$(python3 -c "import json;print(json.load(open('package.json')).get('homepage',''))" \
+             | sed 's|https://||; s|/$||')
+  if [ -n "$pkg_home" ] && [ "$pkg_home" != "$sitebase" ]; then
+    miss="package.json homepage is https://$pkg_home but pages canonicalise to https://$sitebase"
+  fi
+  if command -v gh >/dev/null 2>&1; then
+    gh_home=$(gh repo view --json homepageUrl --jq '.homepageUrl // ""' 2>/dev/null \
+              | sed 's|https://||; s|/$||')
+    if [ -n "$gh_home" ] && [ "$gh_home" != "$sitebase" ]; then
+      miss="the GitHub Website field is https://$gh_home but pages canonicalise to https://$sitebase"
+    fi
+  fi
+
   # The markdown link check above never looked at the generated site. Restructuring the
   # output to directory URLs broke 91 of its links and the gate stayed green.
   sitelinks=$(python3 - <<'PY2'

@@ -321,7 +321,7 @@ if (f) {
 # redirect the github.io URL to it". Leave it unset until that DNS actually resolves;
 # setting it early is how the site went dark once.
 SITE = os.environ.get(
-    "PRODCHECK_SITE", "https://farzamhabibi.github.io/pre-production-checklist"
+    "PRODCHECK_SITE", "https://prodcheck.pages.dev"
 ).rstrip("/")
 CUSTOM_DOMAIN = os.environ.get("PRODCHECK_CNAME") or None
 
