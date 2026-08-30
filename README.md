@@ -16,6 +16,11 @@ have a security team to hand it to.
 
 ### [→ prodcheck.pages.dev](https://prodcheck.pages.dev/) · [or in the repo](checklists/README.md)
 
+<img src="site-assets/demo/demo.gif" alt="prodcheck reviewing a codebase: it reads the project, narrows 4,337 checks to the ones that apply, and cites file and line for what it finds" width="720">
+
+<sub>Every finding in that loop is real — the file, the lines and the counts come from this
+repository. [How it is built](demo/README.md).</sub>
+
 <sub>Built and maintained by the team at **[Arioo](https://arioo.com)** — where we ship
 the kind of product this checklist was written for.</sub>
 

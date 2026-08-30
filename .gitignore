@@ -11,3 +11,4 @@ site/
 
 # editor/agent-local: a launch config for serving site/ in a preview pane
 .claude/
+demo/out/

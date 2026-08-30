@@ -1,0 +1,520 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>prodcheck — demo loop</title>
+<!--
+  A scripted, looping replay of what prodcheck does, built to be recorded.
+
+  Why scripted: a real agent run takes half a minute of thinking, differs every time, and
+  cannot be looped or cut to length. This replays a fixed scene at a controlled pace, so
+  one take is the take.
+
+  Scripted is not invented. Every number comes from data/checklist.json and every quoted
+  line from evals/fixtures/flawed/src/app.js, which really does contain those defects at
+  those line numbers. scripts/build_demo.py fills them in.
+
+  Controls: space pause · R restart · H hide the hint. ?rec=1 hides it from the start.
+-->
+<style>
+  :root{
+    --bg:#08080a; --panel:#0f0f14; --fg:#f2f2f4; --dim:#a3a3ad; --faint:#6e6e79;
+    --line:#1e1e25; --line2:#2a2a33; --accent:#7dd3a0; --warn:#f0b866; --bad:#e88b8b;
+    --code:#101015;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    /* expo-out reads as expensive; back-out gives the small overshoot that reads as
+       energy. Everything on the stage uses one of these two, so the motion feels
+       authored rather than assorted. */
+    --eo:cubic-bezier(.16,1,.3,1);
+    --pop:cubic-bezier(.34,1.56,.64,1);
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:#000;overflow:hidden}
+  body{display:grid;place-items:center;font-family:var(--sans);color:var(--fg)}
+
+  #stage{position:relative;width:1280px;height:720px;background:var(--bg);overflow:hidden}
+
+  /* a slow drift, so the frame is never completely still — stillness is what makes a
+     loop read as a slideshow instead of a film */
+  #stage::after{
+    content:"";position:absolute;inset:-30%;pointer-events:none;z-index:0;
+    background:radial-gradient(46% 42% at 30% 22%,rgba(125,211,160,.13),transparent 70%);
+    animation:drift 19s ease-in-out infinite;
+  }
+  @keyframes drift{
+    0%,100%{transform:translate3d(0,0,0) scale(1)}
+    50%{transform:translate3d(7%,5%,0) scale(1.14)}
+  }
+  #grid{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.5;
+    background:
+      repeating-linear-gradient(0deg,transparent 0 47px,rgba(255,255,255,.016) 47px 48px),
+      repeating-linear-gradient(90deg,transparent 0 47px,rgba(255,255,255,.016) 47px 48px);
+    mask-image:radial-gradient(80% 70% at 50% 40%,#000,transparent)}
+
+  .scene{
+    position:absolute;inset:0;z-index:2;padding:60px 66px;opacity:0;
+    transform:translate3d(0,26px,0) scale(.988);filter:blur(7px);
+    transition:opacity .34s ease,transform .62s var(--eo),filter .42s ease;
+    will-change:transform,opacity,filter;
+  }
+  .scene.on{opacity:1;transform:none;filter:none}
+  .scene.out{opacity:0;transform:translate3d(0,-20px,0) scale(.994);filter:blur(5px);
+    transition:opacity .3s ease,transform .44s var(--eo),filter .3s ease}
+
+  /* ---------- kinetic type: words rise in sequence rather than all at once ---------- */
+  .w{display:inline-block;opacity:0;transform:translate3d(0,.52em,0);filter:blur(5px);
+    transition:opacity .34s ease,transform .56s var(--eo),filter .34s ease}
+  .w.on{opacity:1;transform:none;filter:none}
+
+  .eyebrow{font-size:12px;letter-spacing:.19em;text-transform:uppercase;color:var(--accent);
+    font-weight:700;margin:0 0 16px;display:flex;align-items:center;gap:11px}
+  .eyebrow i{display:block;height:1px;background:var(--accent);width:0;opacity:.55;
+    transition:width .7s var(--eo) .12s}
+  .eyebrow.on i{width:74px}
+
+  h1{font-size:clamp(44px,4.4vw,58px);line-height:1.06;letter-spacing:-.038em;
+    margin:0 0 20px;max-width:19ch;font-weight:700}
+  h2{font-size:36px;line-height:1.16;letter-spacing:-.03em;margin:0 0 14px;max-width:25ch;
+    font-weight:700}
+  .lede{font-size:19px;color:var(--dim);max-width:54ch;line-height:1.6;margin:0}
+  .accent{color:var(--accent)}
+  .mono{font-family:var(--mono)}
+
+  #mark{position:absolute;left:66px;bottom:42px;z-index:5;display:flex;align-items:center;
+    gap:10px;opacity:.9}
+  #mark svg{width:26px;height:26px}
+  #mark b{font-size:17px;font-weight:650;letter-spacing:-.012em}
+  #mark b i{font-style:normal;color:var(--accent)}
+  #mark span{font-size:13px;color:var(--faint);margin-left:6px}
+
+  /* loop position, bottom edge — momentum you can see */
+  #bar{position:absolute;left:0;bottom:0;height:2px;z-index:6;width:0;
+    background:linear-gradient(90deg,transparent,var(--accent));opacity:.85}
+
+  /* ---------- terminal ---------- */
+  .term{background:var(--code);border:1px solid var(--line2);border-radius:13px;
+    font-family:var(--mono);font-size:15.5px;line-height:1.85;padding:18px 21px;
+    box-shadow:0 26px 70px rgba(0,0,0,.6),0 0 0 1px rgba(125,211,160,.07)}
+  .term .bar{display:flex;gap:7px;margin:-3px 0 14px}
+  .term .bar i{width:11px;height:11px;border-radius:50%;background:#2a2a33;display:block}
+  .prompt{color:var(--faint)}
+  .out{color:var(--dim);white-space:pre-wrap;opacity:0;transform:translateY(7px);
+    transition:opacity .4s ease,transform .5s var(--eo)}
+  .out.on{opacity:1;transform:none}
+  .ok{color:var(--accent)}
+  .cur{display:inline-block;width:9px;height:17px;background:var(--accent);
+    vertical-align:-3px;margin-left:2px;animation:blink .9s steps(1,end) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  /* ---------- split ---------- */
+  .split{display:grid;grid-template-columns:1.02fr 1fr;gap:30px;align-items:start}
+  .pane{min-width:0}
+  .pane h3{font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--faint);
+    margin:0 0 13px;font-weight:700}
+
+  .code{background:var(--code);border:1px solid var(--line);border-radius:12px;
+    font-family:var(--mono);font-size:13.5px;line-height:1.95;padding:14px 0;
+    box-shadow:0 20px 56px rgba(0,0,0,.5)}
+  .code .ln{display:grid;grid-template-columns:44px 1fr;padding:0 15px;color:var(--dim);
+    position:relative}
+  .code .ln u{color:var(--faint);text-decoration:none;text-align:right;padding-right:14px;
+    transition:color .3s ease}
+  .code .ln::before{content:"";position:absolute;inset:0;border-radius:3px;
+    background:rgba(232,139,139,.13);box-shadow:inset 3px 0 0 var(--bad);
+    opacity:0;transform:scaleX(.6);transform-origin:left;
+    transition:opacity .3s ease,transform .5s var(--eo)}
+  .code .ln.hit::before{opacity:1;transform:none}
+  .code .ln.hit u{color:var(--bad)}
+  .code .ln span{position:relative}
+
+  /* ---------- findings ---------- */
+  .find{border:1px solid var(--line);border-radius:12px;background:var(--panel);
+    padding:13px 16px;margin:0 0 11px;opacity:0;
+    transform:translate3d(34px,0,0) scale(.97);
+    transition:opacity .3s ease,transform .55s var(--pop);
+    box-shadow:0 12px 34px rgba(0,0,0,.34)}
+  .find.on{opacity:1;transform:none}
+  .find .top{display:flex;align-items:center;gap:9px;margin:0 0 7px}
+  .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;padding:3px 8px;
+    border-radius:5px;font-weight:700}
+  .tag.f{background:rgba(232,139,139,.16);color:var(--bad)}
+  .tag.u{background:rgba(240,184,102,.15);color:var(--warn)}
+  .find .where{font-family:var(--mono);font-size:12px;color:var(--faint)}
+  .find p{margin:0;font-size:14.5px;color:var(--fg);line-height:1.5}
+  .find code{font-family:var(--mono);font-size:12.5px;color:var(--dim);display:block;
+    margin-top:8px;padding:8px 11px;background:var(--code);border-radius:7px;
+    border-left:2px solid var(--line2);white-space:pre-wrap;word-break:break-word}
+
+  /* ---------- counter ---------- */
+  .nums{display:flex;align-items:flex-start;margin-top:44px}
+  .big{font-size:118px;font-weight:750;letter-spacing:-.055em;line-height:1;
+    font-variant-numeric:tabular-nums;transition:transform .42s var(--pop)}
+  .big.pop{transform:scale(1.07)}
+  .arrow{font-size:42px;color:var(--faint);margin:0 30px;vertical-align:20px;
+    opacity:0;transform:translateX(-14px);
+    transition:opacity .35s ease,transform .55s var(--eo)}
+  .arrow.on{opacity:1;transform:none}
+  .cap{font-size:12.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint);
+    font-weight:700;margin-top:13px}
+
+  .stack{display:flex;gap:9px;margin:20px 0 0;flex-wrap:wrap}
+  .chip{border:1px solid var(--line2);border-radius:999px;padding:7px 16px;font-size:14px;
+    color:var(--dim);opacity:0;transform:translate3d(0,10px,0) scale(.9);
+    transition:opacity .28s ease,transform .5s var(--pop),border-color .3s ease,color .3s ease}
+  .chip.on{opacity:1;transform:none;border-color:var(--accent);color:var(--fg)}
+
+  #hud{position:absolute;right:18px;bottom:15px;z-index:7;font-family:var(--mono);
+    font-size:11px;color:var(--faint);opacity:.45}
+  body.rec #hud{display:none}
+</style>
+
+<div id="stage">
+  <div id="grid"></div>
+  <div id="mark">
+    <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <rect x="1.5" y="1.5" width="45" height="45" rx="11" stroke="#3f7d5c" stroke-width="3"/>
+      <path d="M13 25l8 8 15-17" stroke="#7dd3a0" stroke-width="5.2"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <b>prod<i>check</i></b><span>prodcheck.pages.dev</span>
+  </div>
+  <div id="bar"></div>
+  <div id="hud">space pause · R restart · H hide</div>
+</div>
+
+<script>
+/* Filled by scripts/build_demo.py from data/checklist.json and the eval fixture. */
+const DATA = {
+  "total": "4,337",
+  "scoped": 310,
+  "stack": [
+    "Express",
+    "PostgreSQL",
+    "Docker"
+  ],
+  "code": [
+    {
+      "n": 19,
+      "t": "&nbsp;"
+    },
+    {
+      "n": 20,
+      "t": "app.get(&#x27;/notes/:id&#x27;, async (req, res) =&gt; {"
+    },
+    {
+      "n": 22,
+      "t": "  const r = await pool.query(`SELECT * FROM notes WHERE id = &#x27;${req.params.id}&#x27;`)"
+    },
+    {
+      "n": 24,
+      "t": "  res.json(r.rows[0])"
+    },
+    {
+      "n": 25,
+      "t": "})"
+    },
+    {
+      "n": 26,
+      "t": "&nbsp;"
+    },
+    {
+      "n": 27,
+      "t": "app.post(&#x27;/notes&#x27;, async (req, res) =&gt; {"
+    },
+    {
+      "n": 29,
+      "t": "  const { title, body, owner_id } = req.body"
+    },
+    {
+      "n": 30,
+      "t": "  await pool.query(&#x27;INSERT INTO notes (title, body, owner_id) VALUES ($1,$2,$3)&#x27;,"
+    },
+    {
+      "n": 31,
+      "t": "    [title, body, owner_id])"
+    },
+    {
+      "n": 32,
+      "t": "  res.status(201).end()"
+    }
+  ],
+  "findings": [
+    {
+      "line": 22,
+      "where": "src/app.js:22",
+      "what": "SQL injection via string interpolation",
+      "code": "const r = await pool.query(`SELECT * FROM notes WHERE id = &#x27;${req.params.id}&#x27;`)"
+    },
+    {
+      "line": 24,
+      "where": "src/app.js:24",
+      "what": "no ownership check — any authenticated user reads any note",
+      "code": "res.json(r.rows[0])"
+    },
+    {
+      "line": 29,
+      "where": "src/app.js:29",
+      "what": "mass assignment — owner_id comes from the request body",
+      "code": "const { title, body, owner_id } = req.body"
+    }
+  ],
+  "unknowns": [
+    "Whether rate limiting exists at the edge. Nothing in this repository configures it, and the answer lives in your CDN dashboard.",
+    "Whether the database enforces row-level security. The application never relies on it, so the code cannot tell you either way.",
+    "Whether backups have ever been restored. A backup nobody has restored is a hope."
+  ]
+};
+
+const stage = document.getElementById('stage');
+const bar = document.getElementById('bar');
+const el = (h) => { const d = document.createElement('div'); d.innerHTML = h.trim(); return d.firstChild };
+
+let timers = [];
+const at = (ms, fn) => { const t = setTimeout(fn, ms); timers.push(t); return t };
+const clearAll = () => { timers.forEach(clearTimeout); timers = [] };
+
+/* split a heading into words so they can rise in sequence */
+function splitWords(node){
+  if (node.dataset.split) return;
+  node.dataset.split = '1';
+  const html = node.innerHTML.split(/(<br\s*\/?>)/i).map(part =>
+    /^<br/i.test(part) ? part
+      : part.split(/(\s+)/).map(w => w.trim() ? `<span class="w">${w}</span>` : w).join('')
+  ).join('');
+  node.innerHTML = html;
+}
+function reveal(scope, step = 46, delay = 0){
+  const ws = [...scope.querySelectorAll('.w')];
+  ws.forEach(w => w.classList.remove('on'));
+  ws.forEach((w, i) => at(delay + i * step, () => w.classList.add('on')));
+  return delay + ws.length * step;
+}
+
+function scene(html){
+  const s = el(`<div class="scene">${html}</div>`);
+  stage.insertBefore(s, document.getElementById('mark'));
+  s.querySelectorAll('h1,h2').forEach(splitWords);
+  return s;
+}
+
+function type(node, text, cps, done){
+  let i = 0;
+  const step = () => {
+    if (i > text.length) { done && done(); return }
+    node.textContent = text.slice(0, i++);
+    at(1000 / cps, step);
+  };
+  step();
+}
+
+/* count with an expo ease so the number lands rather than stopping dead */
+function countTo(node, target, dur, then){
+  const t0 = performance.now();
+  const tick = (now) => {
+    const p = Math.min(1, (now - t0) / dur);
+    node.textContent = Math.round(target * (1 - Math.pow(1 - p, 4))).toLocaleString();
+    if (p < 1) requestAnimationFrame(tick); else then && then();
+  };
+  requestAnimationFrame(tick);
+}
+
+/* ------------------------------------------------------------------ scenes */
+const S = [];
+
+const s1 = scene(`
+  <p class="eyebrow"><i></i>Thursday</p>
+  <h1>You ship in<br>two days.</h1>
+  <p class="lede" id="l1">The code works. The tests pass.
+    <b class="accent">That was never the question.</b></p>
+`);
+S.push({ t: 3900, el: s1, run(){
+  s1.querySelector('.eyebrow').classList.add('on');
+  const end = reveal(s1, 52, 120);
+  const l = s1.querySelector('#l1');
+  l.style.opacity = 0; l.style.transform = 'translateY(12px)';
+  l.style.transition = 'opacity .4s ease, transform .6s var(--eo)';
+  at(end + 60, () => { l.style.opacity = 1; l.style.transform = 'none' });
+}});
+
+const s2 = scene(`
+  <p class="eyebrow"><i></i>One line</p>
+  <h2>No account. No API key.</h2>
+  <div class="term" style="max-width:830px;margin-top:26px">
+    <div class="bar"><i></i><i></i><i></i></div>
+    <div><span class="prompt">$ </span><span id="t2"></span><span class="cur"></span></div>
+    <div class="out" id="o2" style="margin-top:9px"></div>
+  </div>
+`);
+S.push({ t: 4700, el: s2, run(){
+  s2.querySelector('.eyebrow').classList.add('on');
+  reveal(s2, 46, 90);
+  const c = s2.querySelector('#t2'), o = s2.querySelector('#o2');
+  c.textContent = ''; o.classList.remove('on');
+  at(520, () => type(c, 'npx prodcheck init', 34, () => at(420, () => {
+    o.innerHTML = `Wrote:  .claude/skills/prodcheck-review/SKILL.md\n` +
+      `<span class="ok">Your agent can now run a review against the checklist.</span>`;
+    o.classList.add('on');
+  })));
+}});
+
+const s3 = scene(`
+  <p class="eyebrow"><i></i>It reads your project first</p>
+  <h2>You get the checks<br>that apply to you.</h2>
+  <div class="stack">${DATA.stack.map(s => `<span class="chip">${s}</span>`).join('')}</div>
+  <div class="nums">
+    <div><div class="big" style="color:var(--faint)">${DATA.total}</div>
+         <div class="cap">in the checklist</div></div>
+    <div class="arrow">&rarr;</div>
+    <div><div class="big accent" id="n3">0</div>
+         <div class="cap">that apply here</div></div>
+  </div>
+`);
+S.push({ t: 5000, el: s3, run(){
+  s3.querySelector('.eyebrow').classList.add('on');
+  reveal(s3, 44, 80);
+  const chips = [...s3.querySelectorAll('.chip')];
+  const arrow = s3.querySelector('.arrow');
+  const n = s3.querySelector('#n3');
+  chips.forEach(c => c.classList.remove('on'));
+  arrow.classList.remove('on');
+  n.textContent = '0'; n.classList.remove('pop');
+  chips.forEach((c, i) => at(560 + i * 130, () => c.classList.add('on')));
+  at(1180, () => arrow.classList.add('on'));
+  at(1320, () => countTo(n, DATA.scoped, 1150, () => {
+    n.classList.add('pop'); at(420, () => n.classList.remove('pop'));
+  }));
+}});
+
+const s4 = scene(`
+  <p class="eyebrow"><i></i>On your actual code</p>
+  <div class="split" style="margin-top:22px">
+    <div class="pane"><h3>your code</h3>
+      <div class="code">${DATA.code.map(l =>
+        `<div class="ln" data-n="${l.n}"><u>${l.n}</u><span>${l.t}</span></div>`).join('')}</div>
+    </div>
+    <div class="pane"><h3>what it found</h3>
+      ${DATA.findings.map(f => `
+        <div class="find">
+          <div class="top"><span class="tag f">FINDING</span><span class="where">${f.where}</span></div>
+          <p>${f.what}</p><code>${f.code}</code>
+        </div>`).join('')}
+    </div>
+  </div>
+`);
+S.push({ t: 7600, el: s4, run(){
+  s4.querySelector('.eyebrow').classList.add('on');
+  const cards = [...s4.querySelectorAll('.find')];
+  const lines = [...s4.querySelectorAll('.ln')];
+  cards.forEach(c => c.classList.remove('on'));
+  lines.forEach(l => l.classList.remove('hit'));
+  cards.forEach((c, i) => at(600 + i * 1550, () => {
+    c.classList.add('on');
+    const ln = lines.find(l => l.dataset.n === String(DATA.findings[i].line));
+    if (ln) at(120, () => ln.classList.add('hit'));
+  }));
+}});
+
+const s5 = scene(`
+  <p class="eyebrow"><i></i>And what it could not tell</p>
+  <h2>&ldquo;I don&rsquo;t know&rdquo; is a real answer.</h2>
+  <div style="max-width:790px;margin-top:22px">
+    ${DATA.unknowns.map(u => `
+      <div class="find">
+        <div class="top"><span class="tag u">UNKNOWN</span><span class="where">needs a human</span></div>
+        <p>${u}</p>
+      </div>`).join('')}
+  </div>
+`);
+S.push({ t: 4400, el: s5, run(){
+  s5.querySelector('.eyebrow').classList.add('on');
+  reveal(s5, 40, 70);
+  const cards = [...s5.querySelectorAll('.find')];
+  cards.forEach(c => c.classList.remove('on'));
+  cards.forEach((c, i) => at(620 + i * 620, () => c.classList.add('on')));
+}});
+
+const s6 = scene(`
+  <p class="eyebrow"><i></i>What it will never do</p>
+  <h1>It never tells you<br>you&rsquo;re <span class="accent">safe</span>.</h1>
+  <p class="lede" id="l6">Every finding cites a file and a line, or it says UNKNOWN.
+    Nothing is marked verified on your behalf.</p>
+`);
+S.push({ t: 3900, el: s6, run(){
+  s6.querySelector('.eyebrow').classList.add('on');
+  const end = reveal(s6, 60, 100);
+  const l = s6.querySelector('#l6');
+  l.style.opacity = 0; l.style.transform = 'translateY(12px)';
+  l.style.transition = 'opacity .4s ease, transform .6s var(--eo)';
+  at(end + 40, () => { l.style.opacity = 1; l.style.transform = 'none' });
+}});
+
+const s7 = scene(`
+  <div style="display:grid;place-items:center;height:100%;text-align:center">
+    <div>
+      <h1 style="max-width:none;margin-bottom:16px">${DATA.total} things to check<br>before you ship.</h1>
+      <p class="lede" id="l7" style="margin:0 auto 26px;max-width:44ch">
+        Security, performance, scale, being findable,
+        and what to do when it breaks anyway.</p>
+      <p class="mono" id="u7" style="font-size:25px;color:var(--accent);margin:0;
+         opacity:0;transform:scale(.94);transition:opacity .4s ease,transform .6s var(--pop)">
+        prodcheck.pages.dev</p>
+      <p class="lede" style="margin-top:12px;font-size:15px">Free and open source.</p>
+    </div>
+  </div>
+`);
+S.push({ t: 3600, el: s7, run(){
+  const end = reveal(s7, 46, 60);
+  const l = s7.querySelector('#l7'), u = s7.querySelector('#u7');
+  l.style.opacity = 0; l.style.transform = 'translateY(10px)';
+  l.style.transition = 'opacity .4s ease, transform .55s var(--eo)';
+  u.style.opacity = 0; u.style.transform = 'scale(.94)';
+  at(end, () => { l.style.opacity = 1; l.style.transform = 'none' });
+  at(end + 240, () => { u.style.opacity = 1; u.style.transform = 'none' });
+}});
+
+/* ------------------------------------------------------------------ the loop */
+const TOTAL = S.reduce((n, s) => n + s.t, 0);
+let idx = 0, elapsed = 0;
+
+function enter(i){
+  const s = S[i];
+  s.el.classList.remove('out');
+  s.el.classList.add('on');
+  s.run && s.run();
+  bar.style.transition = `width ${s.t}ms linear`;
+  bar.style.width = ((elapsed + s.t) / TOTAL * 100) + '%';
+  at(s.t, () => {
+    const next = (i + 1) % S.length;
+    elapsed = next === 0 ? 0 : elapsed + s.t;
+    if (next === 0){
+      bar.style.transition = 'none';
+      bar.style.width = '0%';
+    }
+    // the next scene rises while this one leaves: an overlap, not a gap
+    enter(next);
+    s.el.classList.remove('on');
+    s.el.classList.add('out');
+    at(500, () => s.el.classList.remove('out'));
+    idx = next;
+  });
+}
+
+function restart(){
+  clearAll();
+  S.forEach(s => s.el.classList.remove('on', 'out'));
+  document.querySelectorAll('.find,.chip,.ln,.eyebrow,.arrow,.out,.w')
+    .forEach(n => n.classList.remove('on', 'hit'));
+  idx = 0; elapsed = 0;
+  bar.style.transition = 'none'; bar.style.width = '0%';
+  at(60, () => enter(0));
+}
+
+if (new URLSearchParams(location.search).has('rec')) document.body.classList.add('rec');
+restart();
+
+let paused = false;
+addEventListener('keydown', (e) => {
+  if (e.code === 'Space'){ e.preventDefault(); paused ? (paused = false, enter(idx)) : (paused = true, clearAll()) }
+  if (e.key.toLowerCase() === 'r') restart();
+  if (e.key.toLowerCase() === 'h') document.body.classList.toggle('rec');
+});
+</script>

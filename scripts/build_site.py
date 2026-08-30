@@ -174,6 +174,15 @@ section.band.alt{background:color-mix(in srgb,var(--panel) 55%,transparent)}
 .eyebrow{font-size:.73rem;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
   margin:0 0 12px;font-weight:600}
 
+/* ---- the demo loop ---- */
+section.band.see{background:color-mix(in srgb,var(--panel) 40%,transparent)}
+.vid{margin:26px 0 0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
+  background:var(--code);line-height:0;
+  box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.vid video,.vid img{width:100%;height:auto;display:block}
+/* the file is only worth its weight when someone can see it move */
+@media (prefers-reduced-motion:reduce){ .vid video{display:none} }
+
 /* ---- the one starting point, for people who cannot pick between four ---- */
 section.band.start{background:
   linear-gradient(180deg,color-mix(in srgb,var(--accent) 7%,transparent),transparent 260px)}
@@ -424,6 +433,7 @@ def page(title, desc, body, depth=0, canonical="", schema=""):
   <a class="brand plain" href="{up}">{MARK}<span>prod<b>check</b></span></a>
   <nav>
     <a href="{up}checklists/">Checklists</a>
+    <a href="{up}#see">See it</a>
     <a href="{up}#start">Start</a>
     <a href="{up}#tools">Tools</a>
     <a href="{up}#why">Why</a>
@@ -603,6 +613,25 @@ item | verdict | file:line | one-sentence reason."""
     <div><b class="accent">Free</b><span>OPEN SOURCE</span></div>
     <div id="dl" hidden><b data-dl>—</b><span>WEEKLY INSTALLS</span></div>
   </div>
+</div></section>
+
+<section class="band see" id="see"><div class="wrap narrow">
+  <p class="eyebrow">Thirty seconds</p>
+  <h2>What it actually does</h2>
+  <p class="dim">A checklist, your code, and an assistant that shows its working.
+  No sound, no narration.</p>
+
+  <figure class="vid">
+    <video autoplay loop muted playsinline preload="none"
+           poster="demo/poster.webp" aria-label="prodcheck reviewing a codebase">
+      <source src="demo/demo.mp4" type="video/mp4">
+      <!-- browsers that will not autoplay video fall back to the same loop as a gif -->
+      <img src="demo/demo.gif" alt="prodcheck reviewing a codebase, as an animation" loading="lazy">
+    </video>
+  </figure>
+  <p class="tiny" style="margin:13px 0 0">Every finding in it is real: the file, the lines
+  and the counts come from the repository, not from a mockup.
+  &nbsp;&middot;&nbsp; <a href="demo/demo.gif">the loop as a GIF &rarr;</a></p>
 </div></section>
 
 <section class="band start" id="start"><div class="wrap narrow">
@@ -883,7 +912,7 @@ HEADERS_TEMPLATE = """/*
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
   Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
-  Content-Security-Policy: default-src 'none'; img-src 'self' data:; style-src 'self'; script-src '{SCRIPT_HASH}' https://static.cloudflareinsights.com; connect-src https://api.npmjs.org https://cloudflareinsights.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'none'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src '{SCRIPT_HASH}' https://static.cloudflareinsights.com; connect-src https://api.npmjs.org https://cloudflareinsights.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
 
 /style.css
   Cache-Control: public, max-age=3600
@@ -985,6 +1014,14 @@ def main():
     png = os.path.join("site-assets", "og.png")
     if os.path.exists(png):
         shutil.copyfile(png, os.path.join(OUT, "og.png"))
+
+    # the demo loop: mp4 for the page, gif as the fallback and for the README
+    demo_src = os.path.join("site-assets", "demo")
+    if os.path.isdir(demo_src):
+        demo_out = os.path.join(OUT, "demo")
+        os.makedirs(demo_out, exist_ok=True)
+        for f in sorted(os.listdir(demo_src)):
+            shutil.copyfile(os.path.join(demo_src, f), os.path.join(demo_out, f))
 
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(build_index())
     urls.append(("", "prodcheck — the pre-production checklist for solo founders"))
