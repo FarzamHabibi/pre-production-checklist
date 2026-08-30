@@ -526,49 +526,52 @@ The Markdown under `checklists/` is the source of truth; the JSON is generated f
 
 ## Roadmap
 
-**Shipped**
+**Shipped — the checklist**
 
 - [x] Security checklists, split by domain and portable across stacks
 - [x] Machine-readable data layer + [schema](data/schema.json)
-- [x] `npx prodcheck` — generate a filtered checklist for your stack
-- [x] MCP server — so your coding agent can query the checklist directly
-
-**Domains**
-
-All five domains have shipped. The structure has room for more —
-launch, social and legal are the obvious next ones — and
-[the plan](https://github.com/FarzamHabibi/pre-production-checklist/blob/main/README.md#roadmap)
-is written before the content, not after.
-
-- [x] **`performance/`** — shipped: 313 items across 9 checklists.
-- [x] **`integrations/`** — shipped: 192 items across 6 checklists.
-- [x] **`scale/`** — shipped: 286 items across 9 checklists.
-- [x] **`post-launch/`** — shipped: 192 items across 8 checklists. Added after the other
-      four, because a gap showed up once they were all in front of a reader: every domain
+- [x] **`performance/`** — 313 items across 9 checklists.
+- [x] **`integrations/`** — 192 items across 6 checklists.
+- [x] **`scale/`** — 286 items across 9 checklists. Deepened from 214: service levels and
+      error budgets, search and analytics engines, realtime fan-out, contract and event
+      versioning, tenant-shape capacity. The gaps were measured rather than guessed at.
+- [x] **`post-launch/`** — 192 items across 8 checklists. Added after the other four,
+      because a gap showed up once they were all in front of a reader: every domain
       described how to build something that does not break, and none asked whether the
       response was prepared for when it breaks anyway.
+- [x] **26 stack supplements** — up from 19. FastAPI, AWS, Kubernetes, Vercel, Firebase,
+      Stripe and GraphQL among them. Written rather than left as open issues, because a
+      visitor who does not find their stack decides the project is not for them before
+      reading a single item.
+- [x] **A release gate that reaches your stack** — 373 blocking items: 310 that apply
+      anywhere, plus 63 across 20 products. A leaked `service_role` key stops a launch as
+      surely as a generic item does, and used to sit outside the gate.
 
-**Next**
+**Shipped — getting it into your work**
 
+- [x] `npx prodcheck` — generate a filtered checklist for your stack
+- [x] **MCP server** — so your coding agent queries the checklist directly
+- [x] **Review skill** — `npx prodcheck init` writes the procedure into `.claude/skills/`,
+      `.cursor/rules/` or `AGENTS.md`. The MCP server already supplied the items; what was
+      missing was the discipline for using them.
+- [x] **An eval harness for the skill** — planted defects, a deterministic grader, and a
+      check for whether the procedure was followed rather than merely reviewed well. It
+      found four defects in itself, which are written down in [`evals/`](evals/).
 - [x] **Web version** — live at [prodcheck.pages.dev](https://prodcheck.pages.dev): every
       checklist browsable, filterable and copyable as Markdown, plus a JSON endpoint any
       tool can fetch.
-- [x] **Deepen `scale/`** — 214 → 286. Added service levels and error budgets, search and
-      analytics engines, realtime fan-out, contract and event versioning, and tenant-shape
-      capacity. The gaps were measured rather than guessed at.
-- [x] **Skill file for agents** — `npx prodcheck init` writes the review procedure into
-      `.claude/skills/`, `.cursor/rules/` or `AGENTS.md`. Usable today: the MCP server
-      already supplies the items, what was missing was the discipline.
-- [x] **More stack supplements** — 19 → 26. Added FastAPI, AWS, Kubernetes, Vercel,
-      Firebase, Stripe and GraphQL. Written rather than left as open issues, because a
-      visitor who does not find their stack decides the project is not for them before
-      reading an item.
-- [ ] **More domains** — `launch/`, `social/`, `legal/`. The structure absorbs them without
-      moving anything else.
+- [x] **One way in** — a prompt to paste into any assistant, which works out what your
+      project is and sets prodcheck up whichever way your assistant is capable of. The
+      site used to offer seven entry points and no path through them.
+- [x] **A demo you can watch** — a 33-second loop of a review actually running.
+      [How it is built](demo/README.md).
 
-**Later**
+**Next**
 
-### Not started — a review that runs, rather than a document you read
+- [ ] **More domains** — `launch/`, `social/`, `legal/`. The structure absorbs them
+      without moving anything else, and the plan is written before the content.
+
+**Later — a review that runs, rather than a document you read**
 
 **Parked deliberately, and last.** Everything above is content and tooling that works
 today; this is a different product built on top of it, and shipping it half-done would be
@@ -620,9 +623,6 @@ prodcheck gate      exit non-zero if a blocking item is unresolved   (for CI)
 
 - [ ] **`gate` in CI.** Without a build that fails, the report gets stale and stops being
       read. This is the part that makes the rest stick.
-
-- [ ] **Skill file for agents.** `prodcheck init --skill` writes the review procedure into
-      `.claude/skills/` or `AGENTS.md`, so an agent knows how to run all of the above.
 
 > Building an AI code reviewer on top of a checklist whose `vibe-coding/` folder warns
 > that AI review confirms AI-written code is fine, only makes sense if the design takes
