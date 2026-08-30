@@ -172,15 +172,22 @@ if out=$(python3 scripts/build_site.py 2>&1); then
   # asset and kept claiming a long-superseded item count.
   grep -q "$pretty" site/og.svg 2>/dev/null || miss="og.svg does not carry the current total ($pretty)"
   if ! python3 - <<'PY3'
-import re, subprocess, sys
+import hashlib, os, sys
 png = "site-assets/og.png"
-svg = "site-assets/og.svg"
-# the PNG is rendered from the SVG; if the SVG is newer, the PNG is stale
-import os
-if not os.path.exists(png):
-    print("site-assets/og.png is missing"); sys.exit(1)
-if os.path.getmtime(svg) > os.path.getmtime(png):
-    print("site-assets/og.png is older than og.svg — run scripts/render_og.sh")
+svg = "site/og.svg"          # the rendered SVG, not the {{total}} template
+stamp = "site-assets/og.png.sha"
+# Compare content, not mtime. git does not record modification times, so after a fresh
+# checkout the PNG and the SVG carry the same timestamp and an mtime comparison decides
+# at random — it failed CI on a PNG that was current. render_og.sh stamps the hash of
+# the rendered SVG it screenshotted; if that no longer matches, the PNG really is stale.
+# build_site.py has already run by this point, so site/og.svg exists in CI too.
+for f in (png, svg, stamp):
+    if not os.path.exists(f):
+        print(f"{f} is missing — run scripts/render_og.sh"); sys.exit(1)
+want = open(stamp, encoding="utf-8").read().strip()
+got = hashlib.sha256(open(svg, "rb").read()).hexdigest()
+if want != got:
+    print("site-assets/og.png was rendered from a different og.svg — run scripts/render_og.sh")
     sys.exit(1)
 PY3
   then miss="og.png is stale — run scripts/render_og.sh"; fi
