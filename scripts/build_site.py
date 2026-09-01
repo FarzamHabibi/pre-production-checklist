@@ -24,6 +24,14 @@ import prompt as P  # noqa: E402
 OUT = "site"
 REPO = "https://github.com/FarzamHabibi/pre-production-checklist"
 NPM = "https://www.npmjs.com/package/prodcheck"
+# The Product Hunt launch badge. post_id is the launch, not the product, and the image is
+# live: it shows follower count before launch day and the vote count during it, which is
+# the only reason it is worth a third-party request at all.
+PH_POST_ID = "1236140"
+PH_URL = ("https://www.producthunt.com/products/prodcheck?embed=true"
+          "&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-prodcheck")
+PH_IMG = ("https://api.producthunt.com/widgets/embed-image/v1/featured.svg"
+          f"?post_id={PH_POST_ID}&theme=dark")
 
 doc = json.load(open("data/checklist.json", encoding="utf-8"))
 C = doc["counts"]
@@ -173,6 +181,13 @@ section.band{padding:72px 0;border-bottom:1px solid var(--line)}
 section.band.alt{background:color-mix(in srgb,var(--panel) 55%,transparent)}
 .eyebrow{font-size:.73rem;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
   margin:0 0 12px;font-weight:600}
+
+/* Product Hunt launch badge. Sits above the buttons rather than among them: it is a
+   different kind of thing, and it comes down after launch week. */
+.phbadge{display:inline-block;margin:24px 0 0;border:0;line-height:0;opacity:.92;
+  transition:opacity .15s,transform .15s}
+.phbadge:hover{opacity:1;transform:translateY(-1px)}
+.phbadge img{display:block;width:250px;height:54px}
 
 /* ---- the demo loop ---- */
 section.band.see{background:color-mix(in srgb,var(--panel) 40%,transparent)}
@@ -597,6 +612,11 @@ item | verdict | file:line | one-sentence reason."""
     </div>
   </div>
 
+  <a class="phbadge" href="{PH_URL}" target="_blank" rel="noopener">
+    <!-- not lazy: it sits in the hero, and a lazy hero image is a hole in the fold -->
+    <img src="{PH_IMG}" width="250" height="54" alt="prodcheck on Product Hunt">
+  </a>
+
   <div class="ghbtns">
     <a class="btn primary" href="checklists/">Browse the checklists</a>
     <a class="btn" href="{REPO}">{GH_ICON} Star</a>
@@ -912,7 +932,7 @@ HEADERS_TEMPLATE = """/*
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
   Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
-  Content-Security-Policy: default-src 'none'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src '{SCRIPT_HASH}' https://static.cloudflareinsights.com; connect-src https://api.npmjs.org https://cloudflareinsights.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'none'; img-src 'self' data: https://api.producthunt.com; media-src 'self'; style-src 'self'; script-src '{SCRIPT_HASH}' https://static.cloudflareinsights.com; connect-src https://api.npmjs.org https://cloudflareinsights.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
 
 /style.css
   Cache-Control: public, max-age=3600
