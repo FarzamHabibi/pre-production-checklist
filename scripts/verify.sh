@@ -168,6 +168,15 @@ if out=$(python3 scripts/build_site.py 2>&1); then
   miss=""
   grep -q "$pretty" site/index.html || miss="index.html missing the current total ($pretty)"
 
+  # style-src 'self' blocks a style="" attribute exactly as it blocks a <style> block.
+  # Thirteen of them shipped and were inert on the live site for days: the classes
+  # underneath supplied a near-enough value, so nothing looked broken and no test failed.
+  if inline=$(grep -ho 'style="[^"]*"' site/*.html site/*/*.html 2>/dev/null | head -3); then
+    if [ -n "$inline" ]; then
+      miss="inline style attributes are blocked by our own CSP — move them to style.css: $(echo "$inline" | tr '\n' ' ')"
+    fi
+  fi
+
   # The social preview is what every share of this site shows. It was a hand-made static
   # asset and kept claiming a long-superseded item count.
   grep -q "$pretty" site/og.svg 2>/dev/null || miss="og.svg does not carry the current total ($pretty)"

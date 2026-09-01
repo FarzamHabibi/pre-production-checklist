@@ -182,6 +182,27 @@ section.band.alt{background:color-mix(in srgb,var(--panel) 55%,transparent)}
 .eyebrow{font-size:.73rem;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
   margin:0 0 12px;font-weight:600}
 
+/* Utility classes replacing inline style attributes. style-src 'self' blocks a style
+   attribute the same way it blocks a <style> block — every one of these was inert on
+   the live site, silently, because the CSS classes underneath supplied a near-enough
+   value and nothing looked obviously wrong. */
+.fw400{font-weight:400}
+.grow{flex:1}
+.h-sm{font-size:1.75rem;margin:0 0 8px}
+.jstart{justify-content:flex-start}
+.mt11{margin:11px 0 0}
+.mt13{margin:13px 0 0}
+.mt14{margin-top:14px}
+.mt14b18{margin:14px 0 18px}
+.mt16{margin-top:16px}
+.mt22{margin:22px 0 6px}
+.mt26{margin-top:26px}
+.mt30{margin-top:30px}
+.mt36{margin-top:36px}
+.padhead{padding:40px 0 4px}
+.padhead2{padding:44px 0 6px}
+.row12{display:flex;gap:12px;padding:5px 0}
+
 /* Product Hunt launch badge. Sits above the buttons rather than among them: it is a
    different kind of thing, and it comes down after launch week. */
 .phbadge{display:inline-block;margin:24px 0 0;border:0;line-height:0;opacity:.92;
@@ -649,7 +670,7 @@ item | verdict | file:line | one-sentence reason."""
       <img src="demo/demo.gif" alt="prodcheck reviewing a codebase, as an animation" loading="lazy">
     </video>
   </figure>
-  <p class="tiny" style="margin:13px 0 0">Every finding in it is real: the file, the lines
+  <p class="tiny mt13">Every finding in it is real: the file, the lines
   and the counts come from the repository, not from a mockup.
   &nbsp;&middot;&nbsp; <a href="demo/demo.gif">the loop as a GIF &rarr;</a></p>
 </div></section>
@@ -669,7 +690,7 @@ item | verdict | file:line | one-sentence reason."""
 
   {codeblock('c-start', start_prompt, 'copy prompt')}
 
-  <p class="tiny" style="margin:13px 0 0">Works in a chat window with no access to your
+  <p class="tiny mt13">Works in a chat window with no access to your
   code too \u2014 it will walk you through it.
   &nbsp;\u00b7&nbsp; <a href="{REPO}/blob/main/docs/prompts.md">More prompts \u2192</a></p>
 </div></section>
@@ -687,7 +708,7 @@ item | verdict | file:line | one-sentence reason."""
       <p class="who">{e(HOW['mcp']['who'])}</p>
       <p>{e(HOW['mcp']['blurb'])}</p>
       {codeblock('c-mcp', mcp)}
-      <p class="tiny" style="margin:11px 0 0"><a href="{REPO}/blob/main/docs/mcp-clients.md">Config for every client →</a></p>
+      <p class="tiny mt11"><a href="{REPO}/blob/main/docs/mcp-clients.md">Config for every client →</a></p>
     </div>
 
     <div class="card">
@@ -696,7 +717,7 @@ item | verdict | file:line | one-sentence reason."""
       <p class="who">{e(HOW['cli']['who'])}</p>
       <p>{e(HOW['cli']['blurb'])}</p>
       {codeblock('c-npm', npm_cmd)}
-      <p class="tiny" style="margin:11px 0 0"><a href="{REPO}#command-line">All commands →</a></p>
+      <p class="tiny mt11"><a href="{REPO}#command-line">All commands →</a></p>
     </div>
 
     <div class="card">
@@ -705,7 +726,7 @@ item | verdict | file:line | one-sentence reason."""
       <p class="who">{e(HOW['http']['who'])}</p>
       <p>{e(HOW['http']['blurb'])}</p>
       {codeblock('c-http', http_url)}
-      <p class="tiny" style="margin:11px 0 0"><a href="{REPO}/blob/main/docs/integrations/http-api.md">The JSON API →</a></p>
+      <p class="tiny mt11"><a href="{REPO}/blob/main/docs/integrations/http-api.md">The JSON API →</a></p>
     </div>
 
     <div class="card">
@@ -714,7 +735,7 @@ item | verdict | file:line | one-sentence reason."""
       <p class="who">{e(HOW['prompt']['who'])}</p>
       <p>{e(HOW['prompt']['blurb'])}</p>
       {codeblock('c-gate', 'npx prodcheck --gate -o BLOCKERS.md')}
-      <p class="tiny" style="margin:11px 0 0"><a href="{REPO}/blob/main/docs/prompts.md">Six ready-made prompts →</a></p>
+      <p class="tiny mt11"><a href="{REPO}/blob/main/docs/prompts.md">Six ready-made prompts →</a></p>
     </div>
   </div>
 
@@ -732,10 +753,10 @@ item | verdict | file:line | one-sentence reason."""
 <section class="band" id="domains"><div class="wrap narrow">
   <p class="eyebrow">Contents</p>
   <h2>Five domains</h2>
-  <div class="tbl" style="margin-top:16px">
+  <div class="tbl mt16">
   <table><tbody>{domains_tbl}</tbody></table>
   </div>
-  <p class="small dim" style="margin-top:14px">Stack supplements add
+  <p class="small dim mt14">Stack supplements add
   {fmt(sum(1 for i in doc['items'] if i['stack'] != 'any'))} more items across
   {len(doc['stacks'])} products. They are opt-in — without <code>--stack</code> you get
   only the items that name no product, so a Django team never sees an iOS item.</p>
@@ -752,18 +773,18 @@ item | verdict | file:line | one-sentence reason."""
   away from one stack and rewritten as a working document anyone can run against their
   own product.</p>
 
-  <h3 style="margin-top:30px">Solo founders have no security team</h3>
+  <h3 class="mt30">Solo founders have no security team</h3>
   <p class="dim">You write the code, configure the infrastructure, set up the pipeline,
   and then you are also the person who decides whether it is safe to launch. There is
   nobody to hand it to. Most public checklists are either too shallow to catch anything
   real, or written for companies with a security function.</p>
 
-  <h3 style="margin-top:26px">AI-assisted development changed the shape of the problem</h3>
+  <h3 class="mt26">AI-assisted development changed the shape of the problem</h3>
   <p class="dim">{fmt(ai_items)} items here did not need to exist a few years ago. When you
   ship an agent with tools, or review code a model wrote faster than you would review a
   colleague's, you inherit failure modes standard checklists do not cover.</p>
 
-  <h3 style="margin-top:26px">Built with AI, and honest about it</h3>
+  <h3 class="mt26">Built with AI, and honest about it</h3>
   <p class="dim">Compiled and expanded with Claude and ChatGPT, working from a real
   pre-production review rather than generating items from nothing. That matters twice: it
   is the honest provenance for something that asks you to trust it, and the
@@ -780,7 +801,7 @@ item | verdict | file:line | one-sentence reason."""
   stack file for a stack that is not covered — there are open issues for FastAPI, AWS,
   Kubernetes, Vercel, Firebase, Stripe and GraphQL, all labelled
   <code>good first issue</code>.</p>
-  <div class="ghbtns" style="justify-content:flex-start">
+  <div class="ghbtns jstart">
     <a class="btn" href="{REPO}/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>
     <a class="btn" href="{REPO}/blob/main/SECURITY.md">SECURITY.md</a>
     <a class="btn" href="https://x.com/farzam_habibi">@farzam_habibi</a>
@@ -798,7 +819,7 @@ item | verdict | file:line | one-sentence reason."""
   <tr><td>Code — the CLI, the MCP server, the scripts</td>
       <td><a href="{REPO}/blob/main/LICENSE-CODE">MIT</a></td></tr>
   </tbody></table></div>
-  <p class="small dim" style="margin-top:14px">Creative Commons is not written for
+  <p class="small dim mt14">Creative Commons is not written for
   software, and a CC-licensed npm package gets stopped by corporate legal review.</p>
   <p class="small faint">A starting point, not a guarantee, not a compliance
   certification, and not a substitute for a professional audit. Completing every item does
@@ -815,37 +836,37 @@ item | verdict | file:line | one-sentence reason."""
 
 # ------------------------------------------------------------------ checklist index
 def build_checklists_index():
-    out = ['<div class="wrap"><section class="hero" style="padding:44px 0 6px">',
+    out = ['<div class="wrap"><section class="hero padhead2">',
            '<h1>Checklists</h1>',
            f'<p class="lede">{fmt(C["total"])} items. Every page has a copy button that '
            'gives you plain markdown — for your own repo, or to paste into an assistant.</p>',
            '</section>']
     for d in tree.domains():
-        out.append(f'<h2 id="{d}" style="margin-top:36px">{e(tree.DOMAIN_LABEL[d])} '
-                   f'<span class="muted small" style="font-weight:400">'
+        out.append(f'<h2 id="{d}" class="mt36">{e(tree.DOMAIN_LABEL[d])} '
+                   f'<span class="muted small fw400">'
                    f'{fmt(C["by_domain"].get(d, 0))} items</span></h2>')
         out.append(f'<p class="muted small">{e(tree.DOMAIN_BLURB[d])}</p>')
         for a in tree.areas(d):
             if a:
-                out.append(f'<p class="sec" style="margin:22px 0 6px">'
+                out.append(f'<p class="sec mt22">'
                            f'{e(tree.AREA_LABEL.get(a, a))}</p>')
             out.append('<div class="domain">')
             for path, stem in tree.files(d, a):
                 n = sum(1 for i in doc["items"] if i["source"]["file"] == path)
                 href = f"../c/{d}--{(a + '--') if a else ''}{stem}/"
-                out.append(f'<div style="display:flex;gap:12px;padding:5px 0">'
-                           f'<a href="{href}" style="flex:1">{e(tree.title_of(path))}</a>'
+                out.append(f'<div class="row12">'
+                           f'<a href="{href}" class="grow">{e(tree.title_of(path))}</a>'
                            f'<span class="muted small">{n}</span></div>')
             out.append('</div>')
 
-    out.append(f'<h2 id="stacks" style="margin-top:36px">Stack supplements</h2>'
+    out.append(f'<h2 id="stacks" class="mt36">Stack supplements</h2>'
                f'<p class="muted small">One file per product, spanning every domain. '
                f'Skip any you do not use — the domain checklists stand on their own.</p>'
                f'<div class="domain">')
     for path, slug in tree.stack_files():
         n = sum(1 for i in doc["items"] if i["source"]["file"] == path)
-        out.append(f'<div style="display:flex;gap:12px;padding:5px 0">'
-                   f'<a href="../c/stacks--{slug}/" style="flex:1">{e(tree.title_of(path))}</a>'
+        out.append(f'<div class="row12">'
+                   f'<a href="../c/stacks--{slug}/" class="grow">{e(tree.title_of(path))}</a>'
                    f'<span class="muted small">{n}</span></div>')
     out.append('</div></div>')
     return page("Checklists — prodcheck", "Browse all prodcheck checklists.",
@@ -874,12 +895,12 @@ def build_checklist_page(path, slug, title, items, canonical=""):
             secs.append((cur, []))
         secs[-1][1].append(i)
 
-    body = [f'<div class="wrap"><section style="padding:40px 0 4px">',
+    body = [f'<div class="wrap"><section class="padhead">',
             f'<p class="small muted"><a href="../../checklists/">← all checklists</a></p>',
-            f'<h1 style="font-size:1.75rem;margin:0 0 8px">{e(title)}</h1>',
+            f'<h1 class="h-sm">{e(title)}</h1>',
             f'<p class="muted small"><span id="count">{len(items)}</span> items · '
             f'<a href="{REPO}/blob/main/{path}">source</a></p>',
-            '<div class="ghbtns" style="margin:14px 0 18px">'
+            '<div class="ghbtns mt14b18">'
             f'<button class="btn" data-copy="raw">Copy as markdown</button></div>',
             '<label class="skip" for="filter">Filter items</label>',
             '<input class="filter" id="filter" type="search" placeholder="Filter items…">',
@@ -1082,7 +1103,7 @@ def main():
         '<div class="wrap"><section class="band"><p class="eyebrow">404</p>'
         '<h2>That page does not exist.</h2>'
         '<p class="dim">It may have moved, or the link may be wrong.</p>'
-        '<div class="ghbtns" style="justify-content:flex-start">'
+        '<div class="ghbtns jstart">'
         '<a class="btn primary" href="/checklists/">Browse the checklists</a>'
         '<a class="btn" href="/">Home</a></div></section></div>'))
 
