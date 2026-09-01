@@ -313,8 +313,13 @@ for root, _, files in os.walk("site"):
             continue
         p = os.path.join(root, f)
         for m in re.finditer(r'(?:href|src)="([^"#:]+)"', open(p, encoding="utf-8").read()):
+            # style.css?v=<hash> is one file, not a missing one: strip the cache-busting
+            # query before resolving the path
             t = m.group(1)
             if t.startswith(("http", "mailto", "data:", "/")) or not t:
+                continue
+            t = t.split("?", 1)[0]
+            if not t:
                 continue
             tgt = os.path.normpath(os.path.join(root, t))
             if os.path.isdir(tgt):

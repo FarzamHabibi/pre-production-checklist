@@ -8,6 +8,7 @@ survives contact with a repository that changes weekly.
 No framework, no build step, no dependencies. One stylesheet, one small script for the
 copy buttons and the filter. Output is plain HTML that works with JavaScript disabled.
 """
+import hashlib
 import html
 import json
 import os
@@ -422,6 +423,13 @@ MARK = ('<svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">'
         'stroke-linecap="round" stroke-linejoin="round"/></svg>')
 
 
+# Cloudflare serves style.css with max-age=3600. Without a versioned URL, a deploy hands
+# a returning visitor new HTML and the previous hour's CSS — which is how a page full of
+# fresh utility classes came back with none of them defined. The hash changes only when
+# the stylesheet does, so unchanged deploys still hit the cache.
+CSS_VER = hashlib.sha256(CSS.encode()).hexdigest()[:10]
+
+
 def verification_tags(depth):
     """Only on the home page — Search Console checks the URL you registered."""
     if depth:
@@ -460,7 +468,7 @@ def page(title, desc, body, depth=0, canonical="", schema=""):
 <meta name="twitter:image" content="{SITE}/og.png">
 <meta name="color-scheme" content="dark light">
 <link rel="icon" href="{up}favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="{up}style.css">
+<link rel="stylesheet" href="{up}style.css?v={CSS_VER}">
 {ld}
 </head>
 <body>
