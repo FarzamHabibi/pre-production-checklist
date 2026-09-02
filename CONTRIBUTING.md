@@ -29,6 +29,24 @@ the strongest possible argument for keeping an item, and it helps everyone prior
 
 ---
 
+## Licensing and scope
+
+By opening a pull request or an issue that proposes checklist content, you agree that
+your contribution is licensed under this repository's terms — [CC BY 4.0](LICENSE) for
+content, [MIT](LICENSE-CODE) for code — and that it may be edited, rewritten or removed.
+Contributing does not create any ownership stake in the project or any obligation on the
+maintainer.
+
+**This is a checklist, not a directory.** Items describe a *check* — something to verify
+about your own system. They do not name a product as the way to satisfy it, and requests
+to add a tool, service or vendor are declined as a matter of policy rather than judgement
+about the tool. 88% of items name no product at all, and that is what makes the list
+usable by someone who runs a different stack.
+
+The exception is `checklists/stacks/`, where an item may name a product because the file
+exists to cover that product's specific behaviour — and even there, the item is a check,
+not a recommendation.
+
 ## Where does an item belong?
 
 This is the only rule that really matters:

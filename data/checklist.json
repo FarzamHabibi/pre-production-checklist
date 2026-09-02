@@ -50,16 +50,16 @@
     }
   ],
   "counts": {
-    "total": 4337,
+    "total": 4343,
     "by_domain": {
       "security": 3306,
       "scale": 301,
       "performance": 338,
       "integrations": 200,
-      "post-launch": 192
+      "post-launch": 198
     },
-    "stack_agnostic": 3795,
-    "release_gate": 373
+    "stack_agnostic": 3801,
+    "release_gate": 379
   },
   "stacks": [
     "AWS",
@@ -61778,6 +61778,108 @@
       }
     },
     {
+      "id": "post-launch.01-readiness.1c8a331d",
+      "text": "Verify something exercises the critical paths on a schedule after deploy — signup, login, checkout, the one action the product exists for — and not only in CI before merge.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 54
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.767e1199",
+      "text": "Verify a failed run reaches a person, rather than a dashboard nobody opens.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 55
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.94e593c1",
+      "text": "Verify you know how long a silent regression could last before anyone noticed: an hour, a day, or until a customer wrote in.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 56
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.7e85f566",
+      "text": "Verify the checks run against production or a production-like environment, since the ones that only ever ran against a local stub have never tested your real configuration.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 57
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.ae3dc8f1",
+      "text": "Verify someone is accountable for a failing scheduled check, or it becomes noise that everyone learns to skip.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 58
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.c199a7f2",
+      "text": "Verify a check that has been failing for a week is treated as an outage in the monitoring, not as a known issue.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 59
+      }
+    },
+    {
       "id": "post-launch.01-readiness.a80cb89b",
       "text": "Verify a runbook exists for the three most likely failures before launch, not after the first one.",
       "domain": "post-launch",
@@ -61791,7 +61893,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/post-launch/01-readiness.md",
-        "line": 52
+        "line": 63
       }
     },
     {
@@ -61808,7 +61910,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/post-launch/01-readiness.md",
-        "line": 53
+        "line": 64
       }
     },
     {
@@ -61825,7 +61927,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/post-launch/01-readiness.md",
-        "line": 54
+        "line": 65
       }
     },
     {

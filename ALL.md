@@ -5596,6 +5596,17 @@ Detection is covered elsewhere — [`security/core/16-monitoring-and-response.md
 * [ ] Verify a diagram or written description of the request path exists that a new person could follow.
 * [ ] Verify you know which single failure would take everything down, and whether that is acceptable.
 
+## Will you notice before a customer does
+
+Every check above assumes you already know something is wrong. These ask how you find out.
+
+* [ ] Verify something exercises the critical paths on a schedule after deploy — signup, login, checkout, the one action the product exists for — and not only in CI before merge.
+* [ ] Verify a failed run reaches a person, rather than a dashboard nobody opens.
+* [ ] Verify you know how long a silent regression could last before anyone noticed: an hour, a day, or until a customer wrote in.
+* [ ] Verify the checks run against production or a production-like environment, since the ones that only ever ran against a local stub have never tested your real configuration.
+* [ ] Verify someone is accountable for a failing scheduled check, or it becomes noise that everyone learns to skip.
+* [ ] Verify a check that has been failing for a week is treated as an outage in the monitoring, not as a known issue.
+
 ## The gate
 
 * [ ] Verify a runbook exists for the three most likely failures before launch, not after the first one.

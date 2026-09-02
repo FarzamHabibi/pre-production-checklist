@@ -124,6 +124,26 @@ Alibaba's CLI takes the same shape as Gemini CLI, in `~/.qwen/settings.json`:
 }
 ```
 
+### OpenCode
+
+`opencode.jsonc`, in the project root or `~/.config/opencode/`:
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "prodcheck": {
+      "type": "local",
+      "command": ["npx", "-y", "--package=prodcheck", "prodcheck-mcp"],
+      "enabled": true
+    }
+  }
+}
+```
+
+`type: "local"` is the stdio transport. The name you give it here is how you refer to the
+server when prompting.
+
 ### Cline, Roo Code, Continue, Windsurf, Zed
 
 All take a `mcpServers` object with the same `command` and `args` as the Claude Desktop
@@ -179,7 +199,7 @@ npx prodcheck --search "rate limit"           # one topic
 npx prodcheck performance -n 100              # first 100 items
 ```
 
-`npx prodcheck --gate` is usually the right first paste: 310 items across four domains,
+`npx prodcheck --gate` is usually the right first paste: 316 items across four domains,
 all of them things that should stop a release. Add `--stack` for the products you use —
 a leaked `service_role` key or an unaudited RLS policy blocks a launch too, and those
 items only appear when you name the product.

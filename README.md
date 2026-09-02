@@ -7,7 +7,7 @@ infrastructure, the deploy pipeline, and increasingly the AI agents too — and 
 have a security team to hand it to.
 
 <!-- counts:begin -->
-**4,337 items across 96 checklists** in 5 domains. 88% of them apply to any stack.
+**4,343 items across 96 checklists** in 5 domains. 88% of them apply to any stack.
 <!-- counts:end -->
 
 [![npm](https://img.shields.io/npm/v/prodcheck?color=cb3837&logo=npm)](https://www.npmjs.com/package/prodcheck)
@@ -68,7 +68,7 @@ block a launch. If it cannot run commands, it tells you what to run yourself.
 <!-- start-prompt:begin -->
 ```text
 I want to get my project ready to ship. Use prodcheck:
-a free, open-source pre-production checklist of 4,337 items
+a free, open-source pre-production checklist of 4,343 items
 covering security, performance, scale, integrations and what to
 do after launch.
 
@@ -143,14 +143,14 @@ costs more than it saves.
 
 ```
 checklists/
-├── security/              2,812   not getting breached, abused or taken down
+├── security/              2812   not getting breached, abused or taken down
 │   ├── core/              1,491   application, data, infrastructure, delivery
 │   ├── ai/                  773   LLM features, agents, tools, RAG, MCP
 │   └── ai-generated-code/   548   the bugs AI coding assistants actually write
 ├── performance/             313   Lighthouse, and what users actually feel
 ├── scale/                   286   surviving 10× the load
 ├── integrations/            192   search, analytics, monitoring
-├── post-launch/             192   when it goes wrong anyway
+├── post-launch/             198   when it goes wrong anyway
 └── stacks/                  542   26 products, spanning every domain
 ```
 
@@ -287,7 +287,7 @@ each item asks is not *did you respond well* — it is **is the answer already d
 
 | | Items | | | Items |
 | --- | ---: | --- | --- | ---: |
-| [Can you act at all](checklists/post-launch/01-readiness.md) | 27 | | [Outages & dependency failure](checklists/post-launch/05-outage-and-dependencies.md) | 27 |
+| [Can you act at all](checklists/post-launch/01-readiness.md) | 33 | | [Outages & dependency failure](checklists/post-launch/05-outage-and-dependencies.md) | 27 |
 | [The first fifteen minutes](checklists/post-launch/02-first-15-minutes.md) | 20 | | [Rollback & kill switches](checklists/post-launch/06-rollback-and-kill-switches.md) | 20 |
 | [You have been breached](checklists/post-launch/03-security-incident.md) | 35 | | [Telling people](checklists/post-launch/07-communication.md) | 18 |
 | [Data loss & corruption](checklists/post-launch/04-data-loss.md) | 26 | | [Learning & drills](checklists/post-launch/08-learning-and-drills.md) | 19 |
@@ -514,6 +514,28 @@ claude mcp add prodcheck -- npx -y --package=prodcheck prodcheck-mcp
 Four tools: `list_checklists`, `checklist_for_stack`, `release_gate`, `search_checklist`.
 Then ask your agent things like *"check this repo against the release gate for a
 Next.js + Supabase app"* and it pulls the relevant items itself.
+
+## What it costs to run
+
+A fair question if you are about to point a paid model at 4,343 items. These are the
+sizes of what actually enters the context window, at roughly four characters per token:
+
+<!-- cost:begin -->
+| What you pull | Items | ≈ tokens |
+| --- | --- | --- |
+| `--gate` | 316 | 4,700 |
+| `--gate --stack django` | 318 | 4,800 |
+| `security --area core` | 1,491 | 19,400 |
+| everything, every stack | 4,343 | 76,800 |
+<!-- cost:end -->
+
+That is the input for one pass. What the review itself costs on top depends on how much
+of your code the model reads, which is the larger number and is not something this
+repository can measure for you.
+
+The practical consequence: **do not pull everything.** `--gate` is a few thousand tokens
+and answers the question you actually have. The MCP server exists so the assistant can
+fetch the twenty items it needs rather than holding all of them.
 
 ## Machine-readable data
 

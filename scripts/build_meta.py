@@ -80,6 +80,30 @@ def main():
         json.dump(pkg, fh, indent=2, ensure_ascii=False)
         fh.write("\n")
 
+    # The token table in the README is measured, not guessed, so it has to move with the
+    # data. Rounded to the nearest hundred: the four-chars-per-token rule is an
+    # approximation and a precise-looking number would overstate what is known.
+    import subprocess
+    rows = subprocess.run(
+        ["node", "-e", """
+const D=require('./cli/lib/data');
+const t=s=>Math.round(s.length/4/100)*100;
+const rows=[
+  ['`--gate`', D.query({gate:true})],
+  ['`--gate --stack django`', D.query({gate:true,stacks:['django']})],
+  ['`security --area core`', D.query({domains:['security'],areas:['core']})],
+  ['everything, every stack', D.query({allStacks:true})],
+];
+for (const [n,i] of rows)
+  console.log(`| ${n} | ${i.length.toLocaleString()} | ${t(D.toMarkdown(i,{})).toLocaleString()} |`);
+"""], capture_output=True, text=True, check=True).stdout.strip()
+    table = ("| What you pull | Items | \u2248 tokens |\n| --- | --- | --- |\n" + rows)
+    readme = open("README.md", encoding="utf-8").read()
+    out = re.sub(r"<!-- cost:begin -->.*?<!-- cost:end -->",
+                 f"<!-- cost:begin -->\n{table}\n<!-- cost:end -->", readme, flags=re.S)
+    if out != readme:
+        open("README.md", "w", encoding="utf-8").write(out)
+
     # the start prompt: one source, two generated copies, so they cannot disagree
     fenced = "```text\n" + promptmod.start_prompt(f["total"]) + "\n```"
     for path in ("README.md", "docs/prompts.md"):
