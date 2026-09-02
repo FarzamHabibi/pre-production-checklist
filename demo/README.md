@@ -51,3 +51,21 @@ the wrong speed, with still scenes rushing past.
 Scene text lives in `demo/index.html`, in the `build()` function — one entry per scene,
 with its duration in milliseconds. Which findings to show, and how much code to show
 around them, are at the top of `scripts/build_demo.py`. Re-run it after either.
+
+## Two loops
+
+`index.html` shows what the checklist contains — the domains, the scoping, the evidence
+discipline. `chat.html` answers a different question, asked in issue #10: what does using
+it look like, turn by turn, in the assistant you already have open.
+
+Both are scripted, because a real agent run takes half a minute of thinking, differs every
+time, and cannot be cut to length. Neither is invented. In `chat.html` the tool name and
+arguments are a real MCP call — `scripts/build_chat.py` makes the call and reads the item
+count off the response rather than typing a number — and the findings cite lines that
+genuinely contain those defects.
+
+```bash
+python3 scripts/build_chat.py                              # refresh from the data
+node scripts/capture_demo.js --page demo/chat.html \
+     --fps 15 --seconds 16 --out demo/out/chat-frames      # record it
+```

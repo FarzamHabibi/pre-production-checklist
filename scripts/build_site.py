@@ -217,8 +217,12 @@ section.band.alt{background:color-mix(in srgb,var(--panel) 55%,transparent)}
 .phbadge img{display:block;width:250px;height:54px}
 
 /* ---- the demo loop ---- */
+.vids{display:grid;gap:18px;margin:26px 0 0;grid-template-columns:repeat(auto-fit,minmax(420px,1fr))}
+.vids .vid{margin:0}
+.vid figcaption{font-size:13px;color:var(--faint);margin:10px 2px 0;line-height:1.6}
+
 section.band.see{background:color-mix(in srgb,var(--panel) 40%,transparent)}
-.vid{margin:26px 0 0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
+.vid{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
   background:var(--code);line-height:0;
   box-shadow:0 30px 80px rgba(0,0,0,.45)}
 .vid video,.vid img{width:100%;height:auto;display:block}
@@ -673,17 +677,28 @@ item | verdict | file:line | one-sentence reason."""
 <section class="band see" id="see"><div class="wrap narrow">
   <p class="eyebrow">Thirty seconds</p>
   <h2>What it actually does</h2>
-  <p class="dim">A checklist, your code, and an assistant that shows its working.
-  No sound, no narration.</p>
+  <p class="dim">The first is a real session: one question, the tool call it makes, and
+  the two things it finds. The second is what the list contains. No sound, no narration.</p>
 
-  <figure class="vid">
-    <video autoplay loop muted playsinline preload="none"
-           poster="demo/poster.webp" aria-label="prodcheck reviewing a codebase">
-      <source src="demo/demo.mp4" type="video/mp4">
-      <!-- browsers that will not autoplay video fall back to the same loop as a gif -->
-      <img src="demo/demo.gif" alt="prodcheck reviewing a codebase, as an animation" loading="lazy">
-    </video>
-  </figure>
+  <div class="vids">
+    <figure class="vid">
+      <video autoplay loop muted playsinline preload="none"
+             poster="demo/chat-poster.webp" aria-label="asking an assistant what you forgot">
+        <source src="demo/chat.mp4" type="video/mp4">
+        <img src="demo/chat.gif" alt="a chat where the assistant queries the checklist and cites file and line" loading="lazy">
+      </video>
+      <figcaption>One question, in the assistant you already have open.</figcaption>
+    </figure>
+    <figure class="vid">
+      <video autoplay loop muted playsinline preload="none"
+             poster="demo/poster.webp" aria-label="what the checklist contains">
+        <source src="demo/demo.mp4" type="video/mp4">
+        <!-- browsers that will not autoplay video fall back to the same loop as a gif -->
+        <img src="demo/demo.gif" alt="prodcheck reviewing a codebase, as an animation" loading="lazy">
+      </video>
+      <figcaption>What is in the list, and what it refuses to tell you.</figcaption>
+    </figure>
+  </div>
   <p class="tiny mt13">Every finding in it is real: the file, the lines
   and the counts come from the repository, not from a mockup.
   &nbsp;&middot;&nbsp; <a href="demo/demo.gif">the loop as a GIF &rarr;</a></p>

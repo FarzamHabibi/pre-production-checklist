@@ -1,0 +1,243 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>prodcheck — how it actually works</title>
+<!--
+  A second demo, answering a question the first one does not: what does using this look
+  like, turn by turn, in the assistant you already have open?
+
+  The scene is scripted so it can be recorded in one take, but nothing in it is invented.
+  The tool call is a real MCP call with its real name and arguments, the counts come from
+  data/checklist.json, and the code and line numbers come from
+  evals/fixtures/flawed/src/app.js. scripts/build_chat.py fills them in.
+
+  Controls: space pause · R restart · H hide the hint. ?rec=1 hides it from the start.
+-->
+<style>
+  :root{
+    --bg:#0b0d11; --panel:#141821; --panel-2:#1a1f2a; --fg:#eef1f6; --dim:#a4aec0;
+    --faint:#6f7a8d; --line:#232936; --line2:#2f3646; --accent:#7dd3a0;
+    --user:#2a3550; --bad:#e88b8b; --warn:#f0b866; --code:#0e1117;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --eo:cubic-bezier(.16,1,.3,1);
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:#000;overflow:hidden}
+  body{display:grid;place-items:center;font-family:var(--sans);color:var(--fg)}
+
+  #stage{position:relative;width:1280px;height:720px;background:var(--bg);overflow:hidden;
+    display:grid;grid-template-rows:auto 1fr}
+
+  /* a title bar, so the frame reads as an assistant window without naming one */
+  .bar{display:flex;align-items:center;gap:10px;padding:13px 20px;
+    border-bottom:1px solid var(--line);background:var(--panel);z-index:3}
+  .bar .dots{display:flex;gap:6px}
+  .bar .dots i{width:11px;height:11px;border-radius:50%;background:#2f3646;display:block}
+  .bar .where{font-family:var(--mono);font-size:12.5px;color:var(--faint);margin-inline-start:6px}
+  .bar .tools{margin-inline-start:auto;display:flex;align-items:center;gap:7px;
+    font-family:var(--mono);font-size:11.5px;color:var(--accent);opacity:0;
+    transition:opacity .4s ease}
+  .bar .tools.on{opacity:1}
+  .bar .tools svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2}
+
+  /* The feed is anchored to the bottom and the oldest turn is trimmed once the content
+     would exceed the frame — a real chat scrolls, and a recording that clips a message
+     mid-word looks like a bug rather than a scroll. */
+  #feed{padding:22px 30px;overflow:hidden;position:relative}
+  #inner{position:absolute;left:30px;right:30px;bottom:22px;
+    display:flex;flex-direction:column;gap:14px}
+  .turn.gone{opacity:0;transform:translateY(-10px);
+    transition:opacity .4s ease,transform .4s var(--eo)}
+
+  .turn{opacity:0;transform:translateY(14px);
+    transition:opacity .38s ease,transform .55s var(--eo)}
+  .turn.on{opacity:1;transform:none}
+
+  .who{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
+    font-weight:700;margin:0 0 7px}
+  .bubble{border-radius:12px;padding:13px 17px;font-size:15.5px;line-height:1.6;
+    max-width:78ch}
+  .user .bubble{background:var(--user);border:1px solid #35426a;align-self:flex-start}
+  .ai .bubble{background:transparent;padding-inline-start:0;color:var(--dim)}
+  .ai .bubble b{color:var(--fg);font-weight:600}
+
+  /* the tool call: the part people have not seen before */
+  .tool{border:1px solid var(--line2);border-radius:10px;background:var(--code);
+    font-family:var(--mono);font-size:13px;overflow:hidden;max-width:70ch}
+  .tool .head{display:flex;align-items:center;gap:9px;padding:9px 14px;
+    border-bottom:1px solid var(--line);color:var(--accent);background:var(--panel-2)}
+  .tool .head .spin{width:11px;height:11px;border-radius:50%;
+    border:2px solid color-mix(in srgb,var(--accent) 35%,transparent);
+    border-top-color:var(--accent);animation:spin .7s linear infinite}
+  .tool.done .head .spin{animation:none;border:0;background:var(--accent);
+    -webkit-mask:var(--tick) center/11px no-repeat;mask:var(--tick) center/11px no-repeat}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .tool .body{padding:11px 14px;color:var(--dim);white-space:pre-wrap;line-height:1.7}
+  .tool .body .k{color:var(--faint)}
+  .tool .ret{border-top:1px solid var(--line);padding:9px 14px;color:var(--accent);
+    opacity:0;transition:opacity .35s ease}
+  .tool.done .ret{opacity:1}
+
+  .finding{border-inline-start:2px solid var(--bad);padding:2px 0 2px 13px;margin:9px 0 0;
+    font-family:var(--mono);font-size:13px;color:var(--dim);line-height:1.75}
+  .finding b{color:var(--bad);font-weight:600}
+  .finding .src{color:var(--faint)}
+  .unknown{border-inline-start-color:var(--warn)}
+  .unknown b{color:var(--warn)}
+
+  .cur{display:inline-block;width:8px;height:16px;background:var(--accent);
+    vertical-align:-3px;margin-left:2px;animation:blink .9s steps(1,end) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  #mark{position:absolute;right:22px;bottom:16px;z-index:4;display:flex;align-items:center;
+    gap:8px;opacity:.75;font-size:13px;color:var(--faint)}
+  #mark b{color:var(--fg);font-weight:600}
+  #mark b i{font-style:normal;color:var(--accent)}
+
+  #hud{position:absolute;left:22px;bottom:16px;z-index:5;font-family:var(--mono);
+    font-size:11px;color:var(--faint);opacity:.4}
+  body.rec #hud{display:none}
+</style>
+
+<div id="stage">
+  <div class="bar">
+    <span class="dots"><i></i><i></i><i></i></span>
+    <span class="where">~/notes-api</span>
+    <span class="tools" id="tools">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 7l-5 5 5 5"/></svg>
+      prodcheck · 4 tools
+    </span>
+  </div>
+  <div id="feed"><div id="inner"></div></div>
+  <div id="mark"><b>prod<i>check</i></b></div>
+  <div id="hud">space pause · R restart · H hide</div>
+</div>
+
+<script>
+const DATA = {
+  "question": "we ship Thursday. what did I forget?",
+  "ack": "Let me pull the checks that apply to this project rather than guess. It is an Express app on Postgres, so I will start with what should block a release.",
+  "tool": {
+    "name": "checklist_for_stack",
+    "args": "<span class=\"k\">stacks</span>: [\"express\", \"postgres\"]\n<span class=\"k\">release_gate_only</span>: true",
+    "returned": "318 items"
+  },
+  "verdictLead": "Two of the 318 are true here, and I can show you where.",
+  "findings": [
+    {
+      "where": "src/app.js:24",
+      "what": "no ownership check — any authenticated user reads any note",
+      "code": "res.json(r.rows[0])"
+    },
+    {
+      "where": "src/app.js:22",
+      "what": "SQL injection via string interpolation",
+      "code": "const r = await pool.query(`SELECT * FROM notes WHERE id = &#x27;${req.params.id}&#x27;`)"
+    }
+  ],
+  "unknowns": [
+    "Whether rate limiting exists at the edge. Nothing in this repository configures it, so the answer is in your CDN, not the code."
+  ],
+  "closing": "That is evidence, not a verdict. <b>I have not marked anything verified</b> — the two findings are real and the rest is still open.",
+  "loop": 13500
+};;;
+
+const stage = document.getElementById('stage');
+const inner = document.getElementById('inner');
+const toolsPill = document.getElementById('tools');
+document.documentElement.style.setProperty('--tick',
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 13l5 5L20 7' fill='none' stroke='%23000' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\")");
+
+let timers = [];
+const at = (ms, fn) => { const t = setTimeout(fn, ms); timers.push(t); return t };
+const clearAll = () => { timers.forEach(clearTimeout); timers = [] };
+const el = (h) => { const d = document.createElement('div'); d.innerHTML = h.trim(); return d.firstChild };
+
+function add(html){
+  const n = el(html);
+  inner.appendChild(n);
+  requestAnimationFrame(() => {
+    n.classList.add('on');
+    // once the column is taller than the frame, retire turns from the top rather than
+    // letting the oldest one hang half-cut across the title bar
+    const feed = document.getElementById('feed');
+    let guard = 0;
+    while (inner.scrollHeight > feed.clientHeight - 8 && guard++ < 12) {
+      const first = inner.querySelector('.turn:not(.gone)');
+      if (!first || first === n) break;
+      first.classList.add('gone');
+      at(420, () => first.remove());
+      break;
+    }
+  });
+  return n;
+}
+
+function type(node, text, cps, done){
+  let i = 0;
+  const step = () => {
+    if (i > text.length) { done && done(); return }
+    node.textContent = text.slice(0, i++);
+    at(1000 / cps, step);
+  };
+  step();
+}
+
+/* ------------------------------------------------------------------ the scene */
+function run(){
+  clearAll();
+  inner.innerHTML = '';
+  toolsPill.classList.remove('on');
+
+  // 1 — the question anyone actually types
+  const q = add(`<div class="turn user"><p class="who">You</p>
+    <div class="bubble"><span id="q"></span><span class="cur"></span></div></div>`);
+  at(400, () => type(q.querySelector('#q'), DATA.question, 30, () => {
+    q.querySelector('.cur').remove();
+
+    // 2 — it notices the tools are there
+    at(700, () => {
+      toolsPill.classList.add('on');
+      add(`<div class="turn ai"><p class="who">Assistant</p>
+        <div class="bubble">${DATA.ack}</div></div>`);
+    });
+
+    // 3 — the tool call, which is the thing nobody has seen
+    at(2100, () => {
+      const t = add(`<div class="turn ai"><div class="tool" id="tool">
+        <div class="head"><span class="spin"></span>${DATA.tool.name}</div>
+        <div class="body">${DATA.tool.args}</div>
+        <div class="ret">${DATA.tool.returned}</div>
+      </div></div>`);
+      at(1500, () => t.querySelector('#tool').classList.add('done'));
+    });
+
+    // 4 — what it found, with the citation
+    at(4600, () => {
+      add(`<div class="turn ai"><div class="bubble">${DATA.verdictLead}
+        ${DATA.findings.map(f => `<div class="finding"><b>FINDING</b>
+          <span class="src">${f.where}</span><br>${f.what}<br>${f.code}</div>`).join('')}
+        ${DATA.unknowns.map(u => `<div class="finding unknown"><b>UNKNOWN</b>
+          <span class="src">needs a human</span><br>${u}</div>`).join('')}
+      </div></div>`);
+    });
+
+    // 5 — the line that matters most
+    at(8200, () => {
+      add(`<div class="turn ai"><div class="bubble">${DATA.closing}</div></div>`);
+    });
+
+    at(DATA.loop, run);
+  }));
+}
+
+if (new URLSearchParams(location.search).has('rec')) document.body.classList.add('rec');
+run();
+
+let paused = false;
+addEventListener('keydown', (e) => {
+  if (e.code === 'Space'){ e.preventDefault(); paused ? (paused = false, run()) : (paused = true, clearAll()) }
+  if (e.key.toLowerCase() === 'r') run();
+  if (e.key.toLowerCase() === 'h') document.body.classList.toggle('rec');
+});
+</script>

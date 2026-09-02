@@ -35,7 +35,8 @@ async function main () {
   fs.rmSync(OUT, { recursive: true, force: true })
   fs.mkdirSync(OUT, { recursive: true })
 
-  const page = 'file://' + path.resolve('demo/index.html') + '?rec=1'
+  // which demo to capture; both are 1280x720 scenes with the same controls
+  const page = 'file://' + path.resolve(arg('page', 'demo/index.html')) + '?rec=1'
   const chrome = spawn(CHROME, [
     '--headless=new', `--remote-debugging-port=${PORT}`, '--disable-gpu',
     '--hide-scrollbars', '--window-size=1280,720', '--force-device-scale-factor=1',
