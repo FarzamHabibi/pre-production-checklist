@@ -91,22 +91,23 @@ Rules, in order of importance:
 
 1. Every finding must cite file:line and quote the two or three lines it refers to.
    If you cannot cite it, do not report it.
-2. Use exactly three verdicts per item:
-   - PASS      — you read the code and it does what the item asks. Cite it.
-   - FAIL      — you read the code and it does not. Cite it and say what an attacker
-                 or a user would experience.
-   - UNKNOWN   — you cannot tell from the code. This is a normal answer. Say what
-                 you would need to see.
-3. Never mark an item verified on my behalf. You are producing evidence, not a
-   sign-off.
-4. Do not report an item as PASS because you found no evidence against it. Absence of
-   evidence is UNKNOWN.
+2. Use exactly three states per item:
+   - FINDING   — you read the code and it does not do what the item asks. Cite it and
+                 say what an attacker or a user would experience.
+   - UNKNOWN   — you could not determine this. A normal answer, and often the most
+                 useful one. Say what you would need to see.
+   - N/A       — the item cannot apply here, and you can say why.
+3. There is no pass. Never mark an item verified on my behalf — that is a human's
+   mark to make after reading your evidence, and a model has no way to earn it.
+   If you want a fourth state, the answer is UNKNOWN.
+4. Absence of evidence is UNKNOWN, never a pass. Code that merely looks correct has
+   not been established as correct.
 5. Skip items that do not apply to this project and say why in one line.
 
 Work in this order: first the items that would block a release, then the rest.
 
 Output a markdown table: item | verdict | file:line | one-sentence reason.
-Then list the FAILs again underneath with the detail.
+Then list the FINDINGs again underneath with the detail.
 ```
 
 ---
@@ -119,7 +120,7 @@ For "is it safe to ship this week".
 Using the prodcheck release gate (call `release_gate`, or use the checklist I paste),
 tell me only whether anything here should stop a release.
 
-For each blocking item: PASS, FAIL or UNKNOWN, with file:line for PASS and FAIL.
+For each blocking item: FINDING, UNKNOWN or N/A, with file:line for every FINDING.
 
 Then give me one paragraph: if you were the person signing off on this release, what
 would you want fixed first and why. Be specific and be blunt. Do not pad the list to

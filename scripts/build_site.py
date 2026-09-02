@@ -1085,6 +1085,12 @@ def main():
     if os.path.exists(png):
         shutil.copyfile(png, os.path.join(OUT, "og.png"))
 
+    # The data itself, at a stable URL. skills/review/SKILL.md has been sending agents
+    # here since it was written and the build never emitted the file, so every agent that
+    # followed the instruction got a 404 and fell back to guessing.
+    shutil.copyfile(os.path.join("data", "checklist.json"),
+                    os.path.join(OUT, "checklist.json"))
+
     # the demo loop: mp4 for the page, gif as the fallback and for the README
     demo_src = os.path.join("site-assets", "demo")
     if os.path.isdir(demo_src):

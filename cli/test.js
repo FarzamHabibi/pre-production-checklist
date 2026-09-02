@@ -325,6 +325,27 @@ test('naming no stack leaves the gate exactly as it was', () => {
     'another product leaked into the Supabase gate')
 })
 
+test('the prompts and the skill agree on the three states', () => {
+  // They did not. skills/review/SKILL.md says a model may never mark an item as
+  // passing; docs/prompts.md instructed it to answer PASS. Two documents in one
+  // repository contradicting each other on the single rule the project exists for.
+  const fs = require('fs')
+  const root = path.join(__dirname, '..')
+  const skill = fs.readFileSync(path.join(root, 'skills/review/SKILL.md'), 'utf8')
+  const prompts = fs.readFileSync(path.join(root, 'docs/prompts.md'), 'utf8')
+
+  for (const state of ['FINDING', 'UNKNOWN', 'N/A']) {
+    assert.ok(skill.includes(state), `the skill lost the ${state} state`)
+  }
+  // a verdict the skill forbids must not be instructed anywhere
+  const forbids = /\bPASS\b/g
+  const stray = (prompts.match(forbids) || []).filter((_, i, a) => a.length > 0)
+  const explanatory = (prompts.match(/quiet PASS|never a pass|no pass/gi) || []).length
+  assert.ok(stray.length <= explanatory,
+    `docs/prompts.md still instructs PASS ${stray.length} times, ` +
+    'and the skill forbids any pass at all')
+})
+
 // ------------------------------------------------------------------ CLI
 console.log('\ncli')
 

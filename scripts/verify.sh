@@ -255,11 +255,17 @@ PY2
   # tag. A broad "no doc mentions another host" rule fires on instructions too, and a
   # check that flags correct content teaches people to ignore it — so this checks the
   # one link that is a claim about where the site lives.
-  readme_site=$(grep -m1 -oE '\[→ Browse the site\]\(https://[^)]*' README.md \
-                | sed 's|.*(https://||; s|/$||')
-  if [ -n "$readme_site" ] && [ "$readme_site" != "$sitebase" ]; then
-    miss="README links to https://$readme_site but pages canonicalise to https://$sitebase"
-  fi
+      # Matches the site link by its URL, not by its label. The previous version looked
+      # for the literal text "[→ Browse the site]"; the label was renamed, the grep
+      # returned nothing, and `-n` then skipped the comparison — so this check passed
+      # without testing anything. A check that cannot fail is worse than no check,
+      # because it is counted as coverage.
+      readme_site=$(grep -m1 -oE '\]\(https://[a-z0-9.-]+\.pages\.dev' README.md                     | sed 's|.*(https://||')
+      if [ -z "$readme_site" ]; then
+        miss="README no longer links to the site — this check has nothing to compare"
+      elif [ "$readme_site" != "$sitebase" ]; then
+        miss="README links to https://$readme_site but pages canonicalise to https://$sitebase"
+      fi
 
   # The gate compared the built site against the data, never the deployed one. Because
   # the mirror deploys automatically on push and the primary is a manual command, the
