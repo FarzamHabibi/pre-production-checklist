@@ -133,6 +133,18 @@ for f in ('cli/mcp.js',):
     if stale:
         problems.append(f"{f} hardcodes a gate count ({stale.group(1)}) — derive it instead")
 
+# server.json pins the version published to the MCP registry. It does not move with a
+# release, so without this the registry quietly keeps advertising an old version.
+if os.path.exists('server.json'):
+    sj = json.load(open('server.json', encoding='utf-8'))
+    pkgv = json.load(open('package.json', encoding='utf-8'))['version']
+    if sj.get('version') != pkgv:
+        problems.append(f"server.json says {sj.get('version')}, package.json says {pkgv} "
+                        f"— update it and re-run: mcp-publisher publish")
+    for pk in sj.get('packages', []):
+        if pk.get('version') != pkgv:
+            problems.append(f"server.json package version {pk.get('version')} != {pkgv}")
+
 sidebar = open('.github/description.txt', encoding='utf-8').read().strip()
 if f"{doc['counts']['total']:,}" not in sidebar:
     problems.append(".github/description.txt is stale — run build.sh")

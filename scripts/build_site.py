@@ -33,6 +33,10 @@ PH_URL = ("https://www.producthunt.com/products/prodcheck?embed=true"
           "&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-prodcheck")
 PH_IMG = ("https://api.producthunt.com/widgets/embed-image/v1/featured.svg"
           f"?post_id={PH_POST_ID}&theme=dark")
+# Where an assistant goes looking for MCP servers. Being in it is the difference between
+# a server someone can find and one they have to be told about.
+MCP_REGISTRY = ("https://registry.modelcontextprotocol.io/v0/servers"
+                "?search=io.github.FarzamHabibi/prodcheck")
 
 doc = json.load(open("data/checklist.json", encoding="utf-8"))
 C = doc["counts"]
@@ -620,7 +624,8 @@ item | verdict | file:line | one-sentence reason."""
   <div class="quick quick3">
     <div class="q">
       <h4>Give it to your AI assistant</h4>
-      <p class="sub">MCP · Claude, Cursor, Copilot, Gemini CLI, Cline, Cherry Studio…</p>
+      <p class="sub">MCP · Claude, Cursor, Copilot, Gemini CLI, Cline, Cherry Studio…
+        &nbsp;·&nbsp; <a href="{MCP_REGISTRY}">in the official registry</a></p>
       {codeblock('h-mcp', mcp)}
       <p class="more"><a href="{REPO}/blob/main/skills/review/SKILL.md">the review skill →</a>
         &nbsp;·&nbsp; <a href="{REPO}/blob/main/docs/mcp-clients.md">every client →</a>
