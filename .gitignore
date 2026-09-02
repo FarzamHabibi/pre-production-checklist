@@ -12,3 +12,6 @@ site/
 # editor/agent-local: a launch config for serving site/ in a preview pane
 .claude/
 demo/out/
+
+# the registry CLI, downloaded on demand — not part of the package
+mcp-publisher

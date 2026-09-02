@@ -1,0 +1,35 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.FarzamHabibi/prodcheck",
+  "description": "4,337 pre-production checks: security, performance, scale, integrations, post-launch.",
+  "repository": {
+    "url": "https://github.com/FarzamHabibi/pre-production-checklist",
+    "source": "github"
+  },
+  "version": "1.15.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "prodcheck",
+      "version": "1.15.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "npx",
+      "runtimeArguments": [
+        {
+          "type": "named",
+          "name": "--package",
+          "value": "prodcheck",
+          "isRequired": true
+        },
+        {
+          "type": "positional",
+          "valueHint": "prodcheck-mcp",
+          "value": "prodcheck-mcp",
+          "isRequired": true
+        }
+      ]
+    }
+  ]
+}
