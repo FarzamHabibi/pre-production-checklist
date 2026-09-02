@@ -489,7 +489,7 @@ agent how to *build* well — testing, debugging, planning, git workflow — see
 Let your coding agent query the checklist directly while it works, instead of you pasting
 it in. Read-only, no filesystem or network access beyond its own bundled data.
 
-Listed in the [official MCP registry](https://registry.modelcontextprotocol.io/v0/servers?search=io.github.FarzamHabibi/prodcheck)
+Listed in the [official MCP registry](https://registry.modelcontextprotocol.io)
 as `io.github.FarzamHabibi/prodcheck`, so an assistant can find it without being told.
 
 **Claude Code**

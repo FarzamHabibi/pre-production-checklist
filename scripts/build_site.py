@@ -35,8 +35,9 @@ PH_IMG = ("https://api.producthunt.com/widgets/embed-image/v1/featured.svg"
           f"?post_id={PH_POST_ID}&theme=dark")
 # Where an assistant goes looking for MCP servers. Being in it is the difference between
 # a server someone can find and one they have to be told about.
-MCP_REGISTRY = ("https://registry.modelcontextprotocol.io/v0/servers"
-                "?search=io.github.FarzamHabibi/prodcheck")
+# The /v0/servers search returns raw JSON — correct for a machine, a wall of text for
+# someone who clicked a link. The root is an actual page.
+MCP_REGISTRY = "https://registry.modelcontextprotocol.io"
 
 doc = json.load(open("data/checklist.json", encoding="utf-8"))
 C = doc["counts"]
