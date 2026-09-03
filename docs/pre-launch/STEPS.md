@@ -1065,9 +1065,33 @@ curl -s https://prodcheck.pages.dev/ | grep -oE '[0-9],[0-9]{3} things to check'
 
 ### Findings
 
-Record the time of each public action, who approved it, and anything the workflows or
-`mcp-publisher` said that this step did not predict. If the version number is not 1.16.0,
-go back to step 5's two version pins.
+Done 3 September 2026, four days ahead of the 7-8 September target. Maintainer approved
+each public action in session. npm is on 1.16.0, `dist-tags.latest` moved with it, and
+the published README states 4,349 seven times with none of the stale strings left.
+
+Five things this step did not predict.
+
+**The count is 4,349, not 4,343.** Six items were added to `post-launch/01-readiness.md`
+after this document was written. Every command above that greps for `4,343` is six short.
+The data and the generated files agree with each other; only this file was stale.
+
+**The bump is four files, not two.** `verify.sh` failed on `docs/integrations/http-api.md`
+and `docs/integrations/ci.md`, both of which pin `prodcheck@<version>` in prose. The
+command list above names only `package.json` and `server.json`. Fix all four in the same
+commit or the gate stops the push.
+
+**jsDelivr served the stale file on `@latest` after publishing.** `@1.16.0` was correct
+immediately; `@latest` still returned 4,337. The purge endpoint this document marked as
+untested does work: `curl -s https://purge.jsdelivr.net/npm/prodcheck@latest/data/checklist.json`
+returned `"status": "finished"` for both providers, and the CDN served 4,349 about twelve
+seconds later. Purging is now a required part of this step, not an optional note.
+
+**Step 5 of the command list was not needed.** The live site already served 4,349, so no
+Cloudflare deploy happened and `wrangler` was never invoked.
+
+**The MCP registry is still on 1.15.0.** `server.json` carries the right version and
+description, but `./mcp-publisher login` has no recorded auth method and the maintainer
+does not remember which was used. Unresolved, and it is the last stale surface.
 
 ---
 
