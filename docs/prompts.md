@@ -26,7 +26,7 @@ release blockers. Use this one if you do not know which of the others you want.
 <!-- start-prompt:begin -->
 ```text
 I want to get my project ready to ship. Use prodcheck:
-a free, open-source pre-production checklist of 4,349 items
+a free, open-source pre-production checklist of 4,352 items
 covering security, performance, scale, integrations and what to
 do after launch.
 

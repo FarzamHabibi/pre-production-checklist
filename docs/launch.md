@@ -16,12 +16,12 @@ Counts to verify first: run `npx prodcheck info`.
 
 Alternatives, shorter:
 
-> 4,349 things to check before you ship
+> 4,352 things to check before you ship
 > Everything to check before production. Free and open source.
 
 ## One-liner (Product Hunt "description", ~260 characters)
 
-> A free, open-source pre-production checklist for solo founders — 4,349 items across
+> A free, open-source pre-production checklist for solo founders — 4,352 items across
 > security, performance, scale, integrations, and what to do after it breaks. Works with
 > any AI assistant through MCP, or as a file you commit to your repo.
 
@@ -45,7 +45,7 @@ The one that matters. Product Hunt readers skim the maker comment before the pag
 > Afterwards the checklist turned out to be more useful than the review. The findings were
 > specific to our code. The questions apply to anyone shipping a product.
 >
-> So it is open source now: **4,349 items across five domains** — security, performance,
+> So it is open source now: **4,352 items across five domains** — security, performance,
 > scale, integrations, and what to do after it goes wrong. 88% of them name no product at
 > all, so they work whatever you build with.
 >
@@ -81,7 +81,7 @@ The one that matters. Product Hunt readers skim the maker comment before the pag
 
 Title — no marketing verbs, HN punishes them:
 
-> Show HN: A 4,349-item pre-production checklist for solo founders
+> Show HN: A 4,352-item pre-production checklist for solo founders
 
 Body:
 
@@ -111,7 +111,7 @@ Body:
 >
 > Nothing covered more than a fraction of what we actually run, so I wrote the checklist.
 >
-> It's open source now. 4,349 items. Free.
+> It's open source now. 4,352 items. Free.
 >
 > 🧵
 

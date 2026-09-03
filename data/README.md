@@ -3,7 +3,7 @@
 [`checklist.json`](checklist.json) is every item in this repository as structured data,
 validated against [`schema.json`](schema.json). It exists so tools — a CLI, an MCP
 server, a website, your own script — can filter the checklist instead of making people
-read 4,349 items.
+read 4,352 items.
 
 **Generated. Do not edit.** The Markdown under `checklists/` is the source of truth.
 Run `./scripts/build.sh` to regenerate.
@@ -54,7 +54,7 @@ reworded check is a different check, and anything tracking completion state shou
 
 ### There is no `severity` field
 
-By design. Assigning a severity to 4,349 items by heuristic would be invention presented
+By design. Assigning a severity to 4,352 items by heuristic would be invention presented
 as data, and every consumer would inherit the guess.
 
 `release_gate` is the one priority signal, and it is honest: it means the item lives in a

@@ -69,6 +69,9 @@ alive, and whether it can still reach you — a different failure, and a quieter
 * [ ] Verify a step conditioned on a secret being present cannot pass by being skipped — an unset key should turn the build red, not quietly remove the notification.
 * [ ] Verify every HTTP call in a check fails on an error status, since a plain `curl` exits zero on 401 or 404 and a check reading its empty output concludes nothing is wrong.
 * [ ] Verify you have looked at the run history, not the last run: consecutive cancellations and a silent inbox look identical to a system finding nothing wrong.
+* [ ] Verify every notification reads its sender and recipient from configuration rather than carrying a hardcoded address, since a check that asserts an alert was sent asserts nothing about whether it arrived somewhere a person can read.
+* [ ] Verify at least one real alert from each notification path has been received by a human, not merely observed leaving: a path that has never delivered since the day it was written looks exactly like a path with nothing to report.
+* [ ] Verify automated issue or ticket creation deduplicates against what is already open and holds a concurrency guard, because one persistently failing check otherwise files the same issue on every run until the volume is indistinguishable from having no alerting at all.
 
 ## The gate
 

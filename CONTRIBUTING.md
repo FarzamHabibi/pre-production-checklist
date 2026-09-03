@@ -52,7 +52,7 @@ This is the only rule that really matters:
 > **If you can rewrite the item without naming a specific product and it still makes
 > sense, it belongs in the domain checklists, not in `stacks/`.**
 
-`stacks/` is for the genuine remainder — currently 542 items out of 4,349 (12.5%).
+`stacks/` is for the genuine remainder — currently 542 items out of 4,352 (12.5%).
 Please keep it that small. A checklist that reads as "written for someone else's stack"
 is a checklist nobody finishes.
 

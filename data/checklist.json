@@ -50,16 +50,16 @@
     }
   ],
   "counts": {
-    "total": 4349,
+    "total": 4352,
     "by_domain": {
       "security": 3306,
       "scale": 301,
       "performance": 338,
       "integrations": 200,
-      "post-launch": 204
+      "post-launch": 207
     },
-    "stack_agnostic": 3807,
-    "release_gate": 385
+    "stack_agnostic": 3810,
+    "release_gate": 388
   },
   "stacks": [
     "AWS",
@@ -61982,6 +61982,57 @@
       }
     },
     {
+      "id": "post-launch.01-readiness.e531309f",
+      "text": "Verify every notification reads its sender and recipient from configuration rather than carrying a hardcoded address, since a check that asserts an alert was sent asserts nothing about whether it arrived somewhere a person can read.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": "When the thing that watches stops watching",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 72
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.a60f971a",
+      "text": "Verify at least one real alert from each notification path has been received by a human, not merely observed leaving: a path that has never delivered since the day it was written looks exactly like a path with nothing to report.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": "When the thing that watches stops watching",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 73
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.4ea86ff2",
+      "text": "Verify automated issue or ticket creation deduplicates against what is already open and holds a concurrency guard, because one persistently failing check otherwise files the same issue on every run until the volume is indistinguishable from having no alerting at all.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": "When the thing that watches stops watching",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 74
+      }
+    },
+    {
       "id": "post-launch.01-readiness.a80cb89b",
       "text": "Verify a runbook exists for the three most likely failures before launch, not after the first one.",
       "domain": "post-launch",
@@ -61995,7 +62046,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/post-launch/01-readiness.md",
-        "line": 75
+        "line": 78
       }
     },
     {
@@ -62012,7 +62063,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/post-launch/01-readiness.md",
-        "line": 76
+        "line": 79
       }
     },
     {
@@ -62029,7 +62080,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/post-launch/01-readiness.md",
-        "line": 77
+        "line": 80
       }
     },
     {
