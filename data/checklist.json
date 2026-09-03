@@ -50,16 +50,16 @@
     }
   ],
   "counts": {
-    "total": 4343,
+    "total": 4349,
     "by_domain": {
       "security": 3306,
       "scale": 301,
       "performance": 338,
       "integrations": 200,
-      "post-launch": 198
+      "post-launch": 204
     },
-    "stack_agnostic": 3801,
-    "release_gate": 379
+    "stack_agnostic": 3807,
+    "release_gate": 385
   },
   "stacks": [
     "AWS",
@@ -61880,6 +61880,108 @@
       }
     },
     {
+      "id": "post-launch.01-readiness.78edf3f8",
+      "text": "Verify something outside the check itself asserts that it produced a pass or a fail recently — a clock asking \"has this reported in the last N hours\", not the check reporting its own health.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": "When the thing that watches stops watching",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 66
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.3faa72cc",
+      "text": "Verify a run that is killed rather than failed still alerts: a runner timeout is usually recorded as cancelled, not as a failure, so alerting keyed on failure fires nothing at all.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": "When the thing that watches stops watching",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 67
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.ebcbf428",
+      "text": "Verify the alerting path itself fails loudly when its credential is missing or expired, rather than skipping the step and leaving the job green.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": "When the thing that watches stops watching",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 68
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.48d12ec1",
+      "text": "Verify a step conditioned on a secret being present cannot pass by being skipped — an unset key should turn the build red, not quietly remove the notification.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": "When the thing that watches stops watching",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 69
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.e97d14cf",
+      "text": "Verify every HTTP call in a check fails on an error status, since a plain `curl` exits zero on 401 or 404 and a check reading its empty output concludes nothing is wrong.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": "When the thing that watches stops watching",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 70
+      }
+    },
+    {
+      "id": "post-launch.01-readiness.a8d9a87f",
+      "text": "Verify you have looked at the run history, not the last run: consecutive cancellations and a silent inbox look identical to a system finding nothing wrong.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": "When the thing that watches stops watching",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 71
+      }
+    },
+    {
       "id": "post-launch.01-readiness.a80cb89b",
       "text": "Verify a runbook exists for the three most likely failures before launch, not after the first one.",
       "domain": "post-launch",
@@ -61893,7 +61995,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/post-launch/01-readiness.md",
-        "line": 63
+        "line": 75
       }
     },
     {
@@ -61910,7 +62012,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/post-launch/01-readiness.md",
-        "line": 64
+        "line": 76
       }
     },
     {
@@ -61927,7 +62029,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/post-launch/01-readiness.md",
-        "line": 65
+        "line": 77
       }
     },
     {

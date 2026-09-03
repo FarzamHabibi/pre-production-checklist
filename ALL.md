@@ -5607,6 +5607,18 @@ Every check above assumes you already know something is wrong. These ask how you
 * [ ] Verify someone is accountable for a failing scheduled check, or it becomes noise that everyone learns to skip.
 * [ ] Verify a check that has been failing for a week is treated as an outage in the monitoring, not as a known issue.
 
+### When the thing that watches stops watching
+
+The items above ask whether anything is checking. These ask whether the checker is still
+alive, and whether it can still reach you — a different failure, and a quieter one.
+
+* [ ] Verify something outside the check itself asserts that it produced a pass or a fail recently — a clock asking "has this reported in the last N hours", not the check reporting its own health.
+* [ ] Verify a run that is killed rather than failed still alerts: a runner timeout is usually recorded as cancelled, not as a failure, so alerting keyed on failure fires nothing at all.
+* [ ] Verify the alerting path itself fails loudly when its credential is missing or expired, rather than skipping the step and leaving the job green.
+* [ ] Verify a step conditioned on a secret being present cannot pass by being skipped — an unset key should turn the build red, not quietly remove the notification.
+* [ ] Verify every HTTP call in a check fails on an error status, since a plain `curl` exits zero on 401 or 404 and a check reading its empty output concludes nothing is wrong.
+* [ ] Verify you have looked at the run history, not the last run: consecutive cancellations and a silent inbox look identical to a system finding nothing wrong.
+
 ## The gate
 
 * [ ] Verify a runbook exists for the three most likely failures before launch, not after the first one.

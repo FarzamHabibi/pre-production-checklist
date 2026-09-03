@@ -326,7 +326,7 @@ PY2
   # the mirror deploys automatically on push and the primary is a manual command, the
   # primary silently fell a release behind while every check stayed green. A warning
   # rather than a failure: pushing before deploying is legitimate, forgetting is not.
-  live=$(curl -s --max-time 12 "https://$sitehost/" 2>/dev/null \
+  live=$(curl -s --fail --max-time 12 "https://$sitehost/" 2>/dev/null \
          | grep -oE '[0-9],[0-9]{3} things to check' | head -1 | cut -d' ' -f1)
   if [ -n "$live" ] && [ "$live" != "$pretty" ]; then
     echo "     note: the deployed site says $live, the data says $pretty —"
@@ -469,7 +469,7 @@ else ok; fi
 # ---------------------------------------------------------------- version sanity
 step "version is ahead of what npm has"
 local_v=$(node -p "require('./package.json').version")
-npm_v=$(curl -s --max-time 10 https://registry.npmjs.org/prodcheck 2>/dev/null \
+npm_v=$(curl -s --fail --max-time 10 https://registry.npmjs.org/prodcheck 2>/dev/null \
         | python3 -c "import json,sys;print(json.load(sys.stdin)['dist-tags']['latest'])" 2>/dev/null || echo "?")
 if [ "$npm_v" = "?" ]; then
   printf 'skipped (registry unreachable)\n'

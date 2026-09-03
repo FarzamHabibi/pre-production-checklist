@@ -5,7 +5,7 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**4,343 items** · 3,801 of them (88%) name no product at all.
+**4,349 items** · 3,807 of them (88%) name no product at all.
 
 | Domain | Items | |
 | --- | ---: | --- |
@@ -13,7 +13,7 @@ Every checklist is a standalone Markdown file. Copy the ones you need into your 
 | [**Scale**](#scale) | 301 | Surviving ten times the load, and knowing what breaks first. |
 | [**Performance**](#performance) | 338 | Being fast for a real user, with Lighthouse agreeing. |
 | [**Integrations**](#integrations) | 200 | Being connected: search, analytics, monitoring. |
-| [**Post-launch**](#post-launch) | 198 | When it goes wrong anyway: is the response already decided? |
+| [**Post-launch**](#post-launch) | 204 | When it goes wrong anyway: is the response already decided? |
 | [Stack supplements](#stack-supplements) | 542 | 26 products, only if you use them |
 
 ---
@@ -156,7 +156,7 @@ When it goes wrong anyway: is the response already decided?
 
 | Checklist | Items |
 | --- | ---: |
-| [Can You Act At All](post-launch/01-readiness.md) | 33 |
+| [Can You Act At All](post-launch/01-readiness.md) | 39 |
 | [The First Fifteen Minutes](post-launch/02-first-15-minutes.md) | 20 |
 | [You Have Been Breached](post-launch/03-security-incident.md) | 35 |
 | [Data Loss & Corruption](post-launch/04-data-loss.md) | 26 |
@@ -164,7 +164,7 @@ When it goes wrong anyway: is the response already decided?
 | [Rollback & Kill Switches](post-launch/06-rollback-and-kill-switches.md) | 20 |
 | [Telling People](post-launch/07-communication.md) | 18 |
 | [Learning & Drills](post-launch/08-learning-and-drills.md) | 19 |
-| **Total** | **198** |
+| **Total** | **204** |
 
 ---
 
