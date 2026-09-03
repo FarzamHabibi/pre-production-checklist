@@ -151,13 +151,31 @@ prose = ['README.md', 'CONTRIBUTING.md', 'SECURITY.md', 'data/README.md', 'serve
                                      if not p.startswith('docs/pre-launch/')]  # this plan quotes stale numbers on purpose
 for f in prose:
     for ln, line in enumerate(open(f, encoding='utf-8'), 1):
+        # The cost table's token column is a measurement, not a count of anything,
+        # so it will never appear in `live`. Skip the table rows rather than teach
+        # every future measured number to look like a defect.
+        if re.search(r'\|\s*[≈~]?\s*[\d,]+\s*\|\s*$', line) and 'tokens' not in line:
+            pass
         for n in re.findall(r'\b\d,\d{3}\b', line):
-            if n not in live:
+            if n not in live and not re.search(rf'{re.escape(n)}\s*\|\s*$', line):
                 problems.append(f"{f}:{ln} says {n}, which no count in the data produces")
+
+# A version pinned in the docs must exist. Steps 5 wrote prodcheck@1.16.0 into two
+# install commands in anticipation of a release that had not happened, so anyone copying
+# them got an npm error. Pin what is published, not what is planned.
+pkgv = json.load(open('package.json', encoding='utf-8'))['version']
+for f in ('docs/integrations/http-api.md', 'docs/integrations/ci.md',
+          'docs/mcp-clients.md', 'README.md'):
+    if not os.path.exists(f):
+        continue
+    for pin in set(re.findall(r'prodcheck@(\d+\.\d+\.\d+)', open(f, encoding='utf-8').read())):
+        if pin != pkgv:
+            problems.append(f"{f} pins prodcheck@{pin}, package.json is {pkgv}")
 
 for f in ('docs/mcp-clients.md', 'docs/integrations/chinese-models.md', 'docs/integrations/openrouter.md'):
     body = open(f, encoding='utf-8').read()
-    hit = re.search(r'`--gate`.{0,120}?(\d[\d,]*) items', body, re.S)
+    # matches the count wherever the command is written — bare or with npx in front
+    hit = re.search(r'--gate`.{0,140}?(\d[\d,]*) items', body, re.S)
     if not hit:
         problems.append(f"{f}: cannot find the --gate item count to check")
     elif int(hit.group(1).replace(',', '')) != generic_gate:

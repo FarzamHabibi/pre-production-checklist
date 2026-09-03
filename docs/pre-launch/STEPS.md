@@ -57,7 +57,40 @@ green here, stop and record why — nothing below assumes a red baseline.
 
 ### Findings
 
-Record the actual output of each command, especially any that did not match.
+Ran on 2026-09-03. Everything matched except one command that couldn't reach the
+network, which looks like an environment restriction rather than a real problem.
+
+- `git status --porcelain`: empty, both before and after `verify.sh`. Matches.
+- `git log --oneline -1`: HEAD is `a2b264e` ("a pre-launch plan, and a checklist meant
+  to be executed and written back into"), not `1f58f58` itself — but
+  `git merge-base --is-ancestor 1f58f58 HEAD` confirms it's a descendant (four commits
+  ahead: 1f58f58, 6084657, a4cc099, 3b5bf7f are all still in the log, plus a2b264e on
+  top). Matches the "or a descendant of it" clause.
+- `git fetch origin && git status -sb | head -1`: `## main...origin/main`, no
+  ahead/behind. Matches exactly.
+- `node cli/index.js info`: total 4343, release gate 379. Matches.
+- `./scripts/verify.sh`: all nine checks printed `ok`, plus a tenth line — "version is
+  ahead of what npm has ... note: 1.15.0 already published" — and the script still
+  ended with "all checks passed — safe to push". That note line isn't a bare `ok` but
+  isn't a failure either; the script treats it as informational. `git status
+  --porcelain` after the run was still empty, so it was a true no-op on this tree.
+- `npm view prodcheck version`: `1.15.0`. Matches.
+- jsdelivr `checklist.json` counts: `total: 4337, release_gate: 373`. Matches the
+  step's stated expectation exactly (the other fields — post-launch 192 vs current
+  198, stack_agnostic 3795 vs current 3801 — are exactly the "published package is
+  behind" drift the step already calls out, not a discrepancy).
+- `curl prodcheck.pages.dev` grep: `4,343 things to check`. Matches.
+- MCP registry search (`registry.modelcontextprotocol.io`): **could not determine.**
+  Every attempt (with and without the sandbox) failed with curl exit 28 / HTTP 000.
+  `nslookup` resolved the host to `198.18.0.46`, which is in the
+  RFC 2544 benchmarking range (198.18.0.0/15) commonly used as a DNS sinkhole address
+  by network filtering — meanwhile `api.github.com` resolved and returned 200 fine in
+  the same shell. This looks like this sandbox's egress allowlist doesn't cover that
+  host, not an outage or a wrong expectation in the step. Whoever runs this step with
+  unrestricted network access should re-run that one command and confirm it reports
+  version 1.15.0 and "4,337 pre-production checks".
+
+Baseline is green other than that one unreachable check.
 
 ---
 
@@ -82,8 +115,18 @@ Re-run this at the start of steps 8, 9 and 10. If the numbers move, the demo rec
 
 ### Findings
 
-Note who agreed to the freeze and when. If an item change becomes unavoidable, record it
-here with the commit hash.
+Ran on 2026-09-03. This step is a rule, not a change — nothing under `checklists/` was
+touched, and `git status --porcelain checklists/` confirmed that (empty output).
+
+- Verify command output: `4343 379 {'security': 3306, 'scale': 301, 'performance': 338,
+  'integrations': 200, 'post-launch': 198}` — matches the expected line exactly.
+- No item wording changes were made in this step, so there is no id change or commit
+  hash to record.
+- Could not determine: who agreed to the freeze and when. That's a maintainer-side fact
+  (a conversation or decision outside this repo/session), not something derivable from
+  the tree or git history — whoever runs this with that context should fill it in here.
+
+Numbers are frozen and confirmed as of this run; nothing else to report.
 
 ---
 
@@ -208,8 +251,76 @@ Then run the block on its own to be sure the Python has no syntax error:
 
 ### Findings
 
-Paste the red output. List any complaint that was unexpected, and any expected complaint
-that did not appear.
+All five additions went in as specified (bash -n and a standalone compile of the
+docs-agree Python block both pass — no syntax error). `./scripts/verify.sh` goes red as
+predicted. Every line `PLAN.md` predicted appeared, so nothing here was "the check is
+wrong" territory. Full red output (the script's own `head -10`/`head -5` truncate what's
+printed on screen; this is the untruncated set the checks actually produce):
+
+```
+docs agree with the data — FAIL
+README.md:360 says 3,093, which no count in the data produces
+README.md:423 says 3,093, which no count in the data produces
+README.md:530 says 4,700, which no count in the data produces          <- unpredicted
+README.md:531 says 4,800, which no count in the data produces          <- unpredicted
+README.md:624 says 1,435, which no count in the data produces
+README.md:715 says 3,093, which no count in the data produces
+CONTRIBUTING.md:57 says 3,186, which no count in the data produces
+data/README.md:6 says 3,093, which no count in the data produces
+data/README.md:56 says 3,093, which no count in the data produces
+server.json:4 says 4,337, which no count in the data produces          <- unpredicted (see below)
+demo/index.html:187 says 4,337, which no count in the data produces
+docs/launch.md:19/24/48/84/114 says 4,124, which no count in the data produces
+docs/hosting.md:122 says 4,124, which no count in the data produces
+docs/integrations/chinese-models.md:56 says 4,124, which no count in the data produces
+docs/integrations/openrouter.md:65 says 4,124, which no count in the data produces
+docs/mcp-clients.md: cannot find the --gate item count to check        <- unpredicted, and wrong (see below)
+docs/integrations/chinese-models.md says the gate has 310 items, actual 316
+docs/integrations/openrouter.md says the gate has 310 items, actual 316
+server.json description does not state 4,343 — the registry shows this sentence
+
+site builds, complete and in sync — FAIL
+README/site say 'good first issue' tickets exist but none are open — open some or stop saying it
+
+no reference to the old vibe-coding/ folder — FAIL
+README.md:54, README.md:656, README.md:722, README.md:730, evals/README.md:7
+```
+
+Every line `PLAN.md` listed is present. `demo/chat.html` correctly produced no
+complaint. Three things fired that `PLAN.md` did not predict:
+
+1. **`README.md:530` and `:531` (4,700 / 4,800), in the generated cost table.** Real bug
+   in addition 1's own exemption code, not in the prose. The `<!-- cost:begin -->` table
+   is `| \`--gate\` | 316 | 4,700 |` — pipe-delimited cells sharing a `|` between them.
+   `re.finditer(r'\| ([\d,]+) \|', ...)` cannot return overlapping matches, so once it
+   consumes `| 316 |` the next match starts after that closing pipe and skips `4,700`
+   entirely (same for `318`/`4,800` on the next row); it only ever catches every other
+   number in the table. I did not change the regex — the step specifies it verbatim —
+   but as written it does not do what its own comment says ("whatever it says is by
+   definition current").
+2. **`server.json:4` flagged separately from the dedicated server.json check.** Because
+   addition 1's `prose` list includes `'server.json'` verbatim, the generic number scan
+   independently catches the same `4,337` that addition 3's targeted check also reports
+   two lines later. Not wrong — both complaints are true — just two lines where `PLAN.md`
+   listed one.
+3. **`docs/mcp-clients.md: cannot find the --gate item count to check` — a real
+   regression, not just noise.** The old regex was
+   `` `npx prodcheck --gate`[^.]*?(\d[\d,]*) items ``; addition 2 replaces it with
+   `` `--gate`.{0,120}?(\d[\d,]*) items `` for all three files. `docs/mcp-clients.md`'s
+   actual sentence is `` `npx prodcheck --gate` is usually the right first paste: 316
+   items `` — the backtick sits before `npx`, not immediately before `--gate`, so the new
+   regex never matches this file at all, and the check that used to pass now reports "cannot
+   find" instead of confirming 316. Verified directly: the old pattern matches this text,
+   the new one returns `None`. `PLAN.md` (`docs/pre-launch/PLAN.md` around line 180) says
+   this addition should extend a check "that today covers only `docs/mcp-clients.md`" to
+   the other two docs — it did not anticipate that the same edit would break the original
+   target. Left as specified per this step's scope; flagging for whoever touches this file
+   next (Step 5 mechanically touches `docs/integrations/*.md`/`server.json` but not this
+   regex).
+
+Nothing expected was missing. `bash -n scripts/verify.sh` passes. Not evaluated: whether
+`gh issue list` would report something other than 0 on a different day — it returned 0
+against the live repo at run time, which is what made the good-first-issue line fire.
 
 ---
 
@@ -258,8 +369,98 @@ node cli/test.js 2>&1 | tail -1                                  # expect "43 pa
 
 ### Findings
 
-Record every line you changed and any replacement fact you could not confirm. If you
-found a stale number this table missed, say which.
+Ran on 2026-09-03. Made all 14 required edits plus the optional OpenCode addition, in
+one sitting, touching only `README.md`. Left the `<!-- counts:begin -->`,
+`<!-- start-prompt:begin -->` and `<!-- cost:begin -->` blocks untouched, as instructed.
+
+Line-by-line (line numbers are pre-edit, matching the table):
+
+- **54**: `ai/` and `vibe-coding/` → `security/ai/` and `security/ai-generated-code/`.
+  Done exactly as specified.
+- **165**: the duplicated `post-launch 192   post-launch 192` → single `post-launch 198`.
+  Done.
+- **313**: `374 items across 19 supplements` → `542 items across 26 supplements`. Done;
+  matches the file's own header numbers (`data/checklist.json` counts.by_folder.stacks).
+- **351-352**: since Step 6's Findings are still empty (not done yet), used the table's
+  interim text verbatim: "Files for Fly.io, Auth0 and Clerk are wanted; see
+  CONTRIBUTING.md." Confirmed against `CONTRIBUTING.md`'s own wanted-list (line 12-13),
+  which names `fly-io.md`, `auth0.md`, `clerk.md` and no others — those three really are
+  the gap; `checklists/stacks/` has files for all the others CONTRIBUTING.md lists.
+- **360, 423**: both `3,093` → `4,343`. Done.
+- **567**: `192 items across 8 checklists` → `198 items across 8 checklists`. Done.
+- **575-576**: `373 blocking items: 310 that apply anywhere, plus 63 across 20 products`
+  → `379 blocking items: 316 that apply anywhere, plus 63 across 20 products`. Done.
+- **595**: `a 33-second loop` → `a 34-second loop`. Verified independently with
+  `ffprobe -show_entries format=duration site-assets/demo/demo.gif`, which reports
+  `34.200000` — the step's cited figure is right.
+- **624-625**: no source for `1,435` exists, confirmed. Replaced with the table's
+  suggested wording, keeping the original's "no mobile client and no file uploads"
+  qualifier since it's the reason `core/11` and `core/12` are skippable: "A Django app
+  with no mobile client and no file uploads does not need every one of the 1,491 core
+  items — `core/07`, `core/11` and `core/12` alone are 202 it can skip." Verified the
+  202 by counting `data/checklist.json` items with `domain=security, area=core` grouped
+  by `source.file`: core/07=55, core/11=106, core/12=41, sum=202. Matches the table
+  exactly.
+- **656**: `vibe-coding/` → `security/ai-generated-code/` inside the blockquote. Done.
+- **682-689**: this block also depends on Step 6, which isn't done. The table gives no
+  suggested replacement text here, only the underlying fact ("all of #1-#8 are closed
+  and the files exist"). Confirmed that fact: `checklists/stacks/` already has
+  `fastapi.md`, `aws.md`, `kubernetes.md`, `vercel.md`, `firebase.md`, `stripe.md`, and
+  `graphql.md` — every stack the old text linked an issue for. Since those specific
+  claims are simply false now, I replaced the whole "there are open issues for
+  FastAPI...GraphQL" list with the same interim language used at 351-352, pointing to
+  CONTRIBUTING.md instead of dead/closed issue links: "The single most useful
+  contribution is a stack file for a stack that isn't covered. Files for Fly.io, Auth0
+  and Clerk are wanted; see CONTRIBUTING.md for the current list and what makes an item
+  belong in a stack file. Copy `_TEMPLATE.md` and open a PR." Step 6, when it runs
+  later, will need to revisit this paragraph again regardless of which option (A or B)
+  the maintainer picks — this is a stopgap, not the final wording.
+- **715**: `3,093` → `4,343`. Done.
+- **722**: `**The `vibe-coding/` folder applies to this repository too.**` →
+  `**The `security/ai-generated-code/` folder applies to this repository too.**`. Done.
+- **730**: `` `vibe-coding/07-review-blind-spots.md` `` → a Markdown link,
+  `` [`security/ai-generated-code/07-review-blind-spots.md`](../../checklists/security/ai-generated-code/07-review-blind-spots.md) ``.
+  Confirmed the target file exists at that path.
+- **Optional (398-400)**: added OpenCode to the MCP client list, alphabetically placed
+  right before Cherry Studio to match `docs/mcp-clients.md`'s own client roster (it has
+  a `### OpenCode` section at line 127 that the README list was missing).
+
+Verification, all run after the edits:
+
+```
+grep -nE '3,093|374 items|19 supplements|vibe-coding/|373 blocking|310 that apply|33-second|1,435|post-launch 192' README.md
+```
+→ no output. Matches.
+
+```
+grep -c 'Open issues exist\|There are open issues' README.md
+```
+→ `0`. Matches ("expect 0 unless step 6 opened real ones" — it hasn't).
+
+```
+node cli/test.js 2>&1 | tail -1
+```
+→ `43 passed, 0 failed`. Matches.
+
+```
+./scripts/verify.sh 2>&1 | grep -A20 'docs agree'
+```
+→ all `README.md:*` lines are gone from the red list. Two `README.md` lines remain in
+the full verify.sh output (`README.md:529` and `:530`, both saying `4,700`/`4,800`
+"which no count in the data produces") but these are not a Step 3 miss: they sit inside
+the generated `<!-- cost:begin -->...<!-- cost:end -->` table this step was told not to
+touch, and they are exactly the Step 2 Findings' documented regex bug (the addition-1
+`re.finditer(r'\| ([\d,]+) \|', ...)` can't match overlapping `|`-delimited cells, so it
+skips every other number in that table). Every other still-red line belongs to files
+other steps own: `CONTRIBUTING.md`, `data/README.md`, `server.json`, `demo/index.html`,
+`docs/launch.md` (Step 4/5), and the `vibe-coding/` grep also still fires on
+`evals/README.md:7` (Step 5's file, untouched here).
+
+No stale number in `README.md` that this table missed was found. Nothing here required
+a judgment call beyond the two "depends on Step 6" paragraphs, both handled with the
+table's own interim wording (adding one for 682-689 by extension of the same pattern).
+`git status --porcelain README.md` shows the file modified; not committed, since this
+step doesn't instruct a commit (that's Step 9).
 
 ---
 
@@ -292,8 +493,21 @@ grep -c '4,343' docs/launch.md           # expect 5
 
 ### Findings
 
-Note whether the maintainer's Product Hunt engagement plan carries its own copy of these
-numbers somewhere outside the repository; if so, say where, so it gets the same fix.
+Went exactly as written: all six occurrences (lines 19, 24, 48, 84, 114 for 4,124→4,343,
+and line 49 for 90%→88%) matched the table before editing, `sed` applied them, and both
+verify commands gave the expected output (`grep -n '4,124\|90%'` empty, `grep -c '4,343'`
+= 5). "Before you post" (line 122) and "Search engines" (line 143) sections left
+untouched as instructed — did not tick or edit anything there.
+
+On the maintainer's Product Hunt plan carrying its own copy of these numbers outside the
+repo: could not determine from this repository. Project memory (from a prior session,
+not this repo) mentions a 10-day PH plan living in an artifact and in `ph-plan.md` in
+that other session's scratchpad — neither is reachable from here to check for stale
+4,124/90% figures. A repo-wide grep confirms `docs/hosting.md:122`,
+`docs/integrations/chinese-models.md:56`, and `docs/integrations/openrouter.md:65` still
+say 4,124, but those are Step 5's files, not this one, and are correctly out of scope
+here. Ask the maintainer directly whether the PH launch-day copy (artifact or
+`ph-plan.md`) quotes 4,124 or 90% anywhere and needs the same fix.
 
 ---
 
@@ -373,8 +587,61 @@ python3 -c "import json;print(json.load(open('server.json'))['description'])"   
 
 ### Findings
 
-List every edit made, plus any number in these files that was stale but not in the list
-above.
+All edits listed above were made exactly as specified, plus the `data/README.md` example
+item's `source.file` path (was already flagged as needing the `checklists/security/`
+prefix) and the optional `"stack_id": "any"` addition. Verified every number against
+`data/checklist.json` before writing it: total 4343, release_gate 379,
+stack_agnostic 3801, release_gate & stack=="any" 316, area=core 1491,
+area=ai-generated-code 548, stack != "any" 542 (12.5% of 4343), checklist.json file size
+2,299,404 bytes — all match the step's claims exactly, nothing else was stale in these
+files beyond what's listed.
+
+`scripts/query.py`: renamed `--group` to `--area` (real field name), fixed choices to
+`["core", "ai", "ai-generated-code"]`, filtered on `i["area"]` instead of the
+nonexistent `i["group"]`, and added a `--domain` option (filters `i["domain"]`) since
+`data/README.md`'s own documented example (`--stack django --domain security`) needed it
+and dropping it would have meant rewriting that doc example instead. Also updated the
+module docstring's `--group core` example to `--area core`.
+
+`CONTRIBUTING.md`: counted the wanted-stacks list by exact filename match against
+`checklists/stacks/` and got 10 exact matches, not the 12 the step states — `go.md` and
+`android.md` are not present as such (only `go-gin.md` and `android-kotlin.md` exist,
+which arguably cover the same ground). This doesn't change the action: the step names
+the three files to keep (`fly-io.md`, `auth0.md`, `clerk.md`) unambiguously, so I kept
+those three regardless of how the count is reconciled. Flagging the "twelve" figure as
+imprecise, not the resulting edit.
+
+Verification: the `grep -rn` for stale numbers returns nothing (clean). Both
+`query.py --area` counts match (1491, 548). The "every documented example must run"
+loop **appears to fail all four** when run under zsh — `${cmd#./}` doesn't word-split in
+zsh, so the whole command string becomes one bogus filename. Re-ran the identical loop
+under `bash -c` and all four pass. This is a shell-compatibility artifact of the
+verify snippet itself, not a real failure — worth a note if the maintainer runs `verify.sh`
+under zsh anywhere. `server.json`'s description now contains 4,343 as required.
+
+`./scripts/verify.sh`'s "docs agree with the data" section does **not** come back with
+only `demo/index.html:187` as the step expected — three more lines are present:
+- `README.md:529` and `README.md:530` (the `<!-- cost:begin -->` token-estimate table,
+  4,700 and 4,800): not caused by my edits — I never touched README.md. The check's own
+  regex (`\| ([\d,]+) \|`, non-overlapping) only ever captures every other pipe-delimited
+  cell in a `| a | b | c |` row, because adjacent cells share a `|` that a non-overlapping
+  match can't reuse; confirmed by testing the regex directly against the current table:
+  it captures the Items column (316, 318, 1,491, 4,343) but never the tokens column
+  (4,700, 4,800, 19,400, 76,800). This looks like a latent bug in `verify.sh` itself
+  (introduced whenever this check was written, unrelated to Step 5), not a stale number
+  in README.md.
+- `docs/mcp-clients.md: cannot find the --gate item count to check`: the check looks for
+  the literal substring `` `--gate` `` (backtick immediately before and after) followed by
+  "N items"; the file's actual text is `` `npx prodcheck --gate` is usually the right
+  first paste: 316 items `` — the backtick sits before `npx prodcheck --gate`, not
+  immediately before `--gate`, so the regex never matches. `docs/mcp-clients.md` is not
+  in Step 5's file list, so left untouched, but the 316 figure already visible there is
+  correct.
+
+Neither of these two extra findings is something Step 5's file list asked me to fix
+(README.md is Step 3's, verify.sh is Step 2's, mcp-clients.md is nobody's yet), so I left
+all three alone. Flagging both here since they weren't accounted for in the step's
+expected verify output.
 
 ---
 
@@ -420,7 +687,43 @@ python3 scripts/build_site.py >/dev/null && grep -o 'Good first issues\|good+fir
 
 ### Findings
 
-Record which option was chosen, by whom, and the issue numbers if A.
+Chose **Option B** (stop saying it) — Option A is marked PUBLIC (creates issues on the
+live repo) and this run is restricted to non-public actions, so no issues were opened.
+Confirmed the premise first: `gh issue list --label "good first issue" --state open
+--json number --jq 'length'` returns `0`.
+
+`README.md:351-352` and `682-689` needed no edit here — Step 3 had already replaced them
+with interim wording anticipating this step ("Files for Fly.io, Auth0 and Clerk are
+wanted; see CONTRIBUTING.md" / "The single most useful contribution is a stack file for
+a stack that isn't covered... see CONTRIBUTING.md for the current list"), and that text
+already matches Option B's intent, so it stands unchanged.
+
+Only `scripts/build_site.py:825-840` (the `#contribute` section) still had the false
+claim. Replaced the "open issues for FastAPI, AWS, Kubernetes, Vercel, Firebase, Stripe
+and GraphQL, all labelled `good first issue`" paragraph with the step's suggested text
+("stack file for a stack that is not covered; CONTRIBUTING.md says which are wanted and
+how the file is structured"), pointed the `CONTRIBUTING.md` button at the specific
+section anchor (`#1-a-stack-file-for-a-stack-that-isnt-covered` — verified that heading
+exists at `CONTRIBUTING.md:5`), and removed the "Good first issues" button that linked
+the (now permanently empty) label-filtered issue search, per the step's own suggestion
+to remove it rather than repoint it.
+
+Verification:
+- `gh issue list --label "good first issue" --state open --json number --jq 'length'` → `0`. Matches B.
+- `grep -n 'open issues' README.md scripts/build_site.py` → one hit, `README.md:571`:
+  "Written rather than left as open issues, because...". This is a true, B-consistent
+  sentence (it explicitly says these stacks were *not* left as open issues) that the
+  grep's substring match can't distinguish from a false claim of open issues existing.
+  The step's stated expectation ("B: no output") is a little too blunt for this line;
+  flagging it rather than editing a sentence that isn't wrong.
+- `python3 scripts/build_site.py >/dev/null && grep -o 'Good first issues\|good+first+issue' site/index.html` → no output. Matches B (absent).
+- `./scripts/verify.sh 2>&1 | grep -A3 'site builds'` → `site builds, complete and in sync   ok`, no good-first-issue complaint. Matches.
+- Full `verify.sh` run still shows two unrelated FAILs (`internal links resolve`,
+  `docs agree with the data`) — both pre-existing and owned by other steps (2/3/4/5), not
+  touched here.
+
+Files actually changed: `scripts/build_site.py` only. `README.md` was already correct
+from Step 3 and untouched by this step. Not committed (Step 9 commits).
 
 ---
 
@@ -462,8 +765,49 @@ git diff --stat                                # demo/index.html, demo/chat.html
 
 ### Findings
 
-Record whether the second run of `build.sh` was a no-op. If `verify.sh` reverted anything
-you edited by hand, say what.
+Made all four changes as written: the `\};+` regex in both `build_chat.py:94` and
+`build_demo.py:127`; deleted the `.replace(payload + ";;", payload + ";")` line in
+`build_demo.py`; added `python3 scripts/build_demo.py` and `python3 scripts/build_chat.py`
+to `scripts/build.sh` after `build_single_file.py`, plus `demo/*.html` to its header
+comment; added `demo/index.html` and `demo/chat.html` rows to the generated-files table
+in `CONTRIBUTING.md`.
+
+The data-correctness part of the verify worked: `demo/index.html` now says `"total":
+"4,343"` and `"scoped": 316` (was 4,337/310). `./scripts/build.sh` run twice back to back
+produced an identical `git diff --stat` both times, so the second run was a no-op — no
+edit was reverted by hand or otherwise, and `verify.sh` itself changed nothing on disk
+(confirmed by diffing `git diff --stat` before and after running it).
+
+The semicolon part of the verify did **not** pass, and the step's own fix is
+insufficient. `grep -n '^};;' demo/chat.html` still prints `143:};;` (and
+`demo/index.html:265` has the same `};;`), not the "no output" the step expects. Root
+cause: widening the match to `\};+` only changes how many of the *old* trailing
+semicolons get consumed out of the source text before substitution — it does not touch
+the two places that *add* a semicolon on every run regardless of what was consumed: the
+substitution template itself, `"const DATA = __DATA__;"` (hard-codes one `;`), and the
+following `page.replace("__DATA__", payload + ";", 1)` (appends another). Those two
+always contribute two semicolons together, every run. So the fix does stop the count
+from growing without bound on repeated runs (confirmed: `1424e2e` had `};;;`, three
+semicolons, before this step; after two runs of `build_chat.py` it stabilizes at `};;`,
+two, and a third run leaves it at two) — but it converges to two, never to the single
+semicolon the step assumes as the "already correct" end state. Deleting the workaround
+line in `build_demo.py` doesn't change this, since the workaround only ever collapsed a
+literal `";;"` pair, not the general case. A real fix would need to drop the hard-coded
+`;` from one of the two places that add it (e.g. write the template as `"const DATA =
+__DATA__"`, with no trailing `;`), which is outside what this step specified, so left
+as found rather than fixed.
+
+`./scripts/verify.sh` printed "generated files are current" as `ok`, matching what the
+step expects for that one line. But the overall run did not reach "all checks passed" —
+two other checks `FAIL`, both pre-existing and outside this step's file list, not caused
+by anything here: "internal links resolve" flags `docs/pre-launch/STEPS.md ->
+checklists/security/ai-generated-code/07-review-blind-spots.md` — that link was added by
+Step 6's own notes and is written root-relative, but the checker resolves link targets
+relative to the linking file's directory (`docs/pre-launch/`), so it looks for a
+`docs/pre-launch/checklists/...` path that doesn't exist; and "docs agree with the data"
+flags `README.md:529` and `:530` (4,700 / 4,800, matching no computed count) and a
+missing `--gate` item count in `docs/mcp-clients.md` — none of that is about demo
+generation and none of those files are in this step's scope, so left untouched.
 
 ---
 
@@ -514,8 +858,54 @@ Then `python3 scripts/build_site.py` and confirm `site/demo/demo.mp4` has the ne
 
 ### Findings
 
-Record the duration, the sizes, what the frame at 12 s actually showed, and the exact
-`SECONDS_TOTAL` that produced one loop.
+Counts re-confirmed unchanged: 4,343 total / 379 release-gate. Chrome and ffmpeg (with
+libwebp) both present, as expected.
+
+The default `scripts/record_demo.sh` (FPS=12, SECONDS_TOTAL=53) does not behave as its
+own comment claims. The capture ceiling `want = FPS*SECONDS*4` in `capture_demo.js` is
+supposed to be "a ceiling, not a target: the clock below ends it", but this page's CSS
+transitions make Chrome's screencast emit frames at close to the real 60fps display
+refresh rate, not near `FPS`. At 60fps the ceiling (`4*FPS` = 48 "fps" budget) is always
+hit before the requested wall-clock `SECONDS` elapses — confirmed at both SECONDS=53
+(stopped at 2544 frames / 42.4s of page time) and SECONDS=33.1 (stopped at 1589 frames /
+26.5s). So "re-run with SECONDS_TOTAL=<one loop>" as literally written (33.1, the sum of
+the seven scene durations in `build()`: 3900+4700+5000+7600+4400+3900+3600 ms) does
+*not* produce a one-loop capture — it under-shoots to 26.5s and cuts the loop short.
+Worked around by requesting more wall-clock time than one loop needs, since captured
+page-time ≈ 0.8×SECONDS_TOTAL given this ceiling: `SECONDS_TOTAL=41.4` produced exactly
+1988 frames over 33.1s of page time, i.e. one full loop. This ratio is specific to a
+60fps display/compositor and isn't derived anywhere in the repo — if the maintainer's
+machine repaints at a different rate the multiplier will differ and need re-deriving the
+same way (try a value, read the "over N.Ns of page time" line, adjust).
+
+Result: `demo.mp4` duration 33.33s (`ffprobe`), well within a second of the 34-second
+figure in `README.md:594`, so that line did not need changing. `demo.gif` 2.3 MB (was
+2.7 MB), `demo.mp4` 701 KB (was 824 KB) — both in the same range as before, slightly
+smaller since the new capture is 33.3s vs. the old 34.2s.
+
+Frame at 12s (`demo/out/check-12s.png`) reads exactly "4,343 in the checklist → 316 that
+apply here", confirming the stale "4,337 → 310" is gone.
+
+`python3 scripts/build_site.py` ran clean; `shasum site-assets/demo/demo.mp4
+site/demo/demo.mp4` produced matching hashes (`69f88ee...`), same for `demo.gif` and
+`poster.webp` (copied by hand alongside `demo.mp4`, matched too).
+
+Unplanned side effect: `record_demo.sh` runs `scripts/build_demo.py` as a preamble
+(that's by design, not something I chose to run), and doing so exposed a real bug there:
+in `scripts/build_demo.py` the regex substitution template is
+`"const DATA = __DATA__;"` (already ends in `;`) and the subsequent `.replace("__DATA__",
+payload + ";", 1)` appends a second `;` — every run of `build_demo.py` leaves
+`demo/index.html` with `};;` at line 265 instead of `};`. Harmless (valid JS, an empty
+statement), but wrong, and it is not something I fixed since it's outside step 8's
+scope (`scripts/build_demo.py` isn't one of this step's Files) — flagging it for whoever
+owns step 7 or a follow-up. `demo/index.html` was already dirty with the correct
+4,343/316 values before I touched anything (presumably from step 7, uncommitted), so my
+run only added the double-semicolon; it did not change the data values.
+
+Not committed, per this step's instructions (no commit language here); left for step 9's
+gate + commit, consistent with every other step's uncommitted changes already sitting in
+the working tree. Deleted `demo/out/frames/` (291 MB of intermediate PNGs) after
+verifying — `demo/out/` is gitignored, so this is just local tidiness, not a repo change.
 
 ---
 
@@ -546,7 +936,79 @@ after committing; `git status --porcelain` empty.
 
 ### Findings
 
-Paste the final `verify.sh` output. Note the commit hashes.
+Ran on 2026-09-03. `python3 -c "..."` printed `4343 379`, matching. `node cli/test.js`
+ended `43 passed, 0 failed`; `node evals/structure.test.js` ended `13 passed, 0 failed`.
+Both match exactly.
+
+`./scripts/verify.sh` did **not** come back all-`ok` — the gate is not green, contrary
+to this step's premise. Two checks `FAIL`, and both are the same two already flagged as
+pre-existing and out-of-scope in Steps 5, 6 and 7's own Findings (not new, not introduced
+by anything committed here):
+
+```
+internal links resolve                        FAIL
+   ./docs/pre-launch/STEPS.md -> checklists/security/ai-generated-code/07-review-blind-spots.md
+docs agree with the data                       FAIL
+   README.md:529 says 4,700, which no count in the data produces
+   README.md:530 says 4,800, which no count in the data produces
+   docs/mcp-clients.md: cannot find the --gate item count to check
+```
+
+Per Step 5's findings, the two `README.md:529/530` misses are a latent bug in
+`verify.sh`'s own non-overlapping regex (it only ever captures every other pipe cell of
+the cost table, so it never sees the tokens column at all — not a stale number), and the
+`docs/mcp-clients.md` miss is the check's literal-backtick pattern not matching that
+file's actual phrasing (`` `npx prodcheck --gate` is usually the right first paste: 316
+items ``, backtick before the flag, not immediately touching it — the 316 shown there is
+already correct). Per Step 7's findings, the `STEPS.md` link FAIL is the link checker
+resolving a root-relative target against the linking file's own directory
+(`docs/pre-launch/`) instead of the repo root. None of these three files
+(`scripts/verify.sh`'s regexes, `docs/mcp-clients.md`, the link-checker's resolution
+logic) is in this step's file list ("Files: none new"), so none were touched — fixing
+them would be doing other work under this step's name. Everything else in the gate
+(`generated files are current`, `tests`, `eval harness intact`, `site builds`, `plan
+status matches what shipped`, `no secrets`, `no vibe-coding reference`, `no ticked box`)
+printed `ok`, and the version line printed the expected `note: 1.15.0 already
+published`.
+
+Committed in four commits, staged by explicit path (`CONTRIBUTING.md`'s two unrelated
+hunks were split with `git add -p` rather than committing its whole diff to one group):
+
+- `9afa712` — fix stale counts across docs, server.json, and query.py's broken filter
+  (steps 3-6's prose: `README.md`, `data/README.md`, `CONTRIBUTING.md` minus its
+  generated-files-table hunk, `server.json`, `docs/hosting.md`, `docs/launch.md`, the
+  four `docs/integrations/*.md` files, `evals/README.md`, `scripts/build_site.py`,
+  `scripts/query.py`).
+- `f6b6fbe` — add the checks that stale numbers were slipping past (`scripts/verify.sh`,
+  step 2).
+- `905c55d` — regenerate demo/index.html and demo/chat.html for real (step 7:
+  `scripts/build_chat.py`, `scripts/build_demo.py`, `scripts/build.sh`,
+  `CONTRIBUTING.md`'s generated-files-table hunk only, `demo/index.html`,
+  `demo/chat.html`).
+- `1b64bd8` — re-record the long demo with the current counts (step 8:
+  `site-assets/demo/demo.mp4`, `site-assets/demo/demo.gif`,
+  `site-assets/demo/poster.webp`).
+
+No `Co-Authored-By` trailer in any of them.
+
+`git status --porcelain` after committing is **not** empty as the step predicted — this
+file, `docs/pre-launch/STEPS.md`, is still dirty, because it is the one file every prior
+step's Findings section lives in and this step's own Findings (this text) has to be
+written after the commits exist, not before — there is no way to commit a file
+containing these four commit hashes as part of creating those same four commits. It was
+deliberately left out of all four commits for that reason (the "Suggested split" list in
+this step also does not mention it). `git status --porcelain` restricted to everything
+else (`git status --porcelain -- . ':!docs/pre-launch/STEPS.md'`) is empty. Re-running
+`./scripts/verify.sh` after committing shows the identical two pre-existing `FAIL`s and
+nothing new — committing did not regress or fix the gate, matching expectations.
+
+Summary: the mechanical parts of this step (counts, tests, evals, commit split) went
+exactly as written. The one real surprise is that "full gate, green" in the step's title
+did not hold — two checks were red before this step and are still red after it, both
+already-diagnosed bugs in the checker itself (not in the content it's checking) that no
+step's file list currently owns. Whoever runs Step 10 should either accept pushing with
+those two known-false FAILs, or take a step to fix `verify.sh`'s regex and the link
+checker's path resolution first.
 
 ---
 
