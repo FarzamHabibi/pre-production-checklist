@@ -1089,9 +1089,30 @@ seconds later. Purging is now a required part of this step, not an optional note
 **Step 5 of the command list was not needed.** The live site already served 4,349, so no
 Cloudflare deploy happened and `wrangler` was never invoked.
 
-**The MCP registry is still on 1.15.0.** `server.json` carries the right version and
-description, but `./mcp-publisher login` has no recorded auth method and the maintainer
-does not remember which was used. Unresolved, and it is the last stale surface.
+**The MCP registry auth method is `github`, and the token lives five minutes.** This
+document said the method was unrecorded; it is recorded, in
+`~/.config/mcp-publisher/token.json`, which stores `method` alongside the token. The real
+obstacle is the lifetime. The registry JWT is issued with `exp` five minutes after `iat`,
+so a login followed by anything at all, a release, a push, a CI wait, expires before
+`publish` runs. Two attempts were lost to this before the claim was decoded rather than
+guessed at.
+
+Chain them instead, so the publish fires the instant the device flow returns:
+
+```bash
+./mcp-publisher login github && ./mcp-publisher publish
+```
+
+`login github` prints a device code for https://github.com/login/device and blocks until
+someone authorizes it, so this needs the maintainer at a keyboard, but only once and only
+for the fifteen seconds the code takes to enter.
+
+**Publishing the registry means publishing npm first.** `server.json`'s description
+carries the item count and its `packages[0].version` points at a specific npm version, so
+a registry publish asserts that that tarball contains that many checks. Three items added
+between the 1.16.0 release and the registry publish made the pair inconsistent, which is
+what 1.17.0 exists to fix. Release npm, verify the CDN, then publish the registry. The
+old version stays listed with `isLatest: false`, which is normal.
 
 ---
 
