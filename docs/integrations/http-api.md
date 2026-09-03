@@ -15,7 +15,7 @@ Always current, straight from the repository:
 https://raw.githubusercontent.com/FarzamHabibi/pre-production-checklist/main/data/checklist.json
 ```
 
-Use the CDN URL when you want a version you can pin (`prodcheck@1.15.0`), and the raw URL
+Use the CDN URL when you want a version you can pin (`prodcheck@1.16.0`), and the raw URL
 when you want whatever is on `main` right now.
 
 ## Shape

@@ -1,6 +1,6 @@
 {
   "name": "prodcheck",
-  "version": "1.15.0",
+  "version": "1.16.0",
   "mcpName": "io.github.FarzamHabibi/prodcheck",
   "description": "Pre-production checklists for solo founders — 4,349 items, 88% portable to any stack, 26 stack supplements. CLI + MCP server.",
   "keywords": [
