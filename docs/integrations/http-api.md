@@ -15,7 +15,7 @@ Always current, straight from the repository:
 https://raw.githubusercontent.com/FarzamHabibi/pre-production-checklist/main/data/checklist.json
 ```
 
-Use the CDN URL when you want a version you can pin (`prodcheck@1.5.0`), and the raw URL
+Use the CDN URL when you want a version you can pin (`prodcheck@1.16.0`), and the raw URL
 when you want whatever is on `main` right now.
 
 ## Shape
@@ -23,7 +23,7 @@ when you want whatever is on `main` right now.
 ```jsonc
 {
   "version": 2,
-  "counts":  { "total": 4124, "by_domain": { ... }, "release_gate": 310 },
+  "counts":  { "total": 4343, "by_domain": { ... }, "release_gate": 379 },
   "domains": [ { "id": "security", "label": "Security", "areas": [...] } ],
   "stacks":  ["Django", "Ruby on Rails", "..."],
   "items": [
@@ -69,7 +69,7 @@ type. `stack` is the display label. Both are present so you can match either.
 
 Neither runs a local process, so MCP is not available. Use an HTTP request step against
 the URL above, then a code or filter step with one of the expressions above. The response
-is around 1.5 MB; if your platform limits payload size, use the
+is around 2.3 MB; if your platform limits payload size, use the
 [per-checklist markdown files](https://github.com/FarzamHabibi/pre-production-checklist/tree/main/checklists)
 on the raw URL instead — each is a few kilobytes.
 

@@ -48,12 +48,12 @@ Works with all four, no setup:
 npx prodcheck --gate -o BLOCKERS.md
 ```
 
-Then paste a [prompt](../prompts.md) followed by the file. Use `--gate` (310 items) rather
+Then paste a [prompt](../prompts.md) followed by the file. Use `--gate` (316 items) rather
 than a whole domain — it leaves room for the code, which is the part that matters.
 
 ## Context windows
 
-DeepSeek, Kimi and GLM all offer long-context models, which is tempting: paste all 4,124
+DeepSeek, Kimi and GLM all offer long-context models, which is tempting: paste all 4,343
 items and be done. Do not. A model given a huge checklist and a small diff reviews the
 checklist. Narrowing first with `--gate`, `--domain` or `--search` produces better
 findings from every model, including the expensive ones.

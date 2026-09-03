@@ -61,7 +61,7 @@ filled in. A gate that fails from day one gets disabled in week one.
 ## Pin the version
 
 ```bash
-npx -y prodcheck@1.5.0 --gate
+npx -y prodcheck@1.16.0 --gate
 ```
 
 Unpinned means your build output changes when this repository releases. That is fine for a

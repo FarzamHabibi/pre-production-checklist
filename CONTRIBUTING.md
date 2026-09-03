@@ -9,9 +9,7 @@ Rails, Laravel, Go, Phoenix, Spring, AWS, Vercel, Fly.io, Android, and everythin
 What's missing is the thin layer on top.
 
 Copy [`checklists/stacks/_TEMPLATE.md`](checklists/stacks/_TEMPLATE.md) and open a PR.
-Wanted: `django.md`, `rails.md`, `laravel.md`, `fastapi.md`, `go.md`, `spring.md`,
-`aws.md`, `vercel.md`, `fly-io.md`, `kubernetes.md`, `android.md`, `firebase.md`,
-`stripe.md`, `auth0.md`, `clerk.md`.
+Wanted: `fly-io.md`, `auth0.md`, `clerk.md`.
 
 ### 2. Items that are wrong or outdated
 
@@ -54,7 +52,7 @@ This is the only rule that really matters:
 > **If you can rewrite the item without naming a specific product and it still makes
 > sense, it belongs in the domain checklists, not in `stacks/`.**
 
-`stacks/` is for the genuine remainder — currently 374 items out of 3,186 (11.7%).
+`stacks/` is for the genuine remainder — currently 542 items out of 4,343 (12.5%).
 Please keep it that small. A checklist that reads as "written for someone else's stack"
 is a checklist nobody finishes.
 

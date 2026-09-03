@@ -118,8 +118,8 @@ too, so both builds agree:
 
 `prodcheck.js.org` was [requested and declined](https://github.com/js-org/js.org/pull/12407).
 The maintainer's reasoning was correct and worth recording: JS.ORG requires the *content*
-to be specific to JavaScript developers, and 92% of this checklist is deliberately
-stack-agnostic. Only 324 of 4,124 items are Node or JavaScript specific, and the homepage
+to be specific to JavaScript developers. At the time, 92% of the checklist was
+stack-agnostic and only 324 items were Node or JavaScript specific, and the homepage
 example is Django.
 
 That is a property of the project, not a mistake to correct. Changing the example to

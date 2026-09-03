@@ -4,7 +4,7 @@ The skill in [`skills/review/SKILL.md`](../skills/review/SKILL.md) makes three c
 a model following it never writes a verdict, always cites `file:line`, and reports what it
 could not determine rather than passing it. Those claims were asserted for a while before
 anything checked them, which is the exact failure
-[`vibe-coding/`](../checklists/security/ai-generated-code/) describes — and worse here than
+[`security/ai-generated-code/`](../checklists/security/ai-generated-code/) describes — and worse here than
 anywhere, because the claim is the product.
 
 ## What is measured

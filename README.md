@@ -51,7 +51,7 @@ have asked. Most public checklists are either too shallow to catch anything real
 written for enterprises with a security function.
 
 **AI-assisted development changed the shape of the problem.** A large part of this
-checklist — the `ai/` and `vibe-coding/` folders, over 1,300 items — didn't need to exist
+checklist — the `security/ai/` and `security/ai-generated-code/` folders, over 1,300 items — didn't need to exist
 a few years ago. When you ship an agent with tools, or when a model writes code you review
 faster than you'd review a colleague's, you inherit failure modes that standard security
 checklists don't cover. Those two folders are the part I couldn't find anywhere else, and
@@ -162,7 +162,7 @@ Counts above are what each folder holds. A *domain* total is larger, because the
 supplements contribute to whichever domain each of their sections extends:
 
 ```
-security 3,306   performance 338   scale 301   integrations 200   post-launch 192   post-launch 192
+security 3,306   performance 338   scale 301   integrations 200   post-launch 198
 ```
 
 Domains are the top level because that is the question you arrive with: *is this about
@@ -310,7 +310,7 @@ Launching without a prepared response is a decision, and it should be a recorded
 
 ### `stacks/` — only if you use them
 
-374 items across 19 supplements. Skip any file for a product you don't use; the core
+542 items across 26 supplements. Skip any file for a product you don't use; the core
 checklists stand on their own without them.
 
 **Backend & web**
@@ -348,8 +348,7 @@ checklists stand on their own without them.
 **Your stack missing?** That's the most useful contribution you can make. The format is
 documented end to end in [`_TEMPLATE.md`](checklists/stacks/_TEMPLATE.md) — a worked
 example, what every field drives, and the one rule that decides whether an item belongs
-in a stack file at all. Open issues exist for AWS, Vercel, Fly.io, Kubernetes, Firebase,
-Stripe, FastAPI and GraphQL; see [CONTRIBUTING.md](CONTRIBUTING.md).
+in a stack file at all. Files for Fly.io, Auth0 and Clerk are wanted; see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
@@ -357,7 +356,7 @@ Stripe, FastAPI and GraphQL; see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 1. **Copy the files you need** into your own repo. They're working documents, meant to be
    edited and committed next to your code.
-2. **Mark `[N/A]` aggressively.** No product on earth needs all 3,093 items. No mobile
+2. **Mark `[N/A]` aggressively.** No product on earth needs all 4,343 items. No mobile
    app? `core/11` and `core/12` are 147 instant `[N/A]`s. Being honest about scope is what
    makes the remainder trustworthy.
 3. **Record every finding.** An unrecorded finding is one you'll rediscover in six months.
@@ -396,8 +395,8 @@ pasting into an AI tool. It's generated; edit the files under `checklists/` inst
 
 MCP is a feature of the **client**, not the model — Cursor running DeepSeek can use it;
 DeepSeek's website cannot. Config for Claude Code, Claude Desktop, Cursor, VS Code
-Copilot, Gemini CLI, OpenAI Codex CLI, Qwen Code, Cline, Roo, Continue, Windsurf, Zed and
-Cherry Studio is in **[docs/mcp-clients.md](docs/mcp-clients.md)**.
+Copilot, Gemini CLI, OpenAI Codex CLI, Qwen Code, Cline, Roo, Continue, Windsurf, Zed,
+OpenCode and Cherry Studio is in **[docs/mcp-clients.md](docs/mcp-clients.md)**.
 
 | | |
 | --- | --- |
@@ -420,7 +419,7 @@ anything verified on the reader's behalf.
 
 ## Command line
 
-Generate a checklist scoped to your project, instead of reading 3,093 items:
+Generate a checklist scoped to your project, instead of reading 4,343 items:
 
 ```bash
 npx prodcheck security --stack django -o SECURITY.md
@@ -564,7 +563,7 @@ The Markdown under `checklists/` is the source of truth; the JSON is generated f
 - [x] **`scale/`** — 286 items across 9 checklists. Deepened from 214: service levels and
       error budgets, search and analytics engines, realtime fan-out, contract and event
       versioning, tenant-shape capacity. The gaps were measured rather than guessed at.
-- [x] **`post-launch/`** — 192 items across 8 checklists. Added after the other four,
+- [x] **`post-launch/`** — 198 items across 8 checklists. Added after the other four,
       because a gap showed up once they were all in front of a reader: every domain
       described how to build something that does not break, and none asked whether the
       response was prepared for when it breaks anyway.
@@ -572,7 +571,7 @@ The Markdown under `checklists/` is the source of truth; the JSON is generated f
       Stripe and GraphQL among them. Written rather than left as open issues, because a
       visitor who does not find their stack decides the project is not for them before
       reading a single item.
-- [x] **A release gate that reaches your stack** — 373 blocking items: 310 that apply
+- [x] **A release gate that reaches your stack** — 379 blocking items: 316 that apply
       anywhere, plus 63 across 20 products. A leaked `service_role` key stops a launch as
       surely as a generic item does, and used to sit outside the gate.
 
@@ -592,7 +591,7 @@ The Markdown under `checklists/` is the source of truth; the JSON is generated f
 - [x] **One way in** — a prompt to paste into any assistant, which works out what your
       project is and sets prodcheck up whichever way your assistant is capable of. The
       site used to offer seven entry points and no path through them.
-- [x] **A demo you can watch** — a 33-second loop of a review actually running.
+- [x] **A demo you can watch** — a 34-second loop of a review actually running.
       [How it is built](demo/README.md).
 
 **Next**
@@ -621,8 +620,8 @@ prodcheck gate      exit non-zero if a blocking item is unresolved   (for CI)
       `Dockerfile`, CI config and the shape of the source tree to work out which stack is
       in use and which features exist — file upload, webhooks, multi-tenancy, background
       jobs, an LLM surface. Selects the applicable items *before* any model is involved.
-      A Django app with no mobile client and no file uploads does not need 1,435 items;
-      it needs closer to 400.
+      A Django app with no mobile client and no file uploads does not need every one of
+      the 1,491 core items — `core/07`, `core/11` and `core/12` alone are 202 it can skip.
 
 - [ ] **`check` — the deterministic tier.** Roughly 160 items are answerable by search
       alone: the [must-not-exist list](checklists/security/core/17-release-gates.md), unpinned CI
@@ -653,7 +652,7 @@ prodcheck gate      exit non-zero if a blocking item is unresolved   (for CI)
 - [ ] **`gate` in CI.** Without a build that fails, the report gets stale and stops being
       read. This is the part that makes the rest stick.
 
-> Building an AI code reviewer on top of a checklist whose `vibe-coding/` folder warns
+> Building an AI code reviewer on top of a checklist whose `security/ai-generated-code/` folder warns
 > that AI review confirms AI-written code is fine, only makes sense if the design takes
 > that warning seriously. That is what the three constraints above are for.
 
@@ -679,14 +678,8 @@ a way that would make a reader less safe** — a checklist that gives false conf
 worse than no checklist, so those are treated as the highest-priority reports.
 
 The single most useful contribution is a stack file for a stack that isn't covered.
-There are open issues for [FastAPI](https://github.com/FarzamHabibi/pre-production-checklist/issues/1),
-[AWS](https://github.com/FarzamHabibi/pre-production-checklist/issues/2),
-[Kubernetes](https://github.com/FarzamHabibi/pre-production-checklist/issues/3),
-[Vercel](https://github.com/FarzamHabibi/pre-production-checklist/issues/4),
-[Firebase](https://github.com/FarzamHabibi/pre-production-checklist/issues/5),
-[Stripe](https://github.com/FarzamHabibi/pre-production-checklist/issues/6) and
-[GraphQL](https://github.com/FarzamHabibi/pre-production-checklist/issues/8),
-each labelled `good first issue`. Copy
+Files for Fly.io, Auth0 and Clerk are wanted; see [CONTRIBUTING.md](CONTRIBUTING.md)
+for the current list and what makes an item belong in a stack file. Copy
 [`_TEMPLATE.md`](checklists/stacks/_TEMPLATE.md) and open a PR.
 
 ---
@@ -712,14 +705,14 @@ This repository was compiled and expanded with [Claude](https://claude.com/claud
 (Anthropic) and [ChatGPT](https://chatgpt.com) (OpenAI), working from a real
 pre-production review rather than generating checklist items from scratch. They did the parts that don't fit in one
 person's head: cross-referencing hundreds of findings against OWASP categories, keeping
-3,093 items consistent in wording and structure, and spotting the gaps between sections.
+4,343 items consistent in wording and structure, and spotting the gaps between sections.
 
 That's worth stating plainly for two reasons.
 
 **It's the honest provenance.** A security checklist asks you to trust it. You should know
 how it was made.
 
-**The `vibe-coding/` folder applies to this repository too.** It says AI-generated work
+**The `security/ai-generated-code/` folder applies to this repository too.** It says AI-generated work
 needs review that assumes the AI was confidently wrong somewhere, and that "the tests
 pass" is not a security argument. Both were true here — the test suite for the CLI caught
 three real bugs in AI-written code, including an MCP server that silently truncated
@@ -727,7 +720,7 @@ every response over 8 KB. The checklist is not exempt from its own advice, and n
 tools shipped alongside it.
 
 If you find an item that's wrong, plausible-sounding but false, or subtly misleading,
-that's exactly the failure mode `vibe-coding/07-review-blind-spots.md` warns about.
+that's exactly the failure mode [`security/ai-generated-code/07-review-blind-spots.md`](checklists/security/ai-generated-code/07-review-blind-spots.md) warns about.
 [Open an issue](https://github.com/FarzamHabibi/pre-production-checklist/issues) — that
 correction is worth more than three new items.
 

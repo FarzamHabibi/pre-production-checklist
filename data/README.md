@@ -3,7 +3,7 @@
 [`checklist.json`](checklist.json) is every item in this repository as structured data,
 validated against [`schema.json`](schema.json). It exists so tools — a CLI, an MCP
 server, a website, your own script — can filter the checklist instead of making people
-read 3,093 items.
+read 4,343 items.
 
 **Generated. Do not edit.** The Markdown under `checklists/` is the source of truth.
 Run `./scripts/build.sh` to regenerate.
@@ -22,7 +22,7 @@ from the Markdown's own structure, so there is no reason to make a human maintai
 ```json
 {
   "version": 2,
-  "counts": { "total": 3093, "stack_agnostic": 2756, "release_gate": 236 },
+  "counts": { "total": 4343, "stack_agnostic": 3801, "release_gate": 379 },
   "stacks": ["Cloudflare", "Docker", "GitHub", "..."],
   "items": [
     {
@@ -34,8 +34,9 @@ from the Markdown's own structure, so there is no reason to make a human maintai
       "section": "Backend Application Security",
       "subsection": "Abuse / availability",
       "stack": "any",
+      "stack_id": "any",
       "release_gate": false,
-      "source": { "file": "checklists/core/04-backend-api.md", "line": 185 }
+      "source": { "file": "checklists/security/core/04-backend-api.md", "line": 185 }
     }
   ]
 }
@@ -53,11 +54,11 @@ reworded check is a different check, and anything tracking completion state shou
 
 ### There is no `severity` field
 
-By design. Assigning a severity to 3,093 items by heuristic would be invention presented
+By design. Assigning a severity to 4,343 items by heuristic would be invention presented
 as data, and every consumer would inherit the guess.
 
 `release_gate` is the one priority signal, and it is honest: it means the item lives in a
-release-gate checklist, nothing more. 236 items carry it.
+release-gate checklist, nothing more. 379 items carry it; 316 of those apply to any stack.
 
 Rank by your own threat model. A missing `SameSite` cookie attribute is critical for a
 banking app and cosmetic for a static docs site; no field in a shared dataset can know

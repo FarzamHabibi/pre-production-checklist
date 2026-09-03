@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Query data/checklist.json — a small reference consumer of the data layer.
 
-    ./scripts/query.py --stack django --group core
+    ./scripts/query.py --stack django --area core
     ./scripts/query.py --release-gate
     ./scripts/query.py --search "cors" --format text
     ./scripts/query.py --stack supabase --format json
@@ -21,8 +21,10 @@ def main():
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--stack", action="append", default=[],
                    help="include supplements for this stack (repeatable)")
-    p.add_argument("--group", action="append", default=[],
-                   choices=["core", "ai", "vibe-coding", "stacks"])
+    p.add_argument("--area", action="append", default=[],
+                   choices=["core", "ai", "ai-generated-code"])
+    p.add_argument("--domain", action="append", default=[],
+                   choices=["security", "performance", "scale", "integrations", "post-launch"])
     p.add_argument("--search", help="case-insensitive substring match on item text")
     p.add_argument("--release-gate", action="store_true", help="only release-blocking items")
     p.add_argument("--format", choices=["markdown", "text", "json", "count"],
@@ -42,8 +44,10 @@ def main():
                  if i["stack"] == "any"
                  or norm(i["stack"]) in want
                  or norm(i.get("stack_id", "")) in want]
-    if a.group:
-        items = [i for i in items if i["group"] in a.group]
+    if a.area:
+        items = [i for i in items if i.get("area") in a.area]
+    if a.domain:
+        items = [i for i in items if i["domain"] in a.domain]
     if a.search:
         q = a.search.lower()
         items = [i for i in items if q in i["text"].lower()]

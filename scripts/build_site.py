@@ -827,14 +827,12 @@ item | verdict | file:line | one-sentence reason."""
   <h2>Corrections are worth more than additions</h2>
   <p class="dim">If an item is wrong, outdated, or plausible-sounding but false, that is
   exactly the failure mode this repository warns about. The most useful addition is a
-  stack file for a stack that is not covered — there are open issues for FastAPI, AWS,
-  Kubernetes, Vercel, Firebase, Stripe and GraphQL, all labelled
-  <code>good first issue</code>.</p>
+  stack file for a stack that is not covered; <code>CONTRIBUTING.md</code> says which are
+  wanted and how the file is structured.</p>
   <div class="ghbtns jstart">
-    <a class="btn" href="{REPO}/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>
+    <a class="btn" href="{REPO}/blob/main/CONTRIBUTING.md#1-a-stack-file-for-a-stack-that-isnt-covered">CONTRIBUTING.md</a>
     <a class="btn" href="{REPO}/blob/main/SECURITY.md">SECURITY.md</a>
     <a class="btn" href="https://x.com/farzam_habibi">@farzam_habibi</a>
-    <a class="btn" href="{REPO}/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">Good first issues</a>
     <a class="btn" href="{REPO}/issues">Report something wrong</a>
   </div>
 </div></section>
