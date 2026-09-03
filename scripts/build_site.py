@@ -315,14 +315,24 @@ footer a{color:var(--dim)}
 JS = """
 // Live weekly installs. The cell stays hidden until the number arrives, so a blocked
 // request, an offline reader or an npm outage shows nothing rather than a broken dash.
+//
+// Not point/last-week: that endpoint serves a window that closed days ago and keeps
+// serving it while the range endpoint already has newer days, so the site quietly
+// disagreed with npmjs.com by several hundred installs. Sum an explicit seven days
+// ending today instead, and treat a zero sum as no answer rather than as news.
 (function(){
   var cell = document.getElementById('dl');
   if (!cell || !window.fetch) return;
-  fetch('https://api.npmjs.org/downloads/point/last-week/prodcheck', {mode:'cors'})
+  var end = new Date(), start = new Date(end.getTime() - 6 * 864e5);
+  var day = function(d){ return d.toISOString().slice(0, 10); };
+  fetch('https://api.npmjs.org/downloads/range/' + day(start) + ':' + day(end) + '/prodcheck', {mode:'cors'})
     .then(function(r){ return r.ok ? r.json() : null; })
     .then(function(d){
-      if (!d || typeof d.downloads !== 'number') return;
-      cell.querySelector('[data-dl]').textContent = d.downloads.toLocaleString('en-US');
+      if (!d || !Array.isArray(d.downloads)) return;
+      var n = 0;
+      for (var i = 0; i < d.downloads.length; i++) n += d.downloads[i].downloads || 0;
+      if (!n) return;
+      cell.querySelector('[data-dl]').textContent = n.toLocaleString('en-US');
       cell.hidden = false;
     })
     .catch(function(){});
