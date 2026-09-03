@@ -124,14 +124,13 @@ def main():
     page = open(TEMPLATE, encoding="utf-8").read()
     if "__DATA__" not in page:
         # already filled: swap the previous payload out so this is safe to re-run
-        page = re.sub(r"const DATA = \{.*?\n\};", "const DATA = __DATA__;", page,
+        page = re.sub(r"const DATA = \{.*?\n\};+", "const DATA = __DATA__;", page,
                       count=1, flags=re.S)
     if "__DATA__" not in page:
         raise SystemExit("demo/index.html has no DATA placeholder to fill")
 
     payload = json.dumps(data, indent=2, ensure_ascii=False)
-    open(TEMPLATE, "w", encoding="utf-8").write(page.replace("__DATA__", payload + ";", 1)
-                                                    .replace(payload + ";;", payload + ";"))
+    open(TEMPLATE, "w", encoding="utf-8").write(page.replace("__DATA__", payload + ";", 1))
     print(f"demo/index.html — {data['total']} items, {scoped} scoped, "
           f"{len(findings)} findings, fixture lines {lo}-{hi}")
 

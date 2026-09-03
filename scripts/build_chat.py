@@ -91,7 +91,7 @@ def main():
 
     page = open(TEMPLATE, encoding="utf-8").read()
     if "__DATA__" not in page:
-        page = re.sub(r"const DATA = \{.*?\n\};", "const DATA = __DATA__;", page,
+        page = re.sub(r"const DATA = \{.*?\n\};+", "const DATA = __DATA__;", page,
                       count=1, flags=re.S)
     if "__DATA__" not in page:
         raise SystemExit("demo/chat.html has no DATA placeholder")

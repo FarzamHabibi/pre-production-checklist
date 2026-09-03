@@ -85,6 +85,8 @@ and commit the result along with your change.
 | `data/checklist.json` | machine-readable layer, consumed by tooling |
 | `checklists/README.md` | index with per-file item counts |
 | `ALL.md` | single-file concatenation |
+| `demo/index.html` | generated demo page |
+| `demo/chat.html` | generated chat demo page |
 
 After any change to a checklist, run `./scripts/build.sh` and commit the result with your
 change. It needs only Python 3 — no dependencies.
