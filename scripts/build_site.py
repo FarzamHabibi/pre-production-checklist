@@ -323,14 +323,21 @@ JS = """
 (function(){
   var cell = document.getElementById('dl');
   if (!cell || !window.fetch) return;
-  var end = new Date(), start = new Date(end.getTime() - 6 * 864e5);
+  var end = new Date(), start = new Date(end.getTime() - 20 * 864e5);
   var day = function(d){ return d.toISOString().slice(0, 10); };
   fetch('https://api.npmjs.org/downloads/range/' + day(start) + ':' + day(end) + '/prodcheck', {mode:'cors'})
     .then(function(r){ return r.ok ? r.json() : null; })
     .then(function(d){
       if (!d || !Array.isArray(d.downloads)) return;
+      // The registry publishes a day's total a day or two late and reports the gap as
+      // zero, not as absent. Summing a fixed seven days back from today therefore adds
+      // however many days of lag as zeros and shrinks the figure a little every morning
+      // for no reason. Drop the trailing zeros first, then take the seven days before
+      // whatever the last real day turns out to be.
+      var days = d.downloads.slice();
+      while (days.length && !days[days.length - 1].downloads) days.pop();
       var n = 0;
-      for (var i = 0; i < d.downloads.length; i++) n += d.downloads[i].downloads || 0;
+      for (var i = Math.max(0, days.length - 7); i < days.length; i++) n += days[i].downloads || 0;
       if (!n) return;
       cell.querySelector('[data-dl]').textContent = n.toLocaleString('en-US');
       cell.hidden = false;
