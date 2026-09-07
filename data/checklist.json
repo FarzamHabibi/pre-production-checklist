@@ -50,16 +50,16 @@
     }
   ],
   "counts": {
-    "total": 4352,
+    "total": 4353,
     "by_domain": {
       "security": 3306,
       "scale": 301,
       "performance": 338,
       "integrations": 200,
-      "post-launch": 207
+      "post-launch": 208
     },
-    "stack_agnostic": 3810,
-    "release_gate": 388
+    "stack_agnostic": 3811,
+    "release_gate": 389
   },
   "stacks": [
     "AWS",
@@ -62033,6 +62033,23 @@
       }
     },
     {
+      "id": "post-launch.01-readiness.ec8c182f",
+      "text": "Verify a check fails rather than passes when the tooling it depends on is missing, since a hasher, a linter or a parser that is absent commonly returns nothing to both sides of a comparison, and two empty values agree.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Can You Act At All",
+      "section": "Will you notice before a customer does",
+      "subsection": "When the thing that watches stops watching",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/post-launch/01-readiness.md",
+        "line": 75
+      }
+    },
+    {
       "id": "post-launch.01-readiness.a80cb89b",
       "text": "Verify a runbook exists for the three most likely failures before launch, not after the first one.",
       "domain": "post-launch",
@@ -62046,7 +62063,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/post-launch/01-readiness.md",
-        "line": 78
+        "line": 79
       }
     },
     {
@@ -62063,7 +62080,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/post-launch/01-readiness.md",
-        "line": 79
+        "line": 80
       }
     },
     {
@@ -62080,7 +62097,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/post-launch/01-readiness.md",
-        "line": 80
+        "line": 81
       }
     },
     {

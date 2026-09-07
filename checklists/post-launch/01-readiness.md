@@ -72,6 +72,7 @@ alive, and whether it can still reach you — a different failure, and a quieter
 * [ ] Verify every notification reads its sender and recipient from configuration rather than carrying a hardcoded address, since a check that asserts an alert was sent asserts nothing about whether it arrived somewhere a person can read.
 * [ ] Verify at least one real alert from each notification path has been received by a human, not merely observed leaving: a path that has never delivered since the day it was written looks exactly like a path with nothing to report.
 * [ ] Verify automated issue or ticket creation deduplicates against what is already open and holds a concurrency guard, because one persistently failing check otherwise files the same issue on every run until the volume is indistinguishable from having no alerting at all.
+* [ ] Verify a check fails rather than passes when the tooling it depends on is missing, since a hasher, a linter or a parser that is absent commonly returns nothing to both sides of a comparison, and two empty values agree.
 
 ## The gate
 

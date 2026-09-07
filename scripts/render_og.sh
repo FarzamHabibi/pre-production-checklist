@@ -17,6 +17,15 @@ python3 scripts/build_site.py >/dev/null
 # A timestamp cannot do this job: git does not record mtime, so after a fresh checkout
 # every file carries the same time and the comparison decides at random. That is how CI
 # came to fail on a PNG that was in fact current.
-shasum -a 256 site/og.svg | cut -d' ' -f1 > site-assets/og.png.sha
+# shasum and sha256sum produce the same digest, so either satisfies the stamp. Resolved
+# the same way as verify.sh, since a contributor missing one is missing it for both.
+if command -v shasum >/dev/null 2>&1; then
+  shasum -a 256 site/og.svg | cut -d' ' -f1 > site-assets/og.png.sha
+elif command -v sha256sum >/dev/null 2>&1; then
+  sha256sum site/og.svg | cut -d' ' -f1 > site-assets/og.png.sha
+else
+  echo "render_og.sh needs shasum or sha256sum and found neither." >&2
+  exit 2
+fi
 python3 scripts/build_site.py >/dev/null
 echo "site-assets/og.png regenerated from the current data"

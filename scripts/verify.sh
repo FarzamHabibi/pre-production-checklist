@@ -24,14 +24,31 @@ step "generated files are current"
 # regeneration that rewrites an already-dirty file — and the tree is nearly always dirty
 # when this runs, which is the only time it matters. A hand-edit to a generated file was
 # silently repaired here and reported as ok.
+# Resolve the hasher once. Reported by @mhhoss: on a machine without shasum this
+# returned the empty string on both sides, the comparison became '' = '' and the check
+# reported ok while build.sh quietly regenerated over a hand edit. The script runs
+# without -e, so the 127 was assigned rather than fatal. Missing tooling has to stop the
+# run, never resolve to a value the comparison is content with.
+if command -v shasum >/dev/null 2>&1; then HASHER=(shasum)
+elif command -v sha256sum >/dev/null 2>&1; then HASHER=(sha256sum)
+else
+  echo "verify.sh needs shasum or sha256sum and found neither." >&2
+  echo "Refusing to run: without one, the generated-files check cannot fail." >&2
+  exit 2
+fi
+
 tree_hash() {
-  { git ls-files -z | xargs -0 shasum 2>/dev/null
-    git ls-files --others --exclude-standard | sort; } | shasum | cut -d' ' -f1
+  { git ls-files -z | xargs -0 "${HASHER[@]}" 2>/dev/null
+    git ls-files --others --exclude-standard | sort; } | "${HASHER[@]}" | cut -d' ' -f1
 }
 before=$(tree_hash)
 ./scripts/build.sh >/dev/null 2>&1 || { bad; echo "     build.sh itself failed"; }
 after=$(tree_hash)
-if [ "$before" = "$after" ]; then ok; else
+# Present but broken defeats the command -v guard above, so the comparison itself refuses
+# an empty pair. Two hashes that agree because neither exists is not agreement.
+if [ -z "$before" ] || [ -z "$after" ]; then
+  bad; echo "     tree_hash produced nothing, so this check proved nothing"
+elif [ "$before" = "$after" ]; then ok; else
   bad; echo "     build.sh rewrote tracked content — a generated file was edited by hand"
   git status --porcelain | head -5 | sed 's/^/       /'
 fi
