@@ -14,6 +14,7 @@ import json
 import os
 import re
 import shutil
+import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,6 +42,22 @@ MCP_REGISTRY = "https://registry.modelcontextprotocol.io"
 
 doc = json.load(open("data/checklist.json", encoding="utf-8"))
 C = doc["counts"]
+
+# When the checklist itself last changed, taken from git rather than from the clock, so
+# that rebuilding on a day nothing was edited does not churn the generated site. Falls
+# back to empty outside a checkout, and the cell is omitted rather than showing a guess.
+try:
+    last_change = subprocess.run(
+        ["git", "log", "-1", "--format=%cs", "--", "checklists/"],
+        capture_output=True, text=True, timeout=10,
+    ).stdout.strip()
+    if last_change:
+        _y, _m, _d = last_change.split("-")
+        _months = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+        last_change = f"{int(_d)} {_months[int(_m) - 1]}"
+except Exception:
+    last_change = ""
 PKG = json.load(open("package.json", encoding="utf-8"))
 
 
@@ -313,6 +330,18 @@ footer a{color:var(--dim)}
 """
 
 JS = """
+// The day the first version went to npm. A constant, so the age below is computed in the
+// reader's browser and cannot go stale the way a number baked into the page would.
+var FIRST_PUBLISH = '2026-08-27';
+(function(){
+  var el = document.getElementById('age');
+  if (!el) return;
+  var days = Math.floor((Date.now() - Date.parse(FIRST_PUBLISH)) / 864e5);
+  if (days < 0) return;
+  el.querySelector('[data-age]').textContent = days;
+  el.hidden = false;
+})();
+
 // Live weekly installs. The cell stays hidden until the number arrives, so a blocked
 // request, an offline reader or an npm outage shows nothing rather than a broken dash.
 //
@@ -323,21 +352,18 @@ JS = """
 (function(){
   var cell = document.getElementById('dl');
   if (!cell || !window.fetch) return;
-  var end = new Date(), start = new Date(end.getTime() - 20 * 864e5);
+  var end = new Date(), start = new Date(FIRST_PUBLISH);
   var day = function(d){ return d.toISOString().slice(0, 10); };
   fetch('https://api.npmjs.org/downloads/range/' + day(start) + ':' + day(end) + '/prodcheck', {mode:'cors'})
     .then(function(r){ return r.ok ? r.json() : null; })
     .then(function(d){
       if (!d || !Array.isArray(d.downloads)) return;
-      // The registry publishes a day's total a day or two late and reports the gap as
-      // zero, not as absent. Summing a fixed seven days back from today therefore adds
-      // however many days of lag as zeros and shrinks the figure a little every morning
-      // for no reason. Drop the trailing zeros first, then take the seven days before
-      // whatever the last real day turns out to be.
-      var days = d.downloads.slice();
-      while (days.length && !days[days.length - 1].downloads) days.pop();
+      // Everything since the first publish, not a rolling week. A weekly figure falls
+      // whenever a busy day ages out of the window, which reads as decline when nothing
+      // has declined, and most of what the registry counts is mirrors anyway. A total
+      // only moves in one direction and makes no claim about recent interest.
       var n = 0;
-      for (var i = Math.max(0, days.length - 7); i < days.length; i++) n += days[i].downloads || 0;
+      for (var i = 0; i < d.downloads.length; i++) n += d.downloads[i].downloads || 0;
       if (!n) return;
       cell.querySelector('[data-dl]').textContent = n.toLocaleString('en-US');
       cell.hidden = false;
@@ -687,7 +713,9 @@ item | verdict | file:line | one-sentence reason."""
     <div><b>{round(100 * C['stack_agnostic'] / C['total'])}%</b><span>ANY STACK</span></div>
     <div><b>{len(doc['stacks'])}</b><span>STACKS</span></div>
     <div><b class="accent">Free</b><span>OPEN SOURCE</span></div>
-    <div id="dl" hidden><b data-dl>—</b><span>WEEKLY INSTALLS</span></div>
+    <div id="dl" hidden><b data-dl>—</b><span>INSTALLS</span></div>
+    <div id="age" hidden><b data-age>—</b><span>DAYS OLD</span></div>
+    <div><b>{last_change}</b><span>LAST UPDATE</span></div>
   </div>
 </div></section>
 
