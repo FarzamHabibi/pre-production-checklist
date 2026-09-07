@@ -180,12 +180,13 @@ header.top nav a:hover{color:var(--fg)}
 .quick .q .more a{color:var(--dim);border:0}
 .quick .q .more a:hover{color:var(--accent)}
 
-/* A grid rather than a flex row: with nine cells and no gap the labels ran into each
-   other, so OPEN SOURCE and INSTALLS read as one string. auto-fit wraps evenly instead
-   of leaving one orphan on a second line. */
-.statrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));
-  column-gap:24px;row-gap:22px;margin:40px 0 0;
-  border-top:1px solid var(--line);padding:22px 0 30px}
+/* A grid rather than a flex row: with no gap between cells the labels ran together and
+   OPEN SOURCE INSTALLS read as one string. Four fixed columns rather than auto-fit,
+   because eight cells in this container auto-fits to six and leaves two orphans on the
+   second line, which reads as a mistake rather than a layout. */
+.statrow{display:grid;grid-template-columns:repeat(4,1fr);
+  column-gap:24px;row-gap:24px;margin:40px 0 0;
+  border-top:1px solid var(--line);padding:24px 0 30px}
 .statrow b{display:block;font-size:1.34rem;font-variant-numeric:tabular-nums;
   letter-spacing:-.025em;line-height:1.2}
 .statrow b.accent{color:var(--accent)}
