@@ -9,6 +9,30 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
+# Preconditions for the whole run, checked before anything prints a result. Both were
+# reported or found as the same defect: a missing dependency that resolved to a value the
+# comparisons were content with, so the gate reported ok on a tree it had not examined.
+#
+# The hasher: reported by @mhhoss. Without shasum, tree_hash returned '' on both sides,
+# '' = '' was true, and a hand-edited generated file was silently regenerated and passed.
+# The script runs without -e, so the 127 was assigned rather than fatal.
+if command -v shasum >/dev/null 2>&1; then HASHER=(shasum)
+elif command -v sha256sum >/dev/null 2>&1; then HASHER=(sha256sum)
+else
+  echo "verify.sh needs shasum or sha256sum and found neither." >&2
+  echo "Refusing to run: without one, the generated-files check cannot fail." >&2
+  exit 2
+fi
+
+# The checkout: found by an adversarial pass over the first fix. Every check here asks
+# git what is tracked, so in an extracted ZIP each listing is empty, both hashes are the
+# digest of nothing, they match, and the run prints "all checks passed" with exit 0.
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "verify.sh must run inside a git checkout, not an extracted archive." >&2
+  echo "Refusing to run: outside one, every check here compares nothing to nothing." >&2
+  exit 2
+fi
+
 fail=0
 step () { printf '  %-46s' "$1"; }
 ok   () { printf 'ok\n'; }
@@ -24,19 +48,6 @@ step "generated files are current"
 # regeneration that rewrites an already-dirty file — and the tree is nearly always dirty
 # when this runs, which is the only time it matters. A hand-edit to a generated file was
 # silently repaired here and reported as ok.
-# Resolve the hasher once. Reported by @mhhoss: on a machine without shasum this
-# returned the empty string on both sides, the comparison became '' = '' and the check
-# reported ok while build.sh quietly regenerated over a hand edit. The script runs
-# without -e, so the 127 was assigned rather than fatal. Missing tooling has to stop the
-# run, never resolve to a value the comparison is content with.
-if command -v shasum >/dev/null 2>&1; then HASHER=(shasum)
-elif command -v sha256sum >/dev/null 2>&1; then HASHER=(sha256sum)
-else
-  echo "verify.sh needs shasum or sha256sum and found neither." >&2
-  echo "Refusing to run: without one, the generated-files check cannot fail." >&2
-  exit 2
-fi
-
 tree_hash() {
   { git ls-files -z | xargs -0 "${HASHER[@]}" 2>/dev/null
     git ls-files --others --exclude-standard | sort; } | "${HASHER[@]}" | cut -d' ' -f1
@@ -44,10 +55,12 @@ tree_hash() {
 before=$(tree_hash)
 ./scripts/build.sh >/dev/null 2>&1 || { bad; echo "     build.sh itself failed"; }
 after=$(tree_hash)
-# Present but broken defeats the command -v guard above, so the comparison itself refuses
-# an empty pair. Two hashes that agree because neither exists is not agreement.
-if [ -z "$before" ] || [ -z "$after" ]; then
-  bad; echo "     tree_hash produced nothing, so this check proved nothing"
+# Emptiness was the first guard and it was not enough: a hasher that prints a constant,
+# or an error line, gives cut a non-empty first word and both sides match. Require the
+# thing to look like a digest, so the check can only pass on evidence it recognises.
+if ! printf '%s' "$before$after" | grep -qE '^[0-9a-f]{80,128}$'; then
+  bad; echo "     tree_hash did not produce a digest, so this check proved nothing"
+  echo "       before='$before' after='$after'" | head -c 200 | sed 's/$/\n/'
 elif [ "$before" = "$after" ]; then ok; else
   bad; echo "     build.sh rewrote tracked content — a generated file was edited by hand"
   git status --porcelain | head -5 | sed 's/^/       /'
