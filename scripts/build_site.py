@@ -601,7 +601,7 @@ def tool_grid(group):
     return "".join(out)
 
 
-OG_NUMBERS = re.compile(r"\{\{(total|domains|gate)\}\}")
+OG_NUMBERS = re.compile(r"\{\{(total|domains|any_stack|gate)\}\}")
 
 
 def og_value(key):
@@ -610,6 +610,10 @@ def og_value(key):
         return fmt(C["total"])
     if key == "domains":
         return str(len(tree.domains()))
+    if key == "any_stack":
+        # The card carries four numbers and DOMAINS was the weakest of them: "5" tells a
+        # stranger nothing. This is the one that answers "will any of it apply to me".
+        return f"{round(100 * C['stack_agnostic'] / C['total'])}%"
     return fmt(sum(1 for i in doc["items"] if i["release_gate"] and i["stack"] == "any"))
 
 

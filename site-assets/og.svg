@@ -36,8 +36,8 @@
     <rect x="0" y="0" width="1024" height="1" fill="#1e1e25"/>
     <text x="0" y="52" font-size="34" font-weight="650" fill="#f2f2f4">{{total}}</text>
     <text x="0" y="80" font-size="16" fill="#6e6e79" letter-spacing="1.4">ITEMS</text>
-    <text x="230" y="52" font-size="34" font-weight="650" fill="#f2f2f4">{{domains}}</text>
-    <text x="230" y="80" font-size="16" fill="#6e6e79" letter-spacing="1.4">DOMAINS</text>
+    <text x="230" y="52" font-size="34" font-weight="650" fill="#f2f2f4">{{any_stack}}</text>
+    <text x="230" y="80" font-size="16" fill="#6e6e79" letter-spacing="1.4">ANY STACK</text>
     <text x="450" y="52" font-size="34" font-weight="650" fill="#f2f2f4">{{gate}}</text>
     <text x="450" y="80" font-size="16" fill="#6e6e79" letter-spacing="1.4">BLOCKERS</text>
     <text x="700" y="52" font-size="34" font-weight="650" fill="#7dd3a0">Free</text>
