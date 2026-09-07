@@ -180,15 +180,20 @@ header.top nav a:hover{color:var(--fg)}
 .quick .q .more a{color:var(--dim);border:0}
 .quick .q .more a:hover{color:var(--accent)}
 
-.statrow{display:flex;flex-wrap:wrap;gap:0;margin:40px 0 0;
+/* A grid rather than a flex row: with nine cells and no gap the labels ran into each
+   other, so OPEN SOURCE and INSTALLS read as one string. auto-fit wraps evenly instead
+   of leaving one orphan on a second line. */
+.statrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));
+  column-gap:24px;row-gap:22px;margin:40px 0 0;
   border-top:1px solid var(--line);padding:22px 0 30px}
-.statrow div{flex:1 1 0;min-width:96px}
 .statrow b{display:block;font-size:1.34rem;font-variant-numeric:tabular-nums;
   letter-spacing:-.025em;line-height:1.2}
 .statrow b.accent{color:var(--accent)}
-.statrow span{font-size:.7rem;color:var(--faint);letter-spacing:.11em}
-@media(max-width:620px){.statrow div{flex:1 1 33%;padding-bottom:16px;min-width:0}}
-@media(max-width:420px){.statrow div{flex:1 1 50%}}
+/* the labels are two words at most; wrapping one mid-phrase looks like a mistake */
+.statrow span{font-size:.7rem;color:var(--faint);letter-spacing:.11em;
+  white-space:nowrap;display:block}
+@media(max-width:620px){.statrow{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:420px){.statrow{grid-template-columns:repeat(2,1fr)}}
 .ghbtns{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 0}
 .hero .ghbtns{margin-top:26px}
 .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);
@@ -708,7 +713,6 @@ item | verdict | file:line | one-sentence reason."""
 
   <div class="statrow">
     <div><b>{fmt(C['total'])}</b><span>ITEMS</span></div>
-    <div><b>{len(tree.domains())}</b><span>DOMAINS</span></div>
     <div><b>{fmt(C['release_gate'])}</b><span>BLOCKERS</span></div>
     <div><b>{round(100 * C['stack_agnostic'] / C['total'])}%</b><span>ANY STACK</span></div>
     <div><b>{len(doc['stacks'])}</b><span>STACKS</span></div>
