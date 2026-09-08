@@ -84,6 +84,20 @@ Google recommends Secret Manager for sensitive values used by Cloud Run services
 * [ ] Verify private service dependencies.
 * [ ] Verify service-to-service identity.
 
+### Runtime patch window
+
+Exploiting a bug that already has a patch used to take a specialist and weeks. Agents now reach and trigger published engine bugs routinely, so the time between an upstream security release and your redeploy is the window in which that bug is exploitable against you — and it is the one part of engine security a small team can actually measure.
+
+* [ ] Inventory every runtime that embeds a JavaScript or WebAssembly engine — Node, Deno, Bun, Electron, headless Chromium, edge runtimes — with its exact version; each one ships V8 or JavaScriptCore, and an engine bug is a bug in every process that embeds it.
+* [ ] Verify every runtime major is inside its upstream support window — an end-of-life Node line receives no V8 security backports, so a bug fixed upstream stays open for you.
+* [ ] Verify the runtime version is pinned in one place — `engines` in `package.json`, `.node-version` or `.nvmrc`, the base-image tag — and that production, CI and any sandbox image resolve to the same number.
+* [ ] Verify base-image tags are bumped automatically — Renovate or Dependabot on the Dockerfile, not only on CI actions — so a runtime security release becomes a pull request the same day.
+* [ ] Verify someone receives the runtime's security announcements (the `nodejs-sec` list, the Chromium release blog for an embedded browser) and that they land where work is tracked, not in an inbox.
+* [ ] Measure the time between an upstream runtime security release and the fixed version serving production traffic, and record the number.
+* [ ] Verify the running version is observable in production — a build-info endpoint, a startup log line, an image label — so "are we patched" is a query and not a guess.
+* [ ] Verify a runtime-only rebuild and deploy can happen with no application code change, and has been done at least once.
+* [ ] Inventory native addons and bundled binaries in the image — `node-gyp` builds, `sharp`/libvips, FFmpeg, ImageMagick, headless Chromium — with their versions, and verify they move on the same cadence; they are C and C++ parsing attacker-supplied bytes and are invisible to `npm audit` until their wrapper package bumps.
+
 ### IAM
 
 * [ ] Review project IAM.

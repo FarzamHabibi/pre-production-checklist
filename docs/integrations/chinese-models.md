@@ -53,7 +53,7 @@ than a whole domain — it leaves room for the code, which is the part that matt
 
 ## Context windows
 
-DeepSeek, Kimi and GLM all offer long-context models, which is tempting: paste all 4,353
+DeepSeek, Kimi and GLM all offer long-context models, which is tempting: paste all 4,372
 items and be done. Do not. A model given a huge checklist and a small diff reviews the
 checklist. Narrowing first with `--gate`, `--domain` or `--search` produces better
 findings from every model, including the expensive ones.

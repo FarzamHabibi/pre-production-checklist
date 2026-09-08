@@ -45,6 +45,10 @@ This requires special review.
 * [ ] Identify whether an agent can execute code.
 * [ ] Never execute generated code directly on the production host.
 * [ ] Sandbox execution.
+* [ ] Verify the sandbox is a process or kernel boundary — a separate process under seccomp, a microVM, a container runtime with its own kernel — and not a language-level one: Node's `vm` module, `new Function`, a worker thread, or Python `exec` with a filtered namespace all share the host's engine and heap, and one engine bug is a host compromise.
+* [ ] Search for `vm.runInNewContext`, `vm.runInThisContext`, `new Function(`, `eval(` and `exec(` on any path that carries model output; each one is execution on the host, whatever the surrounding code calls it.
+* [ ] Verify the engine inside the sandbox is patched on the same window as the production runtime — a sandbox running last year's V8 is one published bug from the host.
+* [ ] Verify the sandbox is exercised by a test that tries to read a host file, open a socket to an internal address and fetch the cloud-metadata endpoint, and that all three fail.
 * [ ] Run generated code as an unprivileged user.
 * [ ] Restrict filesystem access.
 * [ ] Restrict network access.

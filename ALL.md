@@ -833,6 +833,11 @@ Supabase Storage uses Postgres RLS for access control on `storage.objects`; list
 * [ ] Enforce size limits.
 * [ ] Enforce decompression limits.
 * [ ] Isolate parsing.
+* [ ] Verify uploaded media is decoded in a separate worker or service holding no production credentials, not in the API process — the parsers are C and C++ and their bug class is memory corruption, so a crafted file that escapes should lose a worker, not the database.
+* [ ] Verify the media worker has no route to internal services and no cloud-metadata access.
+* [ ] Verify decoding runs under a wall-clock and memory limit and a job that exceeds them is killed and quarantined, not retried — a file that hangs a decoder is the cheap version of the exploit.
+* [ ] Verify the format allow-list is enforced at the decoder, not only at the MIME check — ImageMagick's delegates and FFmpeg's demuxers cover far more formats than you accept, and every extra decoder is attack surface.
+* [ ] Verify each native parser's version moves on the runtime patch window in Runtime & containers, not only when its npm or pip wrapper happens to bump.
 * [ ] Disable active content where unnecessary.
 * [ ] Verify path traversal defenses.
 * [ ] Verify symlink handling.
@@ -1352,6 +1357,20 @@ Google recommends Secret Manager for sensitive values used by Cloud Run services
 * [ ] Verify VPC connectivity is intentionally configured.
 * [ ] Verify private service dependencies.
 * [ ] Verify service-to-service identity.
+
+### Runtime patch window
+
+Exploiting a bug that already has a patch used to take a specialist and weeks. Agents now reach and trigger published engine bugs routinely, so the time between an upstream security release and your redeploy is the window in which that bug is exploitable against you — and it is the one part of engine security a small team can actually measure.
+
+* [ ] Inventory every runtime that embeds a JavaScript or WebAssembly engine — Node, Deno, Bun, Electron, headless Chromium, edge runtimes — with its exact version; each one ships V8 or JavaScriptCore, and an engine bug is a bug in every process that embeds it.
+* [ ] Verify every runtime major is inside its upstream support window — an end-of-life Node line receives no V8 security backports, so a bug fixed upstream stays open for you.
+* [ ] Verify the runtime version is pinned in one place — `engines` in `package.json`, `.node-version` or `.nvmrc`, the base-image tag — and that production, CI and any sandbox image resolve to the same number.
+* [ ] Verify base-image tags are bumped automatically — Renovate or Dependabot on the Dockerfile, not only on CI actions — so a runtime security release becomes a pull request the same day.
+* [ ] Verify someone receives the runtime's security announcements (the `nodejs-sec` list, the Chromium release blog for an embedded browser) and that they land where work is tracked, not in an inbox.
+* [ ] Measure the time between an upstream runtime security release and the fixed version serving production traffic, and record the number.
+* [ ] Verify the running version is observable in production — a build-info endpoint, a startup log line, an image label — so "are we patched" is a query and not a guess.
+* [ ] Verify a runtime-only rebuild and deploy can happen with no application code change, and has been done at least once.
+* [ ] Inventory native addons and bundled binaries in the image — `node-gyp` builds, `sharp`/libvips, FFmpeg, ImageMagick, headless Chromium — with their versions, and verify they move on the same cadence; they are C and C++ parsing attacker-supplied bytes and are invisible to `npm audit` until their wrapper package bumps.
 
 ### IAM
 
@@ -2576,6 +2595,10 @@ This requires special review.
 * [ ] Identify whether an agent can execute code.
 * [ ] Never execute generated code directly on the production host.
 * [ ] Sandbox execution.
+* [ ] Verify the sandbox is a process or kernel boundary — a separate process under seccomp, a microVM, a container runtime with its own kernel — and not a language-level one: Node's `vm` module, `new Function`, a worker thread, or Python `exec` with a filtered namespace all share the host's engine and heap, and one engine bug is a host compromise.
+* [ ] Search for `vm.runInNewContext`, `vm.runInThisContext`, `new Function(`, `eval(` and `exec(` on any path that carries model output; each one is execution on the host, whatever the surrounding code calls it.
+* [ ] Verify the engine inside the sandbox is patched on the same window as the production runtime — a sandbox running last year's V8 is one published bug from the host.
+* [ ] Verify the sandbox is exercised by a test that tries to read a host file, open a socket to an internal address and fetch the cloud-metadata endpoint, and that all three fail.
 * [ ] Run generated code as an unprivileged user.
 * [ ] Restrict filesystem access.
 * [ ] Restrict network access.
@@ -5948,6 +5971,7 @@ The part everyone skips, which is why the second occurrence of an incident is so
 * [ ] Verify a restore from backup is rehearsed on a schedule, not only after a scare.
 * [ ] Verify failover has been triggered deliberately at least once.
 * [ ] Verify a rollback is performed periodically so the path stays working.
+* [ ] Verify a runtime-only patch has been rehearsed end to end — bump the base image, rebuild, deploy, confirm the running version — and the elapsed time recorded; when a critical engine bug is published, that number is your exposure window.
 * [ ] Verify every kill switch is exercised on a cadence, since an untested switch is a hypothesis.
 * [ ] Verify at least one incident scenario is walked through as an exercise before launch — reading the runbook aloud and finding the step that is wrong is most of the value.
 * [ ] Verify the runbooks are updated by whoever last used them, while it is fresh.

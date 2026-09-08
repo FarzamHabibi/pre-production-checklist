@@ -59,6 +59,11 @@ Supabase Storage uses Postgres RLS for access control on `storage.objects`; list
 * [ ] Enforce size limits.
 * [ ] Enforce decompression limits.
 * [ ] Isolate parsing.
+* [ ] Verify uploaded media is decoded in a separate worker or service holding no production credentials, not in the API process — the parsers are C and C++ and their bug class is memory corruption, so a crafted file that escapes should lose a worker, not the database.
+* [ ] Verify the media worker has no route to internal services and no cloud-metadata access.
+* [ ] Verify decoding runs under a wall-clock and memory limit and a job that exceeds them is killed and quarantined, not retried — a file that hangs a decoder is the cheap version of the exploit.
+* [ ] Verify the format allow-list is enforced at the decoder, not only at the MIME check — ImageMagick's delegates and FFmpeg's demuxers cover far more formats than you accept, and every extra decoder is attack surface.
+* [ ] Verify each native parser's version moves on the runtime patch window in Runtime & containers, not only when its npm or pip wrapper happens to bump.
 * [ ] Disable active content where unnecessary.
 * [ ] Verify path traversal defenses.
 * [ ] Verify symlink handling.

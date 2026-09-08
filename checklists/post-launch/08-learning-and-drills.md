@@ -31,6 +31,7 @@ The part everyone skips, which is why the second occurrence of an incident is so
 * [ ] Verify a restore from backup is rehearsed on a schedule, not only after a scare.
 * [ ] Verify failover has been triggered deliberately at least once.
 * [ ] Verify a rollback is performed periodically so the path stays working.
+* [ ] Verify a runtime-only patch has been rehearsed end to end — bump the base image, rebuild, deploy, confirm the running version — and the elapsed time recorded; when a critical engine bug is published, that number is your exposure window.
 * [ ] Verify every kill switch is exercised on a cadence, since an untested switch is a hypothesis.
 * [ ] Verify at least one incident scenario is walked through as an exercise before launch — reading the runbook aloud and finding the step that is wrong is most of the value.
 * [ ] Verify the runbooks are updated by whoever last used them, while it is fresh.

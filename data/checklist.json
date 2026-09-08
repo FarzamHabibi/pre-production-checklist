@@ -50,15 +50,15 @@
     }
   ],
   "counts": {
-    "total": 4353,
+    "total": 4372,
     "by_domain": {
-      "security": 3306,
+      "security": 3324,
       "scale": 301,
       "performance": 338,
       "integrations": 200,
-      "post-launch": 208
+      "post-launch": 209
     },
-    "stack_agnostic": 3811,
+    "stack_agnostic": 3830,
     "release_gate": 389
   },
   "stacks": [
@@ -10625,6 +10625,91 @@
       }
     },
     {
+      "id": "security.core.07-storage-and-files.51f135ca",
+      "text": "Verify uploaded media is decoded in a separate worker or service holding no production credentials, not in the API process — the parsers are C and C++ and their bug class is memory corruption, so a crafted file that escapes should lose a worker, not the database.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Object Storage & File Handling",
+      "section": "File / Document / Image Security",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/07-storage-and-files.md",
+        "line": 62
+      }
+    },
+    {
+      "id": "security.core.07-storage-and-files.4156ce81",
+      "text": "Verify the media worker has no route to internal services and no cloud-metadata access.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Object Storage & File Handling",
+      "section": "File / Document / Image Security",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/07-storage-and-files.md",
+        "line": 63
+      }
+    },
+    {
+      "id": "security.core.07-storage-and-files.927654a1",
+      "text": "Verify decoding runs under a wall-clock and memory limit and a job that exceeds them is killed and quarantined, not retried — a file that hangs a decoder is the cheap version of the exploit.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Object Storage & File Handling",
+      "section": "File / Document / Image Security",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/07-storage-and-files.md",
+        "line": 64
+      }
+    },
+    {
+      "id": "security.core.07-storage-and-files.088432c8",
+      "text": "Verify the format allow-list is enforced at the decoder, not only at the MIME check — ImageMagick's delegates and FFmpeg's demuxers cover far more formats than you accept, and every extra decoder is attack surface.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Object Storage & File Handling",
+      "section": "File / Document / Image Security",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/07-storage-and-files.md",
+        "line": 65
+      }
+    },
+    {
+      "id": "security.core.07-storage-and-files.d844eced",
+      "text": "Verify each native parser's version moves on the runtime patch window in Runtime & containers, not only when its npm or pip wrapper happens to bump.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Object Storage & File Handling",
+      "section": "File / Document / Image Security",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/07-storage-and-files.md",
+        "line": 66
+      }
+    },
+    {
       "id": "security.core.07-storage-and-files.3cf708f4",
       "text": "Disable active content where unnecessary.",
       "domain": "security",
@@ -10638,7 +10723,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/07-storage-and-files.md",
-        "line": 62
+        "line": 67
       }
     },
     {
@@ -10655,7 +10740,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/07-storage-and-files.md",
-        "line": 63
+        "line": 68
       }
     },
     {
@@ -10672,7 +10757,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/07-storage-and-files.md",
-        "line": 64
+        "line": 69
       }
     },
     {
@@ -10689,7 +10774,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/07-storage-and-files.md",
-        "line": 65
+        "line": 70
       }
     },
     {
@@ -10706,7 +10791,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/07-storage-and-files.md",
-        "line": 66
+        "line": 71
       }
     },
     {
@@ -10723,7 +10808,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/07-storage-and-files.md",
-        "line": 67
+        "line": 72
       }
     },
     {
@@ -10740,7 +10825,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/07-storage-and-files.md",
-        "line": 68
+        "line": 73
       }
     },
     {
@@ -10757,7 +10842,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/07-storage-and-files.md",
-        "line": 69
+        "line": 74
       }
     },
     {
@@ -10774,7 +10859,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/07-storage-and-files.md",
-        "line": 70
+        "line": 75
       }
     },
     {
@@ -10791,7 +10876,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/07-storage-and-files.md",
-        "line": 71
+        "line": 76
       }
     },
     {
@@ -10808,7 +10893,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/07-storage-and-files.md",
-        "line": 72
+        "line": 77
       }
     },
     {
@@ -10825,7 +10910,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/07-storage-and-files.md",
-        "line": 73
+        "line": 78
       }
     },
     {
@@ -16932,6 +17017,159 @@
       }
     },
     {
+      "id": "security.core.13-runtime-and-containers.eaf453f5",
+      "text": "Inventory every runtime that embeds a JavaScript or WebAssembly engine — Node, Deno, Bun, Electron, headless Chromium, edge runtimes — with its exact version; each one ships V8 or JavaScriptCore, and an engine bug is a bug in every process that embeds it.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Runtime, Containers & Hosting",
+      "section": "Container Runtime & Hosting",
+      "subsection": "Runtime patch window",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/13-runtime-and-containers.md",
+        "line": 91
+      }
+    },
+    {
+      "id": "security.core.13-runtime-and-containers.50012619",
+      "text": "Verify every runtime major is inside its upstream support window — an end-of-life Node line receives no V8 security backports, so a bug fixed upstream stays open for you.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Runtime, Containers & Hosting",
+      "section": "Container Runtime & Hosting",
+      "subsection": "Runtime patch window",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/13-runtime-and-containers.md",
+        "line": 92
+      }
+    },
+    {
+      "id": "security.core.13-runtime-and-containers.6ac2a4a1",
+      "text": "Verify the runtime version is pinned in one place — `engines` in `package.json`, `.node-version` or `.nvmrc`, the base-image tag — and that production, CI and any sandbox image resolve to the same number.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Runtime, Containers & Hosting",
+      "section": "Container Runtime & Hosting",
+      "subsection": "Runtime patch window",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/13-runtime-and-containers.md",
+        "line": 93
+      }
+    },
+    {
+      "id": "security.core.13-runtime-and-containers.c180c733",
+      "text": "Verify base-image tags are bumped automatically — Renovate or Dependabot on the Dockerfile, not only on CI actions — so a runtime security release becomes a pull request the same day.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Runtime, Containers & Hosting",
+      "section": "Container Runtime & Hosting",
+      "subsection": "Runtime patch window",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/13-runtime-and-containers.md",
+        "line": 94
+      }
+    },
+    {
+      "id": "security.core.13-runtime-and-containers.f4c1ec3b",
+      "text": "Verify someone receives the runtime's security announcements (the `nodejs-sec` list, the Chromium release blog for an embedded browser) and that they land where work is tracked, not in an inbox.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Runtime, Containers & Hosting",
+      "section": "Container Runtime & Hosting",
+      "subsection": "Runtime patch window",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/13-runtime-and-containers.md",
+        "line": 95
+      }
+    },
+    {
+      "id": "security.core.13-runtime-and-containers.7fc4e70a",
+      "text": "Measure the time between an upstream runtime security release and the fixed version serving production traffic, and record the number.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Runtime, Containers & Hosting",
+      "section": "Container Runtime & Hosting",
+      "subsection": "Runtime patch window",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/13-runtime-and-containers.md",
+        "line": 96
+      }
+    },
+    {
+      "id": "security.core.13-runtime-and-containers.c9a7d828",
+      "text": "Verify the running version is observable in production — a build-info endpoint, a startup log line, an image label — so \"are we patched\" is a query and not a guess.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Runtime, Containers & Hosting",
+      "section": "Container Runtime & Hosting",
+      "subsection": "Runtime patch window",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/13-runtime-and-containers.md",
+        "line": 97
+      }
+    },
+    {
+      "id": "security.core.13-runtime-and-containers.0ad6bddf",
+      "text": "Verify a runtime-only rebuild and deploy can happen with no application code change, and has been done at least once.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Runtime, Containers & Hosting",
+      "section": "Container Runtime & Hosting",
+      "subsection": "Runtime patch window",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/13-runtime-and-containers.md",
+        "line": 98
+      }
+    },
+    {
+      "id": "security.core.13-runtime-and-containers.b0419058",
+      "text": "Inventory native addons and bundled binaries in the image — `node-gyp` builds, `sharp`/libvips, FFmpeg, ImageMagick, headless Chromium — with their versions, and verify they move on the same cadence; they are C and C++ parsing attacker-supplied bytes and are invisible to `npm audit` until their wrapper package bumps.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Runtime, Containers & Hosting",
+      "section": "Container Runtime & Hosting",
+      "subsection": "Runtime patch window",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/13-runtime-and-containers.md",
+        "line": 99
+      }
+    },
+    {
       "id": "security.core.13-runtime-and-containers.80b345a5",
       "text": "Review project IAM.",
       "domain": "security",
@@ -16945,7 +17183,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 89
+        "line": 103
       }
     },
     {
@@ -16962,7 +17200,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 90
+        "line": 104
       }
     },
     {
@@ -16979,7 +17217,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 91
+        "line": 105
       }
     },
     {
@@ -16996,7 +17234,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 92
+        "line": 106
       }
     },
     {
@@ -17013,7 +17251,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 93
+        "line": 107
       }
     },
     {
@@ -17030,7 +17268,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 94
+        "line": 108
       }
     },
     {
@@ -17047,7 +17285,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 95
+        "line": 109
       }
     },
     {
@@ -17064,7 +17302,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 96
+        "line": 110
       }
     },
     {
@@ -17081,7 +17319,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 97
+        "line": 111
       }
     },
     {
@@ -17098,7 +17336,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 98
+        "line": 112
       }
     },
     {
@@ -17115,7 +17353,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 99
+        "line": 113
       }
     },
     {
@@ -17132,7 +17370,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 100
+        "line": 114
       }
     },
     {
@@ -17149,7 +17387,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 106
+        "line": 120
       }
     },
     {
@@ -17166,7 +17404,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 107
+        "line": 121
       }
     },
     {
@@ -17183,7 +17421,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 108
+        "line": 122
       }
     },
     {
@@ -17200,7 +17438,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 109
+        "line": 123
       }
     },
     {
@@ -17217,7 +17455,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 110
+        "line": 124
       }
     },
     {
@@ -17234,7 +17472,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 111
+        "line": 125
       }
     },
     {
@@ -17251,7 +17489,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 112
+        "line": 126
       }
     },
     {
@@ -17268,7 +17506,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 113
+        "line": 127
       }
     },
     {
@@ -17285,7 +17523,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 114
+        "line": 128
       }
     },
     {
@@ -17302,7 +17540,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 115
+        "line": 129
       }
     },
     {
@@ -17319,7 +17557,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 116
+        "line": 130
       }
     },
     {
@@ -17336,7 +17574,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 117
+        "line": 131
       }
     },
     {
@@ -17353,7 +17591,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 118
+        "line": 132
       }
     },
     {
@@ -17370,7 +17608,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 119
+        "line": 133
       }
     },
     {
@@ -17387,7 +17625,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 120
+        "line": 134
       }
     },
     {
@@ -17404,7 +17642,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 121
+        "line": 135
       }
     },
     {
@@ -17421,7 +17659,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 122
+        "line": 136
       }
     },
     {
@@ -17438,7 +17676,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 123
+        "line": 137
       }
     },
     {
@@ -17455,7 +17693,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 124
+        "line": 138
       }
     },
     {
@@ -17472,7 +17710,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 125
+        "line": 139
       }
     },
     {
@@ -17489,7 +17727,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 126
+        "line": 140
       }
     },
     {
@@ -17506,7 +17744,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/13-runtime-and-containers.md",
-        "line": 127
+        "line": 141
       }
     },
     {
@@ -31144,6 +31382,74 @@
       }
     },
     {
+      "id": "security.ai.05-output-handling.259eb6da",
+      "text": "Verify the sandbox is a process or kernel boundary — a separate process under seccomp, a microVM, a container runtime with its own kernel — and not a language-level one: Node's `vm` module, `new Function`, a worker thread, or Python `exec` with a filtered namespace all share the host's engine and heap, and one engine bug is a host compromise.",
+      "domain": "security",
+      "area": "ai",
+      "checklist": "AI Output Handling",
+      "section": "Generated-Code Execution",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai/05-output-handling.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "security.ai.05-output-handling.cf244929",
+      "text": "Search for `vm.runInNewContext`, `vm.runInThisContext`, `new Function(`, `eval(` and `exec(` on any path that carries model output; each one is execution on the host, whatever the surrounding code calls it.",
+      "domain": "security",
+      "area": "ai",
+      "checklist": "AI Output Handling",
+      "section": "Generated-Code Execution",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai/05-output-handling.md",
+        "line": 49
+      }
+    },
+    {
+      "id": "security.ai.05-output-handling.7aec95ec",
+      "text": "Verify the engine inside the sandbox is patched on the same window as the production runtime — a sandbox running last year's V8 is one published bug from the host.",
+      "domain": "security",
+      "area": "ai",
+      "checklist": "AI Output Handling",
+      "section": "Generated-Code Execution",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai/05-output-handling.md",
+        "line": 50
+      }
+    },
+    {
+      "id": "security.ai.05-output-handling.4c98044d",
+      "text": "Verify the sandbox is exercised by a test that tries to read a host file, open a socket to an internal address and fetch the cloud-metadata endpoint, and that all three fail.",
+      "domain": "security",
+      "area": "ai",
+      "checklist": "AI Output Handling",
+      "section": "Generated-Code Execution",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai/05-output-handling.md",
+        "line": 51
+      }
+    },
+    {
       "id": "security.ai.05-output-handling.265f71a2",
       "text": "Run generated code as an unprivileged user.",
       "domain": "security",
@@ -31157,7 +31463,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 48
+        "line": 52
       }
     },
     {
@@ -31174,7 +31480,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 49
+        "line": 53
       }
     },
     {
@@ -31191,7 +31497,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 50
+        "line": 54
       }
     },
     {
@@ -31208,7 +31514,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 51
+        "line": 55
       }
     },
     {
@@ -31225,7 +31531,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 52
+        "line": 56
       }
     },
     {
@@ -31242,7 +31548,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 53
+        "line": 57
       }
     },
     {
@@ -31259,7 +31565,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 54
+        "line": 58
       }
     },
     {
@@ -31276,7 +31582,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 55
+        "line": 59
       }
     },
     {
@@ -31293,7 +31599,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 56
+        "line": 60
       }
     },
     {
@@ -31310,7 +31616,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 57
+        "line": 61
       }
     },
     {
@@ -31327,7 +31633,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 58
+        "line": 62
       }
     },
     {
@@ -31344,7 +31650,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 59
+        "line": 63
       }
     },
     {
@@ -31361,7 +31667,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 60
+        "line": 64
       }
     },
     {
@@ -31378,7 +31684,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 61
+        "line": 65
       }
     },
     {
@@ -31395,7 +31701,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 62
+        "line": 66
       }
     },
     {
@@ -31412,7 +31718,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 63
+        "line": 67
       }
     },
     {
@@ -31429,7 +31735,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 64
+        "line": 68
       }
     },
     {
@@ -31446,7 +31752,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 65
+        "line": 69
       }
     },
     {
@@ -31463,7 +31769,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 66
+        "line": 70
       }
     },
     {
@@ -31480,7 +31786,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 74
+        "line": 78
       }
     },
     {
@@ -31497,7 +31803,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 75
+        "line": 79
       }
     },
     {
@@ -31514,7 +31820,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 76
+        "line": 80
       }
     },
     {
@@ -31531,7 +31837,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 77
+        "line": 81
       }
     },
     {
@@ -31548,7 +31854,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 78
+        "line": 82
       }
     },
     {
@@ -31565,7 +31871,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 79
+        "line": 83
       }
     },
     {
@@ -31582,7 +31888,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 80
+        "line": 84
       }
     },
     {
@@ -31599,7 +31905,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 81
+        "line": 85
       }
     },
     {
@@ -31616,7 +31922,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 82
+        "line": 86
       }
     },
     {
@@ -31633,7 +31939,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 83
+        "line": 87
       }
     },
     {
@@ -31650,7 +31956,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 84
+        "line": 88
       }
     },
     {
@@ -31667,7 +31973,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 85
+        "line": 89
       }
     },
     {
@@ -31684,7 +31990,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 86
+        "line": 90
       }
     },
     {
@@ -31701,7 +32007,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 87
+        "line": 91
       }
     },
     {
@@ -64821,6 +65127,23 @@
       }
     },
     {
+      "id": "post-launch.08-learning-and-drills.599e2346",
+      "text": "Verify a runtime-only patch has been rehearsed end to end — bump the base image, rebuild, deploy, confirm the running version — and the elapsed time recorded; when a critical engine bug is published, that number is your exposure window.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Learning & Drills",
+      "section": "Practice",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/08-learning-and-drills.md",
+        "line": 34
+      }
+    },
+    {
       "id": "post-launch.08-learning-and-drills.8f2e17a1",
       "text": "Verify every kill switch is exercised on a cadence, since an untested switch is a hypothesis.",
       "domain": "post-launch",
@@ -64834,7 +65157,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/08-learning-and-drills.md",
-        "line": 34
+        "line": 35
       }
     },
     {
@@ -64851,7 +65174,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/08-learning-and-drills.md",
-        "line": 35
+        "line": 36
       }
     },
     {
@@ -64868,7 +65191,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/08-learning-and-drills.md",
-        "line": 36
+        "line": 37
       }
     },
     {
@@ -64885,7 +65208,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/08-learning-and-drills.md",
-        "line": 37
+        "line": 38
       }
     },
     {
@@ -64902,7 +65225,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/08-learning-and-drills.md",
-        "line": 38
+        "line": 39
       }
     },
     {

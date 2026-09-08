@@ -7,7 +7,7 @@ infrastructure, the deploy pipeline, and increasingly the AI agents too — and 
 have a security team to hand it to.
 
 <!-- counts:begin -->
-**4,353 items across 96 checklists** in 5 domains. 88% of them apply to any stack.
+**4,372 items across 96 checklists** in 5 domains. 88% of them apply to any stack.
 <!-- counts:end -->
 
 [![npm](https://img.shields.io/npm/v/prodcheck?color=cb3837&logo=npm)](https://www.npmjs.com/package/prodcheck)
@@ -72,7 +72,7 @@ block a launch. If it cannot run commands, it tells you what to run yourself.
 <!-- start-prompt:begin -->
 ```text
 I want to get my project ready to ship. Use prodcheck:
-a free, open-source pre-production checklist of 4,353 items
+a free, open-source pre-production checklist of 4,372 items
 covering security, performance, scale, integrations and what to
 do after launch.
 
@@ -147,14 +147,14 @@ costs more than it saves.
 
 ```
 checklists/
-├── security/              2812   not getting breached, abused or taken down
-│   ├── core/              1,491   application, data, infrastructure, delivery
+├── security/              2830   not getting breached, abused or taken down
+│   ├── core/              1,505   application, data, infrastructure, delivery
 │   ├── ai/                  773   LLM features, agents, tools, RAG, MCP
 │   └── ai-generated-code/   548   the bugs AI coding assistants actually write
 ├── performance/             313   Lighthouse, and what users actually feel
 ├── scale/                   286   surviving 10× the load
 ├── integrations/            192   search, analytics, monitoring
-├── post-launch/             208   when it goes wrong anyway
+├── post-launch/             209   when it goes wrong anyway
 └── stacks/                  542   26 products, spanning every domain
 ```
 
@@ -162,7 +162,7 @@ Counts above are what each folder holds. A *domain* total is larger, because the
 supplements contribute to whichever domain each of their sections extends:
 
 ```
-security 3,306   performance 338   scale 301   integrations 200   post-launch 198
+security 3,324   performance 338   scale 301   integrations 200   post-launch 209
 ```
 
 Domains are the top level because that is the question you arrive with: *is this about
@@ -176,17 +176,17 @@ wildcard origins with credentials" is as true in Django as in Express. Everythin
 genuinely named a product was moved out to `stacks/`.
 
 If you write Python, Go, Ruby, PHP, Java, Rust or Elixir: **this folder is your
-checklist, all 1,491 items of it.**
+checklist, all 1,505 items of it.**
 
 | | Items | | | Items |
 | --- | ---: | --- | --- | ---: |
 | [Architecture & threat model](checklists/security/core/01-threat-model.md) | 25 | | [Mobile apps](checklists/security/core/11-mobile-apps.md) | 106 |
 | [Authentication & authorization](checklists/security/core/02-authorization.md) | 111 | | [Desktop apps](checklists/security/core/12-desktop-apps.md) | 41 |
-| [Sessions, tokens & cookies](checklists/security/core/03-sessions-tokens.md) | 21 | | [Runtime & containers](checklists/security/core/13-runtime-and-containers.md) | 93 |
+| [Sessions, tokens & cookies](checklists/security/core/03-sessions-tokens.md) | 21 | | [Runtime & containers](checklists/security/core/13-runtime-and-containers.md) | 102 |
 | [Backend application & API](checklists/security/core/04-backend-api.md) | 223 | | [DNS, CDN, edge & WAF](checklists/security/core/14-edge-dns-waf.md) | 78 |
 | [Web frontend](checklists/security/core/05-web-frontend.md) | 127 | | [CI/CD & supply chain](checklists/security/core/15-ci-cd-and-supply-chain.md) | 158 |
 | [Database & row-level security](checklists/security/core/06-database.md) | 68 | | [Monitoring & incident response](checklists/security/core/16-monitoring-and-response.md) | 30 |
-| [Object storage & files](checklists/security/core/07-storage-and-files.md) | 55 | | [Pre-release gates](checklists/security/core/17-release-gates.md) | 149 |
+| [Object storage & files](checklists/security/core/07-storage-and-files.md) | 60 | | [Pre-release gates](checklists/security/core/17-release-gates.md) | 149 |
 | [Secrets & cryptography](checklists/security/core/08-secrets-and-crypto.md) | 47 | | | |
 | [Common web attacks](checklists/security/core/09-common-web-attacks.md) | 62 | | | |
 | [Business logic & race conditions](checklists/security/core/10-business-logic.md) | 44 | | [**Abuse & availability**](checklists/security/core/18-abuse-and-availability.md) | **53** |
@@ -203,7 +203,7 @@ provider-agnostic.
 | [Prompt injection & goal hijacking](checklists/security/ai/02-prompt-injection.md) | 91 | | [Integrations](checklists/security/ai/08-integrations.md) | 74 |
 | [Tool calling & excessive agency](checklists/security/ai/03-tools-and-agency.md) | 66 | | [Cost, reliability & audit](checklists/security/ai/09-cost-reliability-audit.md) | 63 |
 | [Data access & privacy](checklists/security/ai/04-data-access-and-privacy.md) | 82 | | [Testing & red-team pack](checklists/security/ai/10-testing-and-red-team.md) | 96 |
-| [Output handling](checklists/security/ai/05-output-handling.md) | 58 | | [Release gate](checklists/security/ai/11-release-gate.md) | 47 |
+| [Output handling](checklists/security/ai/05-output-handling.md) | 62 | | [Release gate](checklists/security/ai/11-release-gate.md) | 47 |
 | [RAG & agent memory](checklists/security/ai/06-rag-and-memory.md) | 51 | | | |
 
 > Prompt injection is not a filtering problem. It is an authorization problem wearing a
@@ -294,7 +294,7 @@ each item asks is not *did you respond well* — it is **is the answer already d
 | [Can you act at all](checklists/post-launch/01-readiness.md) | 43 | | [Outages & dependency failure](checklists/post-launch/05-outage-and-dependencies.md) | 27 |
 | [The first fifteen minutes](checklists/post-launch/02-first-15-minutes.md) | 20 | | [Rollback & kill switches](checklists/post-launch/06-rollback-and-kill-switches.md) | 20 |
 | [You have been breached](checklists/post-launch/03-security-incident.md) | 35 | | [Telling people](checklists/post-launch/07-communication.md) | 18 |
-| [Data loss & corruption](checklists/post-launch/04-data-loss.md) | 26 | | [Learning & drills](checklists/post-launch/08-learning-and-drills.md) | 19 |
+| [Data loss & corruption](checklists/post-launch/04-data-loss.md) | 26 | | [Learning & drills](checklists/post-launch/08-learning-and-drills.md) | 20 |
 
 The rest of the repository makes sure you *find out* — monitoring is covered in
 [`security/core/16`](checklists/security/core/16-monitoring-and-response.md) and
@@ -356,7 +356,7 @@ in a stack file at all. Files for Fly.io, Auth0 and Clerk are wanted; see [CONTR
 
 1. **Copy the files you need** into your own repo. They're working documents, meant to be
    edited and committed next to your code.
-2. **Mark `[N/A]` aggressively.** No product on earth needs all 4,353 items. No mobile
+2. **Mark `[N/A]` aggressively.** No product on earth needs all 4,372 items. No mobile
    app? `core/11` and `core/12` are 147 instant `[N/A]`s. Being honest about scope is what
    makes the remainder trustworthy.
 3. **Record every finding.** An unrecorded finding is one you'll rediscover in six months.
@@ -419,7 +419,7 @@ anything verified on the reader's behalf.
 
 ## Command line
 
-Generate a checklist scoped to your project, instead of reading 4,353 items:
+Generate a checklist scoped to your project, instead of reading 4,372 items:
 
 ```bash
 npx prodcheck security --stack django -o SECURITY.md
@@ -520,7 +520,7 @@ Next.js + Supabase app"* and it pulls the relevant items itself.
 
 ## What it costs to run
 
-A fair question if you are about to point a paid model at 4,353 items. These are the
+A fair question if you are about to point a paid model at 4,372 items. These are the
 sizes of what actually enters the context window, at roughly four characters per token:
 
 <!-- cost:begin -->
@@ -528,8 +528,8 @@ sizes of what actually enters the context window, at roughly four characters per
 | --- | --- | --- |
 | `--gate` | 326 | 5,200 |
 | `--gate --stack django` | 328 | 5,300 |
-| `security --area core` | 1,491 | 19,400 |
-| everything, every stack | 4,353 | 77,300 |
+| `security --area core` | 1,505 | 20,100 |
+| everything, every stack | 4,372 | 78,300 |
 <!-- cost:end -->
 
 That is the input for one pass. What the review itself costs on top depends on how much
@@ -621,7 +621,7 @@ prodcheck gate      exit non-zero if a blocking item is unresolved   (for CI)
       in use and which features exist — file upload, webhooks, multi-tenancy, background
       jobs, an LLM surface. Selects the applicable items *before* any model is involved.
       A Django app with no mobile client and no file uploads does not need every one of
-      the 1,491 core items — `core/07`, `core/11` and `core/12` alone are 202 it can skip.
+      the 1,505 core items — `core/07`, `core/11` and `core/12` alone are 207 it can skip.
 
 - [ ] **`check` — the deterministic tier.** Roughly 160 items are answerable by search
       alone: the [must-not-exist list](checklists/security/core/17-release-gates.md), unpinned CI
@@ -705,7 +705,7 @@ This repository was compiled and expanded with [Claude](https://claude.com/claud
 (Anthropic) and [ChatGPT](https://chatgpt.com) (OpenAI), working from a real
 pre-production review rather than generating checklist items from scratch. They did the parts that don't fit in one
 person's head: cross-referencing hundreds of findings against OWASP categories, keeping
-4,353 items consistent in wording and structure, and spotting the gaps between sections.
+4,372 items consistent in wording and structure, and spotting the gaps between sections.
 
 That's worth stating plainly for two reasons.
 

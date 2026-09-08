@@ -5,15 +5,15 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**4,353 items** · 3,811 of them (88%) name no product at all.
+**4,372 items** · 3,830 of them (88%) name no product at all.
 
 | Domain | Items | |
 | --- | ---: | --- |
-| [**Security**](#security) | 3,306 | Not getting breached, abused, or taken down. |
+| [**Security**](#security) | 3,324 | Not getting breached, abused, or taken down. |
 | [**Scale**](#scale) | 301 | Surviving ten times the load, and knowing what breaks first. |
 | [**Performance**](#performance) | 338 | Being fast for a real user, with Lighthouse agreeing. |
 | [**Integrations**](#integrations) | 200 | Being connected: search, analytics, monitoring. |
-| [**Post-launch**](#post-launch) | 208 | When it goes wrong anyway: is the response already decided? |
+| [**Post-launch**](#post-launch) | 209 | When it goes wrong anyway: is the response already decided? |
 | [Stack supplements](#stack-supplements) | 542 | 26 products, only if you use them |
 
 ---
@@ -36,19 +36,19 @@ Application, data, infrastructure, delivery and the release gates.
 | [Backend Application & API](security/core/04-backend-api.md) | 223 |
 | [Web Frontend](security/core/05-web-frontend.md) | 127 |
 | [Database & Row-Level Security](security/core/06-database.md) | 68 |
-| [Object Storage & File Handling](security/core/07-storage-and-files.md) | 55 |
+| [Object Storage & File Handling](security/core/07-storage-and-files.md) | 60 |
 | [Secrets Management & Cryptography](security/core/08-secrets-and-crypto.md) | 47 |
 | [Common Web Attack Classes](security/core/09-common-web-attacks.md) | 62 |
 | [Business Logic & Race Conditions](security/core/10-business-logic.md) | 44 |
 | [Mobile Applications](security/core/11-mobile-apps.md) | 106 |
 | [Desktop Applications](security/core/12-desktop-apps.md) | 41 |
-| [Runtime, Containers & Hosting](security/core/13-runtime-and-containers.md) | 93 |
+| [Runtime, Containers & Hosting](security/core/13-runtime-and-containers.md) | 102 |
 | [DNS, CDN, Edge & WAF](security/core/14-edge-dns-waf.md) | 78 |
 | [CI/CD & Supply Chain](security/core/15-ci-cd-and-supply-chain.md) | 158 |
 | [Monitoring, Detection & Incident Response](security/core/16-monitoring-and-response.md) | 30 |
 | [Pre-Release Gates](security/core/17-release-gates.md) | 149 |
 | [Abuse & Availability](security/core/18-abuse-and-availability.md) | 53 |
-| **Total** | **1,491** |
+| **Total** | **1,505** |
 
 ### AI & agents
 
@@ -60,14 +60,14 @@ LLM features, agents, tool calling, RAG and MCP.
 | [Prompt Injection & Goal Hijacking](security/ai/02-prompt-injection.md) | 91 |
 | [Tool Calling & Excessive Agency](security/ai/03-tools-and-agency.md) | 66 |
 | [AI Data Access & Privacy](security/ai/04-data-access-and-privacy.md) | 82 |
-| [AI Output Handling](security/ai/05-output-handling.md) | 58 |
+| [AI Output Handling](security/ai/05-output-handling.md) | 62 |
 | [RAG & Agent Memory](security/ai/06-rag-and-memory.md) | 51 |
 | [Multi-Agent Systems & MCP](security/ai/07-multi-agent-and-mcp.md) | 75 |
 | [AI Integrations (email, browser, repos, cloud)](security/ai/08-integrations.md) | 74 |
 | [AI Cost, Reliability & Audit](security/ai/09-cost-reliability-audit.md) | 63 |
 | [AI Testing & Red-Team Pack](security/ai/10-testing-and-red-team.md) | 96 |
 | [AI Release Gate](security/ai/11-release-gate.md) | 47 |
-| **Total** | **773** |
+| **Total** | **777** |
 
 ### AI-generated code
 
@@ -163,8 +163,8 @@ When it goes wrong anyway: is the response already decided?
 | [Outages & Dependency Failure](post-launch/05-outage-and-dependencies.md) | 27 |
 | [Rollback & Kill Switches](post-launch/06-rollback-and-kill-switches.md) | 20 |
 | [Telling People](post-launch/07-communication.md) | 18 |
-| [Learning & Drills](post-launch/08-learning-and-drills.md) | 19 |
-| **Total** | **208** |
+| [Learning & Drills](post-launch/08-learning-and-drills.md) | 20 |
+| **Total** | **209** |
 
 ---
 
