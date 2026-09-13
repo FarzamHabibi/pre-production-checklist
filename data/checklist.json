@@ -50,15 +50,15 @@
     }
   ],
   "counts": {
-    "total": 4372,
+    "total": 4394,
     "by_domain": {
-      "security": 3324,
+      "security": 3346,
       "scale": 301,
       "performance": 338,
       "integrations": 200,
       "post-launch": 209
     },
-    "stack_agnostic": 3830,
+    "stack_agnostic": 3842,
     "release_gate": 389
   },
   "stacks": [
@@ -7612,7 +7612,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 88
+        "line": 91
       }
     },
     {
@@ -7629,7 +7629,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 89
+        "line": 92
       }
     },
     {
@@ -7646,7 +7646,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 90
+        "line": 93
       }
     },
     {
@@ -7663,7 +7663,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 91
+        "line": 94
       }
     },
     {
@@ -7680,7 +7680,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 92
+        "line": 95
       }
     },
     {
@@ -7697,7 +7697,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 93
+        "line": 96
       }
     },
     {
@@ -7714,7 +7714,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 97
+        "line": 100
       }
     },
     {
@@ -7731,7 +7731,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 98
+        "line": 101
       }
     },
     {
@@ -7748,7 +7748,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 99
+        "line": 102
       }
     },
     {
@@ -7765,7 +7765,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 100
+        "line": 103
       }
     },
     {
@@ -7782,7 +7782,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 101
+        "line": 104
       }
     },
     {
@@ -7799,7 +7799,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 102
+        "line": 105
       }
     },
     {
@@ -7816,7 +7816,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 103
+        "line": 106
       }
     },
     {
@@ -7833,7 +7833,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 104
+        "line": 107
       }
     },
     {
@@ -7850,7 +7850,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 105
+        "line": 108
       }
     },
     {
@@ -7867,7 +7867,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 106
+        "line": 109
       }
     },
     {
@@ -7884,7 +7884,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 107
+        "line": 110
       }
     },
     {
@@ -7901,7 +7901,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 108
+        "line": 111
       }
     },
     {
@@ -7918,7 +7918,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 109
+        "line": 112
       }
     },
     {
@@ -7935,7 +7935,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 110
+        "line": 113
       }
     },
     {
@@ -7952,7 +7952,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 111
+        "line": 114
       }
     },
     {
@@ -7969,7 +7969,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 112
+        "line": 115
       }
     },
     {
@@ -7986,7 +7986,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 113
+        "line": 116
       }
     },
     {
@@ -8003,7 +8003,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 114
+        "line": 117
       }
     },
     {
@@ -8020,7 +8020,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 115
+        "line": 118
       }
     },
     {
@@ -8037,7 +8037,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 116
+        "line": 119
       }
     },
     {
@@ -8054,7 +8054,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 117
+        "line": 120
       }
     },
     {
@@ -8071,7 +8071,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 118
+        "line": 121
       }
     },
     {
@@ -8088,7 +8088,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 119
+        "line": 122
       }
     },
     {
@@ -8105,7 +8105,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 125
+        "line": 128
       }
     },
     {
@@ -8122,7 +8122,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 126
+        "line": 129
       }
     },
     {
@@ -8139,7 +8139,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 127
+        "line": 130
       }
     },
     {
@@ -8156,7 +8156,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 128
+        "line": 131
       }
     },
     {
@@ -8173,7 +8173,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 129
+        "line": 132
       }
     },
     {
@@ -8190,7 +8190,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 130
+        "line": 133
       }
     },
     {
@@ -8207,7 +8207,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 131
+        "line": 134
       }
     },
     {
@@ -8224,7 +8224,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 132
+        "line": 135
       }
     },
     {
@@ -8241,7 +8241,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 133
+        "line": 136
       }
     },
     {
@@ -8258,7 +8258,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 134
+        "line": 137
       }
     },
     {
@@ -8275,7 +8275,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 135
+        "line": 138
       }
     },
     {
@@ -8292,7 +8292,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 136
+        "line": 139
       }
     },
     {
@@ -8309,7 +8309,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 137
+        "line": 140
       }
     },
     {
@@ -8326,7 +8326,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 138
+        "line": 141
       }
     },
     {
@@ -8343,7 +8343,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 142
+        "line": 145
       }
     },
     {
@@ -8360,7 +8360,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 143
+        "line": 146
       }
     },
     {
@@ -8377,7 +8377,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 144
+        "line": 147
       }
     },
     {
@@ -8394,7 +8394,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 145
+        "line": 148
       }
     },
     {
@@ -8411,7 +8411,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 146
+        "line": 149
       }
     },
     {
@@ -8428,7 +8428,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 147
+        "line": 150
       }
     },
     {
@@ -8445,7 +8445,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 148
+        "line": 151
       }
     },
     {
@@ -8462,7 +8462,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 149
+        "line": 152
       }
     },
     {
@@ -8479,7 +8479,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 150
+        "line": 153
       }
     },
     {
@@ -8496,7 +8496,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 151
+        "line": 154
       }
     },
     {
@@ -8513,7 +8513,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 155
+        "line": 158
       }
     },
     {
@@ -8530,7 +8530,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 156
+        "line": 159
       }
     },
     {
@@ -8547,7 +8547,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 157
+        "line": 160
       }
     },
     {
@@ -8564,7 +8564,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 158
+        "line": 161
       }
     },
     {
@@ -8581,7 +8581,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 159
+        "line": 162
       }
     },
     {
@@ -8598,7 +8598,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 160
+        "line": 163
       }
     },
     {
@@ -8615,7 +8615,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 161
+        "line": 164
       }
     },
     {
@@ -8632,7 +8632,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 162
+        "line": 165
       }
     },
     {
@@ -8649,7 +8649,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 163
+        "line": 166
       }
     },
     {
@@ -8666,7 +8666,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 164
+        "line": 167
       }
     },
     {
@@ -8683,7 +8683,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 165
+        "line": 168
       }
     },
     {
@@ -8700,7 +8700,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 166
+        "line": 169
       }
     },
     {
@@ -8717,7 +8717,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 167
+        "line": 170
       }
     },
     {
@@ -8734,7 +8734,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/05-web-frontend.md",
-        "line": 168
+        "line": 171
       }
     },
     {
@@ -10911,6 +10911,142 @@
       "source": {
         "file": "checklists/security/core/07-storage-and-files.md",
         "line": 78
+      }
+    },
+    {
+      "id": "security.core.07-storage-and-files.613f2a8c",
+      "text": "Inventory every way an SVG can enter: upload, avatar-from-URL, icon import, design-tool export, AI-generated markup, and every `image/svg+xml` in a MIME allow-list.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Object Storage & File Handling",
+      "section": "File / Document / Image Security",
+      "subsection": "SVG",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/07-storage-and-files.md",
+        "line": 86
+      }
+    },
+    {
+      "id": "security.core.07-storage-and-files.38c6673c",
+      "text": "Verify SVG is rasterized to PNG or WebP wherever a bitmap would do — avatars, thumbnails, previews — so the document the attacker wrote is never delivered to a browser.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Object Storage & File Handling",
+      "section": "File / Document / Image Security",
+      "subsection": "SVG",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/07-storage-and-files.md",
+        "line": 87
+      }
+    },
+    {
+      "id": "security.core.07-storage-and-files.349f4cbc",
+      "text": "Verify SVG that must stay vector goes through a sanitizer with its SVG profile enabled, and that the output has no `<script>`, no `on*` attribute, no `<foreignObject>`, no `<set>` or `<animate>` targeting `href`, and no `javascript:` or `data:` URL.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Object Storage & File Handling",
+      "section": "File / Document / Image Security",
+      "subsection": "SVG",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/07-storage-and-files.md",
+        "line": 88
+      }
+    },
+    {
+      "id": "security.core.07-storage-and-files.b8a4c5bb",
+      "text": "Verify `<use>`, `<image>`, `href` and `xlink:href` cannot point at an external or cross-origin URL — depending on where the file is rendered that is a tracking beacon or an SSRF.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Object Storage & File Handling",
+      "section": "File / Document / Image Security",
+      "subsection": "SVG",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/07-storage-and-files.md",
+        "line": 89
+      }
+    },
+    {
+      "id": "security.core.07-storage-and-files.c07c74a2",
+      "text": "Verify the XML parser that reads SVG has DTD loading and external entities disabled; SVG is XML, so XXE applies before any sanitizer sees the file.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Object Storage & File Handling",
+      "section": "File / Document / Image Security",
+      "subsection": "SVG",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/07-storage-and-files.md",
+        "line": 90
+      }
+    },
+    {
+      "id": "security.core.07-storage-and-files.c590fdee",
+      "text": "Verify user-supplied SVG is served from a separate origin, with `Content-Security-Policy: sandbox` or `Content-Disposition: attachment`, and never inlined into your own pages — a payload that survives sanitization then runs with no cookies and no DOM.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Object Storage & File Handling",
+      "section": "File / Document / Image Security",
+      "subsection": "SVG",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/07-storage-and-files.md",
+        "line": 91
+      }
+    },
+    {
+      "id": "security.core.07-storage-and-files.f0ea20ec",
+      "text": "Verify your own pages embed user SVG only through `<img>` or as a CSS background, never `<object>`, `<embed>`, `<iframe>` or inline markup; `<img>` runs no script, the others do.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Object Storage & File Handling",
+      "section": "File / Document / Image Security",
+      "subsection": "SVG",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/07-storage-and-files.md",
+        "line": 92
+      }
+    },
+    {
+      "id": "security.core.07-storage-and-files.a580432e",
+      "text": "Verify server-side SVG rendering runs in the media worker above, with dimension, element-count and nesting caps — a few nested `<use>` elements expand exponentially and need no XML entities to do it.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Object Storage & File Handling",
+      "section": "File / Document / Image Security",
+      "subsection": "SVG",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/07-storage-and-files.md",
+        "line": 93
       }
     },
     {
@@ -18360,6 +18496,74 @@
       }
     },
     {
+      "id": "security.core.14-edge-dns-waf.cc79e53f",
+      "text": "Verify the edge provider's DDoS protection is enabled for the zone, and that the origin's own network exposure is small enough that the protection cannot be walked around — see *Origin protection* above.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "DNS, CDN, Edge & WAF",
+      "section": "DNS, CDN, Edge & WAF",
+      "subsection": "WAF / rate limiting",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/14-edge-dns-waf.md",
+        "line": 64
+      }
+    },
+    {
+      "id": "security.core.14-edge-dns-waf.8cadcdb6",
+      "text": "Verify the \"under attack\" or managed-challenge mode has been switched on once in staging: who is allowed to flip it, how long it takes, and which API clients, webhooks and mobile apps break when they are challenged.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "DNS, CDN, Edge & WAF",
+      "section": "DNS, CDN, Edge & WAF",
+      "subsection": "WAF / rate limiting",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/14-edge-dns-waf.md",
+        "line": 65
+      }
+    },
+    {
+      "id": "security.core.14-edge-dns-waf.a54c01ef",
+      "text": "Verify HTTP/2 is terminated at the edge or by a server patched for rapid reset (CVE-2023-44487), and that HTTP/2 stream and connection limits are set on whatever terminates it.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "DNS, CDN, Edge & WAF",
+      "section": "DNS, CDN, Edge & WAF",
+      "subsection": "WAF / rate limiting",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/14-edge-dns-waf.md",
+        "line": 66
+      }
+    },
+    {
+      "id": "security.core.14-edge-dns-waf.47c9748e",
+      "text": "Verify the layer-7 rate limit counts what the attack costs — requests to the expensive route, not requests to the zone — and that a limit exists per authenticated identity as well as per IP.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "DNS, CDN, Edge & WAF",
+      "section": "DNS, CDN, Edge & WAF",
+      "subsection": "WAF / rate limiting",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/14-edge-dns-waf.md",
+        "line": 67
+      }
+    },
+    {
       "id": "security.core.14-edge-dns-waf.08388888",
       "text": "Enable appropriate WAF protections.",
       "domain": "security",
@@ -18373,7 +18577,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 60
+        "line": 68
       }
     },
     {
@@ -18390,7 +18594,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 61
+        "line": 69
       }
     },
     {
@@ -18407,7 +18611,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 62
+        "line": 70
       }
     },
     {
@@ -18424,7 +18628,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 63
+        "line": 71
       }
     },
     {
@@ -18441,7 +18645,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 64
+        "line": 72
       }
     },
     {
@@ -18458,7 +18662,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 65
+        "line": 73
       }
     },
     {
@@ -18475,7 +18679,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 66
+        "line": 74
       }
     },
     {
@@ -18492,7 +18696,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 67
+        "line": 75
       }
     },
     {
@@ -18509,7 +18713,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 68
+        "line": 76
       }
     },
     {
@@ -18526,7 +18730,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 69
+        "line": 77
       }
     },
     {
@@ -18543,7 +18747,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 70
+        "line": 78
       }
     },
     {
@@ -18560,7 +18764,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 71
+        "line": 79
       }
     },
     {
@@ -18577,7 +18781,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 72
+        "line": 80
       }
     },
     {
@@ -18594,7 +18798,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 73
+        "line": 81
       }
     },
     {
@@ -18611,7 +18815,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 74
+        "line": 82
       }
     },
     {
@@ -18628,7 +18832,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 75
+        "line": 83
       }
     },
     {
@@ -18645,7 +18849,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 76
+        "line": 84
       }
     },
     {
@@ -18662,7 +18866,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 77
+        "line": 85
       }
     },
     {
@@ -18679,7 +18883,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 81
+        "line": 89
       }
     },
     {
@@ -18696,7 +18900,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 82
+        "line": 90
       }
     },
     {
@@ -18713,7 +18917,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 83
+        "line": 91
       }
     },
     {
@@ -18730,7 +18934,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 84
+        "line": 92
       }
     },
     {
@@ -18747,7 +18951,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 85
+        "line": 93
       }
     },
     {
@@ -18764,7 +18968,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 86
+        "line": 94
       }
     },
     {
@@ -18781,7 +18985,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 87
+        "line": 95
       }
     },
     {
@@ -18798,7 +19002,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 88
+        "line": 96
       }
     },
     {
@@ -18815,7 +19019,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 94
+        "line": 102
       }
     },
     {
@@ -18832,7 +19036,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 95
+        "line": 103
       }
     },
     {
@@ -18849,7 +19053,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 96
+        "line": 104
       }
     },
     {
@@ -18866,7 +19070,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 97
+        "line": 105
       }
     },
     {
@@ -18883,7 +19087,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 98
+        "line": 106
       }
     },
     {
@@ -18900,7 +19104,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 99
+        "line": 107
       }
     },
     {
@@ -18917,7 +19121,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 100
+        "line": 108
       }
     },
     {
@@ -18934,7 +19138,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 101
+        "line": 109
       }
     },
     {
@@ -18951,7 +19155,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 102
+        "line": 110
       }
     },
     {
@@ -18968,7 +19172,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 103
+        "line": 111
       }
     },
     {
@@ -18985,7 +19189,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 104
+        "line": 112
       }
     },
     {
@@ -19002,7 +19206,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 105
+        "line": 113
       }
     },
     {
@@ -19019,7 +19223,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 106
+        "line": 114
       }
     },
     {
@@ -19036,7 +19240,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 107
+        "line": 115
       }
     },
     {
@@ -19053,7 +19257,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 108
+        "line": 116
       }
     },
     {
@@ -19070,7 +19274,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/14-edge-dns-waf.md",
-        "line": 109
+        "line": 117
       }
     },
     {
@@ -24816,7 +25020,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 27
+        "line": 32
       }
     },
     {
@@ -24833,7 +25037,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 28
+        "line": 33
       }
     },
     {
@@ -24850,7 +25054,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 29
+        "line": 34
       }
     },
     {
@@ -24867,7 +25071,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 30
+        "line": 35
       }
     },
     {
@@ -24884,7 +25088,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 31
+        "line": 36
       }
     },
     {
@@ -24901,7 +25105,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 32
+        "line": 37
       }
     },
     {
@@ -24918,7 +25122,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 33
+        "line": 38
       }
     },
     {
@@ -24935,7 +25139,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 34
+        "line": 39
       }
     },
     {
@@ -24952,7 +25156,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 35
+        "line": 40
       }
     },
     {
@@ -24969,7 +25173,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 36
+        "line": 41
       }
     },
     {
@@ -24986,7 +25190,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 37
+        "line": 42
       }
     },
     {
@@ -25003,7 +25207,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 38
+        "line": 43
       }
     },
     {
@@ -25020,7 +25224,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 39
+        "line": 44
       }
     },
     {
@@ -25037,7 +25241,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 40
+        "line": 45
       }
     },
     {
@@ -25054,7 +25258,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 41
+        "line": 46
       }
     },
     {
@@ -25071,7 +25275,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 42
+        "line": 47
       }
     },
     {
@@ -25088,7 +25292,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 43
+        "line": 48
       }
     },
     {
@@ -25105,7 +25309,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 54
+        "line": 59
       }
     },
     {
@@ -25122,7 +25326,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 55
+        "line": 60
       }
     },
     {
@@ -25139,7 +25343,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 56
+        "line": 61
       }
     },
     {
@@ -25156,7 +25360,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 57
+        "line": 62
       }
     },
     {
@@ -25173,7 +25377,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 58
+        "line": 63
       }
     },
     {
@@ -25190,7 +25394,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 59
+        "line": 64
       }
     },
     {
@@ -25207,7 +25411,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 60
+        "line": 65
       }
     },
     {
@@ -25224,7 +25428,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 61
+        "line": 66
       }
     },
     {
@@ -25241,7 +25445,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 62
+        "line": 67
       }
     },
     {
@@ -25258,7 +25462,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 63
+        "line": 68
       }
     },
     {
@@ -25275,7 +25479,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 67
+        "line": 72
       }
     },
     {
@@ -25292,7 +25496,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 68
+        "line": 73
       }
     },
     {
@@ -25309,7 +25513,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 69
+        "line": 74
       }
     },
     {
@@ -25326,7 +25530,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 70
+        "line": 75
       }
     },
     {
@@ -25343,7 +25547,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 71
+        "line": 76
       }
     },
     {
@@ -25360,7 +25564,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 72
+        "line": 77
       }
     },
     {
@@ -25377,7 +25581,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 73
+        "line": 78
       }
     },
     {
@@ -25394,7 +25598,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 74
+        "line": 79
       }
     },
     {
@@ -25411,7 +25615,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 78
+        "line": 83
       }
     },
     {
@@ -25428,7 +25632,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 79
+        "line": 84
       }
     },
     {
@@ -25445,7 +25649,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 80
+        "line": 85
       }
     },
     {
@@ -25462,7 +25666,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 81
+        "line": 86
       }
     },
     {
@@ -25479,7 +25683,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 82
+        "line": 87
       }
     },
     {
@@ -25496,7 +25700,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 83
+        "line": 88
       }
     },
     {
@@ -25513,7 +25717,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 84
+        "line": 89
       }
     },
     {
@@ -25530,7 +25734,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 85
+        "line": 90
       }
     },
     {
@@ -25547,7 +25751,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 94
+        "line": 99
       }
     },
     {
@@ -25564,7 +25768,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 95
+        "line": 100
       }
     },
     {
@@ -25581,7 +25785,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 96
+        "line": 101
       }
     },
     {
@@ -25598,7 +25802,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 97
+        "line": 102
       }
     },
     {
@@ -25615,7 +25819,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 98
+        "line": 103
       }
     },
     {
@@ -25632,7 +25836,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 99
+        "line": 104
       }
     },
     {
@@ -25649,7 +25853,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 100
+        "line": 105
       }
     },
     {
@@ -25666,7 +25870,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 101
+        "line": 106
       }
     },
     {
@@ -25683,7 +25887,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 102
+        "line": 107
       }
     },
     {
@@ -25700,7 +25904,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/18-abuse-and-availability.md",
-        "line": 103
+        "line": 108
       }
     },
     {
@@ -32007,7 +32211,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 91
+        "line": 93
       }
     },
     {
@@ -71519,6 +71723,108 @@
       }
     },
     {
+      "id": "stacks.nestjs.43f8a22e",
+      "text": "Verify `tsconfig.json` has `strict: true`; without `strictNullChecks` an `undefined` user id type-checks and reaches the query.",
+      "domain": "security",
+      "area": null,
+      "checklist": "NestJS",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "lead": null,
+      "stack": "NestJS",
+      "stack_id": "nestjs",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nestjs.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "stacks.nestjs.6eebb2ad",
+      "text": "Search for `as any`, `: any`, `@ts-ignore` and `@ts-expect-error` in guards, interceptors, pipes and anything that reads `request.user` — a cast there removes the only check the compiler was making.",
+      "domain": "security",
+      "area": null,
+      "checklist": "NestJS",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "lead": null,
+      "stack": "NestJS",
+      "stack_id": "nestjs",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nestjs.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "stacks.nestjs.5bd24d23",
+      "text": "Verify every controller parameter that comes from the request is a DTO class with `class-validator` decorators, not an `interface` or `type` — types are erased at build time and `ValidationPipe` can only enforce what a decorator declares.",
+      "domain": "security",
+      "area": null,
+      "checklist": "NestJS",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "lead": null,
+      "stack": "NestJS",
+      "stack_id": "nestjs",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nestjs.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "stacks.nestjs.ad933829",
+      "text": "Verify `ValidationPipe` runs with `whitelist: true`, `forbidNonWhitelisted: true` and `transform: true`, and that `forbidUnknownValues` has not been set to `false` — an undecorated DTO otherwise accepts anything.",
+      "domain": "security",
+      "area": null,
+      "checklist": "NestJS",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "lead": null,
+      "stack": "NestJS",
+      "stack_id": "nestjs",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nestjs.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "stacks.nestjs.ebdc1845",
+      "text": "Verify `@ValidateNested()` and `@Type(() => Child)` are both present on every nested DTO property; with either one missing the nested object is never validated.",
+      "domain": "security",
+      "area": null,
+      "checklist": "NestJS",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "lead": null,
+      "stack": "NestJS",
+      "stack_id": "nestjs",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nestjs.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "stacks.nestjs.e50a1a23",
+      "text": "Verify the result of `JSON.parse`, `JwtService.verify`, a queue payload and a webhook body is validated at runtime before it is used as its declared type — a TypeScript assertion is a promise, not a check.",
+      "domain": "security",
+      "area": null,
+      "checklist": "NestJS",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "lead": null,
+      "stack": "NestJS",
+      "stack_id": "nestjs",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nestjs.md",
+        "line": 20
+      }
+    },
+    {
       "id": "stacks.nestjs.cae92377",
       "text": "NestJS source audit complete.",
       "domain": "security",
@@ -71532,7 +71838,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/stacks/nestjs.md",
-        "line": 19
+        "line": 25
       }
     },
     {
@@ -71549,7 +71855,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nestjs.md",
-        "line": 24
+        "line": 30
       }
     },
     {
@@ -71566,7 +71872,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nestjs.md",
-        "line": 25
+        "line": 31
       }
     },
     {
@@ -71706,6 +72012,74 @@
       }
     },
     {
+      "id": "stacks.nextjs-react.2777cd60",
+      "text": "Verify `tsconfig.json` has `strict: true` and `next.config` does not set `typescript.ignoreBuildErrors`; a build that ships over a type error has no type safety at all.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "Web Frontend",
+      "subsection": null,
+      "lead": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.b880e4f0",
+      "text": "Verify Server Action and Route Handler arguments are parsed with a runtime schema before use — the `FormData` and JSON a client sends carry no types, and the TypeScript signature only describes what you hoped for.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "Web Frontend",
+      "subsection": null,
+      "lead": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 21
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.aa7a1014",
+      "text": "Search for `as any`, `as unknown as` and non-null assertions on values that came from `searchParams`, `params`, cookies or headers; at runtime they are `string | string[] | undefined` whatever the cast says.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "Web Frontend",
+      "subsection": null,
+      "lead": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "stacks.nextjs-react.cabfff25",
+      "text": "Verify `searchParams` values are checked to be a single string before use — `?id=a&id=b` arrives as an array, and a query built from it does not fail, it does something else.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Next.js / React",
+      "section": "Web Frontend",
+      "subsection": null,
+      "lead": null,
+      "stack": "Next.js / React",
+      "stack_id": "nextjs-react",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/nextjs-react.md",
+        "line": 23
+      }
+    },
+    {
       "id": "stacks.nextjs-react.c76dc0c0",
       "text": "Inventory all Server Actions.",
       "domain": "security",
@@ -71719,7 +72093,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 20
+        "line": 24
       }
     },
     {
@@ -71736,7 +72110,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 21
+        "line": 25
       }
     },
     {
@@ -71753,7 +72127,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 22
+        "line": 26
       }
     },
     {
@@ -71770,7 +72144,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 23
+        "line": 27
       }
     },
     {
@@ -71787,7 +72161,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 24
+        "line": 28
       }
     },
     {
@@ -71804,7 +72178,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 25
+        "line": 29
       }
     },
     {
@@ -71821,7 +72195,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 30
+        "line": 34
       }
     },
     {
@@ -71838,7 +72212,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 35
+        "line": 39
       }
     },
     {
@@ -71855,7 +72229,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 36
+        "line": 40
       }
     },
     {
@@ -71872,7 +72246,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 37
+        "line": 41
       }
     },
     {
@@ -71889,7 +72263,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 38
+        "line": 42
       }
     },
     {
@@ -71906,7 +72280,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 39
+        "line": 43
       }
     },
     {
@@ -71923,7 +72297,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 40
+        "line": 44
       }
     },
     {
@@ -71940,7 +72314,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 45
+        "line": 49
       }
     },
     {
@@ -71957,7 +72331,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 52
+        "line": 56
       }
     },
     {
@@ -71974,7 +72348,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 57
+        "line": 61
       }
     },
     {
@@ -71991,7 +72365,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 58
+        "line": 62
       }
     },
     {
@@ -72008,7 +72382,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 59
+        "line": 63
       }
     },
     {
@@ -72025,7 +72399,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 60
+        "line": 64
       }
     },
     {
@@ -72042,7 +72416,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 61
+        "line": 65
       }
     },
     {
@@ -72059,7 +72433,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 62
+        "line": 66
       }
     },
     {
@@ -72076,7 +72450,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 67
+        "line": 71
       }
     },
     {
@@ -72093,7 +72467,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 68
+        "line": 72
       }
     },
     {
@@ -72110,7 +72484,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 69
+        "line": 73
       }
     },
     {
@@ -72127,7 +72501,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 70
+        "line": 74
       }
     },
     {
@@ -72144,7 +72518,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 75
+        "line": 79
       }
     },
     {
@@ -72161,7 +72535,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 76
+        "line": 80
       }
     },
     {
@@ -72178,7 +72552,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 77
+        "line": 81
       }
     },
     {
@@ -72195,7 +72569,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 78
+        "line": 82
       }
     },
     {
@@ -72212,7 +72586,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 83
+        "line": 87
       }
     },
     {
@@ -72229,7 +72603,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 84
+        "line": 88
       }
     },
     {
@@ -72246,7 +72620,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 85
+        "line": 89
       }
     },
     {
@@ -72263,7 +72637,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 86
+        "line": 90
       }
     },
     {
@@ -72280,7 +72654,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 91
+        "line": 95
       }
     },
     {
@@ -72297,7 +72671,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/nextjs-react.md",
-        "line": 92
+        "line": 96
       }
     },
     {

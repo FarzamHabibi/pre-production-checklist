@@ -85,6 +85,9 @@ Next.js guidance explicitly recommends keeping the strongest authorization check
 * [ ] Verify sanitizer configuration is secure.
 * [ ] Verify URL protocols are allowlisted.
 * [ ] Verify SVG handling.
+
+What safe SVG handling looks like — rasterize, sanitize, serve off-origin, embed only via `<img>` — is itemized in the SVG section of [`07-storage-and-files.md`](07-storage-and-files.md).
+
 * [ ] Verify embedded iframe origins.
 * [ ] Verify postMessage origin validation.
 * [ ] Verify message event data validation.

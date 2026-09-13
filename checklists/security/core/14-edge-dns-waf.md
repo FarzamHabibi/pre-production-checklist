@@ -57,6 +57,14 @@ Cloudflare documents Full (strict) for validated encrypted origin connections an
 
 ### WAF / rate limiting
 
+The DDoS items. Layer 3 and 4 floods are the provider's job and you can only check that
+the protection is on and that the origin is not reachable around it; layer 7 is yours,
+and the application-side half is in [`18-abuse-and-availability.md`](18-abuse-and-availability.md).
+
+* [ ] Verify the edge provider's DDoS protection is enabled for the zone, and that the origin's own network exposure is small enough that the protection cannot be walked around — see *Origin protection* above.
+* [ ] Verify the "under attack" or managed-challenge mode has been switched on once in staging: who is allowed to flip it, how long it takes, and which API clients, webhooks and mobile apps break when they are challenged.
+* [ ] Verify HTTP/2 is terminated at the edge or by a server patched for rapid reset (CVE-2023-44487), and that HTTP/2 stream and connection limits are set on whatever terminates it.
+* [ ] Verify the layer-7 rate limit counts what the attack costs — requests to the expensive route, not requests to the zone — and that a limit exists per authenticated identity as well as per IP.
 * [ ] Enable appropriate WAF protections.
 * [ ] Review custom WAF rules.
 * [ ] Review exclusions.

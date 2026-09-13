@@ -76,3 +76,18 @@ Supabase Storage uses Postgres RLS for access control on `storage.objects`; list
 * [ ] Verify malicious file test cases.
 * [ ] Verify content-disposition.
 * [ ] Verify browser execution behavior.
+
+### SVG
+
+An SVG is an XML document the browser executes, not an image it decodes. It can carry
+`<script>`, event handlers, external references and the whole XML parser's attack
+surface, and every MIME allow-list that says `image/svg+xml` lets it in as a picture.
+
+* [ ] Inventory every way an SVG can enter: upload, avatar-from-URL, icon import, design-tool export, AI-generated markup, and every `image/svg+xml` in a MIME allow-list.
+* [ ] Verify SVG is rasterized to PNG or WebP wherever a bitmap would do — avatars, thumbnails, previews — so the document the attacker wrote is never delivered to a browser.
+* [ ] Verify SVG that must stay vector goes through a sanitizer with its SVG profile enabled, and that the output has no `<script>`, no `on*` attribute, no `<foreignObject>`, no `<set>` or `<animate>` targeting `href`, and no `javascript:` or `data:` URL.
+* [ ] Verify `<use>`, `<image>`, `href` and `xlink:href` cannot point at an external or cross-origin URL — depending on where the file is rendered that is a tracking beacon or an SSRF.
+* [ ] Verify the XML parser that reads SVG has DTD loading and external entities disabled; SVG is XML, so XXE applies before any sanitizer sees the file.
+* [ ] Verify user-supplied SVG is served from a separate origin, with `Content-Security-Policy: sandbox` or `Content-Disposition: attachment`, and never inlined into your own pages — a payload that survives sanitization then runs with no cookies and no DOM.
+* [ ] Verify your own pages embed user SVG only through `<img>` or as a CSS background, never `<object>`, `<embed>`, `<iframe>` or inline markup; `<img>` runs no script, the others do.
+* [ ] Verify server-side SVG rendering runs in the media worker above, with dimension, element-count and nesting caps — a few nested `<use>` elements expand exponentially and need no XML entities to do it.

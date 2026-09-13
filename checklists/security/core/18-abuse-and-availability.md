@@ -18,6 +18,11 @@ suspension by shipping a patch.
 
 ## Resource exhaustion
 
+This is the denial-of-service section — DoS and DDoS at the application layer, where one
+cheap request costs you an expensive one. Volumetric floods at layers 3 and 4 are
+absorbed by your edge provider or not at all; the items for that are under *WAF / rate
+limiting* in [`14-edge-dns-waf.md`](14-edge-dns-waf.md).
+
 Rate limiting on authentication endpoints lives in
 [`04-backend-api.md`](04-backend-api.md); edge rate limiting and WAF rules live in
 [`14-edge-dns-waf.md`](14-edge-dns-waf.md); instance and quota caps live in

@@ -88,4 +88,6 @@ OWASP's newer Agentic Top 10 explicitly identifies unexpected code execution as 
 * [ ] AI output cannot manipulate browser storage.
 * [ ] AI output cannot produce arbitrary DOM.
 * [ ] CSP remains effective.
+
+Treat AI-generated SVG as an upload: the SVG section of [`security/core/07-storage-and-files.md`](../core/07-storage-and-files.md) applies unchanged, and a model will emit `<foreignObject>` and an `href` to an external host without being asked.
 * [ ] Trusted Types are considered where appropriate.

@@ -91,3 +91,51 @@ advice, and the measurable form (the lag is recorded) is already above. **Deferr
 declined: a headless-browser section (PDF export, previews, scraping run attacker HTML in
 Chromium) and an Electron stack supplement; both are real, both are a minority of readers,
 and Electron is a new stack rather than a few items.
+
+---
+
+## SVG, denial of service by name, and type safety at the boundary
+
+**Found** 13 September 2026, asked directly: does the list cover SVG, input validation,
+types and DDoS?
+
+**What was searched.** `checklists/` for `\bsvg\b`, `ddos|denial|volumetric|slowloris|
+rapid reset`, `input validation|ValidationPipe|allowlist|zod|class-validator`, and
+`strict|any|type confusion|coercion|mass assignment|prototype pollution|runtime schema`.
+
+Input validation was strong — seventeen concrete items under *Validation / parsing* in
+`security/core/04-backend-api.md` plus the test list in
+`security/ai-generated-code/03-backend-frontend-api.md` — and needed nothing.
+
+SVG returned four bare lines, one each in `security/core/04`, `05`, `07` and
+`security/ai/05`: "Verify SVG handling." with no how. Nothing said rasterize, sanitize
+with an SVG profile, strip `<foreignObject>` and external `href`, disable DTD loading,
+serve off-origin, embed only via `<img>`. For a list whose readers accept avatars and
+render model output, that is the one file type the bitmap rules do not cover.
+
+DDoS was covered in substance across `security/core/18`, `14` and `04` — resource
+exhaustion, origin protection, rate limits — and the word appeared in no file. Anyone
+searching the list, the JSON or the MCP output for the term they know found nothing.
+
+Type safety appeared only as consequences: type confusion, coercion, mass assignment,
+prototype pollution, and one `ai-generated-code` line about `any`. The cause — that a
+TypeScript type is erased at build time and enforces nothing at the request boundary —
+was not an item anywhere. It is stack-specific by nature, which is why it was missing
+from the core files and belongs in the supplements.
+
+**Decision, 13 September 2026 — filled.**
+
+* `security/core/07-storage-and-files.md` — an *SVG* subsection, eight items; `05` and
+  `security/ai/05` point at it in prose so the existing bare lines keep their ids.
+* `security/core/18-abuse-and-availability.md` and `14-edge-dns-waf.md` — each names
+  itself as the DoS/DDoS section and says which layer it owns; `14` gains four items
+  (provider protection on, challenge mode rehearsed, HTTP/2 rapid reset, limit counts
+  cost not requests).
+* `stacks/nestjs.md` and `stacks/nextjs-react.md` — `strict`, the `any` and
+  `@ts-ignore` grep, DTO classes over interfaces, the `ValidationPipe` flags, nested
+  DTO decorators, runtime schema on `searchParams`, `FormData`, `JSON.parse` and
+  webhook bodies.
+
+**Declined.** A core-domain item about TypeScript `strict` — rule 4, it only makes sense
+when a product is named. Anything about XSS through SVG in *other* people's sites,
+which is the reader's problem only when they host the file.

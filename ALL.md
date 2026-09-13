@@ -597,6 +597,9 @@ Next.js guidance explicitly recommends keeping the strongest authorization check
 * [ ] Verify sanitizer configuration is secure.
 * [ ] Verify URL protocols are allowlisted.
 * [ ] Verify SVG handling.
+
+What safe SVG handling looks like — rasterize, sanitize, serve off-origin, embed only via `<img>` — is itemized in the SVG section of [`07-storage-and-files.md`](checklists/security/core/07-storage-and-files.md).
+
 * [ ] Verify embedded iframe origins.
 * [ ] Verify postMessage origin validation.
 * [ ] Verify message event data validation.
@@ -850,6 +853,21 @@ Supabase Storage uses Postgres RLS for access control on `storage.objects`; list
 * [ ] Verify malicious file test cases.
 * [ ] Verify content-disposition.
 * [ ] Verify browser execution behavior.
+
+### SVG
+
+An SVG is an XML document the browser executes, not an image it decodes. It can carry
+`<script>`, event handlers, external references and the whole XML parser's attack
+surface, and every MIME allow-list that says `image/svg+xml` lets it in as a picture.
+
+* [ ] Inventory every way an SVG can enter: upload, avatar-from-URL, icon import, design-tool export, AI-generated markup, and every `image/svg+xml` in a MIME allow-list.
+* [ ] Verify SVG is rasterized to PNG or WebP wherever a bitmap would do — avatars, thumbnails, previews — so the document the attacker wrote is never delivered to a browser.
+* [ ] Verify SVG that must stay vector goes through a sanitizer with its SVG profile enabled, and that the output has no `<script>`, no `on*` attribute, no `<foreignObject>`, no `<set>` or `<animate>` targeting `href`, and no `javascript:` or `data:` URL.
+* [ ] Verify `<use>`, `<image>`, `href` and `xlink:href` cannot point at an external or cross-origin URL — depending on where the file is rendered that is a tracking beacon or an SSRF.
+* [ ] Verify the XML parser that reads SVG has DTD loading and external entities disabled; SVG is XML, so XXE applies before any sanitizer sees the file.
+* [ ] Verify user-supplied SVG is served from a separate origin, with `Content-Security-Policy: sandbox` or `Content-Disposition: attachment`, and never inlined into your own pages — a payload that survives sanitization then runs with no cookies and no DOM.
+* [ ] Verify your own pages embed user SVG only through `<img>` or as a CSS background, never `<object>`, `<embed>`, `<iframe>` or inline markup; `<img>` runs no script, the others do.
+* [ ] Verify server-side SVG rendering runs in the media worker above, with dimension, element-count and nesting caps — a few nested `<use>` elements expand exponentially and need no XML entities to do it.
 
 
 ### Secrets Management & Cryptography
@@ -1473,6 +1491,14 @@ Cloudflare documents Full (strict) for validated encrypted origin connections an
 
 ### WAF / rate limiting
 
+The DDoS items. Layer 3 and 4 floods are the provider's job and you can only check that
+the protection is on and that the origin is not reachable around it; layer 7 is yours,
+and the application-side half is in [`18-abuse-and-availability.md`](checklists/security/core/18-abuse-and-availability.md).
+
+* [ ] Verify the edge provider's DDoS protection is enabled for the zone, and that the origin's own network exposure is small enough that the protection cannot be walked around — see *Origin protection* above.
+* [ ] Verify the "under attack" or managed-challenge mode has been switched on once in staging: who is allowed to flip it, how long it takes, and which API clients, webhooks and mobile apps break when they are challenged.
+* [ ] Verify HTTP/2 is terminated at the edge or by a server patched for rapid reset (CVE-2023-44487), and that HTTP/2 stream and connection limits are set on whatever terminates it.
+* [ ] Verify the layer-7 rate limit counts what the attack costs — requests to the expensive route, not requests to the zone — and that a limit exists per authenticated identity as well as per IP.
 * [ ] Enable appropriate WAF protections.
 * [ ] Review custom WAF rules.
 * [ ] Review exclusions.
@@ -2032,6 +2058,11 @@ suspension by shipping a patch.
 ---
 
 ## Resource exhaustion
+
+This is the denial-of-service section — DoS and DDoS at the application layer, where one
+cheap request costs you an expensive one. Volumetric floods at layers 3 and 4 are
+absorbed by your edge provider or not at all; the items for that are under *WAF / rate
+limiting* in [`14-edge-dns-waf.md`](checklists/security/core/14-edge-dns-waf.md).
 
 Rate limiting on authentication endpoints lives in
 [`04-backend-api.md`](checklists/security/core/04-backend-api.md); edge rate limiting and WAF rules live in
@@ -2638,6 +2669,8 @@ OWASP's newer Agentic Top 10 explicitly identifies unexpected code execution as 
 * [ ] AI output cannot manipulate browser storage.
 * [ ] AI output cannot produce arbitrary DOM.
 * [ ] CSP remains effective.
+
+Treat AI-generated SVG as an upload: the SVG section of [`security/core/07-storage-and-files.md`](checklists/security/core/07-storage-and-files.md) applies unchanged, and a model will emit `<foreignObject>` and an `href` to an external host without being asked.
 * [ ] Trusted Types are considered where appropriate.
 
 
@@ -6995,6 +7028,12 @@ Items from the core checklists that are specific to **NestJS**. If you do not us
 * [ ] Confirm whether NestJS uses Express or Fastify and review middleware/security differences.
 * [ ] Verify HTTP request smuggling/desynchronization exposure between Cloudflare → load balancer → Cloud Run → NestJS is reviewed.
 * [ ] Verify every external DTO is validated.
+* [ ] Verify `tsconfig.json` has `strict: true`; without `strictNullChecks` an `undefined` user id type-checks and reaches the query.
+* [ ] Search for `as any`, `: any`, `@ts-ignore` and `@ts-expect-error` in guards, interceptors, pipes and anything that reads `request.user` — a cast there removes the only check the compiler was making.
+* [ ] Verify every controller parameter that comes from the request is a DTO class with `class-validator` decorators, not an `interface` or `type` — types are erased at build time and `ValidationPipe` can only enforce what a decorator declares.
+* [ ] Verify `ValidationPipe` runs with `whitelist: true`, `forbidNonWhitelisted: true` and `transform: true`, and that `forbidUnknownValues` has not been set to `false` — an undecorated DTO otherwise accepts anything.
+* [ ] Verify `@ValidateNested()` and `@Type(() => Child)` are both present on every nested DTO property; with either one missing the nested object is never validated.
+* [ ] Verify the result of `JSON.parse`, `JwtService.verify`, a queue payload and a webhook body is validated at runtime before it is used as its declared type — a TypeScript assertion is a promise, not a check.
 
 ## Pre-Release Gates
 <sub>from [`security/core/17-release-gates.md`](checklists/security/core/17-release-gates.md)</sub>
@@ -7026,6 +7065,10 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 * [ ] Verify authentication decisions are not performed only in client components.
 * [ ] Verify sensitive data is not passed to Client Components unnecessarily.
 * [ ] Verify `nextUrl` values are not trusted blindly.
+* [ ] Verify `tsconfig.json` has `strict: true` and `next.config` does not set `typescript.ignoreBuildErrors`; a build that ships over a type error has no type safety at all.
+* [ ] Verify Server Action and Route Handler arguments are parsed with a runtime schema before use — the `FormData` and JSON a client sends carry no types, and the TypeScript signature only describes what you hoped for.
+* [ ] Search for `as any`, `as unknown as` and non-null assertions on values that came from `searchParams`, `params`, cookies or headers; at runtime they are `string | string[] | undefined` whatever the cast says.
+* [ ] Verify `searchParams` values are checked to be a single string before use — `?id=a&id=b` arrives as an array, and a query built from it does not fail, it does something else.
 * [ ] Inventory all Server Actions.
 * [ ] Treat every Server Action as remotely invokable.
 * [ ] Search for `dangerouslySetInnerHTML`.

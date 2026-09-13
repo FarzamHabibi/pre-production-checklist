@@ -5,16 +5,16 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**4,372 items** · 3,830 of them (88%) name no product at all.
+**4,394 items** · 3,842 of them (87%) name no product at all.
 
 | Domain | Items | |
 | --- | ---: | --- |
-| [**Security**](#security) | 3,324 | Not getting breached, abused, or taken down. |
+| [**Security**](#security) | 3,346 | Not getting breached, abused, or taken down. |
 | [**Scale**](#scale) | 301 | Surviving ten times the load, and knowing what breaks first. |
 | [**Performance**](#performance) | 338 | Being fast for a real user, with Lighthouse agreeing. |
 | [**Integrations**](#integrations) | 200 | Being connected: search, analytics, monitoring. |
 | [**Post-launch**](#post-launch) | 209 | When it goes wrong anyway: is the response already decided? |
-| [Stack supplements](#stack-supplements) | 542 | 26 products, only if you use them |
+| [Stack supplements](#stack-supplements) | 552 | 26 products, only if you use them |
 
 ---
 
@@ -36,19 +36,19 @@ Application, data, infrastructure, delivery and the release gates.
 | [Backend Application & API](security/core/04-backend-api.md) | 223 |
 | [Web Frontend](security/core/05-web-frontend.md) | 127 |
 | [Database & Row-Level Security](security/core/06-database.md) | 68 |
-| [Object Storage & File Handling](security/core/07-storage-and-files.md) | 60 |
+| [Object Storage & File Handling](security/core/07-storage-and-files.md) | 68 |
 | [Secrets Management & Cryptography](security/core/08-secrets-and-crypto.md) | 47 |
 | [Common Web Attack Classes](security/core/09-common-web-attacks.md) | 62 |
 | [Business Logic & Race Conditions](security/core/10-business-logic.md) | 44 |
 | [Mobile Applications](security/core/11-mobile-apps.md) | 106 |
 | [Desktop Applications](security/core/12-desktop-apps.md) | 41 |
 | [Runtime, Containers & Hosting](security/core/13-runtime-and-containers.md) | 102 |
-| [DNS, CDN, Edge & WAF](security/core/14-edge-dns-waf.md) | 78 |
+| [DNS, CDN, Edge & WAF](security/core/14-edge-dns-waf.md) | 82 |
 | [CI/CD & Supply Chain](security/core/15-ci-cd-and-supply-chain.md) | 158 |
 | [Monitoring, Detection & Incident Response](security/core/16-monitoring-and-response.md) | 30 |
 | [Pre-Release Gates](security/core/17-release-gates.md) | 149 |
 | [Abuse & Availability](security/core/18-abuse-and-availability.md) | 53 |
-| **Total** | **1,505** |
+| **Total** | **1,517** |
 
 ### AI & agents
 
@@ -195,8 +195,8 @@ One file per product, spanning every domain: each section says which checklist i
 | [Kubernetes](stacks/kubernetes.md) | 25 |
 | [Laravel](stacks/laravel.md) | 23 |
 | [macOS](stacks/macos.md) | 5 |
-| [NestJS](stacks/nestjs.md) | 6 |
-| [Next.js / React](stacks/nextjs-react.md) | 43 |
+| [NestJS](stacks/nestjs.md) | 12 |
+| [Next.js / React](stacks/nextjs-react.md) | 47 |
 | [PostgreSQL](stacks/postgres.md) | 4 |
 | [Ruby on Rails](stacks/rails.md) | 30 |
 | [React Native](stacks/react-native.md) | 16 |
@@ -204,7 +204,7 @@ One file per product, spanning every domain: each section says which checklist i
 | [Stripe](stacks/stripe.md) | 20 |
 | [Supabase](stacks/supabase.md) | 23 |
 | [Vercel](stacks/vercel.md) | 13 |
-| **Total** | **542** |
+| **Total** | **552** |
 
 ---
 

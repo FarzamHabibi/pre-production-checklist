@@ -17,6 +17,10 @@ Items from the core checklists that are specific to **Next.js / React**. If you 
 * [ ] Verify authentication decisions are not performed only in client components.
 * [ ] Verify sensitive data is not passed to Client Components unnecessarily.
 * [ ] Verify `nextUrl` values are not trusted blindly.
+* [ ] Verify `tsconfig.json` has `strict: true` and `next.config` does not set `typescript.ignoreBuildErrors`; a build that ships over a type error has no type safety at all.
+* [ ] Verify Server Action and Route Handler arguments are parsed with a runtime schema before use — the `FormData` and JSON a client sends carry no types, and the TypeScript signature only describes what you hoped for.
+* [ ] Search for `as any`, `as unknown as` and non-null assertions on values that came from `searchParams`, `params`, cookies or headers; at runtime they are `string | string[] | undefined` whatever the cast says.
+* [ ] Verify `searchParams` values are checked to be a single string before use — `?id=a&id=b` arrives as an array, and a query built from it does not fail, it does something else.
 * [ ] Inventory all Server Actions.
 * [ ] Treat every Server Action as remotely invokable.
 * [ ] Search for `dangerouslySetInnerHTML`.
