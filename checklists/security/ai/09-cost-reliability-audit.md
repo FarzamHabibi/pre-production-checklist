@@ -54,6 +54,7 @@ OWASP's 2025 list explicitly expands resource-exhaustion concerns into "Unbounde
 * [ ] Verify malformed structured outputs fail closed.
 * [ ] Verify model refusal does not accidentally grant access.
 * [ ] Verify model availability is not treated as an authorization control.
+* [ ] Verify a provider billing failure (HTTP 402, or a 403 or 429 whose body names billing or credits) is told apart from a rate limit — it is account-wide, so it alerts the operators at once, releases any credit hold on the user, and tells the user the feature is unavailable and they were not charged.
 
 OWASP includes misinformation/overreliance because incorrect model output can become a security problem when downstream systems trust it.
 ---

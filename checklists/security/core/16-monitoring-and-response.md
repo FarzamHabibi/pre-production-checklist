@@ -27,6 +27,7 @@ You will not fix what you cannot see.
 * [ ] Monitor unexpected origin requests.
 * [ ] Monitor secrets-access anomalies.
 * [ ] Alert on direct-origin traffic where it should not occur.
+* [ ] Verify the process handles unhandled promise rejections and uncaught exceptions by logging the error's class and a fixed description, never the raw error object — a database or cache client's error can carry the command it was running, password included.
 ---
 
 ## Incident Response

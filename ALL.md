@@ -97,6 +97,11 @@ The largest source of real, exploitable bugs in small products. Read this even i
 * [ ] Test authorization on retries and idempotency flows.
 * [ ] Test authorization during race conditions.
 * [ ] Test authorization when resource ownership changes concurrently.
+* [ ] Verify suspending or banning an account takes effect at once on every credential it holds — live sessions, refresh tokens, API keys and personal access tokens — not only at the next login.
+* [ ] Verify an auth guard that tries several credential types re-throws an authorization failure instead of falling through to the next type; a catch-all turns "this account is banned" into a successful request on the API-key path.
+* [ ] Verify the admin user list reads the identity provider's user table, not only your own profile table — an account that signed up but never got a profile row is invisible to the people who would have to suspend it.
+* [ ] Verify every account with admin or staff rights inside the product is enrolled in MFA, and that the admin API enforces it server-side rather than the admin UI alone.
+* [ ] Verify granting admin rights needs a source the application cannot write to itself — an environment secret, an IAM group, a separate allowlist — so one database write cannot create an admin.
 ---
 
 ## Managed Authentication Provider
@@ -198,6 +203,8 @@ For every sensitive object:
 * [ ] Verify login CSRF protection.
 * [ ] Verify logout semantics.
 * [ ] Verify provider disconnect.
+* [ ] Verify disconnecting a provider deletes the stored access and refresh tokens, not only the link, and revokes the grant at the provider where it offers a revocation endpoint.
+* [ ] Verify a token refresh job reads the connection's status before writing, so it never revives a connection the user disconnected or the provider revoked.
 * [ ] Verify identity removal.
 * [ ] Verify email verification assumptions.
 * [ ] Verify external-provider account takeover scenarios.
@@ -509,6 +516,7 @@ OWASP specifically identifies SSRF, broken object authorization, broken authenti
 * [ ] Verify asynchronous processing cannot be poisoned.
 * [ ] Verify malformed events cannot create queue exhaustion.
 * [ ] Verify webhook retries cannot create duplicate financial/security operations.
+* [ ] Verify that when the store enforcing webhook idempotency (Redis, a dedupe table) is unreachable or refusing commands, handlers that move money refuse the event so the sender retries, rather than processing it without a duplicate check — and that the API still boots and its health check reports the store as down.
 
 
 ### Web Frontend
@@ -701,6 +709,8 @@ Row-level security is the single highest-leverage control for multi-tenant produ
 * [ ] Identify every table accessible by `authenticated`.
 * [ ] Verify privileges and RLS policies are reviewed together.
 * [ ] Verify adding RLS policies did not leave unintended grants.
+* [ ] Verify each table's RLS policies are created in the same migration that creates the table, not in a separate SQL file someone runs by hand — a hand-run file drifts from production and nobody notices.
+* [ ] Verify the policies live in production match the repository — dump `pg_policies` from production and diff it against the migrations before launch and after any manual change in a database console.
 * [ ] Verify SELECT policies.
 * [ ] Verify INSERT policies.
 * [ ] Verify UPDATE policies.
@@ -905,6 +915,8 @@ surface, and every MIME allow-list that says `image/svg+xml` lets it in as a pic
 * [ ] Verify secrets cannot be retrieved through debug endpoints.
 * [ ] Test secret rotation.
 * [ ] Test compromised-secret response.
+* [ ] Verify credentials users hand you for their own accounts (OAuth tokens, API keys) are encrypted at rest with a key the database does not hold, and that a failed encryption refuses the save rather than storing plaintext.
+* [ ] Verify an endpoint that tests a credential before saving stores nothing, answers only pass or fail — no prefix, length or provider error text derived from the secret — and runs the same validation and allowlist as the save path first.
 ---
 
 ## Cryptography
@@ -1065,6 +1077,11 @@ Scanners cannot find these. Only you know what your product is supposed to allow
 * [ ] Test export abuse.
 * [ ] Test mass enumeration.
 * [ ] Test resource exhaustion through legitimate functionality.
+* [ ] Verify notifications, loyalty points, outgoing webhooks and automations fire only after payment is confirmed, never when a checkout is created — an abandoned checkout must leave nothing a buyer or seller can see.
+* [ ] Verify an abandoned or expired checkout releases the stock, seats or slots it reserved.
+* [ ] Verify a zero-priced item takes a path that never calls the payment gateway, and that it grants exactly what the paid path grants and nothing more.
+* [ ] Verify a reconciliation or repair sweep treats every terminal state (delivered, ended, refunded, revoked) as finished, so running it twice changes nothing and announces nothing twice.
+* [ ] Verify that releasing a quota or usage counter writes nothing when it fails — an error path that resets usage to zero gives the account an unlimited quota.
 ---
 
 ## Race Conditions
@@ -1149,6 +1166,7 @@ Apple's Keychain is intended for securely storing sensitive small data; Secure E
 * [ ] Verify redirects cannot downgrade security.
 * [ ] Verify authentication headers are not logged.
 * [ ] Verify tokens are not sent to unintended hosts.
+* [ ] Verify a bearer token added by an interceptor or a default header is not attached to a request that a redirect sent to another host — an interceptor that adds the token to every outgoing request adds it to the redirected one too; test with a redirect to a host you control.
 * [ ] Verify API endpoints are environment-specific.
 * [ ] Verify development/staging endpoints cannot ship in production.
 
@@ -1712,6 +1730,8 @@ GitHub documents OIDC subject/audience claims and recommends conditions so untru
 * [ ] Verify deployments are auditable.
 * [ ] Verify deployment actor identity is logged.
 * [ ] Verify failed deployments do not leave partially privileged infrastructure changes.
+* [ ] Verify a deploy is confirmed by reading the version from what is taking traffic — a `/version` endpoint or the serving revision's commit — not by the pipeline's success or the service's label; parallel builds race, and the older one can finish last.
+* [ ] Verify a required check that did not run blocks the deploy exactly as one that failed — a pipeline that dies in seconds on billing or a missing runner, ignored for weeks, is not a gate.
 ---
 
 ## Build Service Security
@@ -1793,6 +1813,7 @@ You will not fix what you cannot see.
 * [ ] Monitor unexpected origin requests.
 * [ ] Monitor secrets-access anomalies.
 * [ ] Alert on direct-origin traffic where it should not occur.
+* [ ] Verify the process handles unhandled promise rejections and uncaught exceptions by logging the error's class and a fixed description, never the raw error object — a database or cache client's error can carry the command it was running, password included.
 ---
 
 ## Incident Response
@@ -1931,6 +1952,7 @@ Search the complete repository, Git history, container images, built frontend, m
 * [ ] Run binary security checks.
 * [ ] Run code-signing verification.
 * [ ] Run infrastructure drift detection.
+* [ ] Verify a test suite whose assertions skip because a fixture, file or environment variable is missing fails the run instead of passing — a gitignored fixture turns a security spec into a green no-op in CI.
 ---
 
 ## Manual Penetration-Test Scenarios
@@ -2336,6 +2358,7 @@ OWASP emphasizes that prompt injections do not need to be human-visible and that
 * [ ] Inventory system-level secrets accidentally embedded in prompts.
 * [ ] Verify credentials are never placed in prompts.
 * [ ] Verify API keys are never placed in prompts.
+* [ ] Verify there is exactly one place a user enters a secret — a dedicated field that posts straight to storage — and that chat, approval forms and anything a model can render never show a password or key input; a secret typed into the conversation is in the model's context, the transcript and the logs.
 * [ ] Verify private business secrets are not included unnecessarily.
 * [ ] Verify database schemas are not exposed unnecessarily.
 * [ ] Verify internal architecture details are not exposed unnecessarily.
@@ -2417,6 +2440,10 @@ Then verify:
 * [ ] Tool calls are idempotent where necessary.
 * [ ] Tool invocation has per-user/per-tenant limits.
 * [ ] High-risk tools have approval gates.
+* [ ] Verify the approval prompt the user sees is drawn by the server from the stored pending call, and that any confirm card, button or approve link in model output is stripped — otherwise the model, or text it read, can draw its own approval.
+* [ ] Verify approving replays exactly the stored call once — same tool, same arguments — bound to the user who owns it, with an expiry, and still passing the kill switch, spend ceiling and schema checks when it executes.
+* [ ] Verify an exemption that lets unattended runs skip approval keys on what started the run (a schedule, an event, a webhook, read from the stored record), not on the presence of a run id — a model that can create an automation and start it in the same turn otherwise approves itself; an unknown trigger asks.
+* [ ] Verify fields that carry money (prices, fees, payout details) are removed server-side from anything a model writes, so an AI edit to a page or record cannot change what a buyer pays or where the money goes.
 * [ ] Tools are disabled when not required.
 * [ ] Tools cannot dynamically grant themselves additional permissions.
 * [ ] Tool chains cannot escalate privilege.
@@ -2613,6 +2640,7 @@ Never trust model output merely because it came from the model.
 * [ ] Never directly use model output as a filesystem path.
 * [ ] Never directly use model output as IAM policy.
 * [ ] Never directly use model output as infrastructure configuration without validation.
+* [ ] Verify text a model writes for public pages is checked for specifics nobody supplied — durations, schedules, ratings, guarantees, counts, credentials — and that invented ones are removed or sent to the owner before publishing; a made-up guarantee on a live page is a claim the owner answers for.
 
 OWASP identifies improper output handling as a distinct risk because insecure downstream use of LLM output can create traditional application vulnerabilities.
 ---
@@ -2664,6 +2692,9 @@ OWASP's newer Agentic Top 10 explicitly identifies unexpected code execution as 
 * [ ] AI-generated SVG is handled safely.
 * [ ] AI-generated iframe URLs are allowlisted.
 * [ ] AI-generated CSS cannot break containment.
+* [ ] Verify AI-written CSS values (colors, custom properties, font names) are checked against a grammar before they reach a stylesheet — a value containing `;`, `}` or `url(` ends the declaration and starts the attacker's.
+* [ ] Verify AI-generated pages that run script render in an `<iframe sandbox>` without `allow-same-origin`, or on a separate origin — `allow-scripts` together with `allow-same-origin` lets the frame remove its own sandbox.
+* [ ] Verify compiled output stored for a later render (a bundle in a database row) is written only by the build step, or re-validated before it is served — a row the application can write is otherwise a stored-XSS channel.
 * [ ] AI output cannot inject script tags.
 * [ ] AI output cannot create event-handler attributes.
 * [ ] AI output cannot manipulate browser storage.
@@ -2896,6 +2927,7 @@ If the agent can read/send email:
 * [ ] Browser cannot access cloud metadata.
 * [ ] Browser cannot access localhost/internal networks unless required.
 * [ ] Verify navigation allowlist.
+* [ ] Verify the navigation allowlist is checked on every address change — clicks, form submits, server redirects, `window.open`, a restored session or a resumed task — not only on URLs the model types, and before the page's text is returned to the model.
 * [ ] Verify download restrictions.
 * [ ] Verify file-upload restrictions.
 * [ ] Verify clipboard handling.
@@ -3016,6 +3048,7 @@ OWASP's 2025 list explicitly expands resource-exhaustion concerns into "Unbounde
 * [ ] Verify malformed structured outputs fail closed.
 * [ ] Verify model refusal does not accidentally grant access.
 * [ ] Verify model availability is not treated as an authorization control.
+* [ ] Verify a provider billing failure (HTTP 402, or a 403 or 429 whose body names billing or credits) is told apart from a rate limit — it is account-wide, so it alerts the operators at once, releases any credit hold on the user, and tells the user the feature is unavailable and they were not charged.
 
 OWASP includes misinformation/overreliance because incorrect model output can become a security problem when downstream systems trust it.
 ---
@@ -3345,6 +3378,10 @@ This section applies to code generated, modified, reviewed, refactored, or confi
 * [ ] Require AI-generated authentication/authorization changes to receive security review.
 * [ ] Require AI-generated infrastructure changes to receive security review.
 * [ ] Require AI-generated CI/CD changes to receive security review.
+* [ ] Verify concurrent agent sessions each work in their own worktree or clone, or that every commit stages explicit paths — `git commit -a` in a shared tree ships another session's half-finished change past your green gate.
+* [ ] Verify agents know which scripts rewrite files (`--fix`, `--write`, formatters, codemods) and run only read-only commands to inspect — a lint run with `--fix` to read the errors rewrites files another session is editing.
+* [ ] Verify no command an agent runs can reinstall or purge a dependency directory shared with other checkouts, such as a symlinked `node_modules` or a shared virtualenv.
+* [ ] Verify an agent takes its type-check and test baseline at the start of its session, so failures it caused are told apart from failures it inherited.
 
 
 ### AI-Generated Authorization & Data Bugs
@@ -5570,9 +5607,11 @@ Finding out from your own tooling rather than from a customer. Everything here i
 * [ ] Verify source maps are uploaded so frontend stack traces are readable, and are not publicly served.
 * [ ] Verify errors are grouped sensibly rather than arriving as thousands of unique fingerprints.
 * [ ] Verify personal data is scrubbed from error payloads before they leave your infrastructure.
+* [ ] Verify the frontend error tracker has session replay, request bodies and user identifiers off unless deliberately turned on — replay records what users type, including on pages the scrubber was never told about.
 * [ ] Verify a new error type creates a notification, and that a known noisy one does not.
 * [ ] Verify logs are aggregated somewhere searchable, with a retention period you have chosen.
 * [ ] Verify logs are structured, and that a request can be followed across services by a correlation id.
+* [ ] Verify production logs carry no ANSI colour escapes — a framework logger that colours its output makes log-based alert filters and anchored patterns match nothing, silently.
 * [ ] Verify background jobs, queues and scheduled tasks report failure — silent failure in an async path is the most expensive kind.
 * [ ] Verify a scheduled job that stops running triggers an alert, through a dead-man's-switch or equivalent; nothing failing looks identical to nothing running.
 
@@ -5862,6 +5901,7 @@ You are down, or something you cannot fix is. The useful preparation is knowing 
 * [ ] Verify you can restart or redeploy the service without waiting for a build.
 * [ ] Verify you can serve a static maintenance page without the application being up, and that you have tried.
 * [ ] Verify a health check flapping cannot restart-loop the service into a worse state.
+* [ ] Verify an automated watchdog that restarts or kills instances first confirms its own probe works — against the same client the application uses — so a broken probe cannot report every healthy instance as dead.
 * [ ] Verify the runbook says who to tell and when, not only what to type.
 
 ## The connection is gone
@@ -5885,6 +5925,7 @@ You are down, or something you cannot fix is. The useful preparation is knowing 
 * [ ] Verify a timeout and circuit breaker exists on every outbound call, so their outage is not automatically yours.
 * [ ] Verify a slow dependency degrades rather than exhausting your workers — see [`scale/05-async-and-queues.md`](checklists/scale/05-async-and-queues.md).
 * [ ] Verify you know which dependency has no fallback at all, and that this is a recorded decision.
+* [ ] Verify every managed service with a monthly or plan quota (requests, rows, bandwidth, build minutes) alerts well before the limit, and that you know what it does at the limit — many refuse every call until the month rolls over, which is an outage, not throttling.
 
 ## Capacity and load
 
@@ -5924,6 +5965,8 @@ The fastest fix is almost always undo. That only holds if undo was built before 
 * [ ] Verify you can put the whole service into read-only mode, if the data model allows it.
 * [ ] Verify you can disable a single tenant or account without affecting others.
 * [ ] Verify turning something off is reversible and that turning it back on is also tested.
+* [ ] Verify a feature that is built but not launched is held off by two independent switches — a server-side secret absent in production and a runtime flag — so one mistaken config change cannot expose an unreviewed surface.
+* [ ] Verify every runtime setting that turns a security control, a price or a paid capability on or off can be seen and changed from the admin interface, not only by a database write — a switch nobody can find during an incident does not exist.
 
 ## Undoing data and config
 
@@ -6746,6 +6789,7 @@ Items from the core checklists that are specific to **Google Cloud (Cloud Run, C
 * [ ] Monitor Cloud Run deployments.
 
 * [ ] Document emergency Cloud Run rollback.
+* [ ] Verify a deploy is confirmed by the commit on the revision that receives traffic (the `traffic` block of `gcloud run services describe`), not by the newest revision or a label set by the pipeline.
 
 ## Pre-Release Gates
 <sub>from [`security/core/17-release-gates.md`](checklists/security/core/17-release-gates.md)</sub>
@@ -7347,6 +7391,9 @@ Items from the domain checklists that are specific to **Stripe**. If you do not 
 * [ ] Verify webhook handling is idempotent by event id — Stripe retries, and a duplicate must not fulfil an order twice.
 * [ ] Verify the handler responds quickly and does the work asynchronously, rather than timing out and being retried.
 * [ ] Verify a failed webhook is visible to you, not only in Stripe's dashboard.
+* [ ] Verify each webhook endpoint's enabled events include every event type your handler has a case for — compare `stripe webhook_endpoints list` with the handler's `switch`; an event you handle but never subscribed to is code that never runs, and refunds are the usual one.
+* [ ] Verify the API version set on each webhook endpoint is the version your handler was written against — Stripe renders the payload in the endpoint's version, not your SDK's, and a field that moved between versions silently matches nothing while Stripe still receives a 200.
+* [ ] Verify the handler checks `livemode` on every event and rejects one whose mode does not match the environment, so a production account that is quietly a sandbox, or a test event sent to production, is caught on the first delivery.
 
 ## Business Logic & Race Conditions
 <sub>from [`security/core/10-business-logic.md`](checklists/security/core/10-business-logic.md)</sub>

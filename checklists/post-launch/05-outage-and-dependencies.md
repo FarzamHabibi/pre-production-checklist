@@ -17,6 +17,7 @@ You are down, or something you cannot fix is. The useful preparation is knowing 
 * [ ] Verify you can restart or redeploy the service without waiting for a build.
 * [ ] Verify you can serve a static maintenance page without the application being up, and that you have tried.
 * [ ] Verify a health check flapping cannot restart-loop the service into a worse state.
+* [ ] Verify an automated watchdog that restarts or kills instances first confirms its own probe works — against the same client the application uses — so a broken probe cannot report every healthy instance as dead.
 * [ ] Verify the runbook says who to tell and when, not only what to type.
 
 ## The connection is gone
@@ -40,6 +41,7 @@ You are down, or something you cannot fix is. The useful preparation is knowing 
 * [ ] Verify a timeout and circuit breaker exists on every outbound call, so their outage is not automatically yours.
 * [ ] Verify a slow dependency degrades rather than exhausting your workers — see [`scale/05-async-and-queues.md`](../scale/05-async-and-queues.md).
 * [ ] Verify you know which dependency has no fallback at all, and that this is a recorded decision.
+* [ ] Verify every managed service with a monthly or plan quota (requests, rows, bandwidth, build minutes) alerts well before the limit, and that you know what it does at the limit — many refuse every call until the month rolls over, which is an outage, not throttling.
 
 ## Capacity and load
 

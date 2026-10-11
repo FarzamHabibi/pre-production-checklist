@@ -59,6 +59,7 @@ Apple's Keychain is intended for securely storing sensitive small data; Secure E
 * [ ] Verify redirects cannot downgrade security.
 * [ ] Verify authentication headers are not logged.
 * [ ] Verify tokens are not sent to unintended hosts.
+* [ ] Verify a bearer token added by an interceptor or a default header is not attached to a request that a redirect sent to another host — an interceptor that adds the token to every outgoing request adds it to the redirected one too; test with a redirect to a host you control.
 * [ ] Verify API endpoints are environment-specific.
 * [ ] Verify development/staging endpoints cannot ship in production.
 

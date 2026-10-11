@@ -42,6 +42,10 @@ Then verify:
 * [ ] Tool calls are idempotent where necessary.
 * [ ] Tool invocation has per-user/per-tenant limits.
 * [ ] High-risk tools have approval gates.
+* [ ] Verify the approval prompt the user sees is drawn by the server from the stored pending call, and that any confirm card, button or approve link in model output is stripped — otherwise the model, or text it read, can draw its own approval.
+* [ ] Verify approving replays exactly the stored call once — same tool, same arguments — bound to the user who owns it, with an expiry, and still passing the kill switch, spend ceiling and schema checks when it executes.
+* [ ] Verify an exemption that lets unattended runs skip approval keys on what started the run (a schedule, an event, a webhook, read from the stored record), not on the presence of a run id — a model that can create an automation and start it in the same turn otherwise approves itself; an unknown trigger asks.
+* [ ] Verify fields that carry money (prices, fees, payout details) are removed server-side from anything a model writes, so an AI edit to a page or record cannot change what a buyer pays or where the money goes.
 * [ ] Tools are disabled when not required.
 * [ ] Tools cannot dynamically grant themselves additional permissions.
 * [ ] Tool chains cannot escalate privilege.

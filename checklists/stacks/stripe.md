@@ -16,6 +16,9 @@ Items from the domain checklists that are specific to **Stripe**. If you do not 
 * [ ] Verify webhook handling is idempotent by event id — Stripe retries, and a duplicate must not fulfil an order twice.
 * [ ] Verify the handler responds quickly and does the work asynchronously, rather than timing out and being retried.
 * [ ] Verify a failed webhook is visible to you, not only in Stripe's dashboard.
+* [ ] Verify each webhook endpoint's enabled events include every event type your handler has a case for — compare `stripe webhook_endpoints list` with the handler's `switch`; an event you handle but never subscribed to is code that never runs, and refunds are the usual one.
+* [ ] Verify the API version set on each webhook endpoint is the version your handler was written against — Stripe renders the payload in the endpoint's version, not your SDK's, and a field that moved between versions silently matches nothing while Stripe still receives a 200.
+* [ ] Verify the handler checks `livemode` on every event and rejects one whose mode does not match the environment, so a production account that is quietly a sandbox, or a test event sent to production, is caught on the first delivery.
 
 ## Business Logic & Race Conditions
 <sub>from [`security/core/10-business-logic.md`](../security/core/10-business-logic.md)</sub>

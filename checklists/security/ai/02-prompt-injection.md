@@ -90,6 +90,7 @@ OWASP emphasizes that prompt injections do not need to be human-visible and that
 * [ ] Inventory system-level secrets accidentally embedded in prompts.
 * [ ] Verify credentials are never placed in prompts.
 * [ ] Verify API keys are never placed in prompts.
+* [ ] Verify there is exactly one place a user enters a secret — a dedicated field that posts straight to storage — and that chat, approval forms and anything a model can render never show a password or key input; a secret typed into the conversation is in the model's context, the transcript and the logs.
 * [ ] Verify private business secrets are not included unnecessarily.
 * [ ] Verify database schemas are not exposed unnecessarily.
 * [ ] Verify internal architecture details are not exposed unnecessarily.

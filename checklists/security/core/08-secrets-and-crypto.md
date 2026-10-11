@@ -34,6 +34,8 @@
 * [ ] Verify secrets cannot be retrieved through debug endpoints.
 * [ ] Test secret rotation.
 * [ ] Test compromised-secret response.
+* [ ] Verify credentials users hand you for their own accounts (OAuth tokens, API keys) are encrypted at rest with a key the database does not hold, and that a failed encryption refuses the save rather than storing plaintext.
+* [ ] Verify an endpoint that tests a credential before saving stores nothing, answers only pass or fail — no prefix, length or provider error text derived from the secret — and runs the same validation and allowlist as the save path first.
 ---
 
 ## Cryptography

@@ -35,3 +35,7 @@ This section applies to code generated, modified, reviewed, refactored, or confi
 * [ ] Require AI-generated authentication/authorization changes to receive security review.
 * [ ] Require AI-generated infrastructure changes to receive security review.
 * [ ] Require AI-generated CI/CD changes to receive security review.
+* [ ] Verify concurrent agent sessions each work in their own worktree or clone, or that every commit stages explicit paths — `git commit -a` in a shared tree ships another session's half-finished change past your green gate.
+* [ ] Verify agents know which scripts rewrite files (`--fix`, `--write`, formatters, codemods) and run only read-only commands to inspect — a lint run with `--fix` to read the errors rewrites files another session is editing.
+* [ ] Verify no command an agent runs can reinstall or purge a dependency directory shared with other checkouts, such as a symlinked `node_modules` or a shared virtualenv.
+* [ ] Verify an agent takes its type-check and test baseline at the start of its session, so failures it caused are told apart from failures it inherited.

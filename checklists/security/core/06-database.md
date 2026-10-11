@@ -17,6 +17,8 @@ Row-level security is the single highest-leverage control for multi-tenant produ
 * [ ] Identify every table accessible by `authenticated`.
 * [ ] Verify privileges and RLS policies are reviewed together.
 * [ ] Verify adding RLS policies did not leave unintended grants.
+* [ ] Verify each table's RLS policies are created in the same migration that creates the table, not in a separate SQL file someone runs by hand — a hand-run file drifts from production and nobody notices.
+* [ ] Verify the policies live in production match the repository — dump `pg_policies` from production and diff it against the migrations before launch and after any manual change in a database console.
 * [ ] Verify SELECT policies.
 * [ ] Verify INSERT policies.
 * [ ] Verify UPDATE policies.

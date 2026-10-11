@@ -139,3 +139,88 @@ from the core files and belongs in the supplements.
 **Declined.** A core-domain item about TypeScript `strict` — rule 4, it only makes sense
 when a product is named. Anything about XSS through SVG in *other* people's sites,
 which is the reader's problem only when they host the file.
+
+---
+
+## Payments, account lifecycle and agent approval, from a live product
+
+**Found** 11 October 2026, by checking six weeks of fixes in a production product the
+maintainers run against the list. Every one was a defect that shipped, was found in
+production or in a live test, and was fixed. The question was which of them the list
+would have caught first.
+
+**What was searched.** `checklists/` for `webhook.*(event types|subscribed|enabled
+events)`, `webhook.*api version`, `livemode`, `idempot.*(unavailable|down|redis)`,
+`(notif|fulfil).*(before|until).*(confirm|paid)`, `(abandon|expire).*(checkout|seat|
+stock)`, `reconcil`, `(decrement|release).*(fail|error)`, `\bban(ned)?\b`,
+`disconnect|unlink|revoke`, `auth\.users|orphan`, `mfa|two-factor`,
+`encrypt.*(token|credential)`, `oracle|credential.*test`, `redirect.*(authorization|
+bearer)`, `(confirm|approv).*(replay|stored call)`, `(unattended|scheduled).*(approv|
+consent)`, `(brows|navigat).*(allowlist|redirect)`, `(secret|api key).*(chat|
+conversation)`, `invent|fabricat`, `css injection|custom propert`, `allow-same-origin`,
+`402|provider.*billing`.
+
+What came back was the general form of almost every one: "Verify provider disconnect",
+"Suspended users cannot access protected data", "High-risk tools have approval gates",
+"Verify navigation allowlist", "AI-generated CSS cannot break containment", "Refunds ...
+revoke access". Each is true and none would have caught the defect, because each defect
+lived in the part the line does not say: the refund logic was correct and the event was
+never subscribed; the disconnect removed the link and kept the token; the suspension
+changed a field and the API-key path still answered; the approval gate existed and the
+model could draw its own button. `ban`, `livemode`, `allow-same-origin`, `402` and every
+payment-sequencing term returned nothing at all.
+
+**Decision, 11 October 2026 — filled, in place.** Thirty items, no new file, no existing
+item text changed:
+
+* `stacks/stripe.md` — enabled events against handled events, the endpoint's API
+  version, `livemode` checked per event.
+* `security/core/04-backend-api.md` — webhooks fail closed when the idempotency store is
+  down, and the API still boots.
+* `security/core/10-business-logic.md` — nothing fires before payment is confirmed,
+  abandoned checkouts release what they held, zero-priced items skip the gateway, a
+  reconciliation sweep is idempotent, a quota release writes nothing on error.
+* `security/core/02-authorization.md` — suspension reaches every credential, a
+  multi-credential guard re-throws, the admin list reads the identity provider, admin MFA
+  enforced server-side, admin rights need a source the app cannot write; under OAuth,
+  disconnect deletes the tokens and a refresh cannot revive the connection.
+* `security/core/08-secrets-and-crypto.md` — user-supplied credentials encrypted with a
+  key the database does not hold, fail closed; a credential-test endpoint is not an
+  oracle.
+* `security/core/11-mobile-apps.md` — an interceptor's bearer token does not follow a
+  cross-host redirect.
+* `security/ai/03`, `05`, `08`, `02`, `09` — server-drawn approval, exact one-time replay,
+  unattended exemption keyed on the trigger, money fields stripped from model writes;
+  CSS values against a grammar, `allow-same-origin`, stored bundles; invented specifics
+  on public pages; every address change in a browser agent; one place to enter a secret;
+  a provider billing failure is not a rate limit.
+
+**Second pass, same day — the deploy, operations and agent-assisted development lessons.**
+The same search shape found the same pattern: "Run infrastructure drift detection",
+"Verify rollback mechanism", "Verify error tracking is installed" were all present, and
+none said that policies run by hand drift, that a skipped assertion is a pass, or that the
+label on a service is not what serves traffic. `pg_policies`, `skip`, `serving|traffic`,
+`unhandled rejection`, `ansi`, `watchdog`, `worktree|commit -a`, `--fix|--write` and
+`plan quota` returned nothing. Seventeen items, again in place:
+
+* `security/core/06-database.md` — policies ship in the table's migration; production
+  `pg_policies` diffed against the repository.
+* `security/core/15-ci-cd-and-supply-chain.md` — a deploy is confirmed from what serves
+  traffic; a check that did not run blocks like one that failed.
+* `security/core/17-release-gates.md` — a suite whose assertions skip fails.
+* `security/core/16-monitoring-and-response.md` — the unhandled-rejection handler never
+  logs the raw error.
+* `stacks/google-cloud.md` — the serving revision's commit, not the newest revision.
+* `post-launch/05-outage-and-dependencies.md` — a watchdog checks its own probe; a plan
+  quota is an outage.
+* `post-launch/06-rollback-and-kill-switches.md` — dark features behind two switches;
+  every switch that matters is reachable from the admin interface.
+* `integrations/06-monitoring-and-alerting.md` — error-tracker replay and bodies off by
+  default; no ANSI escapes in production logs.
+* `security/ai-generated-code/01-process.md` — one worktree per agent session or explicit
+  staging, no mutating scripts to inspect, no purge of shared dependency directories, a
+  baseline at session start.
+
+**Declined.** Sanctions screening of currencies and payment rails. It is checkable, but
+it is a legal question first and belongs in the `legal/` domain the expansion plan
+already names, not as a lone line in a security file.

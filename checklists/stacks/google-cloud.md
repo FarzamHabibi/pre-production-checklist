@@ -41,6 +41,7 @@ Items from the core checklists that are specific to **Google Cloud (Cloud Run, C
 * [ ] Monitor Cloud Run deployments.
 
 * [ ] Document emergency Cloud Run rollback.
+* [ ] Verify a deploy is confirmed by the commit on the revision that receives traffic (the `traffic` block of `gcloud run services describe`), not by the newest revision or a label set by the pipeline.
 
 ## Pre-Release Gates
 <sub>from [`security/core/17-release-gates.md`](../security/core/17-release-gates.md)</sub>

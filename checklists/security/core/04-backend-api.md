@@ -272,3 +272,4 @@ OWASP specifically identifies SSRF, broken object authorization, broken authenti
 * [ ] Verify asynchronous processing cannot be poisoned.
 * [ ] Verify malformed events cannot create queue exhaustion.
 * [ ] Verify webhook retries cannot create duplicate financial/security operations.
+* [ ] Verify that when the store enforcing webhook idempotency (Redis, a dedupe table) is unreachable or refusing commands, handlers that move money refuse the event so the sender retries, rather than processing it without a duplicate check — and that the API still boots and its health check reports the store as down.

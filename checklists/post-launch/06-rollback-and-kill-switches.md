@@ -29,6 +29,8 @@ The fastest fix is almost always undo. That only holds if undo was built before 
 * [ ] Verify you can put the whole service into read-only mode, if the data model allows it.
 * [ ] Verify you can disable a single tenant or account without affecting others.
 * [ ] Verify turning something off is reversible and that turning it back on is also tested.
+* [ ] Verify a feature that is built but not launched is held off by two independent switches — a server-side secret absent in production and a runtime flag — so one mistaken config change cannot expose an unreviewed surface.
+* [ ] Verify every runtime setting that turns a security control, a price or a paid capability on or off can be seen and changed from the admin interface, not only by a database write — a switch nobody can find during an incident does not exist.
 
 ## Undoing data and config
 

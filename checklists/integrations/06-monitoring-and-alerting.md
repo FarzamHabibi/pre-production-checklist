@@ -25,9 +25,11 @@ Finding out from your own tooling rather than from a customer. Everything here i
 * [ ] Verify source maps are uploaded so frontend stack traces are readable, and are not publicly served.
 * [ ] Verify errors are grouped sensibly rather than arriving as thousands of unique fingerprints.
 * [ ] Verify personal data is scrubbed from error payloads before they leave your infrastructure.
+* [ ] Verify the frontend error tracker has session replay, request bodies and user identifiers off unless deliberately turned on — replay records what users type, including on pages the scrubber was never told about.
 * [ ] Verify a new error type creates a notification, and that a known noisy one does not.
 * [ ] Verify logs are aggregated somewhere searchable, with a retention period you have chosen.
 * [ ] Verify logs are structured, and that a request can be followed across services by a correlation id.
+* [ ] Verify production logs carry no ANSI colour escapes — a framework logger that colours its output makes log-based alert filters and anchored patterns match nothing, silently.
 * [ ] Verify background jobs, queues and scheduled tasks report failure — silent failure in an async path is the most expensive kind.
 * [ ] Verify a scheduled job that stops running triggers an alert, through a dead-man's-switch or equivalent; nothing failing looks identical to nothing running.
 

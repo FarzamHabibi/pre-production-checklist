@@ -50,16 +50,16 @@
     }
   ],
   "counts": {
-    "total": 4394,
+    "total": 4441,
     "by_domain": {
-      "security": 3346,
+      "security": 3387,
       "scale": 301,
       "performance": 338,
-      "integrations": 200,
-      "post-launch": 209
+      "integrations": 202,
+      "post-launch": 213
     },
-    "stack_agnostic": 3842,
-    "release_gate": 389
+    "stack_agnostic": 3885,
+    "release_gate": 390
   },
   "stacks": [
     "AWS",
@@ -1139,6 +1139,91 @@
       }
     },
     {
+      "id": "security.core.02-authorization.12135065",
+      "text": "Verify suspending or banning an account takes effect at once on every credential it holds — live sessions, refresh tokens, API keys and personal access tokens — not only at the next login.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Authentication & Authorization",
+      "section": "Global Authentication & Authorization",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/02-authorization.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "security.core.02-authorization.fec189e4",
+      "text": "Verify an auth guard that tries several credential types re-throws an authorization failure instead of falling through to the next type; a catch-all turns \"this account is banned\" into a successful request on the API-key path.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Authentication & Authorization",
+      "section": "Global Authentication & Authorization",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/02-authorization.md",
+        "line": 48
+      }
+    },
+    {
+      "id": "security.core.02-authorization.736e4add",
+      "text": "Verify the admin user list reads the identity provider's user table, not only your own profile table — an account that signed up but never got a profile row is invisible to the people who would have to suspend it.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Authentication & Authorization",
+      "section": "Global Authentication & Authorization",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/02-authorization.md",
+        "line": 49
+      }
+    },
+    {
+      "id": "security.core.02-authorization.1a467698",
+      "text": "Verify every account with admin or staff rights inside the product is enrolled in MFA, and that the admin API enforces it server-side rather than the admin UI alone.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Authentication & Authorization",
+      "section": "Global Authentication & Authorization",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/02-authorization.md",
+        "line": 50
+      }
+    },
+    {
+      "id": "security.core.02-authorization.857d9547",
+      "text": "Verify granting admin rights needs a source the application cannot write to itself — an environment secret, an IAM group, a separate allowlist — so one database write cannot create an admin.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Authentication & Authorization",
+      "section": "Global Authentication & Authorization",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/02-authorization.md",
+        "line": 51
+      }
+    },
+    {
       "id": "security.core.02-authorization.d90bcbf7",
       "text": "Verify email/password authentication settings match security requirements.",
       "domain": "security",
@@ -1152,7 +1237,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 52
+        "line": 57
       }
     },
     {
@@ -1169,7 +1254,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 53
+        "line": 58
       }
     },
     {
@@ -1186,7 +1271,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 54
+        "line": 59
       }
     },
     {
@@ -1203,7 +1288,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 55
+        "line": 60
       }
     },
     {
@@ -1220,7 +1305,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 56
+        "line": 61
       }
     },
     {
@@ -1237,7 +1322,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 57
+        "line": 62
       }
     },
     {
@@ -1254,7 +1339,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 58
+        "line": 63
       }
     },
     {
@@ -1271,7 +1356,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 59
+        "line": 64
       }
     },
     {
@@ -1288,7 +1373,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 60
+        "line": 65
       }
     },
     {
@@ -1305,7 +1390,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 61
+        "line": 66
       }
     },
     {
@@ -1322,7 +1407,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 62
+        "line": 67
       }
     },
     {
@@ -1339,7 +1424,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 63
+        "line": 68
       }
     },
     {
@@ -1356,7 +1441,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 64
+        "line": 69
       }
     },
     {
@@ -1373,7 +1458,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 65
+        "line": 70
       }
     },
     {
@@ -1390,7 +1475,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 66
+        "line": 71
       }
     },
     {
@@ -1407,7 +1492,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 67
+        "line": 72
       }
     },
     {
@@ -1424,7 +1509,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 68
+        "line": 73
       }
     },
     {
@@ -1441,7 +1526,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 69
+        "line": 74
       }
     },
     {
@@ -1458,7 +1543,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 70
+        "line": 75
       }
     },
     {
@@ -1475,7 +1560,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 71
+        "line": 76
       }
     },
     {
@@ -1492,7 +1577,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 72
+        "line": 77
       }
     },
     {
@@ -1509,7 +1594,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 73
+        "line": 78
       }
     },
     {
@@ -1526,7 +1611,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 74
+        "line": 79
       }
     },
     {
@@ -1543,7 +1628,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 75
+        "line": 80
       }
     },
     {
@@ -1560,7 +1645,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 76
+        "line": 81
       }
     },
     {
@@ -1577,7 +1662,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 77
+        "line": 82
       }
     },
     {
@@ -1594,7 +1679,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 78
+        "line": 83
       }
     },
     {
@@ -1611,7 +1696,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 79
+        "line": 84
       }
     },
     {
@@ -1628,7 +1713,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 80
+        "line": 85
       }
     },
     {
@@ -1645,7 +1730,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 81
+        "line": 86
       }
     },
     {
@@ -1662,7 +1747,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 82
+        "line": 87
       }
     },
     {
@@ -1679,7 +1764,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 83
+        "line": 88
       }
     },
     {
@@ -1696,7 +1781,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 84
+        "line": 89
       }
     },
     {
@@ -1713,7 +1798,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 85
+        "line": 90
       }
     },
     {
@@ -1730,7 +1815,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 86
+        "line": 91
       }
     },
     {
@@ -1747,7 +1832,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 87
+        "line": 92
       }
     },
     {
@@ -1764,7 +1849,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 88
+        "line": 93
       }
     },
     {
@@ -1781,7 +1866,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 89
+        "line": 94
       }
     },
     {
@@ -1798,7 +1883,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 90
+        "line": 95
       }
     },
     {
@@ -1815,7 +1900,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 91
+        "line": 96
       }
     },
     {
@@ -1832,7 +1917,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 92
+        "line": 97
       }
     },
     {
@@ -1849,7 +1934,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 93
+        "line": 98
       }
     },
     {
@@ -1866,7 +1951,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 94
+        "line": 99
       }
     },
     {
@@ -1883,7 +1968,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 95
+        "line": 100
       }
     },
     {
@@ -1900,7 +1985,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 114
+        "line": 119
       }
     },
     {
@@ -1917,7 +2002,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 115
+        "line": 120
       }
     },
     {
@@ -1934,7 +2019,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 116
+        "line": 121
       }
     },
     {
@@ -1951,7 +2036,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 117
+        "line": 122
       }
     },
     {
@@ -1968,7 +2053,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 118
+        "line": 123
       }
     },
     {
@@ -1985,7 +2070,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 119
+        "line": 124
       }
     },
     {
@@ -2002,7 +2087,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 120
+        "line": 125
       }
     },
     {
@@ -2019,7 +2104,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 121
+        "line": 126
       }
     },
     {
@@ -2036,7 +2121,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 122
+        "line": 127
       }
     },
     {
@@ -2053,7 +2138,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 123
+        "line": 128
       }
     },
     {
@@ -2070,7 +2155,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 124
+        "line": 129
       }
     },
     {
@@ -2087,7 +2172,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 125
+        "line": 130
       }
     },
     {
@@ -2104,7 +2189,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 126
+        "line": 131
       }
     },
     {
@@ -2121,7 +2206,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 127
+        "line": 132
       }
     },
     {
@@ -2138,7 +2223,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 128
+        "line": 133
       }
     },
     {
@@ -2155,7 +2240,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 129
+        "line": 134
       }
     },
     {
@@ -2172,7 +2257,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 130
+        "line": 135
       }
     },
     {
@@ -2189,7 +2274,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 136
+        "line": 141
       }
     },
     {
@@ -2206,7 +2291,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 137
+        "line": 142
       }
     },
     {
@@ -2223,7 +2308,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 138
+        "line": 143
       }
     },
     {
@@ -2240,7 +2325,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 139
+        "line": 144
       }
     },
     {
@@ -2257,7 +2342,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 140
+        "line": 145
       }
     },
     {
@@ -2274,7 +2359,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 141
+        "line": 146
       }
     },
     {
@@ -2291,7 +2376,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 142
+        "line": 147
       }
     },
     {
@@ -2308,7 +2393,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 143
+        "line": 148
       }
     },
     {
@@ -2325,7 +2410,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 144
+        "line": 149
       }
     },
     {
@@ -2342,7 +2427,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 145
+        "line": 150
       }
     },
     {
@@ -2359,7 +2444,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 146
+        "line": 151
       }
     },
     {
@@ -2376,7 +2461,41 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 147
+        "line": 152
+      }
+    },
+    {
+      "id": "security.core.02-authorization.de7f4a1f",
+      "text": "Verify disconnecting a provider deletes the stored access and refresh tokens, not only the link, and revokes the grant at the provider where it offers a revocation endpoint.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Authentication & Authorization",
+      "section": "OAuth / SSO",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/02-authorization.md",
+        "line": 153
+      }
+    },
+    {
+      "id": "security.core.02-authorization.c336d22a",
+      "text": "Verify a token refresh job reads the connection's status before writing, so it never revives a connection the user disconnected or the provider revoked.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Authentication & Authorization",
+      "section": "OAuth / SSO",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/02-authorization.md",
+        "line": 154
       }
     },
     {
@@ -2393,7 +2512,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 148
+        "line": 155
       }
     },
     {
@@ -2410,7 +2529,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 149
+        "line": 156
       }
     },
     {
@@ -2427,7 +2546,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/02-authorization.md",
-        "line": 150
+        "line": 157
       }
     },
     {
@@ -6579,6 +6698,23 @@
       }
     },
     {
+      "id": "security.core.04-backend-api.2abb3870",
+      "text": "Verify that when the store enforcing webhook idempotency (Redis, a dedupe table) is unreachable or refusing commands, handlers that move money refuse the event so the sender retries, rather than processing it without a duplicate check — and that the API still boots and its health check reports the store as down.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Backend Application & API",
+      "section": "Webhooks",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/04-backend-api.md",
+        "line": 275
+      }
+    },
+    {
       "id": "security.core.05-web-frontend.b84ac23c",
       "text": "Inventory Route Handlers.",
       "domain": "security",
@@ -8840,6 +8976,40 @@
       }
     },
     {
+      "id": "security.core.06-database.f8497997",
+      "text": "Verify each table's RLS policies are created in the same migration that creates the table, not in a separate SQL file someone runs by hand — a hand-run file drifts from production and nobody notices.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Database & Row-Level Security",
+      "section": "Database Security & RLS",
+      "subsection": "RLS",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/06-database.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "security.core.06-database.8740554f",
+      "text": "Verify the policies live in production match the repository — dump `pg_policies` from production and diff it against the migrations before launch and after any manual change in a database console.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Database & Row-Level Security",
+      "section": "Database Security & RLS",
+      "subsection": "RLS",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/06-database.md",
+        "line": 21
+      }
+    },
+    {
       "id": "security.core.06-database.cb0e57ff",
       "text": "Verify SELECT policies.",
       "domain": "security",
@@ -8853,7 +9023,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 20
+        "line": 22
       }
     },
     {
@@ -8870,7 +9040,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 21
+        "line": 23
       }
     },
     {
@@ -8887,7 +9057,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 22
+        "line": 24
       }
     },
     {
@@ -8904,7 +9074,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 23
+        "line": 25
       }
     },
     {
@@ -8921,7 +9091,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 24
+        "line": 26
       }
     },
     {
@@ -8938,7 +9108,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 25
+        "line": 27
       }
     },
     {
@@ -8955,7 +9125,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 26
+        "line": 28
       }
     },
     {
@@ -8972,7 +9142,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 27
+        "line": 29
       }
     },
     {
@@ -8989,7 +9159,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 28
+        "line": 30
       }
     },
     {
@@ -9006,7 +9176,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 29
+        "line": 31
       }
     },
     {
@@ -9023,7 +9193,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 30
+        "line": 32
       }
     },
     {
@@ -9040,7 +9210,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 31
+        "line": 33
       }
     },
     {
@@ -9057,7 +9227,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 32
+        "line": 34
       }
     },
     {
@@ -9074,7 +9244,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 33
+        "line": 35
       }
     },
     {
@@ -9091,7 +9261,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 34
+        "line": 36
       }
     },
     {
@@ -9108,7 +9278,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 35
+        "line": 37
       }
     },
     {
@@ -9125,7 +9295,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 36
+        "line": 38
       }
     },
     {
@@ -9142,7 +9312,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 37
+        "line": 39
       }
     },
     {
@@ -9159,7 +9329,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 38
+        "line": 40
       }
     },
     {
@@ -9176,7 +9346,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 39
+        "line": 41
       }
     },
     {
@@ -9193,7 +9363,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 40
+        "line": 42
       }
     },
     {
@@ -9210,7 +9380,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 41
+        "line": 43
       }
     },
     {
@@ -9227,7 +9397,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 42
+        "line": 44
       }
     },
     {
@@ -9244,7 +9414,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 43
+        "line": 45
       }
     },
     {
@@ -9261,7 +9431,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 44
+        "line": 46
       }
     },
     {
@@ -9278,7 +9448,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 45
+        "line": 47
       }
     },
     {
@@ -9295,7 +9465,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 46
+        "line": 48
       }
     },
     {
@@ -9312,7 +9482,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 52
+        "line": 54
       }
     },
     {
@@ -9329,7 +9499,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 53
+        "line": 55
       }
     },
     {
@@ -9346,7 +9516,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 54
+        "line": 56
       }
     },
     {
@@ -9363,7 +9533,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 55
+        "line": 57
       }
     },
     {
@@ -9380,7 +9550,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 56
+        "line": 58
       }
     },
     {
@@ -9397,7 +9567,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 57
+        "line": 59
       }
     },
     {
@@ -9414,7 +9584,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 58
+        "line": 60
       }
     },
     {
@@ -9431,7 +9601,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 59
+        "line": 61
       }
     },
     {
@@ -9448,7 +9618,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 60
+        "line": 62
       }
     },
     {
@@ -9465,7 +9635,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 61
+        "line": 63
       }
     },
     {
@@ -9482,7 +9652,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 62
+        "line": 64
       }
     },
     {
@@ -9499,7 +9669,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 63
+        "line": 65
       }
     },
     {
@@ -9516,7 +9686,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 67
+        "line": 69
       }
     },
     {
@@ -9533,7 +9703,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 68
+        "line": 70
       }
     },
     {
@@ -9550,7 +9720,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 69
+        "line": 71
       }
     },
     {
@@ -9567,7 +9737,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 70
+        "line": 72
       }
     },
     {
@@ -9584,7 +9754,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 71
+        "line": 73
       }
     },
     {
@@ -9601,7 +9771,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 72
+        "line": 74
       }
     },
     {
@@ -9618,7 +9788,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 73
+        "line": 75
       }
     },
     {
@@ -9635,7 +9805,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 74
+        "line": 76
       }
     },
     {
@@ -9652,7 +9822,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 75
+        "line": 77
       }
     },
     {
@@ -9669,7 +9839,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 76
+        "line": 78
       }
     },
     {
@@ -9686,7 +9856,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 77
+        "line": 79
       }
     },
     {
@@ -9703,7 +9873,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 81
+        "line": 83
       }
     },
     {
@@ -9720,7 +9890,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 82
+        "line": 84
       }
     },
     {
@@ -9737,7 +9907,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 83
+        "line": 85
       }
     },
     {
@@ -9754,7 +9924,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 84
+        "line": 86
       }
     },
     {
@@ -9771,7 +9941,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 85
+        "line": 87
       }
     },
     {
@@ -9788,7 +9958,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 86
+        "line": 88
       }
     },
     {
@@ -9805,7 +9975,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 87
+        "line": 89
       }
     },
     {
@@ -9822,7 +9992,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 88
+        "line": 90
       }
     },
     {
@@ -9839,7 +10009,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 89
+        "line": 91
       }
     },
     {
@@ -9856,7 +10026,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 90
+        "line": 92
       }
     },
     {
@@ -9873,7 +10043,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 91
+        "line": 93
       }
     },
     {
@@ -9890,7 +10060,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/06-database.md",
-        "line": 92
+        "line": 94
       }
     },
     {
@@ -11509,6 +11679,40 @@
       }
     },
     {
+      "id": "security.core.08-secrets-and-crypto.78d18e0d",
+      "text": "Verify credentials users hand you for their own accounts (OAuth tokens, API keys) are encrypted at rest with a key the database does not hold, and that a failed encryption refuses the save rather than storing plaintext.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Secrets Management & Cryptography",
+      "section": "Secrets Management",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/08-secrets-and-crypto.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "security.core.08-secrets-and-crypto.87105925",
+      "text": "Verify an endpoint that tests a credential before saving stores nothing, answers only pass or fail — no prefix, length or provider error text derived from the secret — and runs the same validation and allowlist as the save path first.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Secrets Management & Cryptography",
+      "section": "Secrets Management",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/08-secrets-and-crypto.md",
+        "line": 38
+      }
+    },
+    {
       "id": "security.core.08-secrets-and-crypto.b34c9368",
       "text": "Inventory every cryptographic operation.",
       "domain": "security",
@@ -11522,7 +11726,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 42
+        "line": 44
       }
     },
     {
@@ -11539,7 +11743,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 43
+        "line": 45
       }
     },
     {
@@ -11556,7 +11760,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 44
+        "line": 46
       }
     },
     {
@@ -11573,7 +11777,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 45
+        "line": 47
       }
     },
     {
@@ -11590,7 +11794,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 46
+        "line": 48
       }
     },
     {
@@ -11607,7 +11811,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 47
+        "line": 49
       }
     },
     {
@@ -11624,7 +11828,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 48
+        "line": 50
       }
     },
     {
@@ -11641,7 +11845,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 49
+        "line": 51
       }
     },
     {
@@ -11658,7 +11862,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 50
+        "line": 52
       }
     },
     {
@@ -11675,7 +11879,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 51
+        "line": 53
       }
     },
     {
@@ -11692,7 +11896,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 52
+        "line": 54
       }
     },
     {
@@ -11709,7 +11913,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 53
+        "line": 55
       }
     },
     {
@@ -11726,7 +11930,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 54
+        "line": 56
       }
     },
     {
@@ -11743,7 +11947,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 55
+        "line": 57
       }
     },
     {
@@ -11760,7 +11964,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 56
+        "line": 58
       }
     },
     {
@@ -11777,7 +11981,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 57
+        "line": 59
       }
     },
     {
@@ -11794,7 +11998,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 58
+        "line": 60
       }
     },
     {
@@ -11811,7 +12015,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 59
+        "line": 61
       }
     },
     {
@@ -11828,7 +12032,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 60
+        "line": 62
       }
     },
     {
@@ -11845,7 +12049,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/08-secrets-and-crypto.md",
-        "line": 61
+        "line": 63
       }
     },
     {
@@ -13362,6 +13566,91 @@
       }
     },
     {
+      "id": "security.core.10-business-logic.d0253a8c",
+      "text": "Verify notifications, loyalty points, outgoing webhooks and automations fire only after payment is confirmed, never when a checkout is created — an abandoned checkout must leave nothing a buyer or seller can see.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Business Logic & Race Conditions",
+      "section": "Business Logic Security",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/10-business-logic.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "security.core.10-business-logic.161d9b83",
+      "text": "Verify an abandoned or expired checkout releases the stock, seats or slots it reserved.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Business Logic & Race Conditions",
+      "section": "Business Logic Security",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/10-business-logic.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "security.core.10-business-logic.48dedd1f",
+      "text": "Verify a zero-priced item takes a path that never calls the payment gateway, and that it grants exactly what the paid path grants and nothing more.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Business Logic & Race Conditions",
+      "section": "Business Logic Security",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/10-business-logic.md",
+        "line": 41
+      }
+    },
+    {
+      "id": "security.core.10-business-logic.4610814f",
+      "text": "Verify a reconciliation or repair sweep treats every terminal state (delivered, ended, refunded, revoked) as finished, so running it twice changes nothing and announces nothing twice.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Business Logic & Race Conditions",
+      "section": "Business Logic Security",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/10-business-logic.md",
+        "line": 42
+      }
+    },
+    {
+      "id": "security.core.10-business-logic.aaf21da8",
+      "text": "Verify that releasing a quota or usage counter writes nothing when it fails — an error path that resets usage to zero gives the account an unlimited quota.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Business Logic & Race Conditions",
+      "section": "Business Logic Security",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/10-business-logic.md",
+        "line": 43
+      }
+    },
+    {
       "id": "security.core.10-business-logic.5d8b0961",
       "text": "Test concurrent password changes.",
       "domain": "security",
@@ -13375,7 +13664,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 44
+        "line": 49
       }
     },
     {
@@ -13392,7 +13681,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 45
+        "line": 50
       }
     },
     {
@@ -13409,7 +13698,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 46
+        "line": 51
       }
     },
     {
@@ -13426,7 +13715,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 47
+        "line": 52
       }
     },
     {
@@ -13443,7 +13732,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 48
+        "line": 53
       }
     },
     {
@@ -13460,7 +13749,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 49
+        "line": 54
       }
     },
     {
@@ -13477,7 +13766,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 50
+        "line": 55
       }
     },
     {
@@ -13494,7 +13783,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 51
+        "line": 56
       }
     },
     {
@@ -13511,7 +13800,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 52
+        "line": 57
       }
     },
     {
@@ -13528,7 +13817,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 53
+        "line": 58
       }
     },
     {
@@ -13545,7 +13834,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 54
+        "line": 59
       }
     },
     {
@@ -13562,7 +13851,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 55
+        "line": 60
       }
     },
     {
@@ -13579,7 +13868,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 56
+        "line": 61
       }
     },
     {
@@ -13596,7 +13885,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 57
+        "line": 62
       }
     },
     {
@@ -13613,7 +13902,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 58
+        "line": 63
       }
     },
     {
@@ -13630,7 +13919,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 59
+        "line": 64
       }
     },
     {
@@ -13647,7 +13936,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/10-business-logic.md",
-        "line": 60
+        "line": 65
       }
     },
     {
@@ -14297,6 +14586,23 @@
       }
     },
     {
+      "id": "security.core.11-mobile-apps.53ad10b0",
+      "text": "Verify a bearer token added by an interceptor or a default header is not attached to a request that a redirect sent to another host — an interceptor that adds the token to every outgoing request adds it to the redirected one too; test with a redirect to a host you control.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Mobile Applications",
+      "section": "Mobile Application Security",
+      "subsection": "Network security",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/11-mobile-apps.md",
+        "line": 62
+      }
+    },
+    {
       "id": "security.core.11-mobile-apps.7943014a",
       "text": "Verify API endpoints are environment-specific.",
       "domain": "security",
@@ -14310,7 +14616,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 62
+        "line": 63
       }
     },
     {
@@ -14327,7 +14633,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 63
+        "line": 64
       }
     },
     {
@@ -14344,7 +14650,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 69
+        "line": 70
       }
     },
     {
@@ -14361,7 +14667,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 70
+        "line": 71
       }
     },
     {
@@ -14378,7 +14684,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 71
+        "line": 72
       }
     },
     {
@@ -14395,7 +14701,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 72
+        "line": 73
       }
     },
     {
@@ -14412,7 +14718,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 73
+        "line": 74
       }
     },
     {
@@ -14429,7 +14735,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 74
+        "line": 75
       }
     },
     {
@@ -14446,7 +14752,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 75
+        "line": 76
       }
     },
     {
@@ -14463,7 +14769,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 76
+        "line": 77
       }
     },
     {
@@ -14480,7 +14786,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 77
+        "line": 78
       }
     },
     {
@@ -14497,7 +14803,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 78
+        "line": 79
       }
     },
     {
@@ -14514,7 +14820,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 79
+        "line": 80
       }
     },
     {
@@ -14531,7 +14837,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 80
+        "line": 81
       }
     },
     {
@@ -14548,7 +14854,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 81
+        "line": 82
       }
     },
     {
@@ -14565,7 +14871,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 85
+        "line": 86
       }
     },
     {
@@ -14582,7 +14888,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 86
+        "line": 87
       }
     },
     {
@@ -14599,7 +14905,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 87
+        "line": 88
       }
     },
     {
@@ -14616,7 +14922,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 88
+        "line": 89
       }
     },
     {
@@ -14633,7 +14939,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 89
+        "line": 90
       }
     },
     {
@@ -14650,7 +14956,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 90
+        "line": 91
       }
     },
     {
@@ -14667,7 +14973,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 91
+        "line": 92
       }
     },
     {
@@ -14684,7 +14990,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 92
+        "line": 93
       }
     },
     {
@@ -14701,7 +15007,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 96
+        "line": 97
       }
     },
     {
@@ -14718,7 +15024,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 97
+        "line": 98
       }
     },
     {
@@ -14735,7 +15041,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 98
+        "line": 99
       }
     },
     {
@@ -14752,7 +15058,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 99
+        "line": 100
       }
     },
     {
@@ -14769,7 +15075,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 100
+        "line": 101
       }
     },
     {
@@ -14786,7 +15092,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 101
+        "line": 102
       }
     },
     {
@@ -14803,7 +15109,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 102
+        "line": 103
       }
     },
     {
@@ -14820,7 +15126,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 103
+        "line": 104
       }
     },
     {
@@ -14837,7 +15143,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 104
+        "line": 105
       }
     },
     {
@@ -14854,7 +15160,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 105
+        "line": 106
       }
     },
     {
@@ -14871,7 +15177,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 106
+        "line": 107
       }
     },
     {
@@ -14888,7 +15194,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 107
+        "line": 108
       }
     },
     {
@@ -14905,7 +15211,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 108
+        "line": 109
       }
     },
     {
@@ -14922,7 +15228,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 109
+        "line": 110
       }
     },
     {
@@ -14939,7 +15245,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 110
+        "line": 111
       }
     },
     {
@@ -14956,7 +15262,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 111
+        "line": 112
       }
     },
     {
@@ -14973,7 +15279,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 112
+        "line": 113
       }
     },
     {
@@ -14990,7 +15296,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 113
+        "line": 114
       }
     },
     {
@@ -15007,7 +15313,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 114
+        "line": 115
       }
     },
     {
@@ -15024,7 +15330,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 115
+        "line": 116
       }
     },
     {
@@ -15041,7 +15347,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 116
+        "line": 117
       }
     },
     {
@@ -15058,7 +15364,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 120
+        "line": 121
       }
     },
     {
@@ -15075,7 +15381,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 121
+        "line": 122
       }
     },
     {
@@ -15092,7 +15398,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 122
+        "line": 123
       }
     },
     {
@@ -15109,7 +15415,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 123
+        "line": 124
       }
     },
     {
@@ -15126,7 +15432,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 124
+        "line": 125
       }
     },
     {
@@ -15143,7 +15449,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 125
+        "line": 126
       }
     },
     {
@@ -15160,7 +15466,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 126
+        "line": 127
       }
     },
     {
@@ -15177,7 +15483,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 127
+        "line": 128
       }
     },
     {
@@ -15194,7 +15500,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 131
+        "line": 132
       }
     },
     {
@@ -15211,7 +15517,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 132
+        "line": 133
       }
     },
     {
@@ -15228,7 +15534,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 133
+        "line": 134
       }
     },
     {
@@ -15245,7 +15551,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 134
+        "line": 135
       }
     },
     {
@@ -15262,7 +15568,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 135
+        "line": 136
       }
     },
     {
@@ -15279,7 +15585,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 136
+        "line": 137
       }
     },
     {
@@ -15296,7 +15602,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 137
+        "line": 138
       }
     },
     {
@@ -15313,7 +15619,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 138
+        "line": 139
       }
     },
     {
@@ -15330,7 +15636,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 139
+        "line": 140
       }
     },
     {
@@ -15347,7 +15653,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 140
+        "line": 141
       }
     },
     {
@@ -15364,7 +15670,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 141
+        "line": 142
       }
     },
     {
@@ -15381,7 +15687,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 142
+        "line": 143
       }
     },
     {
@@ -15398,7 +15704,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 143
+        "line": 144
       }
     },
     {
@@ -15415,7 +15721,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 144
+        "line": 145
       }
     },
     {
@@ -15432,7 +15738,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 145
+        "line": 146
       }
     },
     {
@@ -15449,7 +15755,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/11-mobile-apps.md",
-        "line": 146
+        "line": 147
       }
     },
     {
@@ -21267,6 +21573,40 @@
       }
     },
     {
+      "id": "security.core.15-ci-cd-and-supply-chain.6eeaab55",
+      "text": "Verify a deploy is confirmed by reading the version from what is taking traffic — a `/version` endpoint or the serving revision's commit — not by the pipeline's success or the service's label; parallel builds race, and the older one can finish last.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "CI/CD & Supply Chain",
+      "section": "CI/CD Pipeline Security",
+      "subsection": "Deployment",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
+        "line": 163
+      }
+    },
+    {
+      "id": "security.core.15-ci-cd-and-supply-chain.0c383c5f",
+      "text": "Verify a required check that did not run blocks the deploy exactly as one that failed — a pipeline that dies in seconds on billing or a missing runner, ignored for weeks, is not a gate.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "CI/CD & Supply Chain",
+      "section": "CI/CD Pipeline Security",
+      "subsection": "Deployment",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
+        "line": 164
+      }
+    },
+    {
       "id": "security.core.15-ci-cd-and-supply-chain.17e0b5ee",
       "text": "Inventory all build triggers.",
       "domain": "security",
@@ -21280,7 +21620,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 168
+        "line": 170
       }
     },
     {
@@ -21297,7 +21637,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 169
+        "line": 171
       }
     },
     {
@@ -21314,7 +21654,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 170
+        "line": 172
       }
     },
     {
@@ -21331,7 +21671,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 171
+        "line": 173
       }
     },
     {
@@ -21348,7 +21688,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 172
+        "line": 174
       }
     },
     {
@@ -21365,7 +21705,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 173
+        "line": 175
       }
     },
     {
@@ -21382,7 +21722,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 174
+        "line": 176
       }
     },
     {
@@ -21399,7 +21739,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 175
+        "line": 177
       }
     },
     {
@@ -21416,7 +21756,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 176
+        "line": 178
       }
     },
     {
@@ -21433,7 +21773,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 177
+        "line": 179
       }
     },
     {
@@ -21450,7 +21790,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 178
+        "line": 180
       }
     },
     {
@@ -21467,7 +21807,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 179
+        "line": 181
       }
     },
     {
@@ -21484,7 +21824,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 180
+        "line": 182
       }
     },
     {
@@ -21501,7 +21841,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 181
+        "line": 183
       }
     },
     {
@@ -21518,7 +21858,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 182
+        "line": 184
       }
     },
     {
@@ -21535,7 +21875,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 183
+        "line": 185
       }
     },
     {
@@ -21552,7 +21892,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 184
+        "line": 186
       }
     },
     {
@@ -21569,7 +21909,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 185
+        "line": 187
       }
     },
     {
@@ -21586,7 +21926,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 186
+        "line": 188
       }
     },
     {
@@ -21603,7 +21943,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 187
+        "line": 189
       }
     },
     {
@@ -21620,7 +21960,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 188
+        "line": 190
       }
     },
     {
@@ -21637,7 +21977,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 189
+        "line": 191
       }
     },
     {
@@ -21654,7 +21994,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 195
+        "line": 197
       }
     },
     {
@@ -21671,7 +22011,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 196
+        "line": 198
       }
     },
     {
@@ -21688,7 +22028,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 197
+        "line": 199
       }
     },
     {
@@ -21705,7 +22045,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 198
+        "line": 200
       }
     },
     {
@@ -21722,7 +22062,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 199
+        "line": 201
       }
     },
     {
@@ -21739,7 +22079,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 200
+        "line": 202
       }
     },
     {
@@ -21756,7 +22096,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 201
+        "line": 203
       }
     },
     {
@@ -21773,7 +22113,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 202
+        "line": 204
       }
     },
     {
@@ -21790,7 +22130,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 203
+        "line": 205
       }
     },
     {
@@ -21807,7 +22147,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 204
+        "line": 206
       }
     },
     {
@@ -21824,7 +22164,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 205
+        "line": 207
       }
     },
     {
@@ -21841,7 +22181,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 206
+        "line": 208
       }
     },
     {
@@ -21858,7 +22198,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 207
+        "line": 209
       }
     },
     {
@@ -21875,7 +22215,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 208
+        "line": 210
       }
     },
     {
@@ -21892,7 +22232,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 209
+        "line": 211
       }
     },
     {
@@ -21909,7 +22249,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 210
+        "line": 212
       }
     },
     {
@@ -21926,7 +22266,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 211
+        "line": 213
       }
     },
     {
@@ -21943,7 +22283,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 212
+        "line": 214
       }
     },
     {
@@ -21960,7 +22300,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/15-ci-cd-and-supply-chain.md",
-        "line": 213
+        "line": 215
       }
     },
     {
@@ -22270,6 +22610,23 @@
       }
     },
     {
+      "id": "security.core.16-monitoring-and-response.b4f72a60",
+      "text": "Verify the process handles unhandled promise rejections and uncaught exceptions by logging the error's class and a fixed description, never the raw error object — a database or cache client's error can carry the command it was running, password included.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Monitoring, Detection & Incident Response",
+      "section": "Monitoring / Detection",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/core/16-monitoring-and-response.md",
+        "line": 30
+      }
+    },
+    {
       "id": "security.core.16-monitoring-and-response.339a3e42",
       "text": "Document how to rotate JWT signing secrets.",
       "domain": "security",
@@ -22283,7 +22640,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/16-monitoring-and-response.md",
-        "line": 35
+        "line": 36
       }
     },
     {
@@ -22300,7 +22657,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/16-monitoring-and-response.md",
-        "line": 36
+        "line": 37
       }
     },
     {
@@ -22317,7 +22674,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/16-monitoring-and-response.md",
-        "line": 37
+        "line": 38
       }
     },
     {
@@ -22334,7 +22691,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/16-monitoring-and-response.md",
-        "line": 38
+        "line": 39
       }
     },
     {
@@ -22351,7 +22708,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/16-monitoring-and-response.md",
-        "line": 39
+        "line": 40
       }
     },
     {
@@ -22368,7 +22725,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/16-monitoring-and-response.md",
-        "line": 40
+        "line": 41
       }
     },
     {
@@ -22385,7 +22742,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/16-monitoring-and-response.md",
-        "line": 41
+        "line": 42
       }
     },
     {
@@ -22402,7 +22759,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/16-monitoring-and-response.md",
-        "line": 42
+        "line": 43
       }
     },
     {
@@ -22419,7 +22776,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/16-monitoring-and-response.md",
-        "line": 43
+        "line": 44
       }
     },
     {
@@ -22436,7 +22793,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/16-monitoring-and-response.md",
-        "line": 44
+        "line": 45
       }
     },
     {
@@ -22453,7 +22810,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/16-monitoring-and-response.md",
-        "line": 45
+        "line": 46
       }
     },
     {
@@ -22470,7 +22827,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/core/16-monitoring-and-response.md",
-        "line": 46
+        "line": 47
       }
     },
     {
@@ -23953,6 +24310,23 @@
       }
     },
     {
+      "id": "security.core.17-release-gates.6856afe6",
+      "text": "Verify a test suite whose assertions skip because a fixture, file or environment variable is missing fails the run instead of passing — a gitignored fixture turns a security spec into a green no-op in CI.",
+      "domain": "security",
+      "area": "core",
+      "checklist": "Pre-Release Gates",
+      "section": "Security Testing Automation",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": true,
+      "source": {
+        "file": "checklists/security/core/17-release-gates.md",
+        "line": 121
+      }
+    },
+    {
       "id": "security.core.17-release-gates.4cb12617",
       "text": "Account enumeration.",
       "domain": "security",
@@ -23966,7 +24340,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 128
+        "line": 129
       }
     },
     {
@@ -23983,7 +24357,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 129
+        "line": 130
       }
     },
     {
@@ -24000,7 +24374,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 130
+        "line": 131
       }
     },
     {
@@ -24017,7 +24391,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 131
+        "line": 132
       }
     },
     {
@@ -24034,7 +24408,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 132
+        "line": 133
       }
     },
     {
@@ -24051,7 +24425,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 133
+        "line": 134
       }
     },
     {
@@ -24068,7 +24442,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 134
+        "line": 135
       }
     },
     {
@@ -24085,7 +24459,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 135
+        "line": 136
       }
     },
     {
@@ -24102,7 +24476,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 136
+        "line": 137
       }
     },
     {
@@ -24119,7 +24493,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 137
+        "line": 138
       }
     },
     {
@@ -24136,7 +24510,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 138
+        "line": 139
       }
     },
     {
@@ -24153,7 +24527,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 142
+        "line": 143
       }
     },
     {
@@ -24170,7 +24544,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 143
+        "line": 144
       }
     },
     {
@@ -24187,7 +24561,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 144
+        "line": 145
       }
     },
     {
@@ -24204,7 +24578,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 145
+        "line": 146
       }
     },
     {
@@ -24221,7 +24595,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 146
+        "line": 147
       }
     },
     {
@@ -24238,7 +24612,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 147
+        "line": 148
       }
     },
     {
@@ -24255,7 +24629,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 148
+        "line": 149
       }
     },
     {
@@ -24272,7 +24646,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 149
+        "line": 150
       }
     },
     {
@@ -24289,7 +24663,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 153
+        "line": 154
       }
     },
     {
@@ -24306,7 +24680,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 154
+        "line": 155
       }
     },
     {
@@ -24323,7 +24697,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 155
+        "line": 156
       }
     },
     {
@@ -24340,7 +24714,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 156
+        "line": 157
       }
     },
     {
@@ -24357,7 +24731,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 157
+        "line": 158
       }
     },
     {
@@ -24374,7 +24748,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 158
+        "line": 159
       }
     },
     {
@@ -24391,7 +24765,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 159
+        "line": 160
       }
     },
     {
@@ -24408,7 +24782,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 160
+        "line": 161
       }
     },
     {
@@ -24425,7 +24799,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 161
+        "line": 162
       }
     },
     {
@@ -24442,7 +24816,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 162
+        "line": 163
       }
     },
     {
@@ -24459,7 +24833,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 163
+        "line": 164
       }
     },
     {
@@ -24476,7 +24850,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 164
+        "line": 165
       }
     },
     {
@@ -24493,7 +24867,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 165
+        "line": 166
       }
     },
     {
@@ -24510,7 +24884,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 166
+        "line": 167
       }
     },
     {
@@ -24527,7 +24901,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 170
+        "line": 171
       }
     },
     {
@@ -24544,7 +24918,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 171
+        "line": 172
       }
     },
     {
@@ -24561,7 +24935,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 172
+        "line": 173
       }
     },
     {
@@ -24578,7 +24952,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 173
+        "line": 174
       }
     },
     {
@@ -24595,7 +24969,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 174
+        "line": 175
       }
     },
     {
@@ -24612,7 +24986,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 175
+        "line": 176
       }
     },
     {
@@ -24629,7 +25003,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 176
+        "line": 177
       }
     },
     {
@@ -24646,7 +25020,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 177
+        "line": 178
       }
     },
     {
@@ -24663,7 +25037,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 178
+        "line": 179
       }
     },
     {
@@ -24680,7 +25054,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 179
+        "line": 180
       }
     },
     {
@@ -24697,7 +25071,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 180
+        "line": 181
       }
     },
     {
@@ -24714,7 +25088,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 181
+        "line": 182
       }
     },
     {
@@ -24731,7 +25105,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 182
+        "line": 183
       }
     },
     {
@@ -24748,7 +25122,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 188
+        "line": 189
       }
     },
     {
@@ -24765,7 +25139,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 189
+        "line": 190
       }
     },
     {
@@ -24782,7 +25156,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 190
+        "line": 191
       }
     },
     {
@@ -24799,7 +25173,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 191
+        "line": 192
       }
     },
     {
@@ -24816,7 +25190,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 192
+        "line": 193
       }
     },
     {
@@ -24833,7 +25207,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 193
+        "line": 194
       }
     },
     {
@@ -24850,7 +25224,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 194
+        "line": 195
       }
     },
     {
@@ -24867,7 +25241,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 195
+        "line": 196
       }
     },
     {
@@ -24884,7 +25258,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 196
+        "line": 197
       }
     },
     {
@@ -24901,7 +25275,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 197
+        "line": 198
       }
     },
     {
@@ -24918,7 +25292,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 198
+        "line": 199
       }
     },
     {
@@ -24935,7 +25309,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 199
+        "line": 200
       }
     },
     {
@@ -24952,7 +25326,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 200
+        "line": 201
       }
     },
     {
@@ -24969,7 +25343,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 201
+        "line": 202
       }
     },
     {
@@ -24986,7 +25360,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 202
+        "line": 203
       }
     },
     {
@@ -25003,7 +25377,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/security/core/17-release-gates.md",
-        "line": 203
+        "line": 204
       }
     },
     {
@@ -28152,6 +28526,23 @@
       }
     },
     {
+      "id": "security.ai.02-prompt-injection.789c29d9",
+      "text": "Verify there is exactly one place a user enters a secret — a dedicated field that posts straight to storage — and that chat, approval forms and anything a model can render never show a password or key input; a secret typed into the conversation is in the model's context, the transcript and the logs.",
+      "domain": "security",
+      "area": "ai",
+      "checklist": "Prompt Injection & Goal Hijacking",
+      "section": "System Prompt Security",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai/02-prompt-injection.md",
+        "line": 93
+      }
+    },
+    {
       "id": "security.ai.02-prompt-injection.42f02c8a",
       "text": "Verify private business secrets are not included unnecessarily.",
       "domain": "security",
@@ -28165,7 +28556,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 93
+        "line": 94
       }
     },
     {
@@ -28182,7 +28573,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 94
+        "line": 95
       }
     },
     {
@@ -28199,7 +28590,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 95
+        "line": 96
       }
     },
     {
@@ -28216,7 +28607,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 96
+        "line": 97
       }
     },
     {
@@ -28233,7 +28624,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 97
+        "line": 98
       }
     },
     {
@@ -28250,7 +28641,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 98
+        "line": 99
       }
     },
     {
@@ -28267,7 +28658,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 99
+        "line": 100
       }
     },
     {
@@ -28284,7 +28675,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 100
+        "line": 101
       }
     },
     {
@@ -28301,7 +28692,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 101
+        "line": 102
       }
     },
     {
@@ -28318,7 +28709,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 102
+        "line": 103
       }
     },
     {
@@ -28335,7 +28726,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 103
+        "line": 104
       }
     },
     {
@@ -28352,7 +28743,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 104
+        "line": 105
       }
     },
     {
@@ -28369,7 +28760,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 105
+        "line": 106
       }
     },
     {
@@ -28386,7 +28777,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 106
+        "line": 107
       }
     },
     {
@@ -28403,7 +28794,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 114
+        "line": 115
       }
     },
     {
@@ -28420,7 +28811,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 115
+        "line": 116
       }
     },
     {
@@ -28437,7 +28828,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 116
+        "line": 117
       }
     },
     {
@@ -28454,7 +28845,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 117
+        "line": 118
       }
     },
     {
@@ -28471,7 +28862,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 118
+        "line": 119
       }
     },
     {
@@ -28488,7 +28879,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 119
+        "line": 120
       }
     },
     {
@@ -28505,7 +28896,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 120
+        "line": 121
       }
     },
     {
@@ -28522,7 +28913,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 121
+        "line": 122
       }
     },
     {
@@ -28539,7 +28930,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 122
+        "line": 123
       }
     },
     {
@@ -28556,7 +28947,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 123
+        "line": 124
       }
     },
     {
@@ -28573,7 +28964,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 124
+        "line": 125
       }
     },
     {
@@ -28590,7 +28981,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 125
+        "line": 126
       }
     },
     {
@@ -28607,7 +28998,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 126
+        "line": 127
       }
     },
     {
@@ -28624,7 +29015,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 127
+        "line": 128
       }
     },
     {
@@ -28641,7 +29032,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/02-prompt-injection.md",
-        "line": 128
+        "line": 129
       }
     },
     {
@@ -29087,6 +29478,74 @@
       }
     },
     {
+      "id": "security.ai.03-tools-and-agency.ef174e35",
+      "text": "Verify the approval prompt the user sees is drawn by the server from the stored pending call, and that any confirm card, button or approve link in model output is stripped — otherwise the model, or text it read, can draw its own approval.",
+      "domain": "security",
+      "area": "ai",
+      "checklist": "Tool Calling & Excessive Agency",
+      "section": "Tool / Function Calling Security",
+      "subsection": null,
+      "lead": "Then verify:",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai/03-tools-and-agency.md",
+        "line": 45
+      }
+    },
+    {
+      "id": "security.ai.03-tools-and-agency.6c145081",
+      "text": "Verify approving replays exactly the stored call once — same tool, same arguments — bound to the user who owns it, with an expiry, and still passing the kill switch, spend ceiling and schema checks when it executes.",
+      "domain": "security",
+      "area": "ai",
+      "checklist": "Tool Calling & Excessive Agency",
+      "section": "Tool / Function Calling Security",
+      "subsection": null,
+      "lead": "Then verify:",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai/03-tools-and-agency.md",
+        "line": 46
+      }
+    },
+    {
+      "id": "security.ai.03-tools-and-agency.b16d3f7f",
+      "text": "Verify an exemption that lets unattended runs skip approval keys on what started the run (a schedule, an event, a webhook, read from the stored record), not on the presence of a run id — a model that can create an automation and start it in the same turn otherwise approves itself; an unknown trigger asks.",
+      "domain": "security",
+      "area": "ai",
+      "checklist": "Tool Calling & Excessive Agency",
+      "section": "Tool / Function Calling Security",
+      "subsection": null,
+      "lead": "Then verify:",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai/03-tools-and-agency.md",
+        "line": 47
+      }
+    },
+    {
+      "id": "security.ai.03-tools-and-agency.2e433ab5",
+      "text": "Verify fields that carry money (prices, fees, payout details) are removed server-side from anything a model writes, so an AI edit to a page or record cannot change what a buyer pays or where the money goes.",
+      "domain": "security",
+      "area": "ai",
+      "checklist": "Tool Calling & Excessive Agency",
+      "section": "Tool / Function Calling Security",
+      "subsection": null,
+      "lead": "Then verify:",
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai/03-tools-and-agency.md",
+        "line": 48
+      }
+    },
+    {
       "id": "security.ai.03-tools-and-agency.c3f6b72b",
       "text": "Tools are disabled when not required.",
       "domain": "security",
@@ -29100,7 +29559,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 45
+        "line": 49
       }
     },
     {
@@ -29117,7 +29576,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 46
+        "line": 50
       }
     },
     {
@@ -29134,7 +29593,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 47
+        "line": 51
       }
     },
     {
@@ -29151,7 +29610,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 57
+        "line": 61
       }
     },
     {
@@ -29168,7 +29627,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 58
+        "line": 62
       }
     },
     {
@@ -29185,7 +29644,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 59
+        "line": 63
       }
     },
     {
@@ -29202,7 +29661,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 60
+        "line": 64
       }
     },
     {
@@ -29219,7 +29678,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 61
+        "line": 65
       }
     },
     {
@@ -29236,7 +29695,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 62
+        "line": 66
       }
     },
     {
@@ -29253,7 +29712,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 63
+        "line": 67
       }
     },
     {
@@ -29270,7 +29729,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 64
+        "line": 68
       }
     },
     {
@@ -29287,7 +29746,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 65
+        "line": 69
       }
     },
     {
@@ -29304,7 +29763,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 66
+        "line": 70
       }
     },
     {
@@ -29321,7 +29780,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 67
+        "line": 71
       }
     },
     {
@@ -29338,7 +29797,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 68
+        "line": 72
       }
     },
     {
@@ -29355,7 +29814,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 69
+        "line": 73
       }
     },
     {
@@ -29372,7 +29831,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 70
+        "line": 74
       }
     },
     {
@@ -29389,7 +29848,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 71
+        "line": 75
       }
     },
     {
@@ -29406,7 +29865,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 72
+        "line": 76
       }
     },
     {
@@ -29423,7 +29882,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 73
+        "line": 77
       }
     },
     {
@@ -29440,7 +29899,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 74
+        "line": 78
       }
     },
     {
@@ -29457,7 +29916,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 75
+        "line": 79
       }
     },
     {
@@ -29474,7 +29933,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 76
+        "line": 80
       }
     },
     {
@@ -29491,7 +29950,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 80
+        "line": 84
       }
     },
     {
@@ -29508,7 +29967,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 81
+        "line": 85
       }
     },
     {
@@ -29525,7 +29984,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 82
+        "line": 86
       }
     },
     {
@@ -29542,7 +30001,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 83
+        "line": 87
       }
     },
     {
@@ -29559,7 +30018,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 84
+        "line": 88
       }
     },
     {
@@ -29576,7 +30035,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 85
+        "line": 89
       }
     },
     {
@@ -29593,7 +30052,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 86
+        "line": 90
       }
     },
     {
@@ -29610,7 +30069,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 87
+        "line": 91
       }
     },
     {
@@ -29627,7 +30086,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 88
+        "line": 92
       }
     },
     {
@@ -29644,7 +30103,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 89
+        "line": 93
       }
     },
     {
@@ -29661,7 +30120,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 90
+        "line": 94
       }
     },
     {
@@ -29678,7 +30137,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 91
+        "line": 95
       }
     },
     {
@@ -29695,7 +30154,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 92
+        "line": 96
       }
     },
     {
@@ -29712,7 +30171,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 93
+        "line": 97
       }
     },
     {
@@ -29729,7 +30188,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 94
+        "line": 98
       }
     },
     {
@@ -29746,7 +30205,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 95
+        "line": 99
       }
     },
     {
@@ -29763,7 +30222,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/03-tools-and-agency.md",
-        "line": 96
+        "line": 100
       }
     },
     {
@@ -31518,6 +31977,23 @@
       }
     },
     {
+      "id": "security.ai.05-output-handling.3801ec26",
+      "text": "Verify text a model writes for public pages is checked for specifics nobody supplied — durations, schedules, ratings, guarantees, counts, credentials — and that invented ones are removed or sent to the owner before publishing; a made-up guarantee on a live page is a claim the owner answers for.",
+      "domain": "security",
+      "area": "ai",
+      "checklist": "AI Output Handling",
+      "section": "Output Security",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai/05-output-handling.md",
+        "line": 35
+      }
+    },
+    {
       "id": "security.ai.05-output-handling.97ab331a",
       "text": "Identify whether an agent can write code.",
       "domain": "security",
@@ -31531,7 +32007,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 44
+        "line": 45
       }
     },
     {
@@ -31548,7 +32024,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 45
+        "line": 46
       }
     },
     {
@@ -31565,7 +32041,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 46
+        "line": 47
       }
     },
     {
@@ -31582,7 +32058,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 47
+        "line": 48
       }
     },
     {
@@ -31599,7 +32075,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 48
+        "line": 49
       }
     },
     {
@@ -31616,7 +32092,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 49
+        "line": 50
       }
     },
     {
@@ -31633,7 +32109,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 50
+        "line": 51
       }
     },
     {
@@ -31650,7 +32126,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 51
+        "line": 52
       }
     },
     {
@@ -31667,7 +32143,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 52
+        "line": 53
       }
     },
     {
@@ -31684,7 +32160,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 53
+        "line": 54
       }
     },
     {
@@ -31701,7 +32177,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 54
+        "line": 55
       }
     },
     {
@@ -31718,7 +32194,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 55
+        "line": 56
       }
     },
     {
@@ -31735,7 +32211,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 56
+        "line": 57
       }
     },
     {
@@ -31752,7 +32228,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 57
+        "line": 58
       }
     },
     {
@@ -31769,7 +32245,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 58
+        "line": 59
       }
     },
     {
@@ -31786,7 +32262,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 59
+        "line": 60
       }
     },
     {
@@ -31803,7 +32279,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 60
+        "line": 61
       }
     },
     {
@@ -31820,7 +32296,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 61
+        "line": 62
       }
     },
     {
@@ -31837,7 +32313,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 62
+        "line": 63
       }
     },
     {
@@ -31854,7 +32330,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 63
+        "line": 64
       }
     },
     {
@@ -31871,7 +32347,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 64
+        "line": 65
       }
     },
     {
@@ -31888,7 +32364,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 65
+        "line": 66
       }
     },
     {
@@ -31905,7 +32381,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 66
+        "line": 67
       }
     },
     {
@@ -31922,7 +32398,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 67
+        "line": 68
       }
     },
     {
@@ -31939,7 +32415,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 68
+        "line": 69
       }
     },
     {
@@ -31956,7 +32432,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 69
+        "line": 70
       }
     },
     {
@@ -31973,7 +32449,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 70
+        "line": 71
       }
     },
     {
@@ -31990,7 +32466,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 78
+        "line": 79
       }
     },
     {
@@ -32007,7 +32483,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 79
+        "line": 80
       }
     },
     {
@@ -32024,7 +32500,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 80
+        "line": 81
       }
     },
     {
@@ -32041,7 +32517,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 81
+        "line": 82
       }
     },
     {
@@ -32058,7 +32534,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 82
+        "line": 83
       }
     },
     {
@@ -32075,7 +32551,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 83
+        "line": 84
       }
     },
     {
@@ -32092,7 +32568,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 84
+        "line": 85
       }
     },
     {
@@ -32109,7 +32585,58 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 85
+        "line": 86
+      }
+    },
+    {
+      "id": "security.ai.05-output-handling.b5e767b8",
+      "text": "Verify AI-written CSS values (colors, custom properties, font names) are checked against a grammar before they reach a stylesheet — a value containing `;`, `}` or `url(` ends the declaration and starts the attacker's.",
+      "domain": "security",
+      "area": "ai",
+      "checklist": "AI Output Handling",
+      "section": "Output → Browser Security",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai/05-output-handling.md",
+        "line": 87
+      }
+    },
+    {
+      "id": "security.ai.05-output-handling.63fcf41d",
+      "text": "Verify AI-generated pages that run script render in an `<iframe sandbox>` without `allow-same-origin`, or on a separate origin — `allow-scripts` together with `allow-same-origin` lets the frame remove its own sandbox.",
+      "domain": "security",
+      "area": "ai",
+      "checklist": "AI Output Handling",
+      "section": "Output → Browser Security",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai/05-output-handling.md",
+        "line": 88
+      }
+    },
+    {
+      "id": "security.ai.05-output-handling.189039b6",
+      "text": "Verify compiled output stored for a later render (a bundle in a database row) is written only by the build step, or re-validated before it is served — a row the application can write is otherwise a stored-XSS channel.",
+      "domain": "security",
+      "area": "ai",
+      "checklist": "AI Output Handling",
+      "section": "Output → Browser Security",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai/05-output-handling.md",
+        "line": 89
       }
     },
     {
@@ -32126,7 +32653,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 86
+        "line": 90
       }
     },
     {
@@ -32143,7 +32670,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 87
+        "line": 91
       }
     },
     {
@@ -32160,7 +32687,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 88
+        "line": 92
       }
     },
     {
@@ -32177,7 +32704,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 89
+        "line": 93
       }
     },
     {
@@ -32194,7 +32721,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 90
+        "line": 94
       }
     },
     {
@@ -32211,7 +32738,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/05-output-handling.md",
-        "line": 93
+        "line": 97
       }
     },
     {
@@ -34782,6 +35309,23 @@
       }
     },
     {
+      "id": "security.ai.08-integrations.8f0356fb",
+      "text": "Verify the navigation allowlist is checked on every address change — clicks, form submits, server redirects, `window.open`, a restored session or a resumed task — not only on URLs the model types, and before the page's text is returned to the model.",
+      "domain": "security",
+      "area": "ai",
+      "checklist": "AI Integrations (email, browser, repos, cloud)",
+      "section": "AI + Browser Automation",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai/08-integrations.md",
+        "line": 44
+      }
+    },
+    {
       "id": "security.ai.08-integrations.65bf26bd",
       "text": "Verify download restrictions.",
       "domain": "security",
@@ -34795,7 +35339,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 44
+        "line": 45
       }
     },
     {
@@ -34812,7 +35356,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 45
+        "line": 46
       }
     },
     {
@@ -34829,7 +35373,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 46
+        "line": 47
       }
     },
     {
@@ -34846,7 +35390,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 47
+        "line": 48
       }
     },
     {
@@ -34863,7 +35407,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 48
+        "line": 49
       }
     },
     {
@@ -34880,7 +35424,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 49
+        "line": 50
       }
     },
     {
@@ -34897,7 +35441,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 50
+        "line": 51
       }
     },
     {
@@ -34914,7 +35458,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 51
+        "line": 52
       }
     },
     {
@@ -34931,7 +35475,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 52
+        "line": 53
       }
     },
     {
@@ -34948,7 +35492,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 53
+        "line": 54
       }
     },
     {
@@ -34965,7 +35509,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 54
+        "line": 55
       }
     },
     {
@@ -34982,7 +35526,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 55
+        "line": 56
       }
     },
     {
@@ -34999,7 +35543,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 63
+        "line": 64
       }
     },
     {
@@ -35016,7 +35560,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 64
+        "line": 65
       }
     },
     {
@@ -35033,7 +35577,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 65
+        "line": 66
       }
     },
     {
@@ -35050,7 +35594,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 66
+        "line": 67
       }
     },
     {
@@ -35067,7 +35611,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 67
+        "line": 68
       }
     },
     {
@@ -35084,7 +35628,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 68
+        "line": 69
       }
     },
     {
@@ -35101,7 +35645,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 69
+        "line": 70
       }
     },
     {
@@ -35118,7 +35662,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 70
+        "line": 71
       }
     },
     {
@@ -35135,7 +35679,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 71
+        "line": 72
       }
     },
     {
@@ -35152,7 +35696,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 72
+        "line": 73
       }
     },
     {
@@ -35169,7 +35713,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 73
+        "line": 74
       }
     },
     {
@@ -35186,7 +35730,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 74
+        "line": 75
       }
     },
     {
@@ -35203,7 +35747,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 75
+        "line": 76
       }
     },
     {
@@ -35220,7 +35764,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 76
+        "line": 77
       }
     },
     {
@@ -35237,7 +35781,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 77
+        "line": 78
       }
     },
     {
@@ -35254,7 +35798,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 78
+        "line": 79
       }
     },
     {
@@ -35271,7 +35815,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 79
+        "line": 80
       }
     },
     {
@@ -35288,7 +35832,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 80
+        "line": 81
       }
     },
     {
@@ -35305,7 +35849,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 81
+        "line": 82
       }
     },
     {
@@ -35322,7 +35866,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 89
+        "line": 90
       }
     },
     {
@@ -35339,7 +35883,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 90
+        "line": 91
       }
     },
     {
@@ -35356,7 +35900,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 91
+        "line": 92
       }
     },
     {
@@ -35373,7 +35917,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 92
+        "line": 93
       }
     },
     {
@@ -35390,7 +35934,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 93
+        "line": 94
       }
     },
     {
@@ -35407,7 +35951,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 94
+        "line": 95
       }
     },
     {
@@ -35424,7 +35968,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 95
+        "line": 96
       }
     },
     {
@@ -35441,7 +35985,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 96
+        "line": 97
       }
     },
     {
@@ -35458,7 +36002,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 97
+        "line": 98
       }
     },
     {
@@ -35475,7 +36019,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 98
+        "line": 99
       }
     },
     {
@@ -35492,7 +36036,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 99
+        "line": 100
       }
     },
     {
@@ -35509,7 +36053,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 100
+        "line": 101
       }
     },
     {
@@ -35526,7 +36070,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 101
+        "line": 102
       }
     },
     {
@@ -35543,7 +36087,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 102
+        "line": 103
       }
     },
     {
@@ -35560,7 +36104,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 103
+        "line": 104
       }
     },
     {
@@ -35577,7 +36121,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 104
+        "line": 105
       }
     },
     {
@@ -35594,7 +36138,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 105
+        "line": 106
       }
     },
     {
@@ -35611,7 +36155,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/08-integrations.md",
-        "line": 106
+        "line": 107
       }
     },
     {
@@ -36261,6 +36805,23 @@
       }
     },
     {
+      "id": "security.ai.09-cost-reliability-audit.ce7503f5",
+      "text": "Verify a provider billing failure (HTTP 402, or a 403 or 429 whose body names billing or credits) is told apart from a rate limit — it is account-wide, so it alerts the operators at once, releases any credit hold on the user, and tells the user the feature is unavailable and they were not charged.",
+      "domain": "security",
+      "area": "ai",
+      "checklist": "AI Cost, Reliability & Audit",
+      "section": "Reliability as a Security Issue",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai/09-cost-reliability-audit.md",
+        "line": 57
+      }
+    },
+    {
       "id": "security.ai.09-cost-reliability-audit.31c8fbed",
       "text": "authenticated user",
       "domain": "security",
@@ -36274,7 +36835,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 66
+        "line": 67
       }
     },
     {
@@ -36291,7 +36852,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 67
+        "line": 68
       }
     },
     {
@@ -36308,7 +36869,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 68
+        "line": 69
       }
     },
     {
@@ -36325,7 +36886,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 69
+        "line": 70
       }
     },
     {
@@ -36342,7 +36903,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 70
+        "line": 71
       }
     },
     {
@@ -36359,7 +36920,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 71
+        "line": 72
       }
     },
     {
@@ -36376,7 +36937,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 72
+        "line": 73
       }
     },
     {
@@ -36393,7 +36954,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 73
+        "line": 74
       }
     },
     {
@@ -36410,7 +36971,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 74
+        "line": 75
       }
     },
     {
@@ -36427,7 +36988,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 75
+        "line": 76
       }
     },
     {
@@ -36444,7 +37005,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 76
+        "line": 77
       }
     },
     {
@@ -36461,7 +37022,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 77
+        "line": 78
       }
     },
     {
@@ -36478,7 +37039,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 78
+        "line": 79
       }
     },
     {
@@ -36495,7 +37056,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 79
+        "line": 80
       }
     },
     {
@@ -36512,7 +37073,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 80
+        "line": 81
       }
     },
     {
@@ -36529,7 +37090,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 84
+        "line": 85
       }
     },
     {
@@ -36546,7 +37107,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 85
+        "line": 86
       }
     },
     {
@@ -36563,7 +37124,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 86
+        "line": 87
       }
     },
     {
@@ -36580,7 +37141,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 87
+        "line": 88
       }
     },
     {
@@ -36597,7 +37158,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 88
+        "line": 89
       }
     },
     {
@@ -36614,7 +37175,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 89
+        "line": 90
       }
     },
     {
@@ -36631,7 +37192,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 90
+        "line": 91
       }
     },
     {
@@ -36648,7 +37209,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 91
+        "line": 92
       }
     },
     {
@@ -36665,7 +37226,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 92
+        "line": 93
       }
     },
     {
@@ -36682,7 +37243,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/security/ai/09-cost-reliability-audit.md",
-        "line": 93
+        "line": 94
       }
     },
     {
@@ -39488,6 +40049,74 @@
       "source": {
         "file": "checklists/security/ai-generated-code/01-process.md",
         "line": 37
+      }
+    },
+    {
+      "id": "security.ai-generated-code.01-process.7dd29d74",
+      "text": "Verify concurrent agent sessions each work in their own worktree or clone, or that every commit stages explicit paths — `git commit -a` in a shared tree ships another session's half-finished change past your green gate.",
+      "domain": "security",
+      "area": "ai-generated-code",
+      "checklist": "AI-Assisted Development Process",
+      "section": "Development Process",
+      "subsection": "73.1 Development Process",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai-generated-code/01-process.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "security.ai-generated-code.01-process.91fb2a9b",
+      "text": "Verify agents know which scripts rewrite files (`--fix`, `--write`, formatters, codemods) and run only read-only commands to inspect — a lint run with `--fix` to read the errors rewrites files another session is editing.",
+      "domain": "security",
+      "area": "ai-generated-code",
+      "checklist": "AI-Assisted Development Process",
+      "section": "Development Process",
+      "subsection": "73.1 Development Process",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai-generated-code/01-process.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "security.ai-generated-code.01-process.043fb49d",
+      "text": "Verify no command an agent runs can reinstall or purge a dependency directory shared with other checkouts, such as a symlinked `node_modules` or a shared virtualenv.",
+      "domain": "security",
+      "area": "ai-generated-code",
+      "checklist": "AI-Assisted Development Process",
+      "section": "Development Process",
+      "subsection": "73.1 Development Process",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai-generated-code/01-process.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "security.ai-generated-code.01-process.742a928a",
+      "text": "Verify an agent takes its type-check and test baseline at the start of its session, so failures it caused are told apart from failures it inherited.",
+      "domain": "security",
+      "area": "ai-generated-code",
+      "checklist": "AI-Assisted Development Process",
+      "section": "Development Process",
+      "subsection": "73.1 Development Process",
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/security/ai-generated-code/01-process.md",
+        "line": 41
       }
     },
     {
@@ -61557,6 +62186,23 @@
       }
     },
     {
+      "id": "integrations.06-monitoring-and-alerting.2c509cea",
+      "text": "Verify the frontend error tracker has session replay, request bodies and user identifiers off unless deliberately turned on — replay records what users type, including on pages the scrubber was never told about.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it broken",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 28
+      }
+    },
+    {
       "id": "integrations.06-monitoring-and-alerting.02ee0dcb",
       "text": "Verify a new error type creates a notification, and that a known noisy one does not.",
       "domain": "integrations",
@@ -61570,7 +62216,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 28
+        "line": 29
       }
     },
     {
@@ -61587,7 +62233,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 29
+        "line": 30
       }
     },
     {
@@ -61604,7 +62250,24 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 30
+        "line": 31
+      }
+    },
+    {
+      "id": "integrations.06-monitoring-and-alerting.291a2da1",
+      "text": "Verify production logs carry no ANSI colour escapes — a framework logger that colours its output makes log-based alert filters and anchored patterns match nothing, silently.",
+      "domain": "integrations",
+      "area": null,
+      "checklist": "Monitoring & Alerting",
+      "section": "Is it broken",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/integrations/06-monitoring-and-alerting.md",
+        "line": 32
       }
     },
     {
@@ -61621,7 +62284,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 31
+        "line": 33
       }
     },
     {
@@ -61638,7 +62301,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 32
+        "line": 34
       }
     },
     {
@@ -61655,7 +62318,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 36
+        "line": 38
       }
     },
     {
@@ -61672,7 +62335,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 37
+        "line": 39
       }
     },
     {
@@ -61689,7 +62352,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 38
+        "line": 40
       }
     },
     {
@@ -61706,7 +62369,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 39
+        "line": 41
       }
     },
     {
@@ -61723,7 +62386,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 40
+        "line": 42
       }
     },
     {
@@ -61740,7 +62403,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 44
+        "line": 46
       }
     },
     {
@@ -61757,7 +62420,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 45
+        "line": 47
       }
     },
     {
@@ -61774,7 +62437,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 46
+        "line": 48
       }
     },
     {
@@ -61791,7 +62454,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 47
+        "line": 49
       }
     },
     {
@@ -61808,7 +62471,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 48
+        "line": 50
       }
     },
     {
@@ -61825,7 +62488,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 49
+        "line": 51
       }
     },
     {
@@ -61842,7 +62505,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 50
+        "line": 52
       }
     },
     {
@@ -61859,7 +62522,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 51
+        "line": 53
       }
     },
     {
@@ -61876,7 +62539,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/integrations/06-monitoring-and-alerting.md",
-        "line": 52
+        "line": 54
       }
     },
     {
@@ -64090,6 +64753,23 @@
       }
     },
     {
+      "id": "post-launch.05-outage-and-dependencies.647b6a8a",
+      "text": "Verify an automated watchdog that restarts or kills instances first confirms its own probe works — against the same client the application uses — so a broken probe cannot report every healthy instance as dead.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Your own outage",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 20
+      }
+    },
+    {
       "id": "post-launch.05-outage-and-dependencies.6a8f3640",
       "text": "Verify the runbook says who to tell and when, not only what to type.",
       "domain": "post-launch",
@@ -64103,7 +64783,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 20
+        "line": 21
       }
     },
     {
@@ -64120,7 +64800,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 24
+        "line": 25
       }
     },
     {
@@ -64137,7 +64817,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 25
+        "line": 26
       }
     },
     {
@@ -64154,7 +64834,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 26
+        "line": 27
       }
     },
     {
@@ -64171,7 +64851,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 27
+        "line": 28
       }
     },
     {
@@ -64188,7 +64868,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 28
+        "line": 29
       }
     },
     {
@@ -64205,7 +64885,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 29
+        "line": 30
       }
     },
     {
@@ -64222,7 +64902,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 30
+        "line": 31
       }
     },
     {
@@ -64239,7 +64919,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 34
+        "line": 35
       }
     },
     {
@@ -64256,7 +64936,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 35
+        "line": 36
       }
     },
     {
@@ -64273,7 +64953,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 36
+        "line": 37
       }
     },
     {
@@ -64290,7 +64970,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 37
+        "line": 38
       }
     },
     {
@@ -64307,7 +64987,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 38
+        "line": 39
       }
     },
     {
@@ -64324,7 +65004,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 39
+        "line": 40
       }
     },
     {
@@ -64341,7 +65021,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 40
+        "line": 41
       }
     },
     {
@@ -64358,7 +65038,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 41
+        "line": 42
       }
     },
     {
@@ -64375,7 +65055,24 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 42
+        "line": 43
+      }
+    },
+    {
+      "id": "post-launch.05-outage-and-dependencies.ec5fb846",
+      "text": "Verify every managed service with a monthly or plan quota (requests, rows, bandwidth, build minutes) alerts well before the limit, and that you know what it does at the limit — many refuse every call until the month rolls over, which is an outage, not throttling.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Outages & Dependency Failure",
+      "section": "Someone else's outage",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/05-outage-and-dependencies.md",
+        "line": 44
       }
     },
     {
@@ -64392,7 +65089,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 46
+        "line": 48
       }
     },
     {
@@ -64409,7 +65106,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 47
+        "line": 49
       }
     },
     {
@@ -64426,7 +65123,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 48
+        "line": 50
       }
     },
     {
@@ -64443,7 +65140,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/05-outage-and-dependencies.md",
-        "line": 49
+        "line": 51
       }
     },
     {
@@ -64702,6 +65399,40 @@
       }
     },
     {
+      "id": "post-launch.06-rollback-and-kill-switches.cfd8cb34",
+      "text": "Verify a feature that is built but not launched is held off by two independent switches — a server-side secret absent in production and a runtime flag — so one mistaken config change cannot expose an unreviewed surface.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Switches that must already exist",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "post-launch.06-rollback-and-kill-switches.2bb81f26",
+      "text": "Verify every runtime setting that turns a security control, a price or a paid capability on or off can be seen and changed from the admin interface, not only by a database write — a switch nobody can find during an incident does not exist.",
+      "domain": "post-launch",
+      "area": null,
+      "checklist": "Rollback & Kill Switches",
+      "section": "Switches that must already exist",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
+        "line": 33
+      }
+    },
+    {
       "id": "post-launch.06-rollback-and-kill-switches.d33b0f7e",
       "text": "Verify configuration changes are versioned and revertible, including anything changed in a provider's console.",
       "domain": "post-launch",
@@ -64715,7 +65446,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
-        "line": 35
+        "line": 37
       }
     },
     {
@@ -64732,7 +65463,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
-        "line": 36
+        "line": 38
       }
     },
     {
@@ -64749,7 +65480,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
-        "line": 37
+        "line": 39
       }
     },
     {
@@ -64766,7 +65497,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
-        "line": 38
+        "line": 40
       }
     },
     {
@@ -64783,7 +65514,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/post-launch/06-rollback-and-kill-switches.md",
-        "line": 39
+        "line": 41
       }
     },
     {
@@ -70006,6 +70737,23 @@
       }
     },
     {
+      "id": "stacks.google-cloud.8e5979cd",
+      "text": "Verify a deploy is confirmed by the commit on the revision that receives traffic (the `traffic` block of `gcloud run services describe`), not by the newest revision or a label set by the pipeline.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Google Cloud (Cloud Run, Cloud Build, IAM)",
+      "section": "Monitoring, Detection & Incident Response",
+      "subsection": null,
+      "lead": null,
+      "stack": "Google Cloud",
+      "stack_id": "google-cloud",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/google-cloud.md",
+        "line": 44
+      }
+    },
+    {
       "id": "stacks.google-cloud.4d8e4cb4",
       "text": "Any Cloud Run service exposing a privileged internal endpoint directly to the internet unintentionally.",
       "domain": "security",
@@ -70019,7 +70767,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/stacks/google-cloud.md",
-        "line": 48
+        "line": 49
       }
     },
     {
@@ -70036,7 +70784,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/stacks/google-cloud.md",
-        "line": 50
+        "line": 51
       }
     },
     {
@@ -70053,7 +70801,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/stacks/google-cloud.md",
-        "line": 52
+        "line": 53
       }
     },
     {
@@ -70070,7 +70818,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/stacks/google-cloud.md",
-        "line": 54
+        "line": 55
       }
     },
     {
@@ -70087,7 +70835,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/stacks/google-cloud.md",
-        "line": 55
+        "line": 56
       }
     },
     {
@@ -70104,7 +70852,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/google-cloud.md",
-        "line": 60
+        "line": 61
       }
     },
     {
@@ -70121,7 +70869,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/google-cloud.md",
-        "line": 65
+        "line": 66
       }
     },
     {
@@ -70138,7 +70886,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/google-cloud.md",
-        "line": 70
+        "line": 71
       }
     },
     {
@@ -70155,7 +70903,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/google-cloud.md",
-        "line": 71
+        "line": 72
       }
     },
     {
@@ -70172,7 +70920,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/google-cloud.md",
-        "line": 72
+        "line": 73
       }
     },
     {
@@ -73967,6 +74715,57 @@
       }
     },
     {
+      "id": "stacks.stripe.615fdc0f",
+      "text": "Verify each webhook endpoint's enabled events include every event type your handler has a case for — compare `stripe webhook_endpoints list` with the handler's `switch`; an event you handle but never subscribed to is code that never runs, and refunds are the usual one.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "lead": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "stacks.stripe.75664a85",
+      "text": "Verify the API version set on each webhook endpoint is the version your handler was written against — Stripe renders the payload in the endpoint's version, not your SDK's, and a field that moved between versions silently matches nothing while Stripe still receives a 200.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "lead": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 20
+      }
+    },
+    {
+      "id": "stacks.stripe.7a123d39",
+      "text": "Verify the handler checks `livemode` on every event and rejects one whose mode does not match the environment, so a production account that is quietly a sandbox, or a test event sent to production, is caught on the first delivery.",
+      "domain": "security",
+      "area": null,
+      "checklist": "Stripe",
+      "section": "Backend Application & API",
+      "subsection": null,
+      "lead": null,
+      "stack": "Stripe",
+      "stack_id": "stripe",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/stacks/stripe.md",
+        "line": 21
+      }
+    },
+    {
       "id": "stacks.stripe.2172143c",
       "text": "Verify the charge amount is computed server-side from a price or product id, never taken from the request body.",
       "domain": "security",
@@ -73980,7 +74779,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/stripe.md",
-        "line": 23
+        "line": 26
       }
     },
     {
@@ -73997,7 +74796,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/stripe.md",
-        "line": 24
+        "line": 27
       }
     },
     {
@@ -74014,7 +74813,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/stripe.md",
-        "line": 25
+        "line": 28
       }
     },
     {
@@ -74031,7 +74830,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/stripe.md",
-        "line": 26
+        "line": 29
       }
     },
     {
@@ -74048,7 +74847,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/stripe.md",
-        "line": 27
+        "line": 30
       }
     },
     {
@@ -74065,7 +74864,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/stripe.md",
-        "line": 28
+        "line": 31
       }
     },
     {
@@ -74082,7 +74881,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/stripe.md",
-        "line": 29
+        "line": 32
       }
     },
     {
@@ -74099,7 +74898,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/stripe.md",
-        "line": 30
+        "line": 33
       }
     },
     {
@@ -74116,7 +74915,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/stripe.md",
-        "line": 35
+        "line": 38
       }
     },
     {
@@ -74133,7 +74932,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/stripe.md",
-        "line": 36
+        "line": 39
       }
     },
     {
@@ -74150,7 +74949,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/stripe.md",
-        "line": 37
+        "line": 40
       }
     },
     {
@@ -74167,7 +74966,7 @@
       "release_gate": false,
       "source": {
         "file": "checklists/stacks/stripe.md",
-        "line": 38
+        "line": 41
       }
     },
     {
@@ -74184,7 +74983,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/stacks/stripe.md",
-        "line": 43
+        "line": 46
       }
     },
     {
@@ -74201,7 +75000,7 @@
       "release_gate": true,
       "source": {
         "file": "checklists/stacks/stripe.md",
-        "line": 44
+        "line": 47
       }
     },
     {

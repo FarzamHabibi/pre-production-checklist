@@ -5,16 +5,16 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**4,394 items** · 3,842 of them (87%) name no product at all.
+**4,441 items** · 3,885 of them (87%) name no product at all.
 
 | Domain | Items | |
 | --- | ---: | --- |
-| [**Security**](#security) | 3,346 | Not getting breached, abused, or taken down. |
+| [**Security**](#security) | 3,387 | Not getting breached, abused, or taken down. |
 | [**Scale**](#scale) | 301 | Surviving ten times the load, and knowing what breaks first. |
 | [**Performance**](#performance) | 338 | Being fast for a real user, with Lighthouse agreeing. |
-| [**Integrations**](#integrations) | 200 | Being connected: search, analytics, monitoring. |
-| [**Post-launch**](#post-launch) | 209 | When it goes wrong anyway: is the response already decided? |
-| [Stack supplements](#stack-supplements) | 552 | 26 products, only if you use them |
+| [**Integrations**](#integrations) | 202 | Being connected: search, analytics, monitoring. |
+| [**Post-launch**](#post-launch) | 213 | When it goes wrong anyway: is the response already decided? |
+| [Stack supplements](#stack-supplements) | 556 | 26 products, only if you use them |
 
 ---
 
@@ -31,24 +31,24 @@ Application, data, infrastructure, delivery and the release gates.
 | Checklist | Items |
 | --- | ---: |
 | [Architecture & Threat Model](security/core/01-threat-model.md) | 25 |
-| [Authentication & Authorization](security/core/02-authorization.md) | 111 |
+| [Authentication & Authorization](security/core/02-authorization.md) | 118 |
 | [Sessions, Tokens & Cookies](security/core/03-sessions-tokens.md) | 21 |
-| [Backend Application & API](security/core/04-backend-api.md) | 223 |
+| [Backend Application & API](security/core/04-backend-api.md) | 224 |
 | [Web Frontend](security/core/05-web-frontend.md) | 127 |
-| [Database & Row-Level Security](security/core/06-database.md) | 68 |
+| [Database & Row-Level Security](security/core/06-database.md) | 70 |
 | [Object Storage & File Handling](security/core/07-storage-and-files.md) | 68 |
-| [Secrets Management & Cryptography](security/core/08-secrets-and-crypto.md) | 47 |
+| [Secrets Management & Cryptography](security/core/08-secrets-and-crypto.md) | 49 |
 | [Common Web Attack Classes](security/core/09-common-web-attacks.md) | 62 |
-| [Business Logic & Race Conditions](security/core/10-business-logic.md) | 44 |
-| [Mobile Applications](security/core/11-mobile-apps.md) | 106 |
+| [Business Logic & Race Conditions](security/core/10-business-logic.md) | 49 |
+| [Mobile Applications](security/core/11-mobile-apps.md) | 107 |
 | [Desktop Applications](security/core/12-desktop-apps.md) | 41 |
 | [Runtime, Containers & Hosting](security/core/13-runtime-and-containers.md) | 102 |
 | [DNS, CDN, Edge & WAF](security/core/14-edge-dns-waf.md) | 82 |
-| [CI/CD & Supply Chain](security/core/15-ci-cd-and-supply-chain.md) | 158 |
-| [Monitoring, Detection & Incident Response](security/core/16-monitoring-and-response.md) | 30 |
-| [Pre-Release Gates](security/core/17-release-gates.md) | 149 |
+| [CI/CD & Supply Chain](security/core/15-ci-cd-and-supply-chain.md) | 160 |
+| [Monitoring, Detection & Incident Response](security/core/16-monitoring-and-response.md) | 31 |
+| [Pre-Release Gates](security/core/17-release-gates.md) | 150 |
 | [Abuse & Availability](security/core/18-abuse-and-availability.md) | 53 |
-| **Total** | **1,517** |
+| **Total** | **1,539** |
 
 ### AI & agents
 
@@ -57,17 +57,17 @@ LLM features, agents, tool calling, RAG and MCP.
 | Checklist | Items |
 | --- | ---: |
 | [AI Security Architecture & Identity](security/ai/01-architecture-and-identity.md) | 70 |
-| [Prompt Injection & Goal Hijacking](security/ai/02-prompt-injection.md) | 91 |
-| [Tool Calling & Excessive Agency](security/ai/03-tools-and-agency.md) | 66 |
+| [Prompt Injection & Goal Hijacking](security/ai/02-prompt-injection.md) | 92 |
+| [Tool Calling & Excessive Agency](security/ai/03-tools-and-agency.md) | 70 |
 | [AI Data Access & Privacy](security/ai/04-data-access-and-privacy.md) | 82 |
-| [AI Output Handling](security/ai/05-output-handling.md) | 62 |
+| [AI Output Handling](security/ai/05-output-handling.md) | 66 |
 | [RAG & Agent Memory](security/ai/06-rag-and-memory.md) | 51 |
 | [Multi-Agent Systems & MCP](security/ai/07-multi-agent-and-mcp.md) | 75 |
-| [AI Integrations (email, browser, repos, cloud)](security/ai/08-integrations.md) | 74 |
-| [AI Cost, Reliability & Audit](security/ai/09-cost-reliability-audit.md) | 63 |
+| [AI Integrations (email, browser, repos, cloud)](security/ai/08-integrations.md) | 75 |
+| [AI Cost, Reliability & Audit](security/ai/09-cost-reliability-audit.md) | 64 |
 | [AI Testing & Red-Team Pack](security/ai/10-testing-and-red-team.md) | 96 |
 | [AI Release Gate](security/ai/11-release-gate.md) | 47 |
-| **Total** | **777** |
+| **Total** | **788** |
 
 ### AI-generated code
 
@@ -75,7 +75,7 @@ The bugs AI coding assistants actually write. Also known as vibe coding.
 
 | Checklist | Items |
 | --- | ---: |
-| [AI-Assisted Development Process](security/ai-generated-code/01-process.md) | 22 |
+| [AI-Assisted Development Process](security/ai-generated-code/01-process.md) | 26 |
 | [AI-Generated Authorization & Data Bugs](security/ai-generated-code/02-authorization-and-data.md) | 35 |
 | [AI-Generated Application Bugs](security/ai-generated-code/03-backend-frontend-api.md) | 102 |
 | [AI-Generated Crypto, Dependency & Config Bugs](security/ai-generated-code/04-crypto-secrets-deps.md) | 69 |
@@ -84,7 +84,7 @@ The bugs AI coding assistants actually write. Also known as vibe coding.
 | [Review Blind Spots](security/ai-generated-code/07-review-blind-spots.md) | 74 |
 | [Agent Prompts & PR Review](security/ai-generated-code/08-prompts-and-pr-review.md) | 103 |
 | [Vibe-Coding Release Gate](security/ai-generated-code/09-release-gate.md) | 43 |
-| **Total** | **548** |
+| **Total** | **552** |
 
 ---
 
@@ -143,8 +143,8 @@ Being connected: search, analytics, monitoring.
 | [Structured Data & Social Previews](integrations/03-structured-data.md) | 27 |
 | [Answer Engines & AI Crawlers](integrations/04-answer-engines.md) | 25 |
 | [Analytics & Consent](integrations/05-analytics-and-consent.md) | 28 |
-| [Monitoring & Alerting](integrations/06-monitoring-and-alerting.md) | 32 |
-| **Total** | **192** |
+| [Monitoring & Alerting](integrations/06-monitoring-and-alerting.md) | 34 |
+| **Total** | **194** |
 
 ---
 
@@ -160,11 +160,11 @@ When it goes wrong anyway: is the response already decided?
 | [The First Fifteen Minutes](post-launch/02-first-15-minutes.md) | 20 |
 | [You Have Been Breached](post-launch/03-security-incident.md) | 35 |
 | [Data Loss & Corruption](post-launch/04-data-loss.md) | 26 |
-| [Outages & Dependency Failure](post-launch/05-outage-and-dependencies.md) | 27 |
-| [Rollback & Kill Switches](post-launch/06-rollback-and-kill-switches.md) | 20 |
+| [Outages & Dependency Failure](post-launch/05-outage-and-dependencies.md) | 29 |
+| [Rollback & Kill Switches](post-launch/06-rollback-and-kill-switches.md) | 22 |
 | [Telling People](post-launch/07-communication.md) | 18 |
 | [Learning & Drills](post-launch/08-learning-and-drills.md) | 20 |
-| **Total** | **209** |
+| **Total** | **213** |
 
 ---
 
@@ -189,7 +189,7 @@ One file per product, spanning every domain: each section says which checklist i
 | [Flutter](stacks/flutter.md) | 15 |
 | [GitHub (repository & Actions)](stacks/github-actions.md) | 20 |
 | [Go / Gin](stacks/go-gin.md) | 19 |
-| [Google Cloud (Cloud Run, Cloud Build, IAM)](stacks/google-cloud.md) | 23 |
+| [Google Cloud (Cloud Run, Cloud Build, IAM)](stacks/google-cloud.md) | 24 |
 | [GraphQL](stacks/graphql.md) | 19 |
 | [iOS / iPadOS / Swift](stacks/ios-swift.md) | 16 |
 | [Kubernetes](stacks/kubernetes.md) | 25 |
@@ -201,10 +201,10 @@ One file per product, spanning every domain: each section says which checklist i
 | [Ruby on Rails](stacks/rails.md) | 30 |
 | [React Native](stacks/react-native.md) | 16 |
 | [Spring Boot](stacks/spring.md) | 20 |
-| [Stripe](stacks/stripe.md) | 20 |
+| [Stripe](stacks/stripe.md) | 23 |
 | [Supabase](stacks/supabase.md) | 23 |
 | [Vercel](stacks/vercel.md) | 13 |
-| **Total** | **552** |
+| **Total** | **556** |
 
 ---
 

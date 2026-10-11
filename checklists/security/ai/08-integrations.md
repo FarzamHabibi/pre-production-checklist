@@ -41,6 +41,7 @@ If the agent can read/send email:
 * [ ] Browser cannot access cloud metadata.
 * [ ] Browser cannot access localhost/internal networks unless required.
 * [ ] Verify navigation allowlist.
+* [ ] Verify the navigation allowlist is checked on every address change — clicks, form submits, server redirects, `window.open`, a restored session or a resumed task — not only on URLs the model types, and before the page's text is returned to the model.
 * [ ] Verify download restrictions.
 * [ ] Verify file-upload restrictions.
 * [ ] Verify clipboard handling.

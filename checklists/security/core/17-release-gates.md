@@ -118,6 +118,7 @@ Search the complete repository, Git history, container images, built frontend, m
 * [ ] Run binary security checks.
 * [ ] Run code-signing verification.
 * [ ] Run infrastructure drift detection.
+* [ ] Verify a test suite whose assertions skip because a fixture, file or environment variable is missing fails the run instead of passing — a gitignored fixture turns a security spec into a green no-op in CI.
 ---
 
 ## Manual Penetration-Test Scenarios

@@ -32,6 +32,7 @@ Never trust model output merely because it came from the model.
 * [ ] Never directly use model output as a filesystem path.
 * [ ] Never directly use model output as IAM policy.
 * [ ] Never directly use model output as infrastructure configuration without validation.
+* [ ] Verify text a model writes for public pages is checked for specifics nobody supplied — durations, schedules, ratings, guarantees, counts, credentials — and that invented ones are removed or sent to the owner before publishing; a made-up guarantee on a live page is a claim the owner answers for.
 
 OWASP identifies improper output handling as a distinct risk because insecure downstream use of LLM output can create traditional application vulnerabilities.
 ---
@@ -83,6 +84,9 @@ OWASP's newer Agentic Top 10 explicitly identifies unexpected code execution as 
 * [ ] AI-generated SVG is handled safely.
 * [ ] AI-generated iframe URLs are allowlisted.
 * [ ] AI-generated CSS cannot break containment.
+* [ ] Verify AI-written CSS values (colors, custom properties, font names) are checked against a grammar before they reach a stylesheet — a value containing `;`, `}` or `url(` ends the declaration and starts the attacker's.
+* [ ] Verify AI-generated pages that run script render in an `<iframe sandbox>` without `allow-same-origin`, or on a separate origin — `allow-scripts` together with `allow-same-origin` lets the frame remove its own sandbox.
+* [ ] Verify compiled output stored for a later render (a bundle in a database row) is written only by the build step, or re-validated before it is served — a row the application can write is otherwise a stored-XSS channel.
 * [ ] AI output cannot inject script tags.
 * [ ] AI output cannot create event-handler attributes.
 * [ ] AI output cannot manipulate browser storage.

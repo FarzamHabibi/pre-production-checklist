@@ -160,6 +160,8 @@ GitHub documents OIDC subject/audience claims and recommends conditions so untru
 * [ ] Verify deployments are auditable.
 * [ ] Verify deployment actor identity is logged.
 * [ ] Verify failed deployments do not leave partially privileged infrastructure changes.
+* [ ] Verify a deploy is confirmed by reading the version from what is taking traffic — a `/version` endpoint or the serving revision's commit — not by the pipeline's success or the service's label; parallel builds race, and the older one can finish last.
+* [ ] Verify a required check that did not run blocks the deploy exactly as one that failed — a pipeline that dies in seconds on billing or a missing runner, ignored for weeks, is not a gate.
 ---
 
 ## Build Service Security

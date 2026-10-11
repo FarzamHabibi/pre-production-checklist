@@ -44,6 +44,11 @@ The largest source of real, exploitable bugs in small products. Read this even i
 * [ ] Test authorization on retries and idempotency flows.
 * [ ] Test authorization during race conditions.
 * [ ] Test authorization when resource ownership changes concurrently.
+* [ ] Verify suspending or banning an account takes effect at once on every credential it holds — live sessions, refresh tokens, API keys and personal access tokens — not only at the next login.
+* [ ] Verify an auth guard that tries several credential types re-throws an authorization failure instead of falling through to the next type; a catch-all turns "this account is banned" into a successful request on the API-key path.
+* [ ] Verify the admin user list reads the identity provider's user table, not only your own profile table — an account that signed up but never got a profile row is invisible to the people who would have to suspend it.
+* [ ] Verify every account with admin or staff rights inside the product is enrolled in MFA, and that the admin API enforces it server-side rather than the admin UI alone.
+* [ ] Verify granting admin rights needs a source the application cannot write to itself — an environment secret, an IAM group, a separate allowlist — so one database write cannot create an admin.
 ---
 
 ## Managed Authentication Provider
@@ -145,6 +150,8 @@ For every sensitive object:
 * [ ] Verify login CSRF protection.
 * [ ] Verify logout semantics.
 * [ ] Verify provider disconnect.
+* [ ] Verify disconnecting a provider deletes the stored access and refresh tokens, not only the link, and revokes the grant at the provider where it offers a revocation endpoint.
+* [ ] Verify a token refresh job reads the connection's status before writing, so it never revives a connection the user disconnected or the provider revoked.
 * [ ] Verify identity removal.
 * [ ] Verify email verification assumptions.
 * [ ] Verify external-provider account takeover scenarios.
