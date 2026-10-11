@@ -24,6 +24,7 @@
 * [ ] Verify every secret has rotation procedure.
 * [ ] Verify every secret has expiration/review date.
 * [ ] Verify production secrets differ from staging/development.
+* [ ] Verify no signing key, token secret or inter-node shared key in production equals a value shipped in the vendor's sample config, docs or image — a published default lets anyone mint admin tokens.
 * [ ] Verify least privilege.
 * [ ] Verify secrets are never stored in source code.
 * [ ] Verify secrets are never stored in frontend bundles.
@@ -49,6 +50,7 @@
 * [ ] Verify modern algorithms.
 * [ ] Verify deprecated algorithms are absent.
 * [ ] Verify secure random generation.
+* [ ] Search for every comparison of a secret against request input (HMAC and webhook signatures, API keys, reset, invite and CSRF tokens) and verify each uses a constant-time function such as `timingSafeEqual`, `hmac.compare_digest`, `ConstantTimeCompare` or `MessageDigest.isEqual` on equal-length buffers — `==` stops at the first differing byte and leaks the secret through timing.
 * [ ] Verify encryption keys have appropriate length.
 * [ ] Verify encryption is authenticated where appropriate.
 * [ ] Verify nonce/IV uniqueness.

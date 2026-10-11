@@ -31,6 +31,7 @@ those miss.
 
 * [ ] Identify the single most expensive operation a caller can trigger, and confirm it is authenticated, rate-limited and bounded.
 * [ ] Verify limits exist per user and per tenant, not only globally — one global limit lets a single account deny service to everyone else.
+* [ ] Identify parameters whose single value can draw a large share of traffic — one product id, tenant or search term — and verify the expensive path has a per-value limit; per-user limits do nothing when many users hit one hot key.
 * [ ] Verify concurrency is capped, not just request rate; ten concurrent slow requests can cost more than a thousand fast ones.
 * [ ] Verify pagination has a maximum page size that the client cannot raise.
 * [ ] Verify any endpoint returning a collection cannot be asked for the entire table.
@@ -44,6 +45,7 @@ those miss.
 * [ ] Verify a slow or failing third-party dependency degrades your service rather than hanging it — timeouts and a circuit breaker on every outbound call.
 * [ ] Verify autoscaling has an upper bound and a budget alert; without one, an availability attack succeeds as a billing attack instead.
 * [ ] Verify load shedding exists: under pressure the service returns 429 or 503 quickly rather than queueing indefinitely.
+* [ ] Search for executors built with an unbounded queue or thread count (`Executors.newFixedThreadPool`, `newCachedThreadPool`, a `LinkedBlockingQueue` with no capacity) and verify each has a bounded queue and an explicit rejection policy — unbounded queues turn overload into an out-of-memory crash.
 * [ ] Verify background job queues have a maximum depth and cannot be filled by an unauthenticated caller.
 * [ ] Verify long-lived connections (WebSocket, SSE, streaming responses) are capped per user and time out when idle.
 
@@ -77,6 +79,8 @@ an attacker would like to borrow. Inventory them first, then bound each one.
 * [ ] Verify push notification sending cannot be triggered for arbitrary device tokens.
 * [ ] Verify every paid third-party action — model calls, SMS, email, geocoding, storage writes — has a per-user quota and a global budget alarm.
 * [ ] Verify a new, unverified account cannot reach the expensive capabilities at all until it has done something that costs the attacker time or money.
+* [ ] Verify every CAPTCHA or challenge token is checked server-side against the provider's verify endpoint on the request it guards, and that a failed, expired, already-used or unreachable verification rejects the request — a widget rendered in the browser with no server call stops nothing.
+* [ ] Verify the challenge verification response's `hostname` and `action` are compared with the values expected for that form, so a token solved on another page or another site is refused.
 
 ### Hosting and identity
 

@@ -5,16 +5,16 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**4,441 items** · 3,885 of them (87%) name no product at all.
+**4,573 items** · 3,992 of them (87%) name no product at all.
 
 | Domain | Items | |
 | --- | ---: | --- |
-| [**Security**](#security) | 3,387 | Not getting breached, abused, or taken down. |
-| [**Scale**](#scale) | 301 | Surviving ten times the load, and knowing what breaks first. |
+| [**Security**](#security) | 3,514 | Not getting breached, abused, or taken down. |
+| [**Scale**](#scale) | 303 | Surviving ten times the load, and knowing what breaks first. |
 | [**Performance**](#performance) | 338 | Being fast for a real user, with Lighthouse agreeing. |
 | [**Integrations**](#integrations) | 202 | Being connected: search, analytics, monitoring. |
-| [**Post-launch**](#post-launch) | 213 | When it goes wrong anyway: is the response already decided? |
-| [Stack supplements](#stack-supplements) | 556 | 26 products, only if you use them |
+| [**Post-launch**](#post-launch) | 216 | When it goes wrong anyway: is the response already decided? |
+| [Stack supplements](#stack-supplements) | 581 | 26 products, only if you use them |
 
 ---
 
@@ -31,24 +31,24 @@ Application, data, infrastructure, delivery and the release gates.
 | Checklist | Items |
 | --- | ---: |
 | [Architecture & Threat Model](security/core/01-threat-model.md) | 25 |
-| [Authentication & Authorization](security/core/02-authorization.md) | 118 |
-| [Sessions, Tokens & Cookies](security/core/03-sessions-tokens.md) | 21 |
-| [Backend Application & API](security/core/04-backend-api.md) | 224 |
-| [Web Frontend](security/core/05-web-frontend.md) | 127 |
-| [Database & Row-Level Security](security/core/06-database.md) | 70 |
-| [Object Storage & File Handling](security/core/07-storage-and-files.md) | 68 |
-| [Secrets Management & Cryptography](security/core/08-secrets-and-crypto.md) | 49 |
-| [Common Web Attack Classes](security/core/09-common-web-attacks.md) | 62 |
-| [Business Logic & Race Conditions](security/core/10-business-logic.md) | 49 |
+| [Authentication & Authorization](security/core/02-authorization.md) | 130 |
+| [Sessions, Tokens & Cookies](security/core/03-sessions-tokens.md) | 23 |
+| [Backend Application & API](security/core/04-backend-api.md) | 238 |
+| [Web Frontend](security/core/05-web-frontend.md) | 134 |
+| [Database & Row-Level Security](security/core/06-database.md) | 72 |
+| [Object Storage & File Handling](security/core/07-storage-and-files.md) | 69 |
+| [Secrets Management & Cryptography](security/core/08-secrets-and-crypto.md) | 51 |
+| [Common Web Attack Classes](security/core/09-common-web-attacks.md) | 63 |
+| [Business Logic & Race Conditions](security/core/10-business-logic.md) | 51 |
 | [Mobile Applications](security/core/11-mobile-apps.md) | 107 |
 | [Desktop Applications](security/core/12-desktop-apps.md) | 41 |
-| [Runtime, Containers & Hosting](security/core/13-runtime-and-containers.md) | 102 |
-| [DNS, CDN, Edge & WAF](security/core/14-edge-dns-waf.md) | 82 |
-| [CI/CD & Supply Chain](security/core/15-ci-cd-and-supply-chain.md) | 160 |
-| [Monitoring, Detection & Incident Response](security/core/16-monitoring-and-response.md) | 31 |
-| [Pre-Release Gates](security/core/17-release-gates.md) | 150 |
-| [Abuse & Availability](security/core/18-abuse-and-availability.md) | 53 |
-| **Total** | **1,539** |
+| [Runtime, Containers & Hosting](security/core/13-runtime-and-containers.md) | 109 |
+| [DNS, CDN, Edge & WAF](security/core/14-edge-dns-waf.md) | 90 |
+| [CI/CD & Supply Chain](security/core/15-ci-cd-and-supply-chain.md) | 176 |
+| [Monitoring, Detection & Incident Response](security/core/16-monitoring-and-response.md) | 32 |
+| [Pre-Release Gates](security/core/17-release-gates.md) | 151 |
+| [Abuse & Availability](security/core/18-abuse-and-availability.md) | 57 |
+| **Total** | **1,619** |
 
 ### AI & agents
 
@@ -57,17 +57,17 @@ LLM features, agents, tool calling, RAG and MCP.
 | Checklist | Items |
 | --- | ---: |
 | [AI Security Architecture & Identity](security/ai/01-architecture-and-identity.md) | 70 |
-| [Prompt Injection & Goal Hijacking](security/ai/02-prompt-injection.md) | 92 |
-| [Tool Calling & Excessive Agency](security/ai/03-tools-and-agency.md) | 70 |
-| [AI Data Access & Privacy](security/ai/04-data-access-and-privacy.md) | 82 |
-| [AI Output Handling](security/ai/05-output-handling.md) | 66 |
-| [RAG & Agent Memory](security/ai/06-rag-and-memory.md) | 51 |
-| [Multi-Agent Systems & MCP](security/ai/07-multi-agent-and-mcp.md) | 75 |
-| [AI Integrations (email, browser, repos, cloud)](security/ai/08-integrations.md) | 75 |
-| [AI Cost, Reliability & Audit](security/ai/09-cost-reliability-audit.md) | 64 |
-| [AI Testing & Red-Team Pack](security/ai/10-testing-and-red-team.md) | 96 |
+| [Prompt Injection & Goal Hijacking](security/ai/02-prompt-injection.md) | 95 |
+| [Tool Calling & Excessive Agency](security/ai/03-tools-and-agency.md) | 71 |
+| [AI Data Access & Privacy](security/ai/04-data-access-and-privacy.md) | 83 |
+| [AI Output Handling](security/ai/05-output-handling.md) | 67 |
+| [RAG & Agent Memory](security/ai/06-rag-and-memory.md) | 52 |
+| [Multi-Agent Systems & MCP](security/ai/07-multi-agent-and-mcp.md) | 87 |
+| [AI Integrations (email, browser, repos, cloud)](security/ai/08-integrations.md) | 76 |
+| [AI Cost, Reliability & Audit](security/ai/09-cost-reliability-audit.md) | 65 |
+| [AI Testing & Red-Team Pack](security/ai/10-testing-and-red-team.md) | 97 |
 | [AI Release Gate](security/ai/11-release-gate.md) | 47 |
-| **Total** | **788** |
+| **Total** | **810** |
 
 ### AI-generated code
 
@@ -97,7 +97,7 @@ Surviving ten times the load, and knowing what breaks first.
 | Checklist | Items |
 | --- | ---: |
 | [Capacity Model](scale/01-capacity-model.md) | 29 |
-| [Statelessness](scale/02-statelessness.md) | 26 |
+| [Statelessness](scale/02-statelessness.md) | 28 |
 | [Database at Scale](scale/03-database.md) | 60 |
 | [Caching](scale/04-caching.md) | 25 |
 | [Async Work & Queues](scale/05-async-and-queues.md) | 39 |
@@ -105,7 +105,7 @@ Surviving ten times the load, and knowing what breaks first.
 | [Cost at Scale](scale/07-cost-at-scale.md) | 19 |
 | [Load Testing & Scale Gates](scale/08-load-testing-and-gates.md) | 23 |
 | [Service Levels](scale/09-service-levels.md) | 30 |
-| **Total** | **286** |
+| **Total** | **288** |
 
 ---
 
@@ -158,13 +158,13 @@ When it goes wrong anyway: is the response already decided?
 | --- | ---: |
 | [Can You Act At All](post-launch/01-readiness.md) | 43 |
 | [The First Fifteen Minutes](post-launch/02-first-15-minutes.md) | 20 |
-| [You Have Been Breached](post-launch/03-security-incident.md) | 35 |
-| [Data Loss & Corruption](post-launch/04-data-loss.md) | 26 |
-| [Outages & Dependency Failure](post-launch/05-outage-and-dependencies.md) | 29 |
+| [You Have Been Breached](post-launch/03-security-incident.md) | 36 |
+| [Data Loss & Corruption](post-launch/04-data-loss.md) | 27 |
+| [Outages & Dependency Failure](post-launch/05-outage-and-dependencies.md) | 30 |
 | [Rollback & Kill Switches](post-launch/06-rollback-and-kill-switches.md) | 22 |
 | [Telling People](post-launch/07-communication.md) | 18 |
 | [Learning & Drills](post-launch/08-learning-and-drills.md) | 20 |
-| **Total** | **213** |
+| **Total** | **216** |
 
 ---
 
@@ -180,14 +180,14 @@ One file per product, spanning every domain: each section says which checklist i
 | --- | ---: |
 | [Android / Kotlin](stacks/android-kotlin.md) | 37 |
 | [AWS](stacks/aws.md) | 27 |
-| [Cloudflare](stacks/cloudflare.md) | 29 |
+| [Cloudflare](stacks/cloudflare.md) | 43 |
 | [Django](stacks/django.md) | 34 |
-| [Docker / containers](stacks/docker.md) | 17 |
+| [Docker / containers](stacks/docker.md) | 21 |
 | [Express](stacks/express.md) | 21 |
 | [FastAPI](stacks/fastapi.md) | 19 |
 | [Firebase](stacks/firebase.md) | 18 |
 | [Flutter](stacks/flutter.md) | 15 |
-| [GitHub (repository & Actions)](stacks/github-actions.md) | 20 |
+| [GitHub (repository & Actions)](stacks/github-actions.md) | 25 |
 | [Go / Gin](stacks/go-gin.md) | 19 |
 | [Google Cloud (Cloud Run, Cloud Build, IAM)](stacks/google-cloud.md) | 24 |
 | [GraphQL](stacks/graphql.md) | 19 |
@@ -200,11 +200,11 @@ One file per product, spanning every domain: each section says which checklist i
 | [PostgreSQL](stacks/postgres.md) | 4 |
 | [Ruby on Rails](stacks/rails.md) | 30 |
 | [React Native](stacks/react-native.md) | 16 |
-| [Spring Boot](stacks/spring.md) | 20 |
+| [Spring Boot](stacks/spring.md) | 22 |
 | [Stripe](stacks/stripe.md) | 23 |
 | [Supabase](stacks/supabase.md) | 23 |
 | [Vercel](stacks/vercel.md) | 13 |
-| **Total** | **556** |
+| **Total** | **581** |
 
 ---
 

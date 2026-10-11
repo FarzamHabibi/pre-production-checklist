@@ -14,6 +14,11 @@ Items from the core checklists that are specific to **GitHub (repository & Actio
 
 * [ ] Review `pull_request_target`.
 * [ ] Enable Dependabot updates for actions.
+* [ ] Verify the repository and organisation Actions settings give `GITHUB_TOKEN` read-only access by default and have "Allow GitHub Actions to create and approve pull requests" off — otherwise a workflow can open a PR and supply its own required approval.
+* [ ] Search every workflow for `actions/checkout` without `persist-credentials: false` — by default the job token is written into `.git/config`, so any later step, or an artifact that uploads the workspace, carries a usable `GITHUB_TOKEN`.
+* [ ] Search for workflows triggered by `pull_request_target` or `workflow_run` that check out `github.event.pull_request.head.sha` or `head.ref`, or download the triggering run's artifacts — these run with the base repository's secrets and write token, so building PR-controlled code there hands both to the PR author.
+* [ ] Search workflows for writes of untrusted values to `$GITHUB_ENV`, `$GITHUB_OUTPUT` or `$GITHUB_PATH` — a newline in the value adds variables such as `NODE_OPTIONS` or `LD_PRELOAD` that execute in every later step.
+* [ ] Search workflows for `ACTIONS_ALLOW_UNSECURE_COMMANDS: true` — it re-enables the deprecated `set-env` and `add-path` log commands, so any log line an attacker controls can set environment variables.
 
 ## Pre-Release Gates
 <sub>from [`security/core/17-release-gates.md`](../security/core/17-release-gates.md)</sub>

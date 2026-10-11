@@ -18,6 +18,7 @@ Prompt injection is not a filtering problem. It is an authorization problem wear
 * [ ] Test fake developer messages.
 * [ ] Test hidden instructions.
 * [ ] Test Unicode obfuscation.
+* [ ] Verify input from users, documents and tool output is checked for Unicode tag characters (U+E0000–U+E007F), zero-width characters and bidi controls, and that they are removed or rejected before the model sees them — they carry instructions a human reviewer cannot see.
 * [ ] Test homoglyph attacks.
 * [ ] Test Base64/encoding tricks.
 * [ ] Test whitespace manipulation.
@@ -119,6 +120,7 @@ OWASP treats system-prompt leakage as its own risk and recommends not assuming h
 * [ ] Clearly separate memory from trusted instructions.
 * [ ] Clearly label untrusted content.
 * [ ] Use structured message boundaries.
+* [ ] Verify the server loads earlier conversation turns from its own store by a conversation id checked against the caller, and never accepts assistant or system turns in the request body — a client-sent history lets an attacker write the model's earlier "agreement" for it to follow through on.
 * [ ] Avoid concatenating arbitrary text into privileged instructions.
 * [ ] Avoid dynamically modifying system prompts with user-controlled data.
 * [ ] Avoid dynamically modifying tool descriptions from untrusted content.
@@ -126,4 +128,5 @@ OWASP treats system-prompt leakage as its own risk and recommends not assuming h
 * [ ] Verify truncation cannot remove security instructions while leaving attacker instructions.
 * [ ] Verify context-window overflow cannot change effective instruction priority.
 * [ ] Verify prompt templating escapes attacker-controlled delimiters.
+* [ ] Search every place the application builds a raw prompt string for chat-template control tokens (`<|im_start|>`, `<|eot_id|>`, `[INST]`), and verify user, retrieved and tool text has them stripped or encoded before tokenization — otherwise a user can close their own turn and open a fake system turn.
 * [ ] Verify template injection defenses.

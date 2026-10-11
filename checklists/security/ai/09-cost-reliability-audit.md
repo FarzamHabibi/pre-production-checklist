@@ -17,6 +17,7 @@ An unmetered model call is a billing vulnerability. Availability is a security p
 * [ ] Maximum prompt size.
 * [ ] Maximum context size.
 * [ ] Maximum output tokens.
+* [ ] Verify every call to a reasoning model sets an explicit reasoning or thinking budget, and that per-request cost accounting counts reasoning tokens — a puzzle-shaped prompt can make the hidden reasoning cost far more than the visible answer.
 * [ ] Maximum tool calls.
 * [ ] Maximum recursion depth.
 * [ ] Maximum agent delegation depth.

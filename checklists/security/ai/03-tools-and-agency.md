@@ -38,6 +38,7 @@ Then verify:
 * [ ] Tool output is treated as untrusted.
 * [ ] Tool errors cannot expose credentials.
 * [ ] Tool return data cannot inject arbitrary instructions.
+* [ ] Inventory every agent session in which one model can read untrusted content, read private data and send data out (HTTP, email, links, write tools), and verify that once untrusted content is in context the outbound tools need approval or are removed — taking away any one of the three closes the exfiltration path.
 * [ ] Tool retries cannot duplicate destructive actions.
 * [ ] Tool calls are idempotent where necessary.
 * [ ] Tool invocation has per-user/per-tenant limits.

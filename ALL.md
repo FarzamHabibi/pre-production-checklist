@@ -109,20 +109,28 @@ The largest source of real, exploitable bugs in small products. Read this even i
 
 * [ ] Verify email/password authentication settings match security requirements.
 * [ ] Verify password policy is strong enough for the application's risk.
+* [ ] Verify the password is hashed exactly as typed, with no trimming, case folding or silent truncation, and that with bcrypt any input over 72 bytes is rejected or pre-hashed first; confirm a 64-character password is accepted and a login that differs only after byte 72 fails.
 * [ ] Verify breached-password protection where available/appropriate.
 * [ ] Verify email confirmation policy.
 * [ ] Verify unconfirmed accounts cannot access protected resources.
 * [ ] Verify signup does not expose whether an email already exists where enumeration is a concern.
 * [ ] Verify login does not expose whether an email exists.
 * [ ] Verify password-reset responses are resistant to enumeration.
+* [ ] Measure forgot-password, signup and login response times for about 50 existing and 50 unknown emails and verify the distributions overlap — sending mail synchronously or skipping the hash for unknown users reveals which accounts exist even when the text is identical.
 * [ ] Verify password reset tokens expire.
 * [ ] Verify password reset tokens are single-use.
 * [ ] Verify password reset invalidates prior sessions where required.
+* [ ] Verify finishing a password reset either does not sign the user in or still demands the enrolled second factor — a reset that issues a full session turns mailbox access into an MFA bypass.
+* [ ] Verify users can list their active sessions and devices and revoke any or all of them, and that after a password change or reset every other session and refresh token is ended, or the user is offered that.
 * [ ] Verify password-reset redirect URLs are allowlisted.
 * [ ] Verify attackers cannot manipulate password-reset callback destinations.
+* [ ] Verify code that builds password-reset, magic-link, invite and email-verification URLs takes the origin from configuration, never from `Host`, `X-Forwarded-Host` or `Origin` — a forged header makes your own email deliver the victim's token to the attacker's domain.
+* [ ] Verify the page that consumes a reset or magic-link token sends `Referrer-Policy: no-referrer` and loads no third-party script until the token is exchanged and removed from the URL — otherwise analytics and CDN requests carry it in `Referer`.
 * [ ] Verify email-change flow requires appropriate verification.
 * [ ] Verify changing email does not silently bypass ownership verification.
+* [ ] Verify a password change, password reset, MFA change and email change each send a notice to the address on file (for an email change, the old address) with a way to report it — it is the only alarm the real owner gets after a takeover.
 * [ ] Verify changing password has appropriate reauthentication behavior.
+* [ ] Verify changing email, phone, password or MFA factors, and creating API keys, requires an authentication from the last few minutes, checked server-side against the session's auth time, so a stolen session cookie cannot lock the owner out.
 * [ ] Verify logout behavior.
 * [ ] Verify session refresh behavior.
 * [ ] Verify refresh-token rotation/reuse protections according to the deployed Auth configuration.
@@ -146,6 +154,8 @@ The largest source of real, exploitable bugs in small products. Read this even i
 * [ ] Verify MFA enrollment requires authenticated user action.
 * [ ] Verify MFA cannot be enrolled by an attacker who only partially controls the account.
 * [ ] Verify MFA challenge verification.
+* [ ] Verify each one-time code (SMS, email, TOTP, recovery) is accepted once, only for the login or action it was issued for, expires within minutes, and that wrong guesses are capped per code and per account, not only per IP — a 6-digit code spread across many IPs falls in hours.
+* [ ] Verify push-approval MFA rate-limits prompts per account and uses number matching or shows the request's location, so an attacker holding the password cannot spam prompts until the user taps Approve.
 * [ ] Verify MFA recovery.
 * [ ] Verify factor removal.
 * [ ] Verify factor replacement.
@@ -196,10 +206,12 @@ For every sensitive object:
 * [ ] Verify nonce where applicable.
 * [ ] Verify redirect URI exact matching.
 * [ ] Verify provider issuer.
+* [ ] Verify a client that uses more than one authorization server checks the `iss` parameter in the authorization response (RFC 9207) or uses a distinct redirect URI per provider, so one provider's code cannot be redeemed at another.
 * [ ] Verify token audience.
 * [ ] Verify token signature.
 * [ ] Verify account-linking semantics.
 * [ ] Verify identity collision handling.
+* [ ] Verify an external login is keyed on the provider's issuer plus its immutable `sub`, never on email or display name, and that a provider email links accounts only when marked `email_verified` — keying on email lets a weaker provider sign someone in as the owner.
 * [ ] Verify login CSRF protection.
 * [ ] Verify logout semantics.
 * [ ] Verify provider disconnect.
@@ -221,6 +233,7 @@ Applies to any session mechanism: JWT, opaque tokens, server sessions, signed co
 
 
 * [ ] Verify expiration.
+* [ ] Verify both an idle timeout and an absolute session lifetime are enforced server-side, including on the refresh token, so sliding refresh cannot keep a stolen session alive forever; record the chosen values and why.
 * [ ] Verify issuance.
 * [ ] Verify rotation.
 * [ ] Verify revocation.
@@ -231,6 +244,7 @@ Applies to any session mechanism: JWT, opaque tokens, server sessions, signed co
 * [ ] Verify signing key.
 * [ ] Verify key rotation.
 * [ ] Verify token type separation.
+* [ ] Verify each verifier rejects the wrong kind of token — an ID token, refresh token, or email-verification or reset JWT presented as an access token — by checking `typ` or a dedicated claim, above all where several kinds share a signing key.
 * [ ] Verify access token vs refresh token separation.
 * [ ] Verify user session vs service account token separation.
 * [ ] Verify token scope.
@@ -266,6 +280,7 @@ Written originally against a NestJS app, but the controls are framework-independ
 * [ ] Verify preflight behavior cannot be abused.
 * [ ] Verify HTTP methods not used by the application are rejected.
 * [ ] Verify TRACE is disabled where unnecessary.
+* [ ] Verify API hosts refuse plain HTTP rather than redirect it — a redirect hides a client that has already sent its token in cleartext.
 * [ ] Verify request size limits exist.
 * [ ] Verify JSON body size limits exist.
 * [ ] Verify multipart upload limits exist.
@@ -275,6 +290,7 @@ Written originally against a NestJS app, but the controls are framework-independ
 * [ ] Verify keep-alive behavior is appropriate.
 * [ ] Verify large headers/cookies cannot consume excessive resources.
 * [ ] Verify malformed requests produce safe failures.
+* [ ] Verify the edge strips or overwrites client-sent `X-Forwarded-For`, `X-Forwarded-Host`, `X-Real-IP` and any internal identity header (`X-User-Id`, `X-Internal-*`), and that the app reads the client IP at your real proxy depth — otherwise rate limits, audit logs and IP allowlists trust a typed value.
 
 NestJS recommends Helmet for security-related HTTP headers, and its placement matters because middleware ordering affects which routes receive the protection.
 
@@ -297,24 +313,31 @@ NestJS recommends Helmet for security-related HTTP headers, and its placement ma
 * [ ] Verify DTOs do not expose administrative properties.
 * [ ] Verify database entities are not directly used as request DTOs.
 * [ ] Verify response DTOs do not accidentally expose private fields.
+* [ ] Verify personal identifiers returned for display (phone, email, card, national id) are masked in the API response unless that screen needs the full value — masking only in the UI still ships the whole value to the client.
+* [ ] Verify every CSV or spreadsheet export prefixes cells starting with `=`, `+`, `-`, `@`, tab or CR with a single quote and quotes fields per RFC 4180 — a user-chosen name otherwise runs as a formula on the admin's machine.
+* [ ] Verify user input that reaches an email's `To`, `Cc`, `Reply-To`, `Subject` or `From` display name is stripped of CR and LF, or passes only through the mail library's structured fields — a newline adds recipients or headers to your transactional mail.
 * [ ] Verify serialization does not leak internal metadata.
+* [ ] Search for deserializers that let the payload pick the class to build — a `@type`, `$type` or `__class__` field, `autoType`, `TypeNameHandling`, `enableDefaultTyping`, `ObjectInputStream`, `pickle.loads`, `yaml.load` — and verify each one on an untrusted path is off or limited to an explicit class allowlist; denylists of known gadget classes have been bypassed release after release.
 * [ ] Verify validation errors do not expose stack traces, SQL, filesystem paths, secrets, or internal service names.
 
 ### Authentication
 
 * [ ] Verify every protected controller/route uses explicit authentication guards.
 * [ ] Verify public routes are explicitly identified.
+* [ ] Audit every path pattern exempted from authentication (ignore lists, `permitAll`, public-route tables) for wildcards, and verify each expands only to static assets or a named public endpoint — a broad `/**` exemption silently makes later management routes public.
 * [ ] Verify global guards cannot be bypassed through special routes.
 * [ ] Verify custom decorators cannot accidentally skip guards.
 * [ ] Verify metadata-based bypasses are reviewed.
 * [ ] Verify API keys are independently scoped and rotatable.
 * [ ] Verify internal service credentials are distinct from user credentials.
+* [ ] Search for any request attribute that marks the caller as a peer node or internal service — a fixed header, a `User-Agent` value, a source-IP test behind a proxy — and verify an external client sending the same value is still authenticated.
 * [ ] Verify admin credentials are never accepted by normal-user endpoints unless intended.
 * [ ] Verify password authentication is delegated to a secure identity provider where practical.
 * [ ] Verify refresh-token flows cannot be replayed indefinitely.
 * [ ] Verify token verification checks issuer, audience, expiry, signature algorithm, and key.
 * [ ] Verify JWT algorithm confusion is impossible.
 * [ ] Verify `none` or unintended algorithms cannot be accepted.
+* [ ] Verify the JWT verifier loads keys only from a pre-configured key set and ignores `jku`, `x5u` and embedded `jwk` headers, and that `kid` is only a lookup key, never a file path or query value.
 * [ ] Verify JWT key rotation is supported.
 * [ ] Verify token claims are not trusted merely because the client supplied them.
 * [ ] Verify authorization does not depend solely on custom JWT claims that can become stale.
@@ -343,6 +366,7 @@ NestJS recommends Helmet for security-related HTTP headers, and its placement ma
 
 * [ ] Search for string-concatenated SQL.
 * [ ] Verify parameterized queries everywhere.
+* [ ] Verify database connection strings do not enable several statements per call (`allowMultiQueries=true`, `multipleStatements: true`) unless a reviewed path needs it — with it on, one injection point can append a `DROP` or `INSERT`.
 * [ ] Review dynamic `ORDER BY`, filter, table, column, and sort-direction inputs.
 * [ ] Verify allowlists for dynamic SQL identifiers.
 * [ ] Review raw SQL queries manually.
@@ -392,6 +416,7 @@ OWASP specifically identifies SSRF, broken object authorization, broken authenti
 * [ ] Prevent null-byte filename tricks.
 * [ ] Prevent archive bombs.
 * [ ] Prevent decompression bombs.
+* [ ] Verify archive extraction resolves each entry's final path and rejects any that escapes the target directory or is a symlink or hard link — a `../` or symlink entry otherwise writes outside the upload folder (zip slip).
 * [ ] Prevent polyglot-file abuse.
 * [ ] Scan uploaded content where appropriate.
 * [ ] Process files in isolated environments.
@@ -421,6 +446,7 @@ OWASP specifically identifies SSRF, broken object authorization, broken authenti
 * [ ] Verify admin actions are logged.
 * [ ] Verify authentication events are logged.
 * [ ] Verify logs are tamper-resistant.
+* [ ] Verify every log line built from request data goes through a structured (JSON) logger or has CR, LF and other control characters escaped — otherwise a username containing a newline forges a fake "login succeeded" entry.
 * [ ] Verify log retention is appropriate.
 * [ ] Verify alerts exist for repeated authentication failures and privilege escalation indicators.
 
@@ -442,6 +468,7 @@ OWASP specifically identifies SSRF, broken object authorization, broken authenti
 * [ ] Test account enumeration.
 * [ ] Test credential stuffing resistance.
 * [ ] Test brute-force resistance.
+* [ ] Verify login throttling counts consecutive failures per account and per username-and-IP pair, not only per IP, and slows the account with a delay or challenge rather than locking it — per-IP limits miss distributed stuffing, and hard lockout lets anyone lock out a victim.
 * [ ] Test denial-of-service through expensive parameters.
 * [ ] Test concurrency/race attacks.
 * [ ] Test duplicate request handling.
@@ -462,6 +489,7 @@ OWASP specifically identifies SSRF, broken object authorization, broken authenti
 * [ ] Inventory file endpoints.
 * [ ] Inventory export endpoints.
 * [ ] Inventory GraphQL/RPC endpoints where applicable.
+* [ ] Verify every internal RPC or cluster port that decodes a binary object format (Java serialization, Hessian, Kryo, a framework codec) runs its class check in strict mode and is unreachable from outside the private network — a port that deserializes objects is code execution for anyone who reaches it.
 * [ ] Verify deprecated endpoints are disabled or equally protected.
 * [ ] Verify OpenAPI documentation matches actual exposed endpoints.
 * [ ] Verify HTTP method authorization.
@@ -636,10 +664,14 @@ What safe SVG handling looks like — rasterize, sanitize, serve off-origin, emb
 * [ ] Verify analytics/ad/tracking scripts do not receive unnecessary sensitive data.
 * [ ] Verify Subresource Integrity where suitable.
 * [ ] Verify HSTS.
+* [ ] Verify HSTS `includeSubDomains` and `preload` are enabled only after every subdomain serves valid HTTPS, with `max-age` ramped up first — preload commits you for months and breaks any HTTP-only subdomain.
 * [ ] Verify `X-Content-Type-Options`.
 * [ ] Verify `Referrer-Policy`.
 * [ ] Verify clickjacking protection.
 * [ ] Verify browser permissions policies.
+* [ ] Verify HTML responses send `Cross-Origin-Opener-Policy: same-origin` (or `same-origin-allow-popups` where OAuth or payment popups need it) — without it any page that opens yours can probe its state across windows.
+* [ ] Verify authenticated endpoints reject cross-site subresource requests by checking `Sec-Fetch-Site` and `Sec-Fetch-Mode` (allow same-origin, same-site, `none` and top-level navigation) — a fetch-metadata policy stops cross-site leaks that cookie flags miss.
+* [ ] Search for JSONP endpoints (`callback=` parameters, `jsonp(`) and per-user generated JavaScript files, and verify none returns data that needs authorization — a cross-site `<script>` tag sends the user's cookies and reads the result.
 
 Next.js documents CSP as a protection against XSS, clickjacking, and related code-injection threats and provides nonce/SRI approaches.
 
@@ -650,10 +682,13 @@ Next.js documents CSP as a protection against XSS, clickjacking, and related cod
 * [ ] Verify appropriate `SameSite`.
 * [ ] Verify cookie domain is as narrow as practical.
 * [ ] Verify cookie path.
+* [ ] Verify session cookies use the `__Host-` prefix (Secure, `Path=/`, no `Domain`) so a sibling subdomain or network attacker cannot set or overwrite them; use `__Secure-` only where a cookie must span subdomains.
+* [ ] Measure the largest auth cookie the app writes (many roles, long JWT, chunked SSR cookies) and verify each stays under 4096 bytes and all of them under the proxy's header limit — browsers silently drop an oversized cookie and the user is logged out with no error.
 * [ ] Verify session expiration.
 * [ ] Verify session rotation after login.
 * [ ] Verify session rotation after privilege changes.
 * [ ] Verify session invalidation on logout.
+* [ ] Verify logout sends `Clear-Site-Data: "cache", "storage"` or the client wipes localStorage, sessionStorage and IndexedDB, so the next person on a shared device sees no cached account data.
 * [ ] Verify session fixation protection.
 * [ ] Verify sensitive tokens are not stored in localStorage unnecessarily.
 * [ ] Verify refresh tokens are not exposed to JavaScript unless explicitly required.
@@ -781,6 +816,8 @@ Supabase states that exposed-schema tables without appropriate RLS can be readab
 * [ ] Verify service-role credentials are rotated after suspected exposure.
 * [ ] Verify database logs do not contain secrets.
 * [ ] Verify PII classification exists for sensitive columns.
+* [ ] Verify columns classified as secret (government ids, bank details, health data, third-party tokens) are encrypted in the application with a key held outside the database, so a database dump or a read-only SQL injection does not expose them.
+* [ ] Verify each table and bucket holding personal data has a scheduled job that deletes or anonymises rows past their retention period, and that the job has actually run.
 * [ ] Verify retention/deletion requirements.
 * [ ] Verify cryptographic protection for particularly sensitive application data where needed.
 * [ ] Verify database audit/logging meets the project's compliance requirements.
@@ -817,6 +854,7 @@ Uploads, downloads, signed URLs, and everything that turns a file into code exec
 * [ ] Verify signed URLs are not unnecessarily logged.
 * [ ] Verify signed URLs cannot be generated for unauthorized objects.
 * [ ] Verify public bucket URLs are intentional.
+* [ ] Verify a bucket fronted by a CDN or custom domain has its provider-default public endpoint disabled, so edge access rules cannot be walked around through the bucket's own URL.
 * [ ] Verify file replacement cannot change the security classification of a file.
 * [ ] Verify upload MIME type is validated.
 * [ ] Verify filename/path traversal protections.
@@ -905,6 +943,7 @@ surface, and every MIME allow-list that says `image/svg+xml` lets it in as a pic
 * [ ] Verify every secret has rotation procedure.
 * [ ] Verify every secret has expiration/review date.
 * [ ] Verify production secrets differ from staging/development.
+* [ ] Verify no signing key, token secret or inter-node shared key in production equals a value shipped in the vendor's sample config, docs or image — a published default lets anyone mint admin tokens.
 * [ ] Verify least privilege.
 * [ ] Verify secrets are never stored in source code.
 * [ ] Verify secrets are never stored in frontend bundles.
@@ -930,6 +969,7 @@ surface, and every MIME allow-list that says `image/svg+xml` lets it in as a pic
 * [ ] Verify modern algorithms.
 * [ ] Verify deprecated algorithms are absent.
 * [ ] Verify secure random generation.
+* [ ] Search for every comparison of a secret against request input (HMAC and webhook signatures, API keys, reset, invite and CSRF tokens) and verify each uses a constant-time function such as `timingSafeEqual`, `hmac.compare_digest`, `ConstantTimeCompare` or `MessageDigest.isEqual` on equal-length buffers — `==` stops at the first differing byte and leaks the secret through timing.
 * [ ] Verify encryption keys have appropriate length.
 * [ ] Verify encryption is authenticated where appropriate.
 * [ ] Verify nonce/IV uniqueness.
@@ -1036,6 +1076,7 @@ Applicable especially where authentication relies on cookies.
 * [ ] Verify protocol-relative URLs.
 * [ ] Verify encoded URLs.
 * [ ] Verify Unicode/IDN edge cases.
+* [ ] Verify usernames and display names are NFKC-normalised, case-folded and compared by a confusables skeleton before the uniqueness check, and that bidi controls (U+202A–U+202E, U+2066–U+2069) are rejected — otherwise a lookalike account can impersonate a real one.
 * [ ] Verify nested redirects.
 * [ ] Verify OAuth redirect parameters.
 
@@ -1057,6 +1098,7 @@ Scanners cannot find these. Only you know what your product is supposed to allow
 * [ ] Test integer overflow/underflow.
 * [ ] Test currency manipulation.
 * [ ] Test currency/locale mismatch.
+* [ ] Search schema and code for money held as `float`, `double` or `REAL` and verify amounts use a fixed-point decimal or integer minor units end to end — binary floats cannot represent most cents, so totals and comparisons drift.
 * [ ] Test free-trial abuse.
 * [ ] Test coupon reuse.
 * [ ] Test invitation abuse.
@@ -1071,6 +1113,7 @@ Scanners cannot find these. Only you know what your product is supposed to allow
 * [ ] Test approval workflow bypass.
 * [ ] Test self-approval.
 * [ ] Test approval with stale state.
+* [ ] Verify the confirmation step for a payout, bank-account change or large transfer shows the exact amount and destination, and that the server binds the confirmation to those values and refuses execution if any changed after confirming.
 * [ ] Test deletion/recreation ownership tricks.
 * [ ] Test soft-delete bypass.
 * [ ] Test archive/restore authorization.
@@ -1324,12 +1367,15 @@ Written against Cloud Run, but applies to any container host — ECS, Fly.io, Re
 * [ ] Inventory every revision.
 * [ ] Inventory every custom domain.
 * [ ] Verify services that should not be public are not publicly accessible.
+* [ ] Inventory every port each production process listens on, not only the HTTP one — framework admin or QoS shells, rule-push and command APIs, metrics, JMX, debugger and diagnostic-agent ports — and verify from a host outside the network that each is closed; these side ports usually have no authentication.
 * [ ] Prefer `internal` where appropriate.
 * [ ] Prefer `internal-and-cloud-load-balancing` when public access should pass through the intended load balancer/edge.
 * [ ] Verify direct service invocation is authorized.
 * [ ] Verify unauthenticated invocation is intentional.
 * [ ] Verify IAM invocation permissions.
 * [ ] Verify service-to-service authentication.
+* [ ] Verify the service registry and remote configuration store require authentication for reads and writes, enabled explicitly rather than left at the product default — whoever can write there can register a fake provider or push config into every service.
+* [ ] Search for configuration values that are executed rather than read — routing scripts, rule expressions, expression-language strings, templated SQL pulled from a config store — and verify write access to that store is reviewed and audited like a code deploy.
 * [ ] Verify service accounts use least privilege.
 * [ ] Verify service accounts are not shared unnecessarily.
 
@@ -1384,9 +1430,13 @@ Google recommends Secret Manager for sensitive values used by Cloud Run services
 * [ ] Verify maximum instances/quotas.
 * [ ] Verify minimum instances are appropriate for security-sensitive workloads.
 * [ ] Verify CPU/memory limits.
+* [ ] Verify the open-file limit (`ulimit -n`, `LimitNOFILE`, container `nofile`) is above peak connections plus open files, measured under load — a 1024 default turns a spike into "too many open files" refusals.
 * [ ] Verify request size limits.
 * [ ] Verify background thread/process behavior.
+* [ ] Verify the production runtime cannot have a debugger or instrumentation agent attached — no `-agentlib:jdwp` or `--inspect` in the start command, and JVM dynamic attach off (`-XX:+DisableAttachMechanism`) unless a diagnostics procedure needs it; an attached agent reads memory and rewrites running code.
+* [ ] Verify any live-diagnostics agent used in production has its own credentials, listens on loopback, is attached for a bounded session with an audit record, and reports only to an authenticated tunnel or relay server.
 * [ ] Verify temporary file usage.
+* [ ] Verify heap and crash dumps (`-XX:+HeapDumpOnOutOfMemoryError`, core dumps) go to a size-capped, access-restricted location and are handled as secret material — a dump holds every token and password in memory at that moment.
 * [ ] Verify SSRF restrictions.
 * [ ] Verify metadata/service-account access is unnecessary.
 * [ ] Verify egress restrictions where practical.
@@ -1467,6 +1517,9 @@ Written against Cloudflare, but applies to any edge provider — Fastly, Akamai,
 * [ ] Verify registrar account MFA.
 * [ ] Verify registrar lock/transfer protection.
 * [ ] Verify DNSSEC.
+* [ ] Verify the DS record is published at the registrar and `dig +dnssec` returns the `ad` flag, and that removing the DS is a step in any nameserver migration — a stale DS takes the domain offline.
+* [ ] Verify CAA records name every CA that issues for the domain, the edge provider's certificate authorities included, so the record blocks strangers without blocking your own renewals.
+* [ ] Verify certificate-transparency monitoring alerts on any new certificate issued for your domains — an unexpected certificate is often the first sign of a hijacked record or a mis-issuance.
 * [ ] Verify all DNS records.
 * [ ] Identify stale DNS records.
 * [ ] Identify unused subdomains.
@@ -1492,6 +1545,7 @@ Cloudflare's current DNS documentation highlights proxy status, CNAME flattening
 ### Origin protection
 
 * [ ] Identify the actual origin IP.
+* [ ] Verify the origin IP was changed after the domain moved behind the edge, and that no DNS-only record, SPF `ip4:` entry, MX host or bounce message reveals the new one — passive-DNS history keeps every address the domain ever used.
 * [ ] Verify firewall rules reject unauthorized direct traffic.
 * [ ] Verify origin TLS.
 * [ ] Verify origin certificate validity.
@@ -1501,6 +1555,7 @@ Cloudflare's current DNS documentation highlights proxy status, CNAME flattening
 * [ ] Evaluate Authenticated Origin Pulls/mTLS.
 * [ ] Verify direct-origin requests fail.
 * [ ] Verify attacker cannot bypass WAF by discovering the origin IP.
+* [ ] Verify an origin firewall that allowlists only the edge provider's published IP ranges is paired with a secret the edge adds (client certificate, tunnel, signed header) — those ranges are shared by every customer, so another account can point its own zone at your origin and skip your WAF.
 * [ ] Verify monitoring endpoints do not expose the origin.
 * [ ] Verify cloud provider default endpoints do not bypass the edge.
 * [ ] Verify staging origins are not publicly exposed unintentionally.
@@ -1553,14 +1608,17 @@ Cloudflare recommends API tokens over older API-key approaches where possible an
 
 * [ ] Verify cache rules.
 * [ ] Verify authenticated responses cannot enter shared cache.
+* [ ] Verify a dynamic URL with a static extension appended (`/account/x.css`, `/api/me/a.jpg`, `/account;.js`) returns 404 or a non-cacheable response — if the origin ignores the extra segment and the edge caches by extension, the next visitor receives the victim's page (web cache deception).
 * [ ] Verify sensitive API responses are not cached.
 * [ ] Verify cache keys.
+* [ ] Verify the edge or reverse-proxy cache key includes host, scheme and method, not only the path — a path-only key lets one hostname poison another's responses on a shared proxy.
 * [ ] Verify query-string normalization.
 * [ ] Verify cache poisoning resistance.
 * [ ] Verify request-header normalization.
 * [ ] Verify host-header handling.
 * [ ] Verify origin header trust.
 * [ ] Verify WebSocket security.
+* [ ] Verify the reverse proxy switches a connection to tunnel mode only after the backend answers `101 Switching Protocols`; send an `Upgrade: websocket` request the backend refuses with a second request pipelined behind it, and confirm the proxy parses and filters the second one.
 * [ ] Verify API token/header stripping.
 * [ ] Verify Workers cannot be altered by unauthorized users.
 * [ ] Review every Worker.
@@ -1592,6 +1650,7 @@ Your pipeline has production credentials. Treat it as production.
 * [ ] Protect production branches.
 * [ ] Require pull requests.
 * [ ] Require code review.
+* [ ] Verify the default-branch rule dismisses stale approvals on new commits, requires approval of the most recent push, and lists no bypass actors — otherwise an approved PR can be changed after review, or merged by someone the rule exempts.
 * [ ] Protect workflow files.
 * [ ] Protect deployment configuration.
 * [ ] Protect infrastructure files.
@@ -1625,6 +1684,7 @@ Your pipeline has production credentials. Treat it as production.
 * [ ] Review `packages: write`.
 * [ ] Review `deployments: write`.
 * [ ] Review `id-token: write`.
+* [ ] Audit `statuses: write`, `checks: write` and `actions: write` grants — the first two can mark a required check as passed, and the third can approve or re-run workflows waiting for approval.
 * [ ] Verify privileged permissions are unavailable to untrusted PR workflows.
 
 ### PR security
@@ -1639,6 +1699,8 @@ Your pipeline has production credentials. Treat it as production.
 * [ ] Verify commit messages cannot become shell injection.
 * [ ] Verify tag names cannot become shell injection.
 * [ ] Verify branch names cannot become shell injection.
+* [ ] Search `run:` blocks for `${{ ... }}` expressions that expand an untrusted value directly, and verify each one is passed through `env:` and used as a quoted shell variable instead — expressions are substituted into the script text before the shell parses it.
+* [ ] Verify outputs of third-party actions that echo repository content (changed-file lists, branch lists, commit subjects) are treated as untrusted input in later `run:` steps — a file named `$(cmd).txt` in a PR has turned a changed-files output into code execution.
 
 GitHub specifically warns that attacker-controlled GitHub context values can become executable input when inserted into workflow commands.
 
@@ -1667,6 +1729,7 @@ GitHub recommends hardening Actions usage, keeping actions updated, and using OI
 * [ ] Verify production secrets are environment-scoped.
 * [ ] Verify secrets are not available to forks.
 * [ ] Verify secrets are not printed.
+* [ ] Verify secrets cannot reach a public log in encoded form — masking matches only the literal value, so a step that prints base64 of runner memory publishes every secret; restrict log visibility or treat such logs as disclosed.
 * [ ] Verify `set -x` is not enabled around secret operations.
 * [ ] Verify secrets are not placed in command-line arguments unnecessarily.
 * [ ] Verify secrets are not written to artifacts.
@@ -1700,6 +1763,7 @@ GitHub documents OIDC subject/audience claims and recommends conditions so untru
 * [ ] Verify workspace cleanup.
 * [ ] Verify privileged containers.
 * [ ] Verify runner network access.
+* [ ] Verify jobs that hold deploy or publish secrets run with an outbound allowlist, or at least record each step's network destinations — a compromised action is usually spotted by one unexpected outbound call.
 * [ ] Verify runner OS patching.
 * [ ] Verify runner agent updates.
 * [ ] Verify runner registration tokens.
@@ -1714,6 +1778,7 @@ GitHub documents OIDC subject/audience claims and recommends conditions so untru
 * [ ] Verify artifact retention.
 * [ ] Verify cache keys are not attacker-controlled in a way that allows poisoning.
 * [ ] Verify cache restore paths.
+* [ ] Verify release and deploy workflows do not restore dependency or build caches — any workflow on the default branch can write cache entries, so a low-privilege job can poison what the release job restores and ships.
 * [ ] Verify dependency caches cannot execute attacker-controlled binaries.
 * [ ] Verify production deployment uses trusted artifacts.
 
@@ -1765,9 +1830,13 @@ GitHub documents OIDC subject/audience claims and recommends conditions so untru
 
 
 * [ ] Run SCA against application dependencies.
+* [ ] Verify every ignored vulnerability (`osv-scanner.toml`, `.trivyignore`, an audit allowlist) carries a reason and a review or expiry date, so an accepted risk does not stay accepted forever.
+* [ ] Measure the age of the oldest open dependency-update PR — an update bot that is enabled but whose PRs are never merged still leaves you exposed to known flaws.
 * [ ] Run container vulnerability scanning.
 * [ ] Run IaC scanning.
 * [ ] Run secret scanning.
+* [ ] Verify secret scanning blocks a push on the server side as well as in a local pre-commit hook — `git commit --no-verify` or `SKIP=<hook>` silently disables the local one.
+* [ ] Search for inline scanner suppressions (`gitleaks:allow`, `nosec`, `nosemgrep`) and baseline or ignore files, and verify each new entry was reviewed in the PR that added it — a suppression is a finding someone decided not to fix.
 * [ ] Run GitHub code scanning.
 * [ ] Review npm dependency lifecycle.
 * [ ] Review package maintainers.
@@ -1776,11 +1845,16 @@ GitHub documents OIDC subject/audience claims and recommends conditions so untru
 * [ ] Use private package scopes appropriately.
 * [ ] Verify package registries.
 * [ ] Verify lockfiles.
+* [ ] Search CI steps, scripts and Dockerfiles for installs that bypass the lockfile — `npm install` instead of `npm ci`, `npm install -g x`, `pip install x` without `==` or `--require-hashes`, `go install ...@latest`, `curl ... | sh` — each one resolves a fresh, unreviewed version on every build.
 * [ ] Verify package integrity.
 * [ ] Verify postinstall scripts.
+* [ ] Verify CI installs dependencies with lifecycle scripts off (`npm ci --ignore-scripts`, `ignore-scripts=true` in `.npmrc`) and runs only the install scripts on an explicit allowlist — an install script runs with the job's token and secrets.
 * [ ] Verify native modules.
+* [ ] Search the repository for committed executables and compiled files (`*.jar`, `*.so`, `*.dll`, `*.exe`, `*.pyc`, `*.class`, vendored minified bundles) and verify each is rebuilt from source or has its origin and hash recorded — reviewers read source, not binaries.
 * [ ] Verify release artifacts.
 * [ ] Verify build provenance.
+* [ ] Verify the deploy step checks the artifact's provenance before release — the `subject` digest equals the artifact being deployed, and `builder.id`, source repository and ref match expected values — and fails on unrecognised `externalParameters`.
+* [ ] Inventory the licences of every dependency from the lockfile and verify the build fails on licences you have not approved (strong copyleft such as AGPL, source-available such as SSPL, or none declared) — the obligation ships with the artifact whether or not anyone read it.
 * [ ] Verify production artifacts map to reviewed commits.
 * [ ] Verify developers cannot silently substitute dependencies during CI.
 
@@ -1812,6 +1886,7 @@ You will not fix what you cannot see.
 * [ ] Monitor production branch changes.
 * [ ] Monitor unexpected origin requests.
 * [ ] Monitor secrets-access anomalies.
+* [ ] Verify every log source writes UTC timestamps from a synchronised clock — events from two systems cannot be ordered during an incident otherwise.
 * [ ] Alert on direct-origin traffic where it should not occur.
 * [ ] Verify the process handles unhandled promise rejections and uncaught exceptions by logging the error's class and a fixed description, never the raw error object — a database or cache client's error can carry the command it was running, password included.
 ---
@@ -1901,6 +1976,7 @@ Search the complete repository, Git history, container images, built frontend, m
 * [ ] Verify no development debug flags.
 * [ ] Verify no test accounts with production privileges.
 * [ ] Verify no default passwords.
+* [ ] Inventory every bundled admin console (config server, flow-control dashboard, connection-pool monitor, registry UI) and verify its shipped login is changed or the console disabled, by trying the documented default against the production URL.
 * [ ] Verify no development endpoints.
 * [ ] Verify no localhost fallback.
 * [ ] Verify production logging is safe.
@@ -2094,6 +2170,7 @@ those miss.
 
 * [ ] Identify the single most expensive operation a caller can trigger, and confirm it is authenticated, rate-limited and bounded.
 * [ ] Verify limits exist per user and per tenant, not only globally — one global limit lets a single account deny service to everyone else.
+* [ ] Identify parameters whose single value can draw a large share of traffic — one product id, tenant or search term — and verify the expensive path has a per-value limit; per-user limits do nothing when many users hit one hot key.
 * [ ] Verify concurrency is capped, not just request rate; ten concurrent slow requests can cost more than a thousand fast ones.
 * [ ] Verify pagination has a maximum page size that the client cannot raise.
 * [ ] Verify any endpoint returning a collection cannot be asked for the entire table.
@@ -2107,6 +2184,7 @@ those miss.
 * [ ] Verify a slow or failing third-party dependency degrades your service rather than hanging it — timeouts and a circuit breaker on every outbound call.
 * [ ] Verify autoscaling has an upper bound and a budget alert; without one, an availability attack succeeds as a billing attack instead.
 * [ ] Verify load shedding exists: under pressure the service returns 429 or 503 quickly rather than queueing indefinitely.
+* [ ] Search for executors built with an unbounded queue or thread count (`Executors.newFixedThreadPool`, `newCachedThreadPool`, a `LinkedBlockingQueue` with no capacity) and verify each has a bounded queue and an explicit rejection policy — unbounded queues turn overload into an out-of-memory crash.
 * [ ] Verify background job queues have a maximum depth and cannot be filled by an unauthenticated caller.
 * [ ] Verify long-lived connections (WebSocket, SSE, streaming responses) are capped per user and time out when idle.
 
@@ -2140,6 +2218,8 @@ an attacker would like to borrow. Inventory them first, then bound each one.
 * [ ] Verify push notification sending cannot be triggered for arbitrary device tokens.
 * [ ] Verify every paid third-party action — model calls, SMS, email, geocoding, storage writes — has a per-user quota and a global budget alarm.
 * [ ] Verify a new, unverified account cannot reach the expensive capabilities at all until it has done something that costs the attacker time or money.
+* [ ] Verify every CAPTCHA or challenge token is checked server-side against the provider's verify endpoint on the request it guards, and that a failed, expired, already-used or unreachable verification rejects the request — a widget rendered in the browser with no server call stops nothing.
+* [ ] Verify the challenge verification response's `hostname` and `action` are compared with the values expected for that form, so a token solved on another page or another site is refused.
 
 ### Hosting and identity
 
@@ -2286,6 +2366,7 @@ Prompt injection is not a filtering problem. It is an authorization problem wear
 * [ ] Test fake developer messages.
 * [ ] Test hidden instructions.
 * [ ] Test Unicode obfuscation.
+* [ ] Verify input from users, documents and tool output is checked for Unicode tag characters (U+E0000–U+E007F), zero-width characters and bidi controls, and that they are removed or rejected before the model sees them — they carry instructions a human reviewer cannot see.
 * [ ] Test homoglyph attacks.
 * [ ] Test Base64/encoding tricks.
 * [ ] Test whitespace manipulation.
@@ -2387,6 +2468,7 @@ OWASP treats system-prompt leakage as its own risk and recommends not assuming h
 * [ ] Clearly separate memory from trusted instructions.
 * [ ] Clearly label untrusted content.
 * [ ] Use structured message boundaries.
+* [ ] Verify the server loads earlier conversation turns from its own store by a conversation id checked against the caller, and never accepts assistant or system turns in the request body — a client-sent history lets an attacker write the model's earlier "agreement" for it to follow through on.
 * [ ] Avoid concatenating arbitrary text into privileged instructions.
 * [ ] Avoid dynamically modifying system prompts with user-controlled data.
 * [ ] Avoid dynamically modifying tool descriptions from untrusted content.
@@ -2394,6 +2476,7 @@ OWASP treats system-prompt leakage as its own risk and recommends not assuming h
 * [ ] Verify truncation cannot remove security instructions while leaving attacker instructions.
 * [ ] Verify context-window overflow cannot change effective instruction priority.
 * [ ] Verify prompt templating escapes attacker-controlled delimiters.
+* [ ] Search every place the application builds a raw prompt string for chat-template control tokens (`<|im_start|>`, `<|eot_id|>`, `[INST]`), and verify user, retrieved and tool text has them stripped or encoded before tokenization — otherwise a user can close their own turn and open a fake system turn.
 * [ ] Verify template injection defenses.
 
 
@@ -2436,6 +2519,7 @@ Then verify:
 * [ ] Tool output is treated as untrusted.
 * [ ] Tool errors cannot expose credentials.
 * [ ] Tool return data cannot inject arbitrary instructions.
+* [ ] Inventory every agent session in which one model can read untrusted content, read private data and send data out (HTTP, email, links, write tools), and verify that once untrusted content is in context the outbound tools need approval or are removed — taking away any one of the three closes the exfiltration path.
 * [ ] Tool retries cannot duplicate destructive actions.
 * [ ] Tool calls are idempotent where necessary.
 * [ ] Tool invocation has per-user/per-tenant limits.
@@ -2569,6 +2653,7 @@ Agents dramatically increase SSRF risk if they can browse/fetch URLs.
 * [ ] Validate after DNS resolution.
 * [ ] Revalidate every redirect.
 * [ ] Prevent DNS rebinding.
+* [ ] Verify a server-side MCP or OAuth client fetches discovery documents (protected-resource and authorization-server metadata, client metadata URLs) through the same SSRF guard as tool fetches — a hostile server chooses those URLs, and the fetch runs from inside your network.
 * [ ] Limit ports.
 * [ ] Limit response size.
 * [ ] Limit redirects.
@@ -2632,6 +2717,7 @@ Never trust model output merely because it came from the model.
 * [ ] Validate HTML.
 * [ ] Sanitize Markdown/HTML.
 * [ ] Escape output in the correct rendering context.
+* [ ] Verify model output written to a terminal, CLI or log viewer has ANSI and OSC escape sequences (`\x1b[`, `\x1b]`) stripped — an injected sequence can hide lines, rewrite what the operator sees or plant a clickable link.
 * [ ] Never execute arbitrary model-generated shell commands.
 * [ ] Never execute arbitrary model-generated JavaScript.
 * [ ] Never directly render model output as trusted HTML.
@@ -2767,6 +2853,7 @@ For every memory mechanism:
 * [ ] Identify who can delete memory.
 * [ ] Verify tenant isolation.
 * [ ] Verify user isolation.
+* [ ] Verify any prompt, response or similarity cache in front of the model has the user or tenant id in its key — otherwise a near-identical question from a stranger is served the first user's answer.
 * [ ] Verify memory expiration.
 * [ ] Verify deletion.
 * [ ] Verify account-deletion behavior.
@@ -2829,12 +2916,20 @@ If Model Context Protocol is used:
 * [ ] Inventory every MCP resource.
 * [ ] Verify server authenticity.
 * [ ] Verify transport security.
+* [ ] Verify the MCP client opens a server-supplied authorization URL only after parsing it and allowing `https` (or `http` on loopback in development), and opens it through a non-shell API — a `javascript:`, `file:` or shell-metacharacter URL from a hostile server becomes script or command execution on the client.
+* [ ] Verify a locally run MCP server uses stdio, or over HTTP binds to loopback, checks the `Origin` header and requires a token — otherwise any web page the user opens can reach it on localhost.
+* [ ] Verify adding a local MCP server shows the full launch command with every argument untruncated, requires explicit approval, and starts the server with filesystem and network access limited to what it declares — a local server runs with the client's own privileges.
 * [ ] Verify authentication.
 * [ ] Verify authorization.
+* [ ] Verify an MCP server that fronts a third-party OAuth provider under one static client id keeps a per-user record of approved `client_id`s and shows its own consent screen (client name, upstream scopes, registered `redirect_uri`) before forwarding — otherwise a newly registered client rides the consent the upstream remembers for an earlier one.
+* [ ] Verify the MCP proxy writes the OAuth `state` to the session only after the user approves its consent screen, compares it exactly at the callback, deletes it on first use and expires it within minutes — a `state` set before consent lets a crafted authorization link skip the screen.
 * [ ] Verify tool permissions.
+* [ ] Search the MCP server's `scopes_supported` and `WWW-Authenticate` challenges for wildcard or catch-all scopes, and confirm a first connection gets read-only scopes, with write and admin requested only when a tool first needs them — a stolen token then carries only what was used.
 * [ ] Verify resource permissions.
 * [ ] Verify tenant isolation.
 * [ ] Verify tool schemas.
+* [ ] Audit every MCP tool and parameter description for text aimed at the model — instructions, mentions of other tools, files or secrets to read, invisible Unicode — since the model reads the whole description while the person approving the tool usually sees only its name.
+* [ ] Verify tool names are namespaced per MCP server and that one server's description cannot change how the agent calls another server's tools — a connected server can otherwise redirect another tool's arguments without ever being called itself.
 * [ ] Verify tool output validation.
 * [ ] Verify malicious MCP server scenario.
 * [ ] Verify compromised MCP server scenario.
@@ -2843,13 +2938,17 @@ If Model Context Protocol is used:
 * [ ] Review MCP server source/dependencies.
 * [ ] Review update process.
 * [ ] Verify MCP cannot silently gain new capabilities.
+* [ ] Verify the name, description and input schema of every approved MCP tool are stored as a hash, and that a changed hash on reconnect or after a `tools/list_changed` notification disables the tool until it is reviewed again — a server can pass review with a harmless description and swap it later.
 * [ ] Verify tool additions require security review.
 * [ ] Verify an MCP server cannot retrieve unrelated secrets.
 * [ ] Verify an MCP server cannot invoke unrestricted shell access.
 * [ ] Verify MCP tools cannot bypass application authorization.
+* [ ] Verify each MCP server rejects a bearer token whose audience is not that server, and calls downstream APIs with a token it obtained for them rather than forwarding the client's — a forwarded token makes the downstream API trust a caller nobody checked and hides the real client from both audit logs.
+* [ ] Verify every server-minted handle an MCP tool takes back as an argument (cart, job, workflow or session id) is random, expires, and is looked up under the user id from the verified token, so a handle sent by another principal is refused — holding a handle is not authentication.
 * [ ] Verify MCP audit logging.
 * [ ] Verify MCP rate limits.
 * [ ] Verify MCP resource limits.
+* [ ] Verify a connected MCP server's sampling requests (asking the client's model to generate) and elicitation requests (asking the user for input) are shown to the user, can be denied, and are never auto-filled with secrets — they let a server spend your model budget and ask questions that look like your app's.
 
 OWASP's Agentic Top 10 specifically calls out agentic supply-chain vulnerabilities and dynamic tool ecosystems as a new attack surface.
 ---
@@ -2961,6 +3060,7 @@ For coding agents:
 * [ ] Generated Terraform/IaC receives security review.
 * [ ] Generated shell commands are constrained.
 * [ ] Generated dependencies are reviewed.
+* [ ] Verify every package a coding agent adds to a manifest exists in the registry, is not newly registered, and is the name that was asked for — attackers register the package names models tend to invent.
 * [ ] Agent cannot execute arbitrary PR code with privileged credentials.
 * [ ] Agent cannot use secrets while processing untrusted forks.
 * [ ] Agent cannot modify its own instructions/policies.
@@ -3011,6 +3111,7 @@ An unmetered model call is a billing vulnerability. Availability is a security p
 * [ ] Maximum prompt size.
 * [ ] Maximum context size.
 * [ ] Maximum output tokens.
+* [ ] Verify every call to a reasoning model sets an explicit reasoning or thinking budget, and that per-request cost accounting counts reasoning tokens — a puzzle-shaped prompt can make the hidden reasoning cost far more than the visible answer.
 * [ ] Maximum tool calls.
 * [ ] Maximum recursion depth.
 * [ ] Maximum agent delegation depth.
@@ -3206,6 +3307,7 @@ Create a malicious tool response containing fake higher-priority instructions.
 * [ ] Attempt to write malicious instructions into persistent memory.
 * [ ] Verify future sessions do not inherit unauthorized behavior.
 * [ ] Verify another user cannot read/write the memory.
+* [ ] Run a two-account test where account A gives the assistant a unique marker string and account B, in a fresh session, asks for it several ways; verify the marker never comes back — one test covers shared memory, caches and summaries.
 * [ ] Verify deleting the user removes appropriate memory.
 
 ### Multi-agent attack
@@ -4317,6 +4419,8 @@ Most of these are invisible on a single instance and obvious on the second one. 
 * [ ] Inventory every module-level variable that accumulates across requests — caches, counters, maps, singletons.
 * [ ] Verify sessions are in a shared store, not in process memory.
 * [ ] Verify rate limiting is shared; per-instance limits multiply by the instance count, which is not the limit you configured.
+* [ ] Verify rate-limit and circuit-breaker rules changed at runtime from a dashboard or admin API are persisted to a durable, versioned store and reloaded on start — rules held only in process memory vanish on the next deploy.
+* [ ] Verify what the rate limiter does when its shared store or token server is unreachable — a decided fail-open or fail-closed per route, a short timeout, an alert — so a cache outage neither stops the service nor silently drops every limit.
 * [ ] Verify in-memory caches are either safe to be inconsistent between instances or moved to a shared cache.
 * [ ] Verify counters, sequence generators and "last seen" values are not held in memory.
 * [ ] Verify feature flag state converges across instances within a bounded time, and that a flag flip does not need a deploy.
@@ -5814,6 +5918,7 @@ The instinct is to fix and move on. The order that actually works is contain, pr
 * [ ] Verify egress volume is visible historically, so a bulk export is detectable after the fact.
 * [ ] Verify you can list which users are affected, because the notification obligation depends on it.
 * [ ] Verify you check for persistence: new accounts, new keys, changed webhooks, scheduled jobs, forwarding rules, OAuth grants, modified CI workflows.
+* [ ] Verify you can list, within an hour, every workflow run that executed a given third-party action between two timestamps and which secrets each of those jobs could read — that is the first question when an action's tags are found re-pointed to malicious code.
 * [ ] Verify you check whether your service was used to attack someone else — see [`security/core/18-abuse-and-availability.md`](checklists/security/core/18-abuse-and-availability.md).
 
 ## Obligations
@@ -5861,6 +5966,7 @@ A bad migration, a `DELETE` without a `WHERE`, a corrupted table, a well-meaning
 * [ ] Verify you can restore a single table, or a single tenant's rows, without rolling the whole database back.
 * [ ] Verify there is a procedure for extracting old rows from a restored copy and merging them into live data.
 * [ ] Verify soft deletes exist where accidental deletion is plausible, and that they are actually recoverable.
+* [ ] Verify hand-run production `UPDATE` and `DELETE` fixes follow a written procedure: run the matching `SELECT` and record the row count, execute in a transaction, and compare affected rows before `COMMIT`.
 * [ ] Verify cascading deletes are understood before you rely on a restore — one deleted parent row can take a great deal with it.
 * [ ] Verify object storage has versioning enabled where the files matter.
 * [ ] Verify the recovery procedure has been written down by someone who has performed it.
@@ -5923,6 +6029,7 @@ You are down, or something you cannot fix is. The useful preparation is knowing 
 * [ ] Verify payment provider downtime has a decided behaviour — queue the intent, or refuse cleanly with an honest message.
 * [ ] Verify email or SMS provider downtime does not silently drop messages that should be retried.
 * [ ] Verify a timeout and circuit breaker exists on every outbound call, so their outage is not automatically yours.
+* [ ] Verify each circuit breaker trips on slow calls as well as errors, needs a minimum request count per window before opening, and that its open-state fallback has been exercised — a breaker counting only exceptions never opens on a dependency that hangs.
 * [ ] Verify a slow dependency degrades rather than exhausting your workers — see [`scale/05-async-and-queues.md`](checklists/scale/05-async-and-queues.md).
 * [ ] Verify you know which dependency has no fallback at all, and that this is a recorded decision.
 * [ ] Verify every managed service with a monthly or plan quota (requests, rows, bandwidth, build minutes) alerts well before the limit, and that you know what it does at the limit — many refuse every call until the month rolls over, which is an outage, not throttling.
@@ -6197,10 +6304,23 @@ Items from the core checklists that are specific to **Cloudflare**. If you do no
 
 ---
 
+## Authentication & Authorization
+<sub>from [`security/core/02-authorization.md`](checklists/security/core/02-authorization.md)</sub>
+
+* [ ] Verify an app behind Cloudflare Access validates `Cf-Access-Jwt-Assertion` (signature against the team certs, `aud` tag, expiry) on every request instead of trusting that the request arrived through Access.
+
+## Object Storage & File Handling
+<sub>from [`security/core/07-storage-and-files.md`](checklists/security/core/07-storage-and-files.md)</sub>
+
+* [ ] Verify the `r2.dev` public development URL is disabled on every bucket served through a custom domain — WAF, Access and token-auth rules apply only on the custom domain, and `r2.dev` serves the same objects without them.
+
 ## Secrets Management & Cryptography
 <sub>from [`security/core/08-secrets-and-crypto.md`](checklists/security/core/08-secrets-and-crypto.md)</sub>
 
 * [ ] Identify Cloudflare tokens.
+* [ ] Search `wrangler.toml` and `wrangler.jsonc` `vars` blocks, every `env.*.vars` block included, for keys, tokens and connection strings, and confirm `.dev.vars` is gitignored — `vars` are plaintext in the repo and the dashboard; secrets go through `wrangler secret put`.
+* [ ] Verify `wrangler`, `miniflare` and `@cloudflare/vite-plugin` are past their dev-server advisories and that local development listens on `127.0.0.1` — older dev servers served `.dev.vars`, `.env` or arbitrary files to the network.
+* [ ] Inventory every Cloudflare Tunnel token (`cloudflared ... --token`) in compose files, systemd units and CI, and confirm a rotation has been rehearsed — whoever holds it can run a connector for that tunnel.
 
 ## Common Web Attack Classes
 <sub>from [`security/core/09-common-web-attacks.md`](checklists/security/core/09-common-web-attacks.md)</sub>
@@ -6212,11 +6332,19 @@ Items from the core checklists that are specific to **Cloudflare**. If you do no
 
 * [ ] Verify Cloudflare is authoritative for intended zones.
 * [ ] Verify the origin is not directly reachable from the public internet when it should be Cloudflare-only.
+* [ ] Verify Authenticated Origin Pulls uses a zone-level or per-hostname certificate you uploaded, not the global Cloudflare certificate — the shared one only proves the request crossed some Cloudflare account.
 * [ ] Verify Cloudflare proxying is enabled for intended web/API hosts.
 * [ ] Set Cloudflare SSL/TLS to Full (strict) where appropriate.
+* [ ] Verify no zone, Configuration Rule or Page Rule sets SSL/TLS to `Flexible` or `Off` for any path — Flexible fetches from the origin over plain HTTP while the browser still shows a padlock.
+* [ ] Verify Cache Deception Armor is on in every Cache Rule that marks responses `Eligible for cache`, and that no Edge TTL or origin `Cache-Control` covered by the same rule overrides it.
 * [ ] Inventory all Cloudflare API tokens.
 * [ ] Verify resource/zone restrictions.
 * [ ] Verify Cloudflare Transform Rules do not modify security-sensitive values unexpectedly.
+* [ ] Verify `workers_dev = false` is set in the Wrangler config of every Worker served on a route or custom domain, and that version and preview URLs are disabled or behind Access — turning off `workers.dev` in the dashboard is undone by the next `wrangler deploy`.
+* [ ] Search Workers for `passThroughOnException()` and confirm none sits in front of an auth, payment or rate-limit check — an exception then forwards the request to the origin unchecked.
+* [ ] Verify no session revocation, ban list, kill switch or rate-limit counter relies on Workers KV for immediate effect — KV reads can be 60 seconds or more stale in other locations, so a revoked token keeps working there.
+* [ ] Verify rate-limiting thresholds assume per-data-center counters (`cf.colo.id` is always a characteristic) — a distributed client gets the limit once per location, so per-account limits belong in the application.
+* [ ] Audit every WAF custom rule with the `skip` action and confirm its expression matches only something the client cannot set (IP list, verified bot, mTLS certificate), never a User-Agent, path prefix or custom header.
 
 ## Monitoring, Detection & Incident Response
 <sub>from [`security/core/16-monitoring-and-response.md`](checklists/security/core/16-monitoring-and-response.md)</sub>
@@ -6238,6 +6366,11 @@ Items from the core checklists that are specific to **Cloudflare**. If you do no
 
 * [ ] Cloudflare DNS audit complete.
 * [ ] Cloudflare WAF/rate-limit audit complete.
+
+## Abuse & Availability
+<sub>from [`security/core/18-abuse-and-availability.md`](checklists/security/core/18-abuse-and-availability.md)</sub>
+
+* [ ] Search production config and build output for `1x0000000000000000000000000000000AA` and the other Turnstile test keys — the test secret passes every token, so a shipped test key silently turns the challenge off.
 
 ## AI Security Architecture & Identity
 <sub>from [`security/ai/01-architecture-and-identity.md`](checklists/security/ai/01-architecture-and-identity.md)</sub>
@@ -6392,6 +6525,9 @@ Items from the core checklists that are specific to **Docker / containers**. If 
 * [ ] Verify `.dockerignore`.
 
 * [ ] Scan Dockerfile.
+* [ ] Verify every published port in `docker run -p` or compose `ports:` is bound to a specific interface (`127.0.0.1:5432:5432`) unless it must be public — Docker writes its own iptables rules, so a host firewall such as ufw does not block a port bound to 0.0.0.0.
+* [ ] Verify containers run with `no-new-privileges`, without `seccomp=unconfined`, and with a `pids` limit — these runtime flags keep a compromised process from escalating or fork-bombing the host.
+* [ ] Verify the Dockerfile uses `COPY` rather than `ADD` for local files, never `ADD <url>`, and removes setuid and setgid bits from the final image — `ADD` fetches remote content and auto-extracts archives.
 
 ## CI/CD & Supply Chain
 <sub>from [`security/core/15-ci-cd-and-supply-chain.md`](checklists/security/core/15-ci-cd-and-supply-chain.md)</sub>
@@ -6399,6 +6535,7 @@ Items from the core checklists that are specific to **Docker / containers**. If 
 * [ ] Protect Dockerfiles.
 
 * [ ] Verify Docker socket exposure.
+* [ ] Verify the Docker daemon is not listening on `tcp://` (2375/2376) without mutual TLS and that `daemon.json` lists no `insecure-registries` — an open daemon socket is root on the host.
 
 ## Pre-Release Gates
 <sub>from [`security/core/17-release-gates.md`](checklists/security/core/17-release-gates.md)</sub>
@@ -6636,6 +6773,11 @@ Items from the core checklists that are specific to **GitHub (repository & Actio
 
 * [ ] Review `pull_request_target`.
 * [ ] Enable Dependabot updates for actions.
+* [ ] Verify the repository and organisation Actions settings give `GITHUB_TOKEN` read-only access by default and have "Allow GitHub Actions to create and approve pull requests" off — otherwise a workflow can open a PR and supply its own required approval.
+* [ ] Search every workflow for `actions/checkout` without `persist-credentials: false` — by default the job token is written into `.git/config`, so any later step, or an artifact that uploads the workspace, carries a usable `GITHUB_TOKEN`.
+* [ ] Search for workflows triggered by `pull_request_target` or `workflow_run` that check out `github.event.pull_request.head.sha` or `head.ref`, or download the triggering run's artifacts — these run with the base repository's secrets and write token, so building PR-controlled code there hands both to the PR author.
+* [ ] Search workflows for writes of untrusted values to `$GITHUB_ENV`, `$GITHUB_OUTPUT` or `$GITHUB_PATH` — a newline in the value adds variables such as `NODE_OPTIONS` or `LD_PRELOAD` that execute in every later step.
+* [ ] Search workflows for `ACTIONS_ALLOW_UNSECURE_COMMANDS: true` — it re-enables the deprecated `set-env` and `add-path` log commands, so any log line an attacker controls can set environment variables.
 
 ## Pre-Release Gates
 <sub>from [`security/core/17-release-gates.md`](checklists/security/core/17-release-gates.md)</sub>
@@ -7338,6 +7480,8 @@ Items from the core checklists that are specific to **Spring Boot**. If you do n
 * [ ] Verify the H2 console and Spring Boot DevTools are not on the production classpath.
 * [ ] Verify `@CrossOrigin` is not used with `origins = "*"` alongside `allowCredentials = true`.
 * [ ] Verify `spring.jackson` polymorphic typing is off — `enableDefaultTyping` / `@JsonTypeInfo` on untrusted input is deserialization RCE.
+* [ ] Verify fastjson 1.x runs in safe mode (`-Dfastjson.parser.safeMode=true`), no code calls `setAutoTypeSupport(true)` or adds a broad `addAccept` prefix, and fastjson2 never passes `JSONReader.Feature.SupportAutoType` on untrusted input.
+* [ ] Verify Druid's `StatViewServlet` (`/druid/*`) is off in production or protected by `loginUsername` and `loginPassword`, an `allow` list and `resetEnable=false` — it shows live SQL with parameters, URIs and session ids.
 * [ ] Verify request size limits: `spring.servlet.multipart.max-file-size` and `max-request-size`.
 
 ## Authentication & Authorization

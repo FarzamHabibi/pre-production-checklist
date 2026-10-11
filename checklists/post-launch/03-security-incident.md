@@ -45,6 +45,7 @@ The instinct is to fix and move on. The order that actually works is contain, pr
 * [ ] Verify egress volume is visible historically, so a bulk export is detectable after the fact.
 * [ ] Verify you can list which users are affected, because the notification obligation depends on it.
 * [ ] Verify you check for persistence: new accounts, new keys, changed webhooks, scheduled jobs, forwarding rules, OAuth grants, modified CI workflows.
+* [ ] Verify you can list, within an hour, every workflow run that executed a given third-party action between two timestamps and which secrets each of those jobs could read — that is the first question when an action's tags are found re-pointed to malicious code.
 * [ ] Verify you check whether your service was used to attack someone else — see [`security/core/18-abuse-and-availability.md`](../security/core/18-abuse-and-availability.md).
 
 ## Obligations

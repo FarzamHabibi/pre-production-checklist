@@ -116,10 +116,14 @@ What safe SVG handling looks like — rasterize, sanitize, serve off-origin, emb
 * [ ] Verify analytics/ad/tracking scripts do not receive unnecessary sensitive data.
 * [ ] Verify Subresource Integrity where suitable.
 * [ ] Verify HSTS.
+* [ ] Verify HSTS `includeSubDomains` and `preload` are enabled only after every subdomain serves valid HTTPS, with `max-age` ramped up first — preload commits you for months and breaks any HTTP-only subdomain.
 * [ ] Verify `X-Content-Type-Options`.
 * [ ] Verify `Referrer-Policy`.
 * [ ] Verify clickjacking protection.
 * [ ] Verify browser permissions policies.
+* [ ] Verify HTML responses send `Cross-Origin-Opener-Policy: same-origin` (or `same-origin-allow-popups` where OAuth or payment popups need it) — without it any page that opens yours can probe its state across windows.
+* [ ] Verify authenticated endpoints reject cross-site subresource requests by checking `Sec-Fetch-Site` and `Sec-Fetch-Mode` (allow same-origin, same-site, `none` and top-level navigation) — a fetch-metadata policy stops cross-site leaks that cookie flags miss.
+* [ ] Search for JSONP endpoints (`callback=` parameters, `jsonp(`) and per-user generated JavaScript files, and verify none returns data that needs authorization — a cross-site `<script>` tag sends the user's cookies and reads the result.
 
 Next.js documents CSP as a protection against XSS, clickjacking, and related code-injection threats and provides nonce/SRI approaches.
 
@@ -130,10 +134,13 @@ Next.js documents CSP as a protection against XSS, clickjacking, and related cod
 * [ ] Verify appropriate `SameSite`.
 * [ ] Verify cookie domain is as narrow as practical.
 * [ ] Verify cookie path.
+* [ ] Verify session cookies use the `__Host-` prefix (Secure, `Path=/`, no `Domain`) so a sibling subdomain or network attacker cannot set or overwrite them; use `__Secure-` only where a cookie must span subdomains.
+* [ ] Measure the largest auth cookie the app writes (many roles, long JWT, chunked SSR cookies) and verify each stays under 4096 bytes and all of them under the proxy's header limit — browsers silently drop an oversized cookie and the user is logged out with no error.
 * [ ] Verify session expiration.
 * [ ] Verify session rotation after login.
 * [ ] Verify session rotation after privilege changes.
 * [ ] Verify session invalidation on logout.
+* [ ] Verify logout sends `Clear-Site-Data: "cache", "storage"` or the client wipes localStorage, sessionStorage and IndexedDB, so the next person on a shared device sees no cached account data.
 * [ ] Verify session fixation protection.
 * [ ] Verify sensitive tokens are not stored in localStorage unnecessarily.
 * [ ] Verify refresh tokens are not exposed to JavaScript unless explicitly required.

@@ -224,3 +224,66 @@ label on a service is not what serves traffic. `pg_policies`, `skip`, `serving|t
 **Declined.** Sanctions screening of currencies and payment rails. It is checkable, but
 it is a legal question first and belongs in the `legal/` domain the expansion plan
 already names, not as a lone line in a security file.
+
+---
+
+## What well-known public repositories check that this list did not
+
+**Found** 11 October 2026, by reading five groups of widely used public repositories
+for checks a team can run before shipping, and searching this list for each one:
+
+* Alibaba and Alibaba-origin projects — the Java coding guidelines (`alibaba/p3c`),
+  flow control (`alibaba/Sentinel`), `fastjson`/`fastjson2`, `nacos`, `druid`,
+  `arthas`, and `apache/dubbo`, with their published advisories.
+* Cloudflare — `cloudflare/cloudflare-docs` (TLS modes, origin protection, cache rules,
+  Turnstile, R2, Workers, Tunnel, Access, DNS) and the `workers-sdk` and `pingora`
+  advisories.
+* General application security — OWASP ASVS 5.0, the OWASP Cheat Sheet Series,
+  `goldbergyoni/nodebestpractices`, `shieldfy/API-Security-Checklist`,
+  `thedaviddias/Front-End-Checklist`.
+* Supply chain and infrastructure — `ossf/scorecard`, SLSA's verification spec,
+  `step-security/harden-runner`, `docker/docker-bench-security`, checkov's GitHub
+  Actions checks, `gitleaks`, and the `tj-actions/changed-files` advisories.
+* LLM, agent and MCP security — the MCP specification's security best practices,
+  `invariantlabs-ai/mcp-scan`, `promptfoo` red-team plugins, `NVIDIA/garak` probes,
+  `protectai/llm-guard`, and the OWASP LLM and agentic material.
+
+**How the wording was produced.** Every source was read for what to check, never for
+how to say it. No sentence, rule text or example was copied; each item is written fresh
+in this list's own form. Several sources are CC BY-SA or Apache licensed, and this list
+is CC BY 4.0 — copying their wording would have changed what this list can be used for.
+Configuration names were checked against each project's current source before they were
+written down (`nacos.core.auth.server.identity.key`, `fastjson.parser.safeMode`,
+`resetEnable`, `qos-accept-foreign-ip`, `csp.sentinel.api.port`).
+
+**What was searched.** Each candidate was searched with two to four patterns over
+`checklists/`, and kept only when the topic was absent or present only as a bare line
+with no way to check it. Among the absent: `persist-credentials`, `workflow_run`,
+`GITHUB_ENV`, `--ignore-scripts`, licence, pre-commit, `timingSafeEqual`, `__Host-`,
+`Cross-Origin-Opener-Policy`, `Sec-Fetch`, JSONP, CSV formula, log injection, cache
+deception, CAA, certificate transparency, `jku`, `iss` mix-up, `sub` as identity key,
+autoType and polymorphic deserialization, QoS and diagnostic ports, default token
+secrets, hot-key limits, unbounded executors, token passthrough, tool-definition
+hashing, tool shadowing, Unicode tag characters, chat-template tokens, reasoning budgets,
+client-supplied conversation history.
+
+**Decision, 11 October 2026 — filled.** 132 items in 32 existing files. Three new H2s in
+`stacks/cloudflare.md` (*Authentication & Authorization*, *Object Storage & File
+Handling*, *Abuse & Availability*), each with its back-link; no new file, no new domain,
+no existing item text changed. This closes eight of the topics the 13 September audit
+found absent: constant-time comparison, OSS licence compliance, CAA and certificate
+transparency, field-level encryption, log injection, web cache deception, pre-commit
+secret blocking, and homoglyph and bidi identity spoofing.
+
+**Declined.** A Dubbo stack supplement: one product's three settings do not justify a
+file, and the core RPC-deserialization item covers the class of bug. Product features
+that would read as a pitch (client-side script monitoring, schema-validation services,
+named runner-hardening tools). Testing techniques with no pass/fail form (glitch tokens,
+encoding probes, model identification). OSS project-health signals that say nothing
+about a production deployment (fuzzing badges, contributor counts, maintenance scores).
+
+**Still open from the 13 September audit:** GDPR operations and DSAR handling beyond
+retention, human on- and offboarding, email deliverability beyond SPF/DKIM/DMARC,
+admin-panel exposure as its own topic, Electron, headless-browser rendering, jailbreak
+detection, PCI and tax outside a payment processor, bot mitigation at signup beyond the
+challenge-verification items.

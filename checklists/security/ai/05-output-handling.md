@@ -24,6 +24,7 @@ Never trust model output merely because it came from the model.
 * [ ] Validate HTML.
 * [ ] Sanitize Markdown/HTML.
 * [ ] Escape output in the correct rendering context.
+* [ ] Verify model output written to a terminal, CLI or log viewer has ANSI and OSC escape sequences (`\x1b[`, `\x1b]`) stripped — an injected sequence can hide lines, rewrite what the operator sees or plant a clickable link.
 * [ ] Never execute arbitrary model-generated shell commands.
 * [ ] Never execute arbitrary model-generated JavaScript.
 * [ ] Never directly render model output as trusted HTML.

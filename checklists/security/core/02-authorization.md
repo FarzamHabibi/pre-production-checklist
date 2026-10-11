@@ -56,20 +56,28 @@ The largest source of real, exploitable bugs in small products. Read this even i
 
 * [ ] Verify email/password authentication settings match security requirements.
 * [ ] Verify password policy is strong enough for the application's risk.
+* [ ] Verify the password is hashed exactly as typed, with no trimming, case folding or silent truncation, and that with bcrypt any input over 72 bytes is rejected or pre-hashed first; confirm a 64-character password is accepted and a login that differs only after byte 72 fails.
 * [ ] Verify breached-password protection where available/appropriate.
 * [ ] Verify email confirmation policy.
 * [ ] Verify unconfirmed accounts cannot access protected resources.
 * [ ] Verify signup does not expose whether an email already exists where enumeration is a concern.
 * [ ] Verify login does not expose whether an email exists.
 * [ ] Verify password-reset responses are resistant to enumeration.
+* [ ] Measure forgot-password, signup and login response times for about 50 existing and 50 unknown emails and verify the distributions overlap — sending mail synchronously or skipping the hash for unknown users reveals which accounts exist even when the text is identical.
 * [ ] Verify password reset tokens expire.
 * [ ] Verify password reset tokens are single-use.
 * [ ] Verify password reset invalidates prior sessions where required.
+* [ ] Verify finishing a password reset either does not sign the user in or still demands the enrolled second factor — a reset that issues a full session turns mailbox access into an MFA bypass.
+* [ ] Verify users can list their active sessions and devices and revoke any or all of them, and that after a password change or reset every other session and refresh token is ended, or the user is offered that.
 * [ ] Verify password-reset redirect URLs are allowlisted.
 * [ ] Verify attackers cannot manipulate password-reset callback destinations.
+* [ ] Verify code that builds password-reset, magic-link, invite and email-verification URLs takes the origin from configuration, never from `Host`, `X-Forwarded-Host` or `Origin` — a forged header makes your own email deliver the victim's token to the attacker's domain.
+* [ ] Verify the page that consumes a reset or magic-link token sends `Referrer-Policy: no-referrer` and loads no third-party script until the token is exchanged and removed from the URL — otherwise analytics and CDN requests carry it in `Referer`.
 * [ ] Verify email-change flow requires appropriate verification.
 * [ ] Verify changing email does not silently bypass ownership verification.
+* [ ] Verify a password change, password reset, MFA change and email change each send a notice to the address on file (for an email change, the old address) with a way to report it — it is the only alarm the real owner gets after a takeover.
 * [ ] Verify changing password has appropriate reauthentication behavior.
+* [ ] Verify changing email, phone, password or MFA factors, and creating API keys, requires an authentication from the last few minutes, checked server-side against the session's auth time, so a stolen session cookie cannot lock the owner out.
 * [ ] Verify logout behavior.
 * [ ] Verify session refresh behavior.
 * [ ] Verify refresh-token rotation/reuse protections according to the deployed Auth configuration.
@@ -93,6 +101,8 @@ The largest source of real, exploitable bugs in small products. Read this even i
 * [ ] Verify MFA enrollment requires authenticated user action.
 * [ ] Verify MFA cannot be enrolled by an attacker who only partially controls the account.
 * [ ] Verify MFA challenge verification.
+* [ ] Verify each one-time code (SMS, email, TOTP, recovery) is accepted once, only for the login or action it was issued for, expires within minutes, and that wrong guesses are capped per code and per account, not only per IP — a 6-digit code spread across many IPs falls in hours.
+* [ ] Verify push-approval MFA rate-limits prompts per account and uses number matching or shows the request's location, so an attacker holding the password cannot spam prompts until the user taps Approve.
 * [ ] Verify MFA recovery.
 * [ ] Verify factor removal.
 * [ ] Verify factor replacement.
@@ -143,10 +153,12 @@ For every sensitive object:
 * [ ] Verify nonce where applicable.
 * [ ] Verify redirect URI exact matching.
 * [ ] Verify provider issuer.
+* [ ] Verify a client that uses more than one authorization server checks the `iss` parameter in the authorization response (RFC 9207) or uses a distinct redirect URI per provider, so one provider's code cannot be redeemed at another.
 * [ ] Verify token audience.
 * [ ] Verify token signature.
 * [ ] Verify account-linking semantics.
 * [ ] Verify identity collision handling.
+* [ ] Verify an external login is keyed on the provider's issuer plus its immutable `sub`, never on email or display name, and that a provider email links accounts only when marked `email_verified` — keying on email lets a weaker provider sign someone in as the owner.
 * [ ] Verify login CSRF protection.
 * [ ] Verify logout semantics.
 * [ ] Verify provider disconnect.

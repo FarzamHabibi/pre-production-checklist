@@ -16,6 +16,8 @@ Items from the core checklists that are specific to **Spring Boot**. If you do n
 * [ ] Verify the H2 console and Spring Boot DevTools are not on the production classpath.
 * [ ] Verify `@CrossOrigin` is not used with `origins = "*"` alongside `allowCredentials = true`.
 * [ ] Verify `spring.jackson` polymorphic typing is off — `enableDefaultTyping` / `@JsonTypeInfo` on untrusted input is deserialization RCE.
+* [ ] Verify fastjson 1.x runs in safe mode (`-Dfastjson.parser.safeMode=true`), no code calls `setAutoTypeSupport(true)` or adds a broad `addAccept` prefix, and fastjson2 never passes `JSONReader.Feature.SupportAutoType` on untrusted input.
+* [ ] Verify Druid's `StatViewServlet` (`/druid/*`) is off in production or protected by `loginUsername` and `loginPassword`, an `allow` list and `resetEnable=false` — it shows live SQL with parameters, URIs and session ids.
 * [ ] Verify request size limits: `spring.servlet.multipart.max-file-size` and `max-request-size`.
 
 ## Authentication & Authorization

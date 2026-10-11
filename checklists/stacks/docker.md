@@ -17,6 +17,9 @@ Items from the core checklists that are specific to **Docker / containers**. If 
 * [ ] Verify `.dockerignore`.
 
 * [ ] Scan Dockerfile.
+* [ ] Verify every published port in `docker run -p` or compose `ports:` is bound to a specific interface (`127.0.0.1:5432:5432`) unless it must be public — Docker writes its own iptables rules, so a host firewall such as ufw does not block a port bound to 0.0.0.0.
+* [ ] Verify containers run with `no-new-privileges`, without `seccomp=unconfined`, and with a `pids` limit — these runtime flags keep a compromised process from escalating or fork-bombing the host.
+* [ ] Verify the Dockerfile uses `COPY` rather than `ADD` for local files, never `ADD <url>`, and removes setuid and setgid bits from the final image — `ADD` fetches remote content and auto-extracts archives.
 
 ## CI/CD & Supply Chain
 <sub>from [`security/core/15-ci-cd-and-supply-chain.md`](../security/core/15-ci-cd-and-supply-chain.md)</sub>
@@ -24,6 +27,7 @@ Items from the core checklists that are specific to **Docker / containers**. If 
 * [ ] Protect Dockerfiles.
 
 * [ ] Verify Docker socket exposure.
+* [ ] Verify the Docker daemon is not listening on `tcp://` (2375/2376) without mutual TLS and that `daemon.json` lists no `insecure-registries` — an open daemon socket is root on the host.
 
 ## Pre-Release Gates
 <sub>from [`security/core/17-release-gates.md`](../security/core/17-release-gates.md)</sub>

@@ -30,6 +30,7 @@ Uploads, downloads, signed URLs, and everything that turns a file into code exec
 * [ ] Verify signed URLs are not unnecessarily logged.
 * [ ] Verify signed URLs cannot be generated for unauthorized objects.
 * [ ] Verify public bucket URLs are intentional.
+* [ ] Verify a bucket fronted by a CDN or custom domain has its provider-default public endpoint disabled, so edge access rules cannot be walked around through the bucket's own URL.
 * [ ] Verify file replacement cannot change the security classification of a file.
 * [ ] Verify upload MIME type is validated.
 * [ ] Verify filename/path traversal protections.

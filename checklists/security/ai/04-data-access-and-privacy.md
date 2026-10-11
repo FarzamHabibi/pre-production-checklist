@@ -70,6 +70,7 @@ Agents dramatically increase SSRF risk if they can browse/fetch URLs.
 * [ ] Validate after DNS resolution.
 * [ ] Revalidate every redirect.
 * [ ] Prevent DNS rebinding.
+* [ ] Verify a server-side MCP or OAuth client fetches discovery documents (protected-resource and authorization-server metadata, client metadata URLs) through the same SSRF guard as tool fetches — a hostile server chooses those URLs, and the fetch runs from inside your network.
 * [ ] Limit ports.
 * [ ] Limit response size.
 * [ ] Limit redirects.

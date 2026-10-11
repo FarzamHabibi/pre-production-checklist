@@ -67,6 +67,7 @@ Search the complete repository, Git history, container images, built frontend, m
 * [ ] Verify no development debug flags.
 * [ ] Verify no test accounts with production privileges.
 * [ ] Verify no default passwords.
+* [ ] Inventory every bundled admin console (config server, flow-control dashboard, connection-pool monitor, registry UI) and verify its shipped login is changed or the console disabled, by trying the documented default against the production URL.
 * [ ] Verify no development endpoints.
 * [ ] Verify no localhost fallback.
 * [ ] Verify production logging is safe.

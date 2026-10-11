@@ -75,6 +75,7 @@ For coding agents:
 * [ ] Generated Terraform/IaC receives security review.
 * [ ] Generated shell commands are constrained.
 * [ ] Generated dependencies are reviewed.
+* [ ] Verify every package a coding agent adds to a manifest exists in the registry, is not newly registered, and is the name that was asked for — attackers register the package names models tend to invent.
 * [ ] Agent cannot execute arbitrary PR code with privileged credentials.
 * [ ] Agent cannot use secrets while processing untrusted forks.
 * [ ] Agent cannot modify its own instructions/policies.

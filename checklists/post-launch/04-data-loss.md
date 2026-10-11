@@ -26,6 +26,7 @@ A bad migration, a `DELETE` without a `WHERE`, a corrupted table, a well-meaning
 * [ ] Verify you can restore a single table, or a single tenant's rows, without rolling the whole database back.
 * [ ] Verify there is a procedure for extracting old rows from a restored copy and merging them into live data.
 * [ ] Verify soft deletes exist where accidental deletion is plausible, and that they are actually recoverable.
+* [ ] Verify hand-run production `UPDATE` and `DELETE` fixes follow a written procedure: run the matching `SELECT` and record the row count, execute in a transaction, and compare affected rows before `COMMIT`.
 * [ ] Verify cascading deletes are understood before you rely on a restore — one deleted parent row can take a great deal with it.
 * [ ] Verify object storage has versioning enabled where the files matter.
 * [ ] Verify the recovery procedure has been written down by someone who has performed it.

@@ -14,12 +14,15 @@ Written against Cloud Run, but applies to any container host — ECS, Fly.io, Re
 * [ ] Inventory every revision.
 * [ ] Inventory every custom domain.
 * [ ] Verify services that should not be public are not publicly accessible.
+* [ ] Inventory every port each production process listens on, not only the HTTP one — framework admin or QoS shells, rule-push and command APIs, metrics, JMX, debugger and diagnostic-agent ports — and verify from a host outside the network that each is closed; these side ports usually have no authentication.
 * [ ] Prefer `internal` where appropriate.
 * [ ] Prefer `internal-and-cloud-load-balancing` when public access should pass through the intended load balancer/edge.
 * [ ] Verify direct service invocation is authorized.
 * [ ] Verify unauthenticated invocation is intentional.
 * [ ] Verify IAM invocation permissions.
 * [ ] Verify service-to-service authentication.
+* [ ] Verify the service registry and remote configuration store require authentication for reads and writes, enabled explicitly rather than left at the product default — whoever can write there can register a fake provider or push config into every service.
+* [ ] Search for configuration values that are executed rather than read — routing scripts, rule expressions, expression-language strings, templated SQL pulled from a config store — and verify write access to that store is reviewed and audited like a code deploy.
 * [ ] Verify service accounts use least privilege.
 * [ ] Verify service accounts are not shared unnecessarily.
 
@@ -74,9 +77,13 @@ Google recommends Secret Manager for sensitive values used by Cloud Run services
 * [ ] Verify maximum instances/quotas.
 * [ ] Verify minimum instances are appropriate for security-sensitive workloads.
 * [ ] Verify CPU/memory limits.
+* [ ] Verify the open-file limit (`ulimit -n`, `LimitNOFILE`, container `nofile`) is above peak connections plus open files, measured under load — a 1024 default turns a spike into "too many open files" refusals.
 * [ ] Verify request size limits.
 * [ ] Verify background thread/process behavior.
+* [ ] Verify the production runtime cannot have a debugger or instrumentation agent attached — no `-agentlib:jdwp` or `--inspect` in the start command, and JVM dynamic attach off (`-XX:+DisableAttachMechanism`) unless a diagnostics procedure needs it; an attached agent reads memory and rewrites running code.
+* [ ] Verify any live-diagnostics agent used in production has its own credentials, listens on loopback, is attached for a bounded session with an audit record, and reports only to an authenticated tunnel or relay server.
 * [ ] Verify temporary file usage.
+* [ ] Verify heap and crash dumps (`-XX:+HeapDumpOnOutOfMemoryError`, core dumps) go to a size-capped, access-restricted location and are handled as secret material — a dump holds every token and password in memory at that moment.
 * [ ] Verify SSRF restrictions.
 * [ ] Verify metadata/service-account access is unnecessary.
 * [ ] Verify egress restrictions where practical.

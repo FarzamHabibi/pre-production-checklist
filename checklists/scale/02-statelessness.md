@@ -14,6 +14,8 @@ Most of these are invisible on a single instance and obvious on the second one. 
 * [ ] Inventory every module-level variable that accumulates across requests — caches, counters, maps, singletons.
 * [ ] Verify sessions are in a shared store, not in process memory.
 * [ ] Verify rate limiting is shared; per-instance limits multiply by the instance count, which is not the limit you configured.
+* [ ] Verify rate-limit and circuit-breaker rules changed at runtime from a dashboard or admin API are persisted to a durable, versioned store and reloaded on start — rules held only in process memory vanish on the next deploy.
+* [ ] Verify what the rate limiter does when its shared store or token server is unreachable — a decided fail-open or fail-closed per route, a short timeout, an alert — so a cache outage neither stops the service nor silently drops every limit.
 * [ ] Verify in-memory caches are either safe to be inconsistent between instances or moved to a shared cache.
 * [ ] Verify counters, sequence generators and "last seen" values are not held in memory.
 * [ ] Verify feature flag state converges across instances within a bounded time, and that a flag flip does not need a deploy.

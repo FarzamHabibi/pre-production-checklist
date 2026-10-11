@@ -22,6 +22,7 @@ Written originally against a NestJS app, but the controls are framework-independ
 * [ ] Verify preflight behavior cannot be abused.
 * [ ] Verify HTTP methods not used by the application are rejected.
 * [ ] Verify TRACE is disabled where unnecessary.
+* [ ] Verify API hosts refuse plain HTTP rather than redirect it — a redirect hides a client that has already sent its token in cleartext.
 * [ ] Verify request size limits exist.
 * [ ] Verify JSON body size limits exist.
 * [ ] Verify multipart upload limits exist.
@@ -31,6 +32,7 @@ Written originally against a NestJS app, but the controls are framework-independ
 * [ ] Verify keep-alive behavior is appropriate.
 * [ ] Verify large headers/cookies cannot consume excessive resources.
 * [ ] Verify malformed requests produce safe failures.
+* [ ] Verify the edge strips or overwrites client-sent `X-Forwarded-For`, `X-Forwarded-Host`, `X-Real-IP` and any internal identity header (`X-User-Id`, `X-Internal-*`), and that the app reads the client IP at your real proxy depth — otherwise rate limits, audit logs and IP allowlists trust a typed value.
 
 NestJS recommends Helmet for security-related HTTP headers, and its placement matters because middleware ordering affects which routes receive the protection.
 
@@ -53,24 +55,31 @@ NestJS recommends Helmet for security-related HTTP headers, and its placement ma
 * [ ] Verify DTOs do not expose administrative properties.
 * [ ] Verify database entities are not directly used as request DTOs.
 * [ ] Verify response DTOs do not accidentally expose private fields.
+* [ ] Verify personal identifiers returned for display (phone, email, card, national id) are masked in the API response unless that screen needs the full value — masking only in the UI still ships the whole value to the client.
+* [ ] Verify every CSV or spreadsheet export prefixes cells starting with `=`, `+`, `-`, `@`, tab or CR with a single quote and quotes fields per RFC 4180 — a user-chosen name otherwise runs as a formula on the admin's machine.
+* [ ] Verify user input that reaches an email's `To`, `Cc`, `Reply-To`, `Subject` or `From` display name is stripped of CR and LF, or passes only through the mail library's structured fields — a newline adds recipients or headers to your transactional mail.
 * [ ] Verify serialization does not leak internal metadata.
+* [ ] Search for deserializers that let the payload pick the class to build — a `@type`, `$type` or `__class__` field, `autoType`, `TypeNameHandling`, `enableDefaultTyping`, `ObjectInputStream`, `pickle.loads`, `yaml.load` — and verify each one on an untrusted path is off or limited to an explicit class allowlist; denylists of known gadget classes have been bypassed release after release.
 * [ ] Verify validation errors do not expose stack traces, SQL, filesystem paths, secrets, or internal service names.
 
 ### Authentication
 
 * [ ] Verify every protected controller/route uses explicit authentication guards.
 * [ ] Verify public routes are explicitly identified.
+* [ ] Audit every path pattern exempted from authentication (ignore lists, `permitAll`, public-route tables) for wildcards, and verify each expands only to static assets or a named public endpoint — a broad `/**` exemption silently makes later management routes public.
 * [ ] Verify global guards cannot be bypassed through special routes.
 * [ ] Verify custom decorators cannot accidentally skip guards.
 * [ ] Verify metadata-based bypasses are reviewed.
 * [ ] Verify API keys are independently scoped and rotatable.
 * [ ] Verify internal service credentials are distinct from user credentials.
+* [ ] Search for any request attribute that marks the caller as a peer node or internal service — a fixed header, a `User-Agent` value, a source-IP test behind a proxy — and verify an external client sending the same value is still authenticated.
 * [ ] Verify admin credentials are never accepted by normal-user endpoints unless intended.
 * [ ] Verify password authentication is delegated to a secure identity provider where practical.
 * [ ] Verify refresh-token flows cannot be replayed indefinitely.
 * [ ] Verify token verification checks issuer, audience, expiry, signature algorithm, and key.
 * [ ] Verify JWT algorithm confusion is impossible.
 * [ ] Verify `none` or unintended algorithms cannot be accepted.
+* [ ] Verify the JWT verifier loads keys only from a pre-configured key set and ignores `jku`, `x5u` and embedded `jwk` headers, and that `kid` is only a lookup key, never a file path or query value.
 * [ ] Verify JWT key rotation is supported.
 * [ ] Verify token claims are not trusted merely because the client supplied them.
 * [ ] Verify authorization does not depend solely on custom JWT claims that can become stale.
@@ -99,6 +108,7 @@ NestJS recommends Helmet for security-related HTTP headers, and its placement ma
 
 * [ ] Search for string-concatenated SQL.
 * [ ] Verify parameterized queries everywhere.
+* [ ] Verify database connection strings do not enable several statements per call (`allowMultiQueries=true`, `multipleStatements: true`) unless a reviewed path needs it — with it on, one injection point can append a `DROP` or `INSERT`.
 * [ ] Review dynamic `ORDER BY`, filter, table, column, and sort-direction inputs.
 * [ ] Verify allowlists for dynamic SQL identifiers.
 * [ ] Review raw SQL queries manually.
@@ -148,6 +158,7 @@ OWASP specifically identifies SSRF, broken object authorization, broken authenti
 * [ ] Prevent null-byte filename tricks.
 * [ ] Prevent archive bombs.
 * [ ] Prevent decompression bombs.
+* [ ] Verify archive extraction resolves each entry's final path and rejects any that escapes the target directory or is a symlink or hard link — a `../` or symlink entry otherwise writes outside the upload folder (zip slip).
 * [ ] Prevent polyglot-file abuse.
 * [ ] Scan uploaded content where appropriate.
 * [ ] Process files in isolated environments.
@@ -177,6 +188,7 @@ OWASP specifically identifies SSRF, broken object authorization, broken authenti
 * [ ] Verify admin actions are logged.
 * [ ] Verify authentication events are logged.
 * [ ] Verify logs are tamper-resistant.
+* [ ] Verify every log line built from request data goes through a structured (JSON) logger or has CR, LF and other control characters escaped — otherwise a username containing a newline forges a fake "login succeeded" entry.
 * [ ] Verify log retention is appropriate.
 * [ ] Verify alerts exist for repeated authentication failures and privilege escalation indicators.
 
@@ -198,6 +210,7 @@ OWASP specifically identifies SSRF, broken object authorization, broken authenti
 * [ ] Test account enumeration.
 * [ ] Test credential stuffing resistance.
 * [ ] Test brute-force resistance.
+* [ ] Verify login throttling counts consecutive failures per account and per username-and-IP pair, not only per IP, and slows the account with a delay or challenge rather than locking it — per-IP limits miss distributed stuffing, and hard lockout lets anyone lock out a victim.
 * [ ] Test denial-of-service through expensive parameters.
 * [ ] Test concurrency/race attacks.
 * [ ] Test duplicate request handling.
@@ -218,6 +231,7 @@ OWASP specifically identifies SSRF, broken object authorization, broken authenti
 * [ ] Inventory file endpoints.
 * [ ] Inventory export endpoints.
 * [ ] Inventory GraphQL/RPC endpoints where applicable.
+* [ ] Verify every internal RPC or cluster port that decodes a binary object format (Java serialization, Hessian, Kryo, a framework codec) runs its class check in strict mode and is unreachable from outside the private network — a port that deserializes objects is code execution for anyone who reaches it.
 * [ ] Verify deprecated endpoints are disabled or equally protected.
 * [ ] Verify OpenAPI documentation matches actual exposed endpoints.
 * [ ] Verify HTTP method authorization.

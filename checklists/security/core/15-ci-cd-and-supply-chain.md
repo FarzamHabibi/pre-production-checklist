@@ -22,6 +22,7 @@ Your pipeline has production credentials. Treat it as production.
 * [ ] Protect production branches.
 * [ ] Require pull requests.
 * [ ] Require code review.
+* [ ] Verify the default-branch rule dismisses stale approvals on new commits, requires approval of the most recent push, and lists no bypass actors — otherwise an approved PR can be changed after review, or merged by someone the rule exempts.
 * [ ] Protect workflow files.
 * [ ] Protect deployment configuration.
 * [ ] Protect infrastructure files.
@@ -55,6 +56,7 @@ Your pipeline has production credentials. Treat it as production.
 * [ ] Review `packages: write`.
 * [ ] Review `deployments: write`.
 * [ ] Review `id-token: write`.
+* [ ] Audit `statuses: write`, `checks: write` and `actions: write` grants — the first two can mark a required check as passed, and the third can approve or re-run workflows waiting for approval.
 * [ ] Verify privileged permissions are unavailable to untrusted PR workflows.
 
 ### PR security
@@ -69,6 +71,8 @@ Your pipeline has production credentials. Treat it as production.
 * [ ] Verify commit messages cannot become shell injection.
 * [ ] Verify tag names cannot become shell injection.
 * [ ] Verify branch names cannot become shell injection.
+* [ ] Search `run:` blocks for `${{ ... }}` expressions that expand an untrusted value directly, and verify each one is passed through `env:` and used as a quoted shell variable instead — expressions are substituted into the script text before the shell parses it.
+* [ ] Verify outputs of third-party actions that echo repository content (changed-file lists, branch lists, commit subjects) are treated as untrusted input in later `run:` steps — a file named `$(cmd).txt` in a PR has turned a changed-files output into code execution.
 
 GitHub specifically warns that attacker-controlled GitHub context values can become executable input when inserted into workflow commands.
 
@@ -97,6 +101,7 @@ GitHub recommends hardening Actions usage, keeping actions updated, and using OI
 * [ ] Verify production secrets are environment-scoped.
 * [ ] Verify secrets are not available to forks.
 * [ ] Verify secrets are not printed.
+* [ ] Verify secrets cannot reach a public log in encoded form — masking matches only the literal value, so a step that prints base64 of runner memory publishes every secret; restrict log visibility or treat such logs as disclosed.
 * [ ] Verify `set -x` is not enabled around secret operations.
 * [ ] Verify secrets are not placed in command-line arguments unnecessarily.
 * [ ] Verify secrets are not written to artifacts.
@@ -130,6 +135,7 @@ GitHub documents OIDC subject/audience claims and recommends conditions so untru
 * [ ] Verify workspace cleanup.
 * [ ] Verify privileged containers.
 * [ ] Verify runner network access.
+* [ ] Verify jobs that hold deploy or publish secrets run with an outbound allowlist, or at least record each step's network destinations — a compromised action is usually spotted by one unexpected outbound call.
 * [ ] Verify runner OS patching.
 * [ ] Verify runner agent updates.
 * [ ] Verify runner registration tokens.
@@ -144,6 +150,7 @@ GitHub documents OIDC subject/audience claims and recommends conditions so untru
 * [ ] Verify artifact retention.
 * [ ] Verify cache keys are not attacker-controlled in a way that allows poisoning.
 * [ ] Verify cache restore paths.
+* [ ] Verify release and deploy workflows do not restore dependency or build caches — any workflow on the default branch can write cache entries, so a low-privilege job can poison what the release job restores and ships.
 * [ ] Verify dependency caches cannot execute attacker-controlled binaries.
 * [ ] Verify production deployment uses trusted artifacts.
 
@@ -195,9 +202,13 @@ GitHub documents OIDC subject/audience claims and recommends conditions so untru
 
 
 * [ ] Run SCA against application dependencies.
+* [ ] Verify every ignored vulnerability (`osv-scanner.toml`, `.trivyignore`, an audit allowlist) carries a reason and a review or expiry date, so an accepted risk does not stay accepted forever.
+* [ ] Measure the age of the oldest open dependency-update PR — an update bot that is enabled but whose PRs are never merged still leaves you exposed to known flaws.
 * [ ] Run container vulnerability scanning.
 * [ ] Run IaC scanning.
 * [ ] Run secret scanning.
+* [ ] Verify secret scanning blocks a push on the server side as well as in a local pre-commit hook — `git commit --no-verify` or `SKIP=<hook>` silently disables the local one.
+* [ ] Search for inline scanner suppressions (`gitleaks:allow`, `nosec`, `nosemgrep`) and baseline or ignore files, and verify each new entry was reviewed in the PR that added it — a suppression is a finding someone decided not to fix.
 * [ ] Run GitHub code scanning.
 * [ ] Review npm dependency lifecycle.
 * [ ] Review package maintainers.
@@ -206,10 +217,15 @@ GitHub documents OIDC subject/audience claims and recommends conditions so untru
 * [ ] Use private package scopes appropriately.
 * [ ] Verify package registries.
 * [ ] Verify lockfiles.
+* [ ] Search CI steps, scripts and Dockerfiles for installs that bypass the lockfile — `npm install` instead of `npm ci`, `npm install -g x`, `pip install x` without `==` or `--require-hashes`, `go install ...@latest`, `curl ... | sh` — each one resolves a fresh, unreviewed version on every build.
 * [ ] Verify package integrity.
 * [ ] Verify postinstall scripts.
+* [ ] Verify CI installs dependencies with lifecycle scripts off (`npm ci --ignore-scripts`, `ignore-scripts=true` in `.npmrc`) and runs only the install scripts on an explicit allowlist — an install script runs with the job's token and secrets.
 * [ ] Verify native modules.
+* [ ] Search the repository for committed executables and compiled files (`*.jar`, `*.so`, `*.dll`, `*.exe`, `*.pyc`, `*.class`, vendored minified bundles) and verify each is rebuilt from source or has its origin and hash recorded — reviewers read source, not binaries.
 * [ ] Verify release artifacts.
 * [ ] Verify build provenance.
+* [ ] Verify the deploy step checks the artifact's provenance before release — the `subject` digest equals the artifact being deployed, and `builder.id`, source repository and ref match expected values — and fails on unrecognised `externalParameters`.
+* [ ] Inventory the licences of every dependency from the lockfile and verify the build fails on licences you have not approved (strong copyleft such as AGPL, source-available such as SSPL, or none declared) — the obligation ships with the artifact whether or not anyone read it.
 * [ ] Verify production artifacts map to reviewed commits.
 * [ ] Verify developers cannot silently substitute dependencies during CI.

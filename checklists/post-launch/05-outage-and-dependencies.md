@@ -39,6 +39,7 @@ You are down, or something you cannot fix is. The useful preparation is knowing 
 * [ ] Verify payment provider downtime has a decided behaviour — queue the intent, or refuse cleanly with an honest message.
 * [ ] Verify email or SMS provider downtime does not silently drop messages that should be retried.
 * [ ] Verify a timeout and circuit breaker exists on every outbound call, so their outage is not automatically yours.
+* [ ] Verify each circuit breaker trips on slow calls as well as errors, needs a minimum request count per window before opening, and that its open-state fallback has been exercised — a breaker counting only exceptions never opens on a dependency that hangs.
 * [ ] Verify a slow dependency degrades rather than exhausting your workers — see [`scale/05-async-and-queues.md`](../scale/05-async-and-queues.md).
 * [ ] Verify you know which dependency has no fallback at all, and that this is a recorded decision.
 * [ ] Verify every managed service with a monthly or plan quota (requests, rows, bandwidth, build minutes) alerts well before the limit, and that you know what it does at the limit — many refuse every call until the month rolls over, which is an outage, not throttling.

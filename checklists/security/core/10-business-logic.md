@@ -16,6 +16,7 @@ Scanners cannot find these. Only you know what your product is supposed to allow
 * [ ] Test integer overflow/underflow.
 * [ ] Test currency manipulation.
 * [ ] Test currency/locale mismatch.
+* [ ] Search schema and code for money held as `float`, `double` or `REAL` and verify amounts use a fixed-point decimal or integer minor units end to end — binary floats cannot represent most cents, so totals and comparisons drift.
 * [ ] Test free-trial abuse.
 * [ ] Test coupon reuse.
 * [ ] Test invitation abuse.
@@ -30,6 +31,7 @@ Scanners cannot find these. Only you know what your product is supposed to allow
 * [ ] Test approval workflow bypass.
 * [ ] Test self-approval.
 * [ ] Test approval with stale state.
+* [ ] Verify the confirmation step for a payout, bank-account change or large transfer shows the exact amount and destination, and that the server binds the confirmation to those values and refuses execution if any changed after confirming.
 * [ ] Test deletion/recreation ownership tricks.
 * [ ] Test soft-delete bypass.
 * [ ] Test archive/restore authorization.

@@ -61,6 +61,7 @@ For every memory mechanism:
 * [ ] Identify who can delete memory.
 * [ ] Verify tenant isolation.
 * [ ] Verify user isolation.
+* [ ] Verify any prompt, response or similarity cache in front of the model has the user or tenant id in its key — otherwise a near-identical question from a stranger is served the first user's answer.
 * [ ] Verify memory expiration.
 * [ ] Verify deletion.
 * [ ] Verify account-deletion behavior.

@@ -89,6 +89,8 @@ Supabase states that exposed-schema tables without appropriate RLS can be readab
 * [ ] Verify service-role credentials are rotated after suspected exposure.
 * [ ] Verify database logs do not contain secrets.
 * [ ] Verify PII classification exists for sensitive columns.
+* [ ] Verify columns classified as secret (government ids, bank details, health data, third-party tokens) are encrypted in the application with a key held outside the database, so a database dump or a read-only SQL injection does not expose them.
+* [ ] Verify each table and bucket holding personal data has a scheduled job that deletes or anonymises rows past their retention period, and that the job has actually run.
 * [ ] Verify retention/deletion requirements.
 * [ ] Verify cryptographic protection for particularly sensitive application data where needed.
 * [ ] Verify database audit/logging meets the project's compliance requirements.

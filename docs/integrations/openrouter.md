@@ -62,7 +62,7 @@ const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
 ```
 
 Use [`--gate`](../../README.md#command-line) rather than the whole checklist —
-327 items fit comfortably in any context window; 4,441 do not leave room for the code.
+328 items fit comfortably in any context window; 4,573 do not leave room for the code.
 
 ## Choosing a model
 

@@ -91,5 +91,6 @@ Applicable especially where authentication relies on cookies.
 * [ ] Verify protocol-relative URLs.
 * [ ] Verify encoded URLs.
 * [ ] Verify Unicode/IDN edge cases.
+* [ ] Verify usernames and display names are NFKC-normalised, case-folded and compared by a confusables skeleton before the uniqueness check, and that bidi controls (U+202A–U+202E, U+2066–U+2069) are rejected — otherwise a lookalike account can impersonate a real one.
 * [ ] Verify nested redirects.
 * [ ] Verify OAuth redirect parameters.
