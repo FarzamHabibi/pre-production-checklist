@@ -5,7 +5,7 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**4,598 items** · 4,017 of them (87%) name no product at all.
+**4,685 items** · 4,104 of them (88%) name no product at all.
 
 | Domain | Items | |
 | --- | ---: | --- |
@@ -14,6 +14,7 @@ Every checklist is a standalone Markdown file. Copy the ones you need into your 
 | [**Performance**](#performance) | 338 | Being fast for a real user, with Lighthouse agreeing. |
 | [**Integrations**](#integrations) | 202 | Being connected: search, analytics, monitoring. |
 | [**Post-launch**](#post-launch) | 241 | When it goes wrong anyway: is the response already decided? |
+| [**People**](#people) | 87 | The attacks that go around the code: through the team, the money, the vendors. |
 | [Stack supplements](#stack-supplements) | 581 | 26 products, only if you use them |
 
 ---
@@ -165,6 +166,23 @@ When it goes wrong anyway: is the response already decided?
 | [Telling People](post-launch/07-communication.md) | 18 |
 | [Learning & Drills](post-launch/08-learning-and-drills.md) | 21 |
 | **Total** | **241** |
+
+---
+
+<a id="people"></a>
+
+## People
+
+The attacks that go around the code: through the team, the money, the vendors.
+
+| Checklist | Items |
+| --- | ---: |
+| [Payment Fraud & Impersonation](people/01-payment-fraud-and-impersonation.md) | 20 |
+| [Founder Continuity](people/02-founder-continuity.md) | 17 |
+| [Joiners & Leavers](people/03-joiners-and-leavers.md) | 18 |
+| [Vendor Compromise](people/04-vendor-compromise.md) | 17 |
+| [Support-Desk Account Takeover](people/05-support-desk-takeover.md) | 15 |
+| **Total** | **87** |
 
 ---
 

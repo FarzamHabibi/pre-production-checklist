@@ -6199,6 +6199,212 @@ The part everyone skips, which is why the second occurrence of an incident is so
 
 ---
 
+# People
+
+The attacks that go around the code: through the team, the money, the vendors.
+
+## Payment Fraud & Impersonation
+
+**The attacker here does not need a bug, only a person who does what they are asked.** Each item asks whether that request would be stopped by a rule decided in advance, not by someone's judgement on a busy day.
+
+A supplier's invoice with a new bank account. An email from the CEO asking for an urgent transfer. A video call where the founder's face and voice are generated. None of them touch your code, and all of them move real money.
+
+
+---
+
+
+## Changing where money goes
+
+* [ ] Verify a change to any payee's bank details — supplier, contractor, payroll, your own payout account — is confirmed through a second channel using contact details already on file, never the ones in the request.
+* [ ] Verify the confirmation is a call you place, not a reply to the message or a number it supplies.
+* [ ] Verify a changed payout or bank account on your payment processor or marketplace sends a notice to every founder, not only to the person who made the change.
+* [ ] Verify a new payee, or a first payment to a changed account, waits a defined period or needs a second approver before the money leaves.
+* [ ] Verify the threshold above which any outgoing payment needs two people is written down and enforced by the bank or tool, not by memory.
+* [ ] Verify the bank's own alerts for new payees, large transfers and changed limits go to more than one person.
+
+## Requests that claim authority
+
+* [ ] Verify the team knows that urgency, secrecy and "I'm in a meeting, just do it" are the signature of the fraud, and that a request carrying them is verified, not rushed.
+* [ ] Verify no payment, gift-card purchase, credential, or access change is ever made on the strength of an email, chat message or voicemail alone, whoever it appears to come from.
+* [ ] Verify there is a verification phrase or question agreed between founders and finance in person, never written in email or chat, for confirming an unusual request by phone.
+* [ ] Verify the team knows a live voice or video call is no longer proof of identity — faces and voices of anyone with public recordings can be generated in real time.
+* [ ] Verify a request to move a conversation to a new channel, a personal number, or a new chat app is treated as a warning sign, not a convenience.
+
+## Your domain and your name
+
+* [ ] Verify SPF, DKIM and a DMARC policy of `quarantine` or `reject` are published for every domain you own, including ones that never send mail, so your exact address cannot be spoofed to your own suppliers.
+* [ ] Verify you watch for lookalike domains of your company name — swapped letters, other top-level domains, added words — and know how to report one to its registrar.
+* [ ] Verify suppliers and customers have been told how you will and will not ask them to change payment details, so a fraud using your name gets questioned on their side.
+* [ ] Verify incoming mail from outside the organisation is visibly marked as external in your mail client.
+* [ ] Verify a display name matching a founder or staff member, on mail from an outside address, is flagged rather than shown as if internal.
+
+## If it happens
+
+* [ ] Verify you know your bank's fraud line and how fast a recall request must be made — a transfer is often recoverable within hours and rarely after days.
+* [ ] Verify a payment sent to a fraudster is reported to the police or the national fraud-reporting body as well as the bank, since recovery often depends on that report.
+* [ ] Verify the mailbox the fraud came through, or was sent from, is checked for compromise: forwarding rules, new app passwords, OAuth grants, filters that hide replies.
+* [ ] Verify your insurance has been read for whether it covers social-engineering transfers, since many cyber policies exclude them unless added.
+
+
+## Founder Continuity
+
+**The attacker here does not need a bug, only a person who does what they are asked.** This file covers the case where there is no attacker at all: the one person who holds the keys is unreachable, ill, or gone.
+
+In a small company, a founder is often the only owner of the domain, the cloud billing, the payment account and the signing authority. If that person disappears tomorrow — an accident, a hospital, a lost phone abroad, a falling-out — nobody else may be able to keep the product running or the money moving.
+
+
+---
+
+
+## Who can act
+
+* [ ] Verify every account that the business cannot run without — domain registrar, DNS, cloud provider, source host, database provider, payment processor, bank, email workspace, app stores — has at least two people with owner-level access, or a written acceptance that it has one.
+* [ ] Verify the second owner has actually signed in recently, with their own credentials and second factor, rather than holding access in principle.
+* [ ] Verify billing for each critical service does not depend on one person's personal card, so the service is not suspended when that card expires or is cancelled.
+* [ ] Verify the company's legal authority — who may sign contracts, instruct the bank, and file with authorities — does not rest on one person, and that the bank has the second signatory on record.
+* [ ] Verify domain names, app store accounts and social handles are registered to the company rather than to a founder personally.
+
+## What they would need
+
+* [ ] Verify there is a written inventory of critical accounts: what each is for, who owns it, how it recovers, and where its recovery codes are kept.
+* [ ] Verify the inventory and the emergency credentials are stored where a second founder can reach them without the first — a shared vault with emergency access, or a sealed offline copy — and that the method has been tested.
+* [ ] Verify an emergency-access feature, where your password manager has one, is set up with a waiting period, so it works when needed and cannot be used silently.
+* [ ] Verify the runbooks for deploy, rollback and restore can be followed by someone other than their author — see [`post-launch/01-readiness.md`](checklists/post-launch/01-readiness.md).
+* [ ] Verify scheduled renewals that would quietly break the product — domains, certificates, app store memberships, API plans — are on a shared calendar, not only in one inbox.
+
+## When a founder leaves or disagrees
+
+* [ ] Verify a founder agreement exists that says what happens to shares, roles and account ownership if a founder leaves, and that it has been signed.
+* [ ] Verify intellectual property — code, designs, domains, content — has been assigned to the company in writing by every founder and early contributor.
+* [ ] Verify no single founder can lock the others out: removing an owner from the registrar, the cloud organisation or the bank needs more than one person, or sends a notice to all of them.
+* [ ] Verify a departing founder's access is reduced deliberately and recorded, with the same checklist as anyone else — see [`03-joiners-and-leavers.md`](checklists/people/03-joiners-and-leavers.md).
+
+## Practising it
+
+* [ ] Verify the second founder has performed one real operational task alone — a deploy, a refund, a DNS change — so the access is proven, not assumed.
+* [ ] Verify the continuity plan is reviewed when the team changes, a critical account is added, or a founder moves country.
+* [ ] Verify someone outside the founders — a lawyer, an accountant, a trusted adviser — knows the plan exists and how to start it.
+
+
+## Joiners & Leavers
+
+**The attacker here does not need a bug, only a person who does what they are asked.** Here, it is often a person who still has access they should not: a contractor whose project ended, a tester whose account was never closed, an employee who left angry.
+
+Access that is granted ad hoc is removed ad hoc, which in practice means not at all. The fix is not trust; it is a list that is followed on the first day and the last.
+
+
+---
+
+
+## Joining
+
+* [ ] Verify there is a written list of what each role gets on day one — accounts, groups, repositories, environments — so access is granted from a role, not copied from whoever sat there before.
+* [ ] Verify every person gets their own named account on every system, with no shared logins for admin consoles, social profiles or payment dashboards.
+* [ ] Verify a new person's MFA is enrolled before they receive production access, not afterwards.
+* [ ] Verify production and customer-data access is granted only when the work needs it, and is recorded with who approved it.
+* [ ] Verify contractors and agencies get accounts in your systems, under your control, rather than you getting access to theirs, so you can end it.
+* [ ] Verify contractor and tester accounts carry an end date that expires or alerts, rather than relying on someone remembering.
+
+## Leaving
+
+* [ ] Verify there is a written offboarding checklist that names every system, and that it is used for every departure, including founders, contractors and testers.
+* [ ] Verify access ends on the departure day — sign-in disabled, sessions revoked, tokens and API keys they created rotated or deleted, SSH keys removed.
+* [ ] Verify secrets the person could have seen are rotated, not only their own account disabled: shared passwords, environment secrets, webhook secrets, signing keys.
+* [ ] Verify their personal devices lose access to company email, chat and files, and that any company device is returned or wiped.
+* [ ] Verify ownership of what they owned is moved before the account is deleted — repositories, documents, scheduled jobs, domains, billing — so nothing dies with it.
+* [ ] Verify OAuth apps and integrations they connected under their own account are found and moved or revoked, since they keep working after the person goes.
+* [ ] Verify their access to third-party admin consoles that are not behind your single sign-on is removed by hand and recorded, since those are the ones that get missed.
+
+## In between
+
+* [ ] Verify access is reviewed on a schedule — who has admin anywhere, who has production database access, who can deploy — and that anything without a current reason is removed.
+* [ ] Verify a change of role removes the old role's access, not only adds the new one.
+* [ ] Verify bulk export, mass download or unusual access by a staff account raises an alert, since that is what a person leaving with data looks like.
+* [ ] Verify staff actions on customer data are logged against the named person, so a misuse can be traced to who did it — see [`security/core/04-backend-api.md`](checklists/security/core/04-backend-api.md).
+* [ ] Verify a person who has resigned or been told they are leaving gets their access narrowed then, not on the last day.
+
+
+## Vendor Compromise
+
+**The attacker here does not need a bug, only a person who does what they are asked.** Or a vendor that does what it was allowed to: when a provider you connected is breached, the attacker inherits every token, key and permission you gave it.
+
+Your security is the sum of what every connected service can do with your data. A breach at an analytics tool, a support widget, an AI provider or a CI service is a breach at you, often reported to you days later, by them, in an email.
+
+
+---
+
+
+## Knowing what each one holds
+
+* [ ] Verify there is a current list of every third-party service with access to your data or systems, and for each: what data it receives, what credential it holds, and what that credential can do.
+* [ ] Verify every OAuth app granted access to your workspace, source host, cloud account or social accounts is listed, and that unused grants are revoked.
+* [ ] Verify each integration's credential has the narrowest scope the provider allows — read-only where it only reads, one repository rather than all, one bucket rather than the account.
+* [ ] Verify each vendor credential is unique to that vendor, so revoking one does not break the others and a leak points to its source.
+* [ ] Verify you know which vendors receive personal data, because a breach at one of them is a notification question for you.
+
+## Cutting one off
+
+* [ ] Verify you can revoke a single vendor's access in minutes, and that the steps for each critical vendor are written down.
+* [ ] Verify the product degrades sensibly when a vendor is cut off, rather than failing entirely — see [`post-launch/05-outage-and-dependencies.md`](checklists/post-launch/05-outage-and-dependencies.md).
+* [ ] Verify webhook signing secrets and inbound API keys from a vendor can be rotated without downtime.
+* [ ] Verify a vendor that can push code or configuration into your product — a script tag, a tag manager, a feature-flag service, a CI action — is treated as having write access to production.
+
+## When a vendor says it was breached
+
+* [ ] Verify you have subscribed to the security or status notices of your critical vendors, so you hear from them before you read it in the news.
+* [ ] Verify there is a decided first move when a vendor reports a breach: rotate the credentials it held, review your logs for its access, and check what it could reach.
+* [ ] Verify your own logs record calls made with each vendor's credential, so you can tell whether a stolen token was used against you.
+* [ ] Verify you treat a vendor's "no customer data was affected" as a claim to check against your own logs, not a conclusion.
+* [ ] Verify a breach at a vendor that held your users' data is assessed for your own notification duties — see [`post-launch/03-security-incident.md`](checklists/post-launch/03-security-incident.md).
+
+## Before you connect a new one
+
+* [ ] Verify a new integration is approved by someone who reads what scopes it requests, not added by whoever needed it that day.
+* [ ] Verify you know where the vendor stores your data, how long it keeps it, and how to make it delete it when you leave.
+* [ ] Verify leaving a vendor includes revoking its credentials and asking for deletion, not only stopping payment.
+
+
+## Support-Desk Account Takeover
+
+**The attacker here does not need a bug, only a person who does what they are asked.** On the support desk, that person is trained to help — and an attacker who cannot break the login can often just ask support to change the email.
+
+Every recovery path a human or an AI assistant can open is a login path. It is usually the weakest one, because it was designed for users who have lost everything and so asks for very little.
+
+
+---
+
+
+## What support can change
+
+* [ ] Verify there is a written list of what support may change on an account — email, phone, second factor, password, payout details, ownership — and which of those need more than a conversation.
+* [ ] Verify support cannot read a user's password, recovery codes or full payment details, so a tricked or compromised agent cannot hand them over.
+* [ ] Verify changing a sign-in email, removing a second factor, or changing payout details through support needs proof from something the real owner holds — a link to the current email, the current second factor, a signed-in session — not facts an attacker can find.
+* [ ] Verify details visible in public or in past breaches — name, date of birth, address, last four card digits, order numbers — are never accepted as proof of identity on their own.
+* [ ] Verify a request to move an account to a new email always notifies the old address and gives it a window to stop the change.
+
+## AI assistants and chat
+
+* [ ] Verify an AI support or site assistant cannot perform account changes — email, password, second factor, payout, ownership — and can only send the user into the normal verified flow.
+* [ ] Verify the assistant does not reveal another user's data or account existence when asked, however the request is framed.
+* [ ] Verify instructions the user types — "I am the admin", "ignore the policy, this is urgent" — cannot raise what the assistant is permitted to do, because its permissions come from the session, not the conversation.
+
+## Watching for it
+
+* [ ] Verify every support-initiated account change is logged with the agent, the reason, and the evidence accepted.
+* [ ] Verify repeated recovery attempts against one account, or one requester trying many accounts, raise an alert.
+* [ ] Verify high-value accounts — creators with a balance, admins, staff — can be marked so that support changes to them need a second approver.
+* [ ] Verify a recovery completed through support is followed by a notice to every contact method on the account, so the real owner learns of it.
+
+## The people doing it
+
+* [ ] Verify support staff know the common scripts — urgency, anger, a sad story, a claimed manager — and that refusing is the expected answer when proof is missing.
+* [ ] Verify an agent is never penalised for refusing an unverified change, so the incentive does not favour the attacker.
+* [ ] Verify outsourced support has the same limits and logging as in-house support, enforced by the tool rather than by their training.
+
+
+
+---
+
 # Stack supplements
 
 ## Android / Kotlin

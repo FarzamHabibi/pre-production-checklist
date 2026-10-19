@@ -26,9 +26,9 @@ release blockers. Use this one if you do not know which of the others you want.
 <!-- start-prompt:begin -->
 ```text
 I want to get my project ready to ship. Use prodcheck:
-a free, open-source pre-production checklist of 4,598 items
-covering security, performance, scale, integrations and what to
-do after launch.
+a free, open-source pre-production checklist of 4,685 items
+covering security, performance, scale, integrations, what to
+do after launch, and the attacks that go through people.
 
 It is new, so do not answer it from memory. Everything you need:
 
@@ -145,7 +145,7 @@ Report:
 
 Then give me the exact prodcheck command to generate the right checklist, using
 `npx prodcheck <domain> --stack <name>`. Domains are security, performance, scale,
-integrations, post-launch.
+integrations, post-launch, people.
 ```
 
 ---

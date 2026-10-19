@@ -47,18 +47,25 @@
       "label": "Post-launch",
       "description": "When it goes wrong anyway: is the response already decided?",
       "areas": []
+    },
+    {
+      "id": "people",
+      "label": "People",
+      "description": "The attacks that go around the code: through the team, the money, the vendors.",
+      "areas": []
     }
   ],
   "counts": {
-    "total": 4598,
+    "total": 4685,
     "by_domain": {
       "security": 3514,
       "scale": 303,
       "performance": 338,
       "integrations": 202,
-      "post-launch": 241
+      "post-launch": 241,
+      "people": 87
     },
-    "stack_agnostic": 4017,
+    "stack_agnostic": 4104,
     "release_gate": 396
   },
   "stacks": [
@@ -68405,6 +68412,1485 @@
       "source": {
         "file": "checklists/post-launch/08-learning-and-drills.md",
         "line": 40
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.826a9fd0",
+      "text": "Verify a change to any payee's bank details — supplier, contractor, payroll, your own payout account — is confirmed through a second channel using contact details already on file, never the ones in the request.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Changing where money goes",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.52ba924d",
+      "text": "Verify the confirmation is a call you place, not a reply to the message or a number it supplies.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Changing where money goes",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.3c045162",
+      "text": "Verify a changed payout or bank account on your payment processor or marketplace sends a notice to every founder, not only to the person who made the change.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Changing where money goes",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.66d0feb9",
+      "text": "Verify a new payee, or a first payment to a changed account, waits a defined period or needs a second approver before the money leaves.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Changing where money goes",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.d494b2e9",
+      "text": "Verify the threshold above which any outgoing payment needs two people is written down and enforced by the bank or tool, not by memory.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Changing where money goes",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.2972039f",
+      "text": "Verify the bank's own alerts for new payees, large transfers and changed limits go to more than one person.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Changing where money goes",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.d79f8d28",
+      "text": "Verify the team knows that urgency, secrecy and \"I'm in a meeting, just do it\" are the signature of the fraud, and that a request carrying them is verified, not rushed.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Requests that claim authority",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.709dc55e",
+      "text": "Verify no payment, gift-card purchase, credential, or access change is ever made on the strength of an email, chat message or voicemail alone, whoever it appears to come from.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Requests that claim authority",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.380f7ae2",
+      "text": "Verify there is a verification phrase or question agreed between founders and finance in person, never written in email or chat, for confirming an unusual request by phone.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Requests that claim authority",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.955038c1",
+      "text": "Verify the team knows a live voice or video call is no longer proof of identity — faces and voices of anyone with public recordings can be generated in real time.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Requests that claim authority",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.d790fa01",
+      "text": "Verify a request to move a conversation to a new channel, a personal number, or a new chat app is treated as a warning sign, not a convenience.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Requests that claim authority",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.b4bd74ec",
+      "text": "Verify SPF, DKIM and a DMARC policy of `quarantine` or `reject` are published for every domain you own, including ones that never send mail, so your exact address cannot be spoofed to your own suppliers.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Your domain and your name",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.212812cd",
+      "text": "Verify you watch for lookalike domains of your company name — swapped letters, other top-level domains, added words — and know how to report one to its registrar.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Your domain and your name",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.3dc70005",
+      "text": "Verify suppliers and customers have been told how you will and will not ask them to change payment details, so a fraud using your name gets questioned on their side.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Your domain and your name",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.52d2d2cd",
+      "text": "Verify incoming mail from outside the organisation is visibly marked as external in your mail client.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Your domain and your name",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.02efdeaa",
+      "text": "Verify a display name matching a founder or staff member, on mail from an outside address, is flagged rather than shown as if internal.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "Your domain and your name",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.b638943a",
+      "text": "Verify you know your bank's fraud line and how fast a recall request must be made — a transfer is often recoverable within hours and rarely after days.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "If it happens",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.85fde0d9",
+      "text": "Verify a payment sent to a fraudster is reported to the police or the national fraud-reporting body as well as the bank, since recovery often depends on that report.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "If it happens",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 40
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.2e9c0af0",
+      "text": "Verify the mailbox the fraud came through, or was sent from, is checked for compromise: forwarding rules, new app passwords, OAuth grants, filters that hide replies.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "If it happens",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 41
+      }
+    },
+    {
+      "id": "people.01-payment-fraud-and-impersonation.b748c5d4",
+      "text": "Verify your insurance has been read for whether it covers social-engineering transfers, since many cyber policies exclude them unless added.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Payment Fraud & Impersonation",
+      "section": "If it happens",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/01-payment-fraud-and-impersonation.md",
+        "line": 42
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.1da8d081",
+      "text": "Verify every account that the business cannot run without — domain registrar, DNS, cloud provider, source host, database provider, payment processor, bank, email workspace, app stores — has at least two people with owner-level access, or a written acceptance that it has one.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "Who can act",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.c82bfda2",
+      "text": "Verify the second owner has actually signed in recently, with their own credentials and second factor, rather than holding access in principle.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "Who can act",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.7e8452ee",
+      "text": "Verify billing for each critical service does not depend on one person's personal card, so the service is not suspended when that card expires or is cancelled.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "Who can act",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.7ba89156",
+      "text": "Verify the company's legal authority — who may sign contracts, instruct the bank, and file with authorities — does not rest on one person, and that the bank has the second signatory on record.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "Who can act",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.fd2b57db",
+      "text": "Verify domain names, app store accounts and social handles are registered to the company rather than to a founder personally.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "Who can act",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.38af6656",
+      "text": "Verify there is a written inventory of critical accounts: what each is for, who owns it, how it recovers, and where its recovery codes are kept.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "What they would need",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.7867383d",
+      "text": "Verify the inventory and the emergency credentials are stored where a second founder can reach them without the first — a shared vault with emergency access, or a sealed offline copy — and that the method has been tested.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "What they would need",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.4f35c205",
+      "text": "Verify an emergency-access feature, where your password manager has one, is set up with a waiting period, so it works when needed and cannot be used silently.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "What they would need",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.a3fe126c",
+      "text": "Verify the runbooks for deploy, rollback and restore can be followed by someone other than their author — see [`post-launch/01-readiness.md`](../post-launch/01-readiness.md).",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "What they would need",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.d1c50517",
+      "text": "Verify scheduled renewals that would quietly break the product — domains, certificates, app store memberships, API plans — are on a shared calendar, not only in one inbox.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "What they would need",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.b235c5f0",
+      "text": "Verify a founder agreement exists that says what happens to shares, roles and account ownership if a founder leaves, and that it has been signed.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "When a founder leaves or disagrees",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.39dd030d",
+      "text": "Verify intellectual property — code, designs, domains, content — has been assigned to the company in writing by every founder and early contributor.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "When a founder leaves or disagrees",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.42d2bf97",
+      "text": "Verify no single founder can lock the others out: removing an owner from the registrar, the cloud organisation or the bank needs more than one person, or sends a notice to all of them.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "When a founder leaves or disagrees",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.0c3fec84",
+      "text": "Verify a departing founder's access is reduced deliberately and recorded, with the same checklist as anyone else — see [`03-joiners-and-leavers.md`](03-joiners-and-leavers.md).",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "When a founder leaves or disagrees",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.9eafcfa4",
+      "text": "Verify the second founder has performed one real operational task alone — a deploy, a refund, a DNS change — so the access is proven, not assumed.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "Practising it",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.fc2c109f",
+      "text": "Verify the continuity plan is reviewed when the team changes, a critical account is added, or a founder moves country.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "Practising it",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "people.02-founder-continuity.36877d90",
+      "text": "Verify someone outside the founders — a lawyer, an accountant, a trusted adviser — knows the plan exists and how to start it.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Founder Continuity",
+      "section": "Practising it",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/02-founder-continuity.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.0a2f711b",
+      "text": "Verify there is a written list of what each role gets on day one — accounts, groups, repositories, environments — so access is granted from a role, not copied from whoever sat there before.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "Joining",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.3a503c76",
+      "text": "Verify every person gets their own named account on every system, with no shared logins for admin consoles, social profiles or payment dashboards.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "Joining",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.2fcc808e",
+      "text": "Verify a new person's MFA is enrolled before they receive production access, not afterwards.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "Joining",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.fdb77f9a",
+      "text": "Verify production and customer-data access is granted only when the work needs it, and is recorded with who approved it.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "Joining",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.7698641b",
+      "text": "Verify contractors and agencies get accounts in your systems, under your control, rather than you getting access to theirs, so you can end it.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "Joining",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.85af3182",
+      "text": "Verify contractor and tester accounts carry an end date that expires or alerts, rather than relying on someone remembering.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "Joining",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 19
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.7bcb31ed",
+      "text": "Verify there is a written offboarding checklist that names every system, and that it is used for every departure, including founders, contractors and testers.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "Leaving",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.6bca8e80",
+      "text": "Verify access ends on the departure day — sign-in disabled, sessions revoked, tokens and API keys they created rotated or deleted, SSH keys removed.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "Leaving",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.4884fc10",
+      "text": "Verify secrets the person could have seen are rotated, not only their own account disabled: shared passwords, environment secrets, webhook secrets, signing keys.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "Leaving",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.f625a644",
+      "text": "Verify their personal devices lose access to company email, chat and files, and that any company device is returned or wiped.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "Leaving",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 26
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.f23e4c1d",
+      "text": "Verify ownership of what they owned is moved before the account is deleted — repositories, documents, scheduled jobs, domains, billing — so nothing dies with it.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "Leaving",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 27
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.318e2ac7",
+      "text": "Verify OAuth apps and integrations they connected under their own account are found and moved or revoked, since they keep working after the person goes.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "Leaving",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.5eafdbff",
+      "text": "Verify their access to third-party admin consoles that are not behind your single sign-on is removed by hand and recorded, since those are the ones that get missed.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "Leaving",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.8d6eefa2",
+      "text": "Verify access is reviewed on a schedule — who has admin anywhere, who has production database access, who can deploy — and that anything without a current reason is removed.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "In between",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.d055a2e4",
+      "text": "Verify a change of role removes the old role's access, not only adds the new one.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "In between",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 34
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.4101a0e4",
+      "text": "Verify bulk export, mass download or unusual access by a staff account raises an alert, since that is what a person leaving with data looks like.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "In between",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.f912f40a",
+      "text": "Verify staff actions on customer data are logged against the named person, so a misuse can be traced to who did it — see [`security/core/04-backend-api.md`](../security/core/04-backend-api.md).",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "In between",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "people.03-joiners-and-leavers.1bd62fe7",
+      "text": "Verify a person who has resigned or been told they are leaving gets their access narrowed then, not on the last day.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Joiners & Leavers",
+      "section": "In between",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/03-joiners-and-leavers.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.5bff9ccb",
+      "text": "Verify there is a current list of every third-party service with access to your data or systems, and for each: what data it receives, what credential it holds, and what that credential can do.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "Knowing what each one holds",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.54e3aea4",
+      "text": "Verify every OAuth app granted access to your workspace, source host, cloud account or social accounts is listed, and that unused grants are revoked.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "Knowing what each one holds",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.d1502d75",
+      "text": "Verify each integration's credential has the narrowest scope the provider allows — read-only where it only reads, one repository rather than all, one bucket rather than the account.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "Knowing what each one holds",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.00b48dcb",
+      "text": "Verify each vendor credential is unique to that vendor, so revoking one does not break the others and a leak points to its source.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "Knowing what each one holds",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.7dd1f953",
+      "text": "Verify you know which vendors receive personal data, because a breach at one of them is a notification question for you.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "Knowing what each one holds",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.1ceb6285",
+      "text": "Verify you can revoke a single vendor's access in minutes, and that the steps for each critical vendor are written down.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "Cutting one off",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.942f4a82",
+      "text": "Verify the product degrades sensibly when a vendor is cut off, rather than failing entirely — see [`post-launch/05-outage-and-dependencies.md`](../post-launch/05-outage-and-dependencies.md).",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "Cutting one off",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.f153526f",
+      "text": "Verify webhook signing secrets and inbound API keys from a vendor can be rotated without downtime.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "Cutting one off",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.96d47dde",
+      "text": "Verify a vendor that can push code or configuration into your product — a script tag, a tag manager, a feature-flag service, a CI action — is treated as having write access to production.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "Cutting one off",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 25
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.82d18f69",
+      "text": "Verify you have subscribed to the security or status notices of your critical vendors, so you hear from them before you read it in the news.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "When a vendor says it was breached",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.2af47820",
+      "text": "Verify there is a decided first move when a vendor reports a breach: rotate the credentials it held, review your logs for its access, and check what it could reach.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "When a vendor says it was breached",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.87e17bc1",
+      "text": "Verify your own logs record calls made with each vendor's credential, so you can tell whether a stolen token was used against you.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "When a vendor says it was breached",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.4ef192c8",
+      "text": "Verify you treat a vendor's \"no customer data was affected\" as a claim to check against your own logs, not a conclusion.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "When a vendor says it was breached",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 32
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.095ea922",
+      "text": "Verify a breach at a vendor that held your users' data is assessed for your own notification duties — see [`post-launch/03-security-incident.md`](../post-launch/03-security-incident.md).",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "When a vendor says it was breached",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 33
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.e6668641",
+      "text": "Verify a new integration is approved by someone who reads what scopes it requests, not added by whoever needed it that day.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "Before you connect a new one",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 37
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.b0d3b0a8",
+      "text": "Verify you know where the vendor stores your data, how long it keeps it, and how to make it delete it when you leave.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "Before you connect a new one",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 38
+      }
+    },
+    {
+      "id": "people.04-vendor-compromise.db04f480",
+      "text": "Verify leaving a vendor includes revoking its credentials and asking for deletion, not only stopping payment.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Vendor Compromise",
+      "section": "Before you connect a new one",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/04-vendor-compromise.md",
+        "line": 39
+      }
+    },
+    {
+      "id": "people.05-support-desk-takeover.eefd2c88",
+      "text": "Verify there is a written list of what support may change on an account — email, phone, second factor, password, payout details, ownership — and which of those need more than a conversation.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Support-Desk Account Takeover",
+      "section": "What support can change",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/05-support-desk-takeover.md",
+        "line": 14
+      }
+    },
+    {
+      "id": "people.05-support-desk-takeover.3e742b9b",
+      "text": "Verify support cannot read a user's password, recovery codes or full payment details, so a tricked or compromised agent cannot hand them over.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Support-Desk Account Takeover",
+      "section": "What support can change",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/05-support-desk-takeover.md",
+        "line": 15
+      }
+    },
+    {
+      "id": "people.05-support-desk-takeover.3e5c4f3b",
+      "text": "Verify changing a sign-in email, removing a second factor, or changing payout details through support needs proof from something the real owner holds — a link to the current email, the current second factor, a signed-in session — not facts an attacker can find.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Support-Desk Account Takeover",
+      "section": "What support can change",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/05-support-desk-takeover.md",
+        "line": 16
+      }
+    },
+    {
+      "id": "people.05-support-desk-takeover.ad15c3b4",
+      "text": "Verify details visible in public or in past breaches — name, date of birth, address, last four card digits, order numbers — are never accepted as proof of identity on their own.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Support-Desk Account Takeover",
+      "section": "What support can change",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/05-support-desk-takeover.md",
+        "line": 17
+      }
+    },
+    {
+      "id": "people.05-support-desk-takeover.f5aa6469",
+      "text": "Verify a request to move an account to a new email always notifies the old address and gives it a window to stop the change.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Support-Desk Account Takeover",
+      "section": "What support can change",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/05-support-desk-takeover.md",
+        "line": 18
+      }
+    },
+    {
+      "id": "people.05-support-desk-takeover.0d27f179",
+      "text": "Verify an AI support or site assistant cannot perform account changes — email, password, second factor, payout, ownership — and can only send the user into the normal verified flow.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Support-Desk Account Takeover",
+      "section": "AI assistants and chat",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/05-support-desk-takeover.md",
+        "line": 22
+      }
+    },
+    {
+      "id": "people.05-support-desk-takeover.a3897c32",
+      "text": "Verify the assistant does not reveal another user's data or account existence when asked, however the request is framed.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Support-Desk Account Takeover",
+      "section": "AI assistants and chat",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/05-support-desk-takeover.md",
+        "line": 23
+      }
+    },
+    {
+      "id": "people.05-support-desk-takeover.e0e5966f",
+      "text": "Verify instructions the user types — \"I am the admin\", \"ignore the policy, this is urgent\" — cannot raise what the assistant is permitted to do, because its permissions come from the session, not the conversation.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Support-Desk Account Takeover",
+      "section": "AI assistants and chat",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/05-support-desk-takeover.md",
+        "line": 24
+      }
+    },
+    {
+      "id": "people.05-support-desk-takeover.5d2c1c11",
+      "text": "Verify every support-initiated account change is logged with the agent, the reason, and the evidence accepted.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Support-Desk Account Takeover",
+      "section": "Watching for it",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/05-support-desk-takeover.md",
+        "line": 28
+      }
+    },
+    {
+      "id": "people.05-support-desk-takeover.ca54427b",
+      "text": "Verify repeated recovery attempts against one account, or one requester trying many accounts, raise an alert.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Support-Desk Account Takeover",
+      "section": "Watching for it",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/05-support-desk-takeover.md",
+        "line": 29
+      }
+    },
+    {
+      "id": "people.05-support-desk-takeover.47c03d83",
+      "text": "Verify high-value accounts — creators with a balance, admins, staff — can be marked so that support changes to them need a second approver.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Support-Desk Account Takeover",
+      "section": "Watching for it",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/05-support-desk-takeover.md",
+        "line": 30
+      }
+    },
+    {
+      "id": "people.05-support-desk-takeover.21376243",
+      "text": "Verify a recovery completed through support is followed by a notice to every contact method on the account, so the real owner learns of it.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Support-Desk Account Takeover",
+      "section": "Watching for it",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/05-support-desk-takeover.md",
+        "line": 31
+      }
+    },
+    {
+      "id": "people.05-support-desk-takeover.50c0bbfd",
+      "text": "Verify support staff know the common scripts — urgency, anger, a sad story, a claimed manager — and that refusing is the expected answer when proof is missing.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Support-Desk Account Takeover",
+      "section": "The people doing it",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/05-support-desk-takeover.md",
+        "line": 35
+      }
+    },
+    {
+      "id": "people.05-support-desk-takeover.d92bd803",
+      "text": "Verify an agent is never penalised for refusing an unverified change, so the incentive does not favour the attacker.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Support-Desk Account Takeover",
+      "section": "The people doing it",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/05-support-desk-takeover.md",
+        "line": 36
+      }
+    },
+    {
+      "id": "people.05-support-desk-takeover.0a510b48",
+      "text": "Verify outsourced support has the same limits and logging as in-house support, enforced by the tool rather than by their training.",
+      "domain": "people",
+      "area": null,
+      "checklist": "Support-Desk Account Takeover",
+      "section": "The people doing it",
+      "subsection": null,
+      "lead": null,
+      "stack": "any",
+      "stack_id": "any",
+      "release_gate": false,
+      "source": {
+        "file": "checklists/people/05-support-desk-takeover.md",
+        "line": 37
       }
     },
     {

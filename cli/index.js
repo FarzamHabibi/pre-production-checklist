@@ -199,7 +199,7 @@ function agentsPointer (installed) {
     '## Pre-production review (prodcheck)',
     '',
     'When asked to review this project for production readiness — security, performance,',
-    'scale, integrations or post-launch readiness — read the full procedure at ' + where,
+    'scale, integrations, post-launch readiness or people — read the full procedure at ' + where,
     'first and follow it.',
     '',
     'Three rules from it that apply to any review you write here, procedure or not:',

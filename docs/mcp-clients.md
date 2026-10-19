@@ -180,7 +180,7 @@ Copilot Chat, or any other — generate the checklist and paste it in.
 npx prodcheck security --stack django -o SECURITY.md
 ```
 
-Swap the domain (`security`, `performance`, `scale`, `integrations`, `post-launch`) and
+Swap the domain (`security`, `performance`, `scale`, `integrations`, `post-launch`, `people`) and
 the stack for yours. Run `npx prodcheck list` to see what exists.
 
 **2. Paste this, then the file:**

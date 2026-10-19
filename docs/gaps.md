@@ -320,3 +320,28 @@ checks). Named identity-recovery products. Registering with police address-flag
 services against swatting: it exists only in some places and could not be stated as a
 general check. Sanctions screening of customers stays declined and left for `legal/`;
 the one sanctions line added is about a ransom payment only.
+
+## Attacks that go around the code: people, money, vendors, support
+
+**Found** 19 October 2026, right after the ransomware entry above, by asking what else
+in the same direction — pressure on people and processes rather than on code — the list
+did not cover.
+
+**What was searched.** `deepfake`, `voice clon`, `invoice`, `wire`, `payment detail`,
+`impersonat`, `offboard`, `departing`, `contractor`, `freelanc`, `insider`, `succession`,
+`bus factor`, `incapacit`, `dead man`, vendor or third-party `breach`/`compromise`,
+`OAuth` grants held by integrations, support-led `account recovery`. Zero files for
+deepfake, offboarding, contractors, insiders, succession, vendor compromise and
+support-desk takeover. `impersonat` matched staff impersonation inside the product and
+homoglyph identity, not impersonating a founder to move money. The one `invoice` hit
+is about billing logic, not fraud.
+
+**Decision, 19 October 2026 — filled as a new domain, `people/`.** Five flat files:
+payment fraud and impersonation, founder continuity, joiners and leavers, vendor
+compromise, support-desk takeover. Plan §8b-10. This closes "human on- and offboarding"
+from the 13 September audit.
+
+**Declined.** DSAR and erasure operations: left for `legal/`, where retention and
+consent already wait. Security-awareness training as a topic: a course is not a check;
+the items name the specific behaviours instead. Background checks on hires: law differs
+too much by country to state one verifiable line.

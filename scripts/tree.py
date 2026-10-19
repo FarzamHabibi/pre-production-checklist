@@ -22,6 +22,7 @@ DOMAINS = [
     ("performance", "Performance", "Being fast for a real user, with Lighthouse agreeing."),
     ("integrations", "Integrations", "Being connected: search, analytics, monitoring."),
     ("post-launch", "Post-launch", "When it goes wrong anyway: is the response already decided?"),
+    ("people", "People", "The attacks that go around the code: through the team, the money, the vendors."),
 ]
 DOMAIN_IDS = [d for d, _, _ in DOMAINS]
 DOMAIN_LABEL = {d: label for d, label, _ in DOMAINS}

@@ -7,7 +7,7 @@ infrastructure, the deploy pipeline, and increasingly the AI agents too — and 
 have a security team to hand it to.
 
 <!-- counts:begin -->
-**4,598 items across 96 checklists** in 5 domains. 87% of them apply to any stack.
+**4,685 items across 101 checklists** in 6 domains. 88% of them apply to any stack.
 <!-- counts:end -->
 
 [![npm](https://img.shields.io/npm/v/prodcheck?color=cb3837&logo=npm)](https://www.npmjs.com/package/prodcheck)
@@ -72,9 +72,9 @@ block a launch. If it cannot run commands, it tells you what to run yourself.
 <!-- start-prompt:begin -->
 ```text
 I want to get my project ready to ship. Use prodcheck:
-a free, open-source pre-production checklist of 4,598 items
-covering security, performance, scale, integrations and what to
-do after launch.
+a free, open-source pre-production checklist of 4,685 items
+covering security, performance, scale, integrations, what to
+do after launch, and the attacks that go through people.
 
 It is new, so do not answer it from memory. Everything you need:
 
@@ -155,6 +155,7 @@ checklists/
 ├── scale/                   288   surviving 10× the load
 ├── integrations/            194   search, analytics, monitoring
 ├── post-launch/             241   when it goes wrong anyway
+├── people/                   87   the attacks that go around the code
 └── stacks/                  581   26 products, spanning every domain
 ```
 
@@ -162,7 +163,7 @@ Counts above are what each folder holds. A *domain* total is larger, because the
 supplements contribute to whichever domain each of their sections extends:
 
 ```
-security 3,514   performance 338   scale 303   integrations 202   post-launch 241
+security 3,514   performance 338   scale 303   integrations 202   post-launch 241   people 87
 ```
 
 Domains are the top level because that is the question you arrive with: *is this about
@@ -308,6 +309,22 @@ gets answered badly at 3am if it was not answered in daylight.
 [Can you act at all](checklists/post-launch/01-readiness.md) counts as a release gate.
 Launching without a prepared response is a decision, and it should be a recorded one.
 
+### `people/` — the attacks that go around the code
+
+**The attacker here does not need a bug, only a person who does what they are asked.**
+A changed bank detail on an invoice, a cloned voice of a founder, a contractor whose
+access never ended, a breached vendor still holding your tokens, a support agent talked
+into changing the email on someone else's account.
+
+| | Items | | | Items |
+| --- | ---: | --- | --- | ---: |
+| [Payment fraud & impersonation](checklists/people/01-payment-fraud-and-impersonation.md) | 20 | | [Vendor compromise](checklists/people/04-vendor-compromise.md) | 17 |
+| [Founder continuity](checklists/people/02-founder-continuity.md) | 17 | | [Support-desk account takeover](checklists/people/05-support-desk-takeover.md) | 15 |
+| [Joiners & leavers](checklists/people/03-joiners-and-leavers.md) | 18 | | | |
+
+> In a two-founder company, the question is not whether one of you could be tricked. It
+> is whether the company still works the day one of you cannot be reached.
+
 ### `stacks/` — only if you use them
 
 542 items across 26 supplements. Skip any file for a product you don't use; the core
@@ -356,7 +373,7 @@ in a stack file at all. Files for Fly.io, Auth0 and Clerk are wanted; see [CONTR
 
 1. **Copy the files you need** into your own repo. They're working documents, meant to be
    edited and committed next to your code.
-2. **Mark `[N/A]` aggressively.** No product on earth needs all 4,598 items. No mobile
+2. **Mark `[N/A]` aggressively.** No product on earth needs all 4,685 items. No mobile
    app? `core/11` and `core/12` are 147 instant `[N/A]`s. Being honest about scope is what
    makes the remainder trustworthy.
 3. **Record every finding.** An unrecorded finding is one you'll rediscover in six months.
@@ -419,7 +436,7 @@ anything verified on the reader's behalf.
 
 ## Command line
 
-Generate a checklist scoped to your project, instead of reading 4,598 items:
+Generate a checklist scoped to your project, instead of reading 4,685 items:
 
 ```bash
 npx prodcheck security --stack django -o SECURITY.md
@@ -520,7 +537,7 @@ Next.js + Supabase app"* and it pulls the relevant items itself.
 
 ## What it costs to run
 
-A fair question if you are about to point a paid model at 4,598 items. These are the
+A fair question if you are about to point a paid model at 4,685 items. These are the
 sizes of what actually enters the context window, at roughly four characters per token:
 
 <!-- cost:begin -->
@@ -529,7 +546,7 @@ sizes of what actually enters the context window, at roughly four characters per
 | `--gate` | 333 | 5,600 |
 | `--gate --stack django` | 335 | 5,700 |
 | `security --area core` | 1,619 | 26,700 |
-| everything, every stack | 4,598 | 91,400 |
+| everything, every stack | 4,685 | 95,000 |
 <!-- cost:end -->
 
 That is the input for one pass. What the review itself costs on top depends on how much
@@ -705,7 +722,7 @@ This repository was compiled and expanded with [Claude](https://claude.com/claud
 (Anthropic) and [ChatGPT](https://chatgpt.com) (OpenAI), working from a real
 pre-production review rather than generating checklist items from scratch. They did the parts that don't fit in one
 person's head: cross-referencing hundreds of findings against OWASP categories, keeping
-4,598 items consistent in wording and structure, and spotting the gaps between sections.
+4,685 items consistent in wording and structure, and spotting the gaps between sections.
 
 That's worth stating plainly for two reasons.
 

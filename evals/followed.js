@@ -59,7 +59,7 @@ const SIGNALS = [
     id: 'item-ids',
     weight: 1,
     what: 'ties findings to checklist item ids',
-    test: (t) => /\b(security|performance|scale|integrations|post-launch)\.[a-z0-9-]+\.[0-9a-f]{8}\b/.test(t)
+    test: (t) => /\b(security|performance|scale|integrations|post-launch|people)\.[a-z0-9-]+\.[0-9a-f]{8}\b/.test(t)
   },
   {
     id: 'no-verdict',

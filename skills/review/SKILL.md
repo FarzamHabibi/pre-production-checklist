@@ -1,6 +1,6 @@
 ---
 name: prodcheck-review
-description: Review this codebase against the prodcheck pre-production checklists — security, performance, scale, integrations and post-launch readiness. Use when asked to check whether a project is ready to ship, to audit an area before launch, or to work through a specific checklist. Produces evidence with file:line citations, never a verdict.
+description: Review this codebase against the prodcheck pre-production checklists — security, performance, scale, integrations, post-launch readiness and people. Use when asked to check whether a project is ready to ship, to audit an area before launch, or to work through a specific checklist. Produces evidence with file:line citations, never a verdict.
 ---
 
 # Reviewing a codebase against prodcheck
@@ -108,6 +108,7 @@ Then work one checklist at a time, in this order unless asked otherwise:
 3. Whatever matches what the project does — the AI checklists if it ships an agent, the
    database checklist if it is data-heavy
 4. `post-launch/01-readiness` — is a response prepared
+5. `people/02-founder-continuity` — whether the company survives one person being unreachable
 
 For the "must not exist" items, **actually run the search**. Do not reason about whether a
 pattern is likely to be present.

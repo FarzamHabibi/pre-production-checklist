@@ -24,7 +24,7 @@ def main():
     p.add_argument("--area", action="append", default=[],
                    choices=["core", "ai", "ai-generated-code"])
     p.add_argument("--domain", action="append", default=[],
-                   choices=["security", "performance", "scale", "integrations", "post-launch"])
+                   choices=["security", "performance", "scale", "integrations", "post-launch", "people"])
     p.add_argument("--search", help="case-insensitive substring match on item text")
     p.add_argument("--release-gate", action="store_true", help="only release-blocking items")
     p.add_argument("--format", choices=["markdown", "text", "json", "count"],

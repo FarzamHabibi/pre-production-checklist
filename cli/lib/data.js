@@ -85,7 +85,7 @@ function resolveStacks (requested) {
 /**
  * @param {object} opts
  * @param {string[]} [opts.stacks]   include supplements for these stacks
- * @param {string[]} [opts.domains]  security | scale | performance | integrations
+ * @param {string[]} [opts.domains]  security | scale | performance | integrations | post-launch | people
  * @param {string[]} [opts.areas]    areas within a domain, e.g. core, ai
  * @param {string}   [opts.search]   case-insensitive substring on item text
  * @param {boolean}  [opts.gate]     only release-gate items

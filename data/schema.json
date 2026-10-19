@@ -137,6 +137,8 @@
               "scale",
               "performance",
               "integrations",
+              "post-launch",
+              "people",
               null
             ],
             "description": "Top-level domain. For a stack supplement it is inherited from the checklist each section extends."

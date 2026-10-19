@@ -22,7 +22,7 @@ const items = doc.items.filter(i =>
 return items.slice(0, 120).map(i => "- " + i.text).join("\n");
 ```
 
-Input schema: `domain` (security, performance, scale, integrations, post-launch) and
+Input schema: `domain` (security, performance, scale, integrations, post-launch, people) and
 `stack` (django, rails, nextjs-react, …). Describe them in the tool description so the
 agent fills them in correctly.
 

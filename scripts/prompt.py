@@ -19,8 +19,8 @@ SITE = "https://prodcheck.pages.dev"
 # memory", and every URL and command it needs has to be in the text itself.
 TEMPLATE = """I want to get my project ready to ship. Use prodcheck:
 a free, open-source pre-production checklist of {total} items
-covering security, performance, scale, integrations and what to
-do after launch.
+covering security, performance, scale, integrations, what to
+do after launch, and the attacks that go through people.
 
 It is new, so do not answer it from memory. Everything you need:
 

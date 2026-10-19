@@ -656,7 +656,7 @@ item | verdict | file:line | one-sentence reason."""
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Any",
         "description": f"{C['total']} pre-production checklist items across security, "
-                       "performance, scale, integrations and post-launch, with a CLI and "
+                       "performance, scale, integrations, post-launch and people, with a CLI and "
                        "an MCP server.",
         "url": SITE,
         "codeRepository": REPO,
@@ -910,7 +910,7 @@ item | verdict | file:line | one-sentence reason."""
 """
     return page("prodcheck — the pre-production checklist for solo founders",
                 f"{fmt(C['total'])} things to check before you ship: security, performance, "
-                "scale, integrations and post-launch. Free, open source, works with any "
+                "scale, integrations, post-launch and people. Free, open source, works with any "
                 "AI assistant.",
                 body, canonical="", schema=schema)
 
@@ -1072,8 +1072,8 @@ def build_llms_txt(urls):
     lines = [
         "# prodcheck",
         "",
-        f"> {C['total']:,} pre-production checklist items across five domains — security, "
-        "performance, scale, integrations and post-launch. Free and open source, with a "
+        f"> {C['total']:,} pre-production checklist items across six domains — security, "
+        "performance, scale, integrations, post-launch and people. Free and open source, with a "
         "CLI and an MCP server.",
         "",
         "prodcheck is a checklist, not a scanner. It asks the questions; a human or an "

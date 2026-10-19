@@ -37,7 +37,7 @@ const TOOLS = [
     description:
       'Return the pre-production checklist that applies to a given project: every ' +
       'stack-agnostic item plus the supplements for the named products, optionally ' +
-      'narrowed to one domain (security, scale, performance, integrations). A stack with no ' +
+      'narrowed to one domain (security, scale, performance, integrations, post-launch, people). A stack with no ' +
       'supplement file is not an error — you get the stack-agnostic core, which stands on ' +
       'its own. Use this when asked to review or prepare a project for production.',
     inputSchema: {
