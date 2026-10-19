@@ -47,3 +47,13 @@ A bad migration, a `DELETE` without a `WHERE`, a corrupted table, a well-meaning
 * [ ] Verify replicas are checked for divergence rather than assumed identical.
 * [ ] Verify restored data is validated before traffic is sent to it — record counts, a spot check, a smoke test.
 * [ ] Verify there is a decision recorded about what to do with writes that happened after the restore point.
+
+## When the identity system is what was hit
+
+* [ ] Verify the backup includes the identity store itself — users, password hashes, MFA factors, OAuth links, often a separate `auth` schema or a provider's own database — and not only your application tables, since a restore without it leaves every row with nobody able to sign in as its owner.
+* [ ] Verify the identity store is restorable on its own, without rolling application data back with it, and that the procedure is written down.
+* [ ] Verify a restore drill ends with a real sign-in, password and second factor, by an account that came out of the backup, not with matching row counts.
+* [ ] Verify a list of privileged accounts, service accounts and API keys is kept outside the identity system, so after a restore you can compare against it instead of trusting what came back.
+* [ ] Verify a restore is checked for what an attacker adds before encrypting — a new admin, an extra MFA factor, a new OAuth client or API key — since a backup taken after they arrived restores their access too.
+* [ ] Verify the recovery order is decided in advance, identity before application data, and that the runbook can be followed by someone signed in through the break-glass path, since normal sign-in is the thing that is broken.
+* [ ] Verify the credential that writes backups cannot delete them or shorten their retention lock, because deleting backups is a routine first step before encryption.

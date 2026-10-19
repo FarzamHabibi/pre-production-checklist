@@ -5777,6 +5777,11 @@ Detection is covered elsewhere — [`security/core/16-monitoring-and-response.md
 * [ ] Verify the break-glass path is auditable — using it should be loud, not silent.
 * [ ] Verify you can still authenticate if the identity provider is the thing that is down.
 * [ ] Verify domain registrar and DNS provider access is not tied to an email address hosted on the domain itself.
+* [ ] Verify every account that can change production — cloud console, source host, database provider, payment processor, DNS and CDN, package registry, workspace and email admin — uses phishing-resistant MFA (a passkey or a hardware security key), not SMS or a code a fake login page can relay.
+* [ ] Verify SMS and voice are removed as recovery or fallback factors on those accounts, since the fallback is the factor an attacker goes for.
+* [ ] Verify each person has at least two security keys registered on each of those accounts, one kept offline, so losing one does not push them into the weaker recovery path.
+* [ ] Verify the phone numbers of people who hold critical accounts have a carrier PIN or port-out lock, and that no critical account recovers through that number alone, so a SIM swap does not hand over the account.
+* [ ] Verify an access or MFA reset for a staff account needs more than facts an attacker can collect — a call back to a number already on file, or a second approver — since takeovers of the identity system often begin with a convincing reset request.
 
 ## Can you actually change anything
 
@@ -5930,6 +5935,24 @@ The instinct is to fix and move on. The order that actually works is contain, pr
 * [ ] Verify a breach notification template exists in advance — see [`07-communication.md`](checklists/post-launch/07-communication.md).
 * [ ] Verify you do not speculate publicly about cause or scope before you know; a correction is worse than a delay.
 
+## Extortion and ransom demands
+
+* [ ] Verify whether you would pay a ransom or an extortion demand is decided and written down before an incident, together with who is allowed to make that call.
+* [ ] Verify you know that paying can itself be unlawful — a payment to a sanctioned person or group breaks sanctions law (OFAC in the US, and its equivalents elsewhere) whoever asked for it — and that legal advice comes before any payment.
+* [ ] Verify your cyber insurance terms on ransom, negotiators and approvals have been read, since many policies require their consent before you act.
+* [ ] Verify the response team has a channel set up in advance that does not run on the company's own email, chat or identity provider, because an attacker inside often reads the response as it happens.
+* [ ] Verify a claim of stolen data is checked against your own access and egress logs before anything is decided, since demands routinely overstate or invent what was taken.
+* [ ] Verify nobody replies to the attacker who has not been told what not to say, since an unplanned reply confirms a live target and starts a negotiation.
+* [ ] Verify reporting to law enforcement or the national cyber agency is a step in the runbook, with the contact written down before it is needed.
+
+## When the pressure moves to people
+
+* [ ] Verify there is a plan for attackers contacting staff, founders or their families directly — threatening calls and messages, publishing home addresses (doxxing), false emergency calls that send armed police to a home (swatting) — and that people are told in advance it can happen.
+* [ ] Verify staff know who to report a personal threat to, and that a person being targeted is not expected to keep working the incident alone.
+* [ ] Verify the details an attacker would use are not public where avoidable: home addresses in company filings and domain `WHOIS`, personal phone numbers on profiles, family members named in public posts.
+* [ ] Verify public filings use a registered office or agent address rather than a founder's home where the jurisdiction allows it.
+* [ ] Verify support for a targeted person — time off, counselling, physical security at home — is decided before it is needed, not negotiated during the incident.
+
 ## Recover
 
 * [ ] Verify you rebuild from a known-good state rather than cleaning a compromised one.
@@ -5987,6 +6010,16 @@ A bad migration, a `DELETE` without a `WHERE`, a corrupted table, a well-meaning
 * [ ] Verify replicas are checked for divergence rather than assumed identical.
 * [ ] Verify restored data is validated before traffic is sent to it — record counts, a spot check, a smoke test.
 * [ ] Verify there is a decision recorded about what to do with writes that happened after the restore point.
+
+## When the identity system is what was hit
+
+* [ ] Verify the backup includes the identity store itself — users, password hashes, MFA factors, OAuth links, often a separate `auth` schema or a provider's own database — and not only your application tables, since a restore without it leaves every row with nobody able to sign in as its owner.
+* [ ] Verify the identity store is restorable on its own, without rolling application data back with it, and that the procedure is written down.
+* [ ] Verify a restore drill ends with a real sign-in, password and second factor, by an account that came out of the backup, not with matching row counts.
+* [ ] Verify a list of privileged accounts, service accounts and API keys is kept outside the identity system, so after a restore you can compare against it instead of trusting what came back.
+* [ ] Verify a restore is checked for what an attacker adds before encrypting — a new admin, an extra MFA factor, a new OAuth client or API key — since a backup taken after they arrived restores their access too.
+* [ ] Verify the recovery order is decided in advance, identity before application data, and that the runbook can be followed by someone signed in through the break-glass path, since normal sign-in is the thing that is broken.
+* [ ] Verify the credential that writes backups cannot delete them or shorten their retention lock, because deleting backups is a routine first step before encryption.
 
 
 ## Outages & Dependency Failure
@@ -6157,6 +6190,7 @@ The part everyone skips, which is why the second occurrence of an incident is so
 * [ ] Verify a runtime-only patch has been rehearsed end to end — bump the base image, rebuild, deploy, confirm the running version — and the elapsed time recorded; when a critical engine bug is published, that number is your exposure window.
 * [ ] Verify every kill switch is exercised on a cadence, since an untested switch is a hypothesis.
 * [ ] Verify at least one incident scenario is walked through as an exercise before launch — reading the runbook aloud and finding the step that is wrong is most of the value.
+* [ ] Verify a ransomware scenario is walked through at least once with everything lost together — the database, the identity system and the company chat — and a demand already received, since that combination is what turns a recoverable incident into a payment.
 * [ ] Verify the runbooks are updated by whoever last used them, while it is fresh.
 * [ ] Verify a runbook that has never been used is treated as unverified.
 * [ ] Verify recovery objectives are re-measured as the system grows, since restore time and data volume move together.

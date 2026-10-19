@@ -29,6 +29,11 @@ Detection is covered elsewhere — [`security/core/16-monitoring-and-response.md
 * [ ] Verify the break-glass path is auditable — using it should be loud, not silent.
 * [ ] Verify you can still authenticate if the identity provider is the thing that is down.
 * [ ] Verify domain registrar and DNS provider access is not tied to an email address hosted on the domain itself.
+* [ ] Verify every account that can change production — cloud console, source host, database provider, payment processor, DNS and CDN, package registry, workspace and email admin — uses phishing-resistant MFA (a passkey or a hardware security key), not SMS or a code a fake login page can relay.
+* [ ] Verify SMS and voice are removed as recovery or fallback factors on those accounts, since the fallback is the factor an attacker goes for.
+* [ ] Verify each person has at least two security keys registered on each of those accounts, one kept offline, so losing one does not push them into the weaker recovery path.
+* [ ] Verify the phone numbers of people who hold critical accounts have a carrier PIN or port-out lock, and that no critical account recovers through that number alone, so a SIM swap does not hand over the account.
+* [ ] Verify an access or MFA reset for a staff account needs more than facts an attacker can collect — a call back to a number already on file, or a second approver — since takeovers of the identity system often begin with a convincing reset request.
 
 ## Can you actually change anything
 

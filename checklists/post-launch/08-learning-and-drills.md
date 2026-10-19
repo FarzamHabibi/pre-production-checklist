@@ -34,6 +34,7 @@ The part everyone skips, which is why the second occurrence of an incident is so
 * [ ] Verify a runtime-only patch has been rehearsed end to end — bump the base image, rebuild, deploy, confirm the running version — and the elapsed time recorded; when a critical engine bug is published, that number is your exposure window.
 * [ ] Verify every kill switch is exercised on a cadence, since an untested switch is a hypothesis.
 * [ ] Verify at least one incident scenario is walked through as an exercise before launch — reading the runbook aloud and finding the step that is wrong is most of the value.
+* [ ] Verify a ransomware scenario is walked through at least once with everything lost together — the database, the identity system and the company chat — and a demand already received, since that combination is what turns a recoverable incident into a payment.
 * [ ] Verify the runbooks are updated by whoever last used them, while it is fresh.
 * [ ] Verify a runbook that has never been used is treated as unverified.
 * [ ] Verify recovery objectives are re-measured as the system grows, since restore time and data volume move together.

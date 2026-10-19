@@ -57,6 +57,24 @@ The instinct is to fix and move on. The order that actually works is contain, pr
 * [ ] Verify a breach notification template exists in advance — see [`07-communication.md`](07-communication.md).
 * [ ] Verify you do not speculate publicly about cause or scope before you know; a correction is worse than a delay.
 
+## Extortion and ransom demands
+
+* [ ] Verify whether you would pay a ransom or an extortion demand is decided and written down before an incident, together with who is allowed to make that call.
+* [ ] Verify you know that paying can itself be unlawful — a payment to a sanctioned person or group breaks sanctions law (OFAC in the US, and its equivalents elsewhere) whoever asked for it — and that legal advice comes before any payment.
+* [ ] Verify your cyber insurance terms on ransom, negotiators and approvals have been read, since many policies require their consent before you act.
+* [ ] Verify the response team has a channel set up in advance that does not run on the company's own email, chat or identity provider, because an attacker inside often reads the response as it happens.
+* [ ] Verify a claim of stolen data is checked against your own access and egress logs before anything is decided, since demands routinely overstate or invent what was taken.
+* [ ] Verify nobody replies to the attacker who has not been told what not to say, since an unplanned reply confirms a live target and starts a negotiation.
+* [ ] Verify reporting to law enforcement or the national cyber agency is a step in the runbook, with the contact written down before it is needed.
+
+## When the pressure moves to people
+
+* [ ] Verify there is a plan for attackers contacting staff, founders or their families directly — threatening calls and messages, publishing home addresses (doxxing), false emergency calls that send armed police to a home (swatting) — and that people are told in advance it can happen.
+* [ ] Verify staff know who to report a personal threat to, and that a person being targeted is not expected to keep working the incident alone.
+* [ ] Verify the details an attacker would use are not public where avoidable: home addresses in company filings and domain `WHOIS`, personal phone numbers on profiles, family members named in public posts.
+* [ ] Verify public filings use a registered office or agent address rather than a founder's home where the jurisdiction allows it.
+* [ ] Verify support for a targeted person — time off, counselling, physical security at home — is decided before it is needed, not negotiated during the incident.
+
 ## Recover
 
 * [ ] Verify you rebuild from a known-good state rather than cleaning a compromised one.

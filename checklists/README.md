@@ -5,7 +5,7 @@
 
 Every checklist is a standalone Markdown file. Copy the ones you need into your own repo and edit them there — they are meant to be committed alongside your code.
 
-**4,573 items** · 3,992 of them (87%) name no product at all.
+**4,598 items** · 4,017 of them (87%) name no product at all.
 
 | Domain | Items | |
 | --- | ---: | --- |
@@ -13,7 +13,7 @@ Every checklist is a standalone Markdown file. Copy the ones you need into your 
 | [**Scale**](#scale) | 303 | Surviving ten times the load, and knowing what breaks first. |
 | [**Performance**](#performance) | 338 | Being fast for a real user, with Lighthouse agreeing. |
 | [**Integrations**](#integrations) | 202 | Being connected: search, analytics, monitoring. |
-| [**Post-launch**](#post-launch) | 216 | When it goes wrong anyway: is the response already decided? |
+| [**Post-launch**](#post-launch) | 241 | When it goes wrong anyway: is the response already decided? |
 | [Stack supplements](#stack-supplements) | 581 | 26 products, only if you use them |
 
 ---
@@ -156,15 +156,15 @@ When it goes wrong anyway: is the response already decided?
 
 | Checklist | Items |
 | --- | ---: |
-| [Can You Act At All](post-launch/01-readiness.md) | 43 |
+| [Can You Act At All](post-launch/01-readiness.md) | 48 |
 | [The First Fifteen Minutes](post-launch/02-first-15-minutes.md) | 20 |
-| [You Have Been Breached](post-launch/03-security-incident.md) | 36 |
-| [Data Loss & Corruption](post-launch/04-data-loss.md) | 27 |
+| [You Have Been Breached](post-launch/03-security-incident.md) | 48 |
+| [Data Loss & Corruption](post-launch/04-data-loss.md) | 34 |
 | [Outages & Dependency Failure](post-launch/05-outage-and-dependencies.md) | 30 |
 | [Rollback & Kill Switches](post-launch/06-rollback-and-kill-switches.md) | 22 |
 | [Telling People](post-launch/07-communication.md) | 18 |
-| [Learning & Drills](post-launch/08-learning-and-drills.md) | 20 |
-| **Total** | **216** |
+| [Learning & Drills](post-launch/08-learning-and-drills.md) | 21 |
+| **Total** | **241** |
 
 ---
 

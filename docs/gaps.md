@@ -287,3 +287,36 @@ retention, human on- and offboarding, email deliverability beyond SPF/DKIM/DMARC
 admin-panel exposure as its own topic, Electron, headless-browser rendering, jailbreak
 detection, PCI and tax outside a payment processor, bot mitigation at signup beyond the
 challenge-verification items.
+
+## Ransomware that targets identity and people
+
+**Found** 19 October 2026, after reading a summary of a 2026 ransomware risk survey by
+an identity-recovery vendor: over a third of organisations reported attackers
+threatening employees' families or friends (threats, stalking, doxxing, swatting);
+most reported being hit more than once in a year; most of the attacks reached the
+identity system (directory, IdP); about half had a separate backup of identity. The
+figures are the vendor's own and were not used as item text; the topics were.
+
+**What was searched.** `ransom`, `immutab`, `identity provider`, `break-glass`,
+`restore`, `dox`, `swat`, `extort`, `phishing-resistant`, `security key`, `passkey`,
+`SIM`, `staff`, `family`, `home address`, `WHOIS`. Present: backups out of reach of
+production and immutable "against ransomware" (`post-launch/04`), break-glass and an
+IdP outage (`post-launch/01`), in-product admin MFA (`security/core/02`), registrar MFA
+(`security/core/14`). Absent: restoring the identity store itself and proving sign-in
+after a restore; checking a restore for attacker-added admins, factors and keys; any
+decision about paying, including that a payment to a sanctioned group is unlawful; an
+out-of-band response channel; pressure on staff and families; phishing-resistant MFA
+on the team's own operator accounts; SIM swap; help-desk resets.
+
+**Decision, 19 October 2026 — filled.** 25 items in four existing `post-launch/` files:
+a new H2 *When the identity system is what was hit* in `04-data-loss.md` (7), two new
+H2s *Extortion and ransom demands* (7) and *When the pressure moves to people* (5) in
+`03-security-incident.md`, five operator-account items under *Access when you need it*
+in `01-readiness.md`, and one ransomware drill in `08-learning-and-drills.md`. No new
+file, no new domain, no existing item text changed.
+
+**Declined.** Survey percentages as item text (they are one vendor's figures, not
+checks). Named identity-recovery products. Registering with police address-flag
+services against swatting: it exists only in some places and could not be stated as a
+general check. Sanctions screening of customers stays declined and left for `legal/`;
+the one sanctions line added is about a ransom payment only.
